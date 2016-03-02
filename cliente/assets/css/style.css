@@ -1,4 +1,4 @@
-md-content.md-default-theme {
+md-content.md-default-theme,md-content.content-background {
     background-color: #eee;
 }
 
@@ -41,19 +41,18 @@ md-sidenav ng-md-icon {
     border-radius: 99%;
 }
 
-md-toolbar {
-    .md-button.md-default-theme {
-        border-radius: 99%; // round toolbar buttons
-    }
+md-toolbar .md-button.md-default-theme {
+    border-radius: 99%; // round toolbar buttons
 }
+
 h2 {
     font-weight: 400;
 }
 .md-toolbar-tools-bottom {
     font-size: small;
-    & :last-child {
-        opacity: 0.8;
-    }
+}
+.md-toolbar-tools-bottom:last-child {
+    opacity: 0.8;
 }
 md-toolbar:not(.md-hue-1),
 .md-fab {
@@ -61,10 +60,11 @@ md-toolbar:not(.md-hue-1),
 }
 md-sidenav {
     fill: #737373;
-    ng-md-icon {
-        position: relative;
-        top: 5px; // adjust for svg viewbox
-    }
+
+}
+md-sidenav ng-md-icon {
+    position: relative;
+    top: 5px; // adjust for svg viewbox
 }
 .user-avatar {
     border-radius: 99%;
@@ -77,3 +77,9 @@ md-sidenav {
     bottom:10px;
     z-index: 100;
 }
+
+.md-fix-error-space > .md-errors-spacer{
+    visibility: hidden;
+    display: none!important;
+}
+
