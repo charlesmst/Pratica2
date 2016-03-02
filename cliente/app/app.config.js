@@ -12,8 +12,11 @@
                     'default': '500',
                     'hue-1': '50'
                 })
-                .accentPalette('pink');
+                .accentPalette('pink')
+//                .backgroundPalette('grey')
+
         $mdThemingProvider.theme('input', 'default')
                 .primaryPalette('grey')
+
     }
 })()

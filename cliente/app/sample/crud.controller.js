@@ -8,6 +8,7 @@
         vm.showDelete = showDelete;
         vm.showAdd = showAdd;
         vm.list = []
+        vm.selectedItems = []
         load()
 
         function showDelete() {

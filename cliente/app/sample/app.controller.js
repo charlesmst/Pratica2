@@ -1,12 +1,12 @@
 (function () {
     'use strict';
-    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog', AppController]);
+    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog','Workspace', AppController]);
 
 
-    function AppController($mdBottomSheet, $mdSidenav, $mdDialog) {
+    function AppController($mdBottomSheet, $mdSidenav, $mdDialog,Workspace) {
         var vm = this;
         vm.alert = '';
-       
+        vm.workspace = Workspace;
         vm.showListBottomSheet = showListBottomSheet;
         vm.toggleSidenav = toggleSidenav;
         vm.menu = [

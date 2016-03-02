@@ -1,43 +1,31 @@
-<div class="md-fab-bottom-right app-fixed-bottom-right">
+<div class="md-fab-bottom-right app-fixed-bottom-right fade">
 
-    <md-button class="md-fab"  aria-label="Add" ng-click="crudVm.showAdd($event)">
+    
+    <md-button class="md-fab flipInX flipOutX" ng-show="crudVm.selectedItems.length" aria-label="Delete" ng-click="crudVm.showDelete($event)" >
+        <ng-md-icon icon="delete"></ng-md-icon>
+    </md-button>
+    <md-button class="md-fab "  aria-label="Add" ng-click="crudVm.showAdd($event)">
         <ng-md-icon icon="add"></ng-md-icon>
     </md-button>
 
-    <md-button class="md-fab "  aria-label="Delete" ng-click="crudVm.showDelete($event)" >
-        <ng-md-icon icon="delete"></ng-md-icon>
-    </md-button>
 </div>
+<md-card>
+    <md-table-container>
+        <table md-table md-progress="promise"  md-row-select ng-model="crudVm.selectedItems" >
+            <thead md-head md-order="query.order" md-on-reorder="onReorder">
+                <tr md-row>
+                    <th md-column md-order-by="nameToLower"><span>Dessert (100g serving)</span></th>
+                    <th md-column md-numeric md-order-by="calories.value"><span>Calories</span></th>
 
-
-<md-card flex-gt-sm="90" flex-gt-md="80">
-
-
-    <md-card-content>
-        <h2>Activity</h2>
-        <md-list>
-            <md-item ng-repeat="item in crudVm.crud| filter:appVm.search">
-                <md-item-content>
-                    <div class="md-tile-left inset" hide-sm>
-                        <user-avatar></user-avatar>
-                    </div>
-                    <div class="md-tile-content">
-                        <h3>{{item.what}}</h3>
-                        <h4>{{item.who}}</h4>
-                        <p>
-                            {{item.notes}}
-                        </p>
-                    </div>
-                </md-item-content>
-                <md-divider md-inset hide-sm ng-if="!$last"></md-divider>
-                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
-            </md-item>
-            <md-divider></md-divider>
-            <md-item layout class="inset">
-                <md-button layout layout-align="start center" flex class="md-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg> More
-                </md-button>
-            </md-item>
-        </md-list>
-    </md-card-content>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row md-select="row" md-select-id="{{row.id}}" md-auto-select ng-repeat="row in crudVm.list">
+                    <td md-cell>{{row.id}}</td>
+                    <td md-cell>{{row.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
 </md-card>
+
