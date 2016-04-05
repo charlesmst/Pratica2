@@ -1,38 +1,80 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CrudController', ['$mdToast', '$http', 'Entry', '$state', '$mdDialog', CrudController]);
+    angular.module('app').controller('CrudController', ['Entry', '$state', 'Workspace', '$q', CrudController]);
 
 
-    function CrudController($mdToast, $http, Entry, $state, $mdDialog) {
+    function CrudController(Entry, $state, Workspace, $q) {
         var vm = this;
         vm.showDelete = showDelete;
         vm.showAdd = showAdd;
+        vm.showEdit = showEdit;
+        vm.onPaginate = onPaginate;
+        vm.onReorder = onReorder;
         vm.list = []
         vm.selectedItems = []
-        load()
+        Workspace.title = "Usuários"
+        Workspace.enableSearch(onFilter)
 
-        function showDelete() {
+        vm.query = {
+            filter: "",
+            order: 'id',
+            limit: 10,
+            page: 1
+        };
 
-            // Appending dialog to document.body to cover sidenav in docs app
-            var confirm = $mdDialog.confirm("Wa")
-                    .title('Gostaria de excluir?')
-                    .textContent('O registro será perdido.')
-                    .ok('Sim')
-                    .cancel('Não');
-            $mdDialog.showConfim("confirm").then(function () {
-                $scope.status = 'You decided to get rid of your debt.';
-            }, function () {
-                $scope.status = 'You decided to keep your debt.';
+        loadCount()
+        load(vm.query)
+        function showDelete($event) {
+            Workspace.showDeleteDialog($event).then(function () {
+                //Confirmou
+                var promises = [];
+                var items = angular.copy(vm.selectedItems);
+                vm.selectedItems = [];
+                angular.forEach(items, function (value) {
+                    promises.push(value.$delete());
+                });
+                Workspace.loading("Excluindo...", $q.all(promises).then(function () {
+                    Workspace.showMessage("Registros excluidos");
+                    load(vm.query);
+                    loadCount(vm.query)
+                }));
             });
-
-            $mdToast.showSimple('Simple Toast!')
         }
         function showAdd() {
             $state.go("crudadd")
         }
-        function load() {
-            vm.list = Entry.query()
+
+        function showEdit(e, id) {
+            $state.go("crudedit", {"id": id})
         }
+
+        function load(query) {
+            vm.promise = Entry.query(query, success).$promise;
+        }
+
+        function success(response) {
+            vm.list = response;
+        }
+
+        function onPaginate(page, limit) {
+            load(angular.extend({}, vm.query, {page: page, limit: limit}));
+        }
+
+        function onReorder(order) {
+            load(angular.extend(vm.query, {order: order}));
+        }
+
+        function onFilter(filter) {
+            load(angular.extend(vm.query, {'filter': filter, page: 1}))
+            loadCount()
+        }
+        function loadCount() {
+            Entry.count(vm.query).$promise.then(function (e) {
+                vm.count = e.count
+            });
+
+        }
+
 
     }
 

@@ -1,14 +1,15 @@
 (function () {
     'use strict';
-    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog','Workspace', AppController]);
+    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog','Workspace','hotkeys','$scope', AppController]);
 
 
-    function AppController($mdBottomSheet, $mdSidenav, $mdDialog,Workspace) {
+    function AppController($mdBottomSheet, $mdSidenav, $mdDialog,Workspace,hotkeys,$scope) {
         var vm = this;
         vm.alert = '';
         vm.workspace = Workspace;
         vm.showListBottomSheet = showListBottomSheet;
         vm.toggleSidenav = toggleSidenav;
+        vm.toggleSearch = toggleSearch;
         vm.menu = [
             {
                 link: '',
@@ -38,7 +39,7 @@
                 icon: 'settings'
             }
         ];
-        
+        init()
 
         function showListBottomSheet($event) {
             vm.alert = '';
@@ -54,7 +55,21 @@
         function toggleSidenav(menuId) {
             $mdSidenav(menuId).toggle();
         }
-       
+        function toggleSearch(){
+            vm.workspace.showSearch = !vm.workspace.showSearch
+            vm.workspace.search = ""
+        }
+        function init(){
+            hotkeys.bindTo($scope).add({
+                combo:"esc",
+                description:"Cancelar busca",
+                allowIn:['INPUT'],
+                callback:function(){
+                    if(vm.workspace.showSearch)
+                        toggleSearch()
+                }
+            })
+        }
     }
 
 })()

@@ -83,3 +83,12 @@ md-sidenav ng-md-icon {
     display: none!important;
 }
 
+.table-button{
+    fill:rgba(0,0,0,.54);
+    width: 20px;
+}
+.button-column{
+    
+    fill:rgba(0,0,0,.54);
+    padding:3px!important;
+}

@@ -1,21 +1,29 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CrudEditController', ['$mdToast', '$http', 'Entry', '$state', '$stateParams', CrudEditController]);
+    angular.module('app').controller('CrudEditController', ['$mdToast', '$http', 'Entry', '$state', '$stateParams', 'Workspace', CrudEditController]);
 
 
-    function CrudEditController($mdToast, $http, Entry, $state, $stateParams) {
+    function CrudEditController($mdToast, $http, Entry, $state, $stateParams, Workspace) {
         var vm = this;
-        if ($stateParams.id)
-            vm.entity = Entry.get({id: $stateParams.id})
+        vm.entity = {}
+        Workspace.title = "Manutenção de usuário"
+        if ($stateParams.id) {
+            Workspace.loading("Carregando...", Entry.get({id: $stateParams.id}).$promise.then(function (data) {
+                
+                vm.entity = data
+                if (vm.entity.birth)
+                    vm.entity.birth = new Date(vm.entity.birth)
+            }))
+
+        }
         else
             vm.entity = new Entry()
         vm.save = save;
         vm.cancel = cancel;
         function save() {
-            if ($stateParams.id)
-                vm.entity.$update(callbackSave)
-            else
-                vm.entity.$save(callbackSave)
+
+
+            Workspace.loading("Salvando...", vm.entity.$save(callbackSave).$promise)
         }
         function cancel() {
             $state.go("crud")
