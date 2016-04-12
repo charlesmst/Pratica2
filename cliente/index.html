@@ -1,0 +1,135 @@
+<html lang="en" ng-app="app">
+    <head>
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.min.css">
+        <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/angular-hotkeys/build/hotkeys.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/animations.css">
+    </head>
+    <body layout="row" ng-controller="AppController as appVm">
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+        <md-toolbar class="md-tall md-hue-2">
+            <span flex></span>
+            <div layout="column" class="md-toolbar-tools-bottom inset">
+                <user-avatar></user-avatar>
+                <span></span>
+                <div>Firstname Lastname</div>
+                <div>email@domainname.com</div>
+            </div>
+        </md-toolbar>
+        <md-list>
+            <md-list-item ng-repeat="item in appVm.menu">
+                <a>
+                    <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                        </div>
+                        <div class="inset">{{item.title}}
+                        </div>
+                    </md-item-content>
+                </a>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-subheader>Management</md-subheader>
+            <md-list-item ng-repeat="item in appVm.admin">
+                <a>
+                    <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                        </div>
+                        <div class="inset">{{item.title}}
+                        </div>
+                    </md-item-content>
+                </a>
+                <md-list-item>
+                    </md-list>
+                    </md-sidenav>
+                    <div layout="column" class="relative" layout-fill role="main">
+                        <div ui-view="buttons">
+
+                        </div>
+                        <md-toolbar ng-show="!appVm.workspace.showSearch" class="md-whiteframe-2dp">
+                            <div class="md-toolbar-tools">
+                                <md-button ng-click="appVm.toggleSidenav('left')" class="md-icon-button" hide-gt-md aria-label="Menu">
+                                    <ng-md-icon icon="menu"></ng-md-icon>
+                                </md-button>
+                                <h3>
+                                    {{appVm.workspace.title}}
+                                </h3>
+                                <span flex></span>
+                                <md-button aria-label="Search" ng-show="appVm.workspace.searchEnable" ng-click="appVm.workspace.showSearch = !appVm.workspace.showSearch" class="md-mini md-ink-ripple md-icon-button">
+                                    <ng-md-icon icon="search"></ng-md-icon>
+                                </md-button>
+                                <md-button aria-label="Open Settings" ng-click="appVm.showListBottomSheet($event)" class="md-mini md-ink-ripple md-icon-button">
+                                    <ng-md-icon icon="more_vert"></ng-md-icon>
+                                </md-button>
+                            </div>
+                            <div ui-view="top">
+
+                            </div>
+
+                        </md-toolbar>
+                        <md-toolbar class="md-hue-1 md-whiteframe-2dp" ng-show="appVm.workspace.showSearch">
+                            <div class="md-toolbar-tools">
+                                <md-button ng-click="appVm.toggleSearch()" aria-label="Back" class="md-mini md-ink-ripple md-icon-button">
+                                    <ng-md-icon icon="arrow_back"></ng-md-icon>
+                                </md-button>
+                                <h3 flex="10">
+                                    Voltar
+                                </h3>
+                                <md-input-container md-theme="input" flex md-no-float class="md-fix-error-space">
+                                    <label>&nbsp;</label>
+                                    <input ng-model="appVm.workspace.search"  focus-on='!!appVm.workspace.showSearch' placeholder="Informe a busca">
+                                </md-input-container>
+                                <md-button aria-label="Open Settings" ng-click="appVm.showListBottomSheet($event)" class="md-mini md-ink-ripple md-icon-button">
+                                    <ng-md-icon icon="more_vert"></ng-md-icon>
+                                </md-button>
+                            </div>
+
+                        </md-toolbar>
+                        <md-content flex md-scroll-y class="content-background md-default-theme">
+                            <ui-view layout="column"  layout-fill layout-padding>
+
+                            </ui-view>
+                        </md-content>   
+                    </div>
+                    <!-- Angular Material Dependencies -->
+                    <script src="bower_components/angular/angular.min.js"></script>
+                    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+                    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+                    <script src="bower_components/angular-material/angular-material.min.js"></script>
+                    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+                    <script src="bower_components/angular-resource/angular-resource.js"></script>
+                    <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+                    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script> 
+                    <script src="bower_components/angular-messages/angular-messages.js"></script>
+                    <script src="bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
+
+                    <script src="app/app.module.js"></script>    
+                    <script src="app/app.config.js"></script>    
+                    <script src="app/app.route.js"></script>
+                    <script src="app/app.constants.js"></script>
+
+                    
+                    
+                    <script src="app/services//menu.service.js"></script>   
+                    <script src="app/application/menu.controller.js"></script>   
+                    <script src="app/application/menu.edit.controller.js"></script>   
+
+                    <script src="app/components/user-avatar.direcive.js"></script>
+                    <!--<script src="app/services/api.interceptor.service.js"></script>-->
+                    <script src="app/components/show-errors.directive.js"></script>
+                    <script src="app/components/autofocus.directive.js"></script>
+                    <script src="app/components/focus-on.directive.js"></script>
+                    <script src="app/sample/app.controller.js"></script>    
+                    <script src="app/sample/crud.controller.js"></script>    
+                    <script src="app/sample/crud.edit.controller.js"></script>    
+                    <script src="app/services/entry.service.js"></script>    
+                    <script src="app/services/workspace.service.js"></script>    
+                    <script src="app/sample/activity.controller.js"></script>
+                    <script src="app/sample/list-bottom-sheet.controller.js"></script>
+
+                    </body>
+                    </html>
