@@ -2,6 +2,8 @@ package br.com.empresa.rh.resources;
 
 import br.com.empresa.rh.service.MenuService;
 import br.com.empresa.rh.model.Menu;
+import br.com.empresa.rh.model.Nivel;
+import br.com.empresa.rh.request.TableRequest;
 import java.util.List;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
@@ -13,7 +15,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +28,9 @@ public class MenuResource {
 
     @Autowired
     private MenuService menuService;
+
+    @Context
+    protected UriInfo info;
 
     public MenuService getMenuService() {
         return menuService;
@@ -44,17 +52,19 @@ public class MenuResource {
 
     @GET
     @Produces("application/json")
-    @Consumes({"application/json"})
 
-    public List<Menu> findAll() {
-        return menuService.findAll();
+    public Response findAll() {
+        TableRequest request = TableRequest.build(info);
+        List<Menu> m = menuService.findForTable(request);
+        return Response.ok().entity(m).build();
     }
 
-    @GET
-    @Produces("application/json")
-    public List<Menu> findFilter(@QueryParam("filter") String filter,@QueryParam("order") String order,@QueryParam("limit") int limit,@QueryParam("page") int page ) {
-        return menuService.findAll();
-    }
+//    @GET
+//    @Produces("application/json")
+//    public List<Menu> findFilter(@QueryParam("filter") String filter, @QueryParam("order") String order, @QueryParam("limit") int limit, @QueryParam("page") int page) {
+//        return menuService.findAll();
+//    }
+
     @GET
     @Path("{id}")
     @Produces("application/json")

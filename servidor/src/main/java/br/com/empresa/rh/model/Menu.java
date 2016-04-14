@@ -1,5 +1,6 @@
 package br.com.empresa.rh.model;
 
+import br.com.empresa.rh.model.view.MenuList;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -10,10 +11,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
 @Entity
 @SequenceGenerator(name = "menu_seq", sequenceName = "menu_seq", initialValue = 1, allocationSize = 1)
-
-public class Menu implements Serializable {
+@XmlRootElement
+public class Menu implements Serializable, MenuList {
 
     @Id
     @GeneratedValue(generator = "menu_seq", strategy = GenerationType.SEQUENCE)
@@ -25,6 +27,7 @@ public class Menu implements Serializable {
     @ManyToMany
     private List<Nivel> niveis;
 
+    @Override
     public long getId() {
         return id;
     }
@@ -33,6 +36,7 @@ public class Menu implements Serializable {
         this.id = id;
     }
 
+    @Override
     public String getNome() {
         return nome;
     }
@@ -41,6 +45,7 @@ public class Menu implements Serializable {
         this.nome = nome;
     }
 
+    @Override
     public String getIcone() {
         return icone;
     }
@@ -49,6 +54,7 @@ public class Menu implements Serializable {
         this.icone = icone;
     }
 
+    @Override
     public String getUrl() {
         return url;
     }
