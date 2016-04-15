@@ -59,11 +59,6 @@ public class MenuResource {
         return Response.ok().entity(m).build();
     }
 
-//    @GET
-//    @Produces("application/json")
-//    public List<Menu> findFilter(@QueryParam("filter") String filter, @QueryParam("order") String order, @QueryParam("limit") int limit, @QueryParam("page") int page) {
-//        return menuService.findAll();
-//    }
 
     @GET
     @Path("{id}")

@@ -1,14 +1,24 @@
 package br.com.empresa.rh.resources;
 
 import br.com.empresa.rh.filter.CORSFilter;
+import br.com.empresa.rh.model.Menu;
+import br.com.empresa.rh.service.MenuService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.Path;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.endpoint.Server;
@@ -31,19 +41,6 @@ public class JAXRSServerConfig {
     @Autowired
     private ApplicationContext ctx;
 
-    public MappingJackson2HttpMessageConverter jacksonMessageConverter() {
-        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        // Registering Hibernate4Module to support lazy objects
-        mapper.registerModule(new Hibernate4Module());
-
-        messageConverter.setObjectMapper(mapper);
-
-        return messageConverter;
-    }
-
     @Bean
     public Server jaxRsServer() {
         List<ResourceProvider> resourceProviders = new LinkedList<ResourceProvider>();
@@ -59,16 +56,24 @@ public class JAXRSServerConfig {
         factory.setBus(ctx.getBean(SpringBus.class));
         factory.setResourceProviders(resourceProviders);
 
-        MappingJackson2HttpMessageConverter jacksonJsonProvider = new MappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = new ObjectMapper();
+        
+        
+        JacksonJsonProvider jacksonJsonProvider = new JacksonJsonProvider();
+//        MappingJackson2HttpMessageConverter jacksonJsonProvider = new MappingJackson2HttpMessageConverter();
+        ObjectMapper objectMapper = new ObjectMapper ();
 
         final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
         objectMapper.setDateFormat(df);
-        jacksonJsonProvider.setObjectMapper(objectMapper);
 
-        factory.setProviders(Arrays.asList(jacksonJsonProvider, new CORSFilter()));
-        
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        JaxbAnnotationModule jaxbModule = new JaxbAnnotationModule();
+        objectMapper.registerModule(jaxbModule);
+        objectMapper.registerModule(new Hibernate4Module());
+        jacksonJsonProvider.setMapper(objectMapper);
+
+        factory.setProviders(Arrays.asList(jacksonJsonProvider));
+        factory.setProvider(new CORSFilter());
         return factory.create();
     }
 

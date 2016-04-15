@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,6 +27,7 @@ public class Menu implements Serializable, MenuList {
 
     @ManyToMany
     private List<Nivel> niveis;
+
 
     @Override
     public long getId() {

@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,9 @@ public class MenuService extends Service<Menu>{
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);
-        return q.getResultList();
+        List<Menu> l = q.getResultList();
+        return l;
     }
+    
 
 }
