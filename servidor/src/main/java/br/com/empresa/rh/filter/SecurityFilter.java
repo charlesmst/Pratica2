@@ -51,7 +51,7 @@ public class SecurityFilter implements ContainerRequestFilter {
             return;
         }
         if (!m.containsKey(AUTHORIZATION_HEADER)) {
-            buildResponseUnauthorized(requestContext);
+            buildResponseUnauthorized(requestContext,false);
             return;
         }
 
@@ -69,7 +69,7 @@ public class SecurityFilter implements ContainerRequestFilter {
             String header = requestContext.getHeaderString(AUTHORIZATION_HEADER);
             //Transorma pro claim
             if (header == null) {
-                buildResponseUnauthorized(requestContext);
+                buildResponseUnauthorized(requestContext,false);
                 return;
             }
             Authorizer auth = decodeAuthorize(header,originalContext.isSecure());
@@ -90,12 +90,15 @@ public class SecurityFilter implements ContainerRequestFilter {
             Logger.getLogger(SecurityFilter.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-        buildResponseUnauthorized(requestContext);
+        buildResponseUnauthorized(requestContext,true);
 
     }
 
-    private void buildResponseUnauthorized(ContainerRequestContext requestContext) {
-        Response r = Response.status(Response.Status.UNAUTHORIZED).entity("Acesso não autorizado").build();
+    private void buildResponseUnauthorized(ContainerRequestContext requestContext,boolean logado) {
+        String mensagem = "Acesso não autorizado para o nível de acesso";
+        if(!logado)
+            mensagem = "Acesso não autorizado para usuários não autenticados";
+        Response r = Response.status(Response.Status.UNAUTHORIZED).entity("{\"mensagem\":\""+mensagem+"\"}").build();
         requestContext.abortWith(r);
     }
 
