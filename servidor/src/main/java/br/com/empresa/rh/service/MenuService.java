@@ -1,7 +1,7 @@
 package br.com.empresa.rh.service;
 
 import br.com.empresa.rh.model.Menu;
-import br.com.empresa.rh.request.TableRequest;
+import br.com.empresa.rh.model.request.TableRequest;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;

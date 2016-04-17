@@ -5,8 +5,7 @@
  */
 package br.com.empresa.rh.service;
 
-import br.com.empresa.rh.model.Usuario;
-import br.com.empresa.rh.request.TableRequest;
+import br.com.empresa.rh.model.request.TableRequest;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,15 +1,17 @@
 package br.com.empresa.rh.resources;
 
 import br.com.empresa.rh.filter.CORSFilter;
+import br.com.empresa.rh.filter.SecurityFilter;
 import br.com.empresa.rh.model.Menu;
 import br.com.empresa.rh.service.MenuService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import java.io.File;
+import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,25 +58,30 @@ public class JAXRSServerConfig {
         factory.setBus(ctx.getBean(SpringBus.class));
         factory.setResourceProviders(resourceProviders);
 
-        
-        
         JacksonJsonProvider jacksonJsonProvider = new JacksonJsonProvider();
 //        MappingJackson2HttpMessageConverter jacksonJsonProvider = new MappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = new ObjectMapper ();
+        ObjectMapper objectMapper = new ObjectMapper();
 
         final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
         objectMapper.setDateFormat(df);
 
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        JaxbAnnotationModule jaxbModule = new JaxbAnnotationModule();
-        objectMapper.registerModule(jaxbModule);
+        //JaxbAnnotationModule jaxbModule = new JaxbAnnotationModule();
+        //objectMapper.registerModule(jaxbModule);
         objectMapper.registerModule(new Hibernate4Module());
         jacksonJsonProvider.setMapper(objectMapper);
 
-        factory.setProviders(Arrays.asList(jacksonJsonProvider));
+        factory.setProvider(jacksonJsonProvider);
         factory.setProvider(new CORSFilter());
-        return factory.create();
+        factory.setProvider(new SecurityFilter());
+
+        Server s =  null;
+            s = factory.create();
+
+        
+
+        return s;
     }
 
 }

@@ -1,4 +1,4 @@
-package br.com.empresa.rh.request;
+package br.com.empresa.rh.model.request;
 
 import java.util.Dictionary;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class TableRequest {
     private String filter;
     private int limit;
     private String order;
-    private int page;
+    private int page = -1;
     //1 ASC, -1 DESC
     private int direction;
 
@@ -30,10 +30,11 @@ public class TableRequest {
             request.setLimit(Integer.parseInt(queryString.getFirst("limit")));
         }
         if (queryString.containsKey("page") && queryString.getFirst("page").matches("^\\d+$")) {
-            request.setPage(Integer.parseInt(queryString.getFirst("page")));
+            request.setPage(Integer.parseInt(queryString.getFirst("page")) - 1);
         }
         if (queryString.containsKey("order") && queryString.getFirst("order").matches("^\\w+$")) {
-            request.setOrder(queryString.getFirst("order"));
+            //Verifica se é desc
+            request.setOrder( queryString.getFirst("order"));
         }
         if (queryString.containsKey("direction") && queryString.getFirst("direction").matches("^\\d+$")) {
             request.setDirection(Integer.parseInt(queryString.getFirst("direction")));
@@ -55,7 +56,7 @@ public class TableRequest {
             }
 
             for (String column : columns) {
-                hql += "str("+column+")" + " like :filter or ";
+                hql += "str(" + column + ")" + " like :filter or ";
             }
             hql = hql.substring(0, hql.length() - 3);
             return hql;
@@ -63,28 +64,29 @@ public class TableRequest {
         return "";
     }
 
-    public void applyParameters(Query q){
+    public void applyParameters(Query q) {
         for (String parameter : parameters.keySet()) {
             q.setParameter(parameter, parameters.get(parameter));
         }
     }
+
     public String applyOrder(String... columns) {
         String hql = "";
 
         if (getOrder() != null && !getOrder().trim().equals("")) {
             for (String column : columns) {
-                if(column.toLowerCase().equals(getOrder().toLowerCase())){
-                    hql += " order by "+column+ " "+(getDirection()>0?"ASC":"DESC");
+                if (column.toLowerCase().equals(getOrder().toLowerCase())) {
+                    hql += " order by " + column + " " + (getDirection() > 0 ? "ASC" : "DESC");
                     break;
                 }
             }
         }
         return hql;
     }
-    
-    public void applyPagination(Query q){
-        if(getLimit() > 0){
-            q.setFirstResult(getPage()*getLimit());
+
+    public void applyPagination(Query q) {
+        if (getLimit() > 0 && getPage() >= 0) {
+            q.setFirstResult(getPage() * getLimit());
             q.setMaxResults(getLimit());
         }
     }
@@ -110,7 +112,12 @@ public class TableRequest {
     }
 
     public void setOrder(String order) {
-        this.order = order;
+        if (order.startsWith("-")) {
+            this.direction = -1;
+            this.order = order.substring(1);
+        }else{
+            this.order = order;
+        }
     }
 
     public int getPage() {

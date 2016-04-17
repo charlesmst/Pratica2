@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.empresa.rh.model.view;
+package br.com.empresa.rh.response;
 
 /**
  *
  * @author charles
  */
-public interface MenuList {
+public class CountResponse {
+    private long count;
+
+    public CountResponse(long count) {
+        this.count = count;
+    }
+
+    public long getCount() {
+        return count;
+    }
     
-    String getIcone();
-
-    long getId();
-
-    String getNome();
-
-    String getUrl();
 }
