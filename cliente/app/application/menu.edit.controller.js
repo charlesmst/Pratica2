@@ -18,16 +18,16 @@
             vm.entity = new Menu()
         vm.save = save;
         vm.cancel = cancel;
-        function save() {
-
-
+        function save($event,$valid) {
+            if(!$valid)
+                return ;
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave).$promise)
         }
         function cancel() {
             $state.go("menu")
         }
         function callbackSave() {
-            $mdToast.showSimple("Registro salvo")
+            Workspace.showMessage("Registro salvo")
             $state.go("menu")
         }
 

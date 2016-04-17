@@ -1,41 +1,48 @@
 (function () {
     'use strict';
-    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog','Workspace','hotkeys','$scope', AppController]);
+    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog','Workspace','hotkeys','$scope','$state', AppController]);
 
 
-    function AppController($mdBottomSheet, $mdSidenav, $mdDialog,Workspace,hotkeys,$scope) {
+    function AppController($mdBottomSheet, $mdSidenav, $mdDialog,Workspace,hotkeys,$scope,$state) {
         var vm = this;
         vm.alert = '';
         vm.workspace = Workspace;
         vm.showListBottomSheet = showListBottomSheet;
         vm.toggleSidenav = toggleSidenav;
         vm.toggleSearch = toggleSearch;
+        vm.goTo = goTo;
+        
+        vm.labelPagination = {
+            of:"de",
+            page:"Página",
+            rowsPerPage:"Linhas por página:"
+        }
         vm.menu = [
             {
                 link: '',
-                title: 'Dashboard',
+                title: 'Folha de pagamento',
                 icon: 'dashboard'
             },
             {
                 link: '',
-                title: 'Friends',
+                title: 'Ficha funcional',
                 icon: 'group'
             },
             {
                 link: '',
-                title: 'Messages',
+                title: 'Recrutamento e seleção',
                 icon: 'message'
             }
         ];
         vm.admin = [
             {
-                link: '',
-                title: 'Trash',
+                link: 'menu',
+                title: 'Menu',
                 icon: 'delete'
             },
             {
                 link: 'showListBottomSheet($event)',
-                title: 'Settings',
+                title: 'Configurações',
                 icon: 'settings'
             }
         ];
@@ -51,6 +58,9 @@
             }).then(function (clickedItem) {
                 vm.alert = clickedItem.name + ' clicked!';
             });
+        }
+        function goTo(r){
+            $state.go(r)
         }
         function toggleSidenav(menuId) {
             $mdSidenav(menuId).toggle();

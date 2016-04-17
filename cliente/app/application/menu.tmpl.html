@@ -11,9 +11,10 @@
         <table md-table md-progress="promise"  md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise" >
             <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
                 <tr md-row>
-                    <th md-column ></th>
-                    <th md-column md-order-by="id"><span>Id</span></th>
-                    <th md-column md-numeric md-order-by="user"><span>User</span></th>
+                    <th md-column md-numeric ></th>
+                    <th md-column md-order-by="nome"><span>Nome</span></th>             
+                    <th md-column md-order-by="url"><span>Url</span></th>
+
 
                 </tr>
             </thead>
@@ -25,12 +26,14 @@
                             <md-icon  md-svg-icon="/assets/icon/edit.svg" class="md-display-1">edit</md-icon>
                         </md-button>
                     </td>
-                    <td md-cell>{{row.id}}</td>
-                    <td md-cell>{{row.usuario}}</td>
+                    <td md-cell>{{row.nome}}</td>     
+                    <td md-cell>{{row.url}}</td>
+
                 </tr>
             </tbody>
         </table>
-        <md-table-pagination md-limit="crudVm.query.limit" md-page="crudVm.query.page" md-total="{{crudVm.count}}" md-on-paginate="crudVm.onPaginate" md-page-select></md-table-pagination>
+        
+        <md-table-pagination md-label="{{appVm.labelPagination}}" md-limit="crudVm.query.limit" md-page="crudVm.query.page" md-total="{{crudVm.count}}" md-on-paginate="crudVm.onPaginate" md-page-select></md-table-pagination>
     </md-table-container>
 </md-card>
 

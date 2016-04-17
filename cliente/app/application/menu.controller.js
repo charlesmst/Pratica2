@@ -22,7 +22,6 @@
             page: 1
         };
 
-        loadCount()
         load(vm.query)
         function showDelete($event) {
             Workspace.showDeleteDialog($event).then(function () {
@@ -36,7 +35,6 @@
                 Workspace.loading("Excluindo...", $q.all(promises).then(function () {
                     Workspace.showMessage("Registros excluidos");
                     load(vm.query);
-                    loadCount(vm.query)
                 }));
             });
         }
@@ -50,6 +48,8 @@
 
         function load(query) {
             vm.promise = Menu.query(query, success).$promise;
+            loadCount()
+
         }
 
         function success(response) {
@@ -66,7 +66,7 @@
 
         function onFilter(filter) {
             load(angular.extend(vm.query, {'filter': filter, page: 1}))
-            loadCount()
+
         }
         function loadCount() {
             Menu.count(vm.query).$promise.then(function (e) {

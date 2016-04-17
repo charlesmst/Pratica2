@@ -4,7 +4,7 @@
     function Menu($resource,config) {
         return  $resource(config.apiUrl+'/menu/:id', {id: '@id'}, {
             
-            count: {method: "GET", isArray: false, url:"/api/count"}
+            count: {method: "GET", isArray: false, url:config.apiUrl+"/menu/count"}
 
         });
     }
