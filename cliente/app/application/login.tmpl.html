@@ -1,0 +1,35 @@
+<form name="formEdit" novalidate ng-submit="loginVm.submit($event, formEdit.$valid)">
+
+    <md-card>
+
+
+        <md-card-content>
+            <h2>Login</h2>
+            <md-content>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Usuário</label>
+                    <input  name="usuario" ng-model="loginVm.entity.usuario" md-maxlength="255" required>
+                    <div ng-messages="formEdit.usuario.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Senha</label>
+                    <input  name="senha" type="password" ng-model="loginVm.entity.senha" md-maxlength="255" required>
+                    <div ng-messages="formEdit.senha.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+                <md-input-container layout-align="center center">
+                    <div layout="row" layout-sm="column" layout-margin>
+                        <button type="submit" class="md-button md-warn md-raised" flex="50" flex-sm="100">Login</button>
+                        <md-button class="md-raised md-primary" flex="50" flex-sm="100">Registrar</md-button>
+                    </div>
+                </md-input-container>
+            </md-content>
+
+        </md-card-content>
+    </md-card>
+</form>

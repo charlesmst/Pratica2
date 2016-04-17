@@ -10,40 +10,32 @@
     </head>
     <body layout="row" ng-controller="AppController as appVm">
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-        <md-toolbar class="md-tall md-hue-2">
+        <md-toolbar class="md-tall md-hue-2" ng-show="appVm.authorizationData.currentUser">
             <span flex></span>
             <div layout="column" class="md-toolbar-tools-bottom inset">
                 <user-avatar></user-avatar>
                 <span></span>
-                <div>Charles Michael Stein</div>
-                <div>charles.mst@gmail.com</div>
+                <div>{{appVm.authorizationData.currentUser.nome}}</div>
+                <div>{{appVm.authorizationData.currentUser.email}}</div>
             </div>
         </md-toolbar>
         <md-list>
-            <md-list-item ng-repeat="item in appVm.menu">
+            <div ng-repeat="submenu in appVm.authorization.niveis">
+                <md-subheader>{{submenu.title}}</md-subheader>
+                <md-list-item ng-repeat="item in submenu.links">
 
-                <md-item-content md-ink-ripple layout="row" ng-click='appVm.goTo(item.link)'  layout-align="start center">
-                    <div class="inset">
-                        <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-                    </div>
-                    <div class="inset">{{item.title}}
-                    </div>
-                </md-item-content>
+                    <md-item-content md-ink-ripple layout="row" ng-click='appVm.goTo(item.link)'  layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                        </div>
+                        <div class="inset">{{item.title}}
+                        </div>
+                    </md-item-content>
 
-            </md-list-item>
-            <md-divider></md-divider>
-            <md-subheader>Administrador</md-subheader>
-            <md-list-item ng-repeat="item in appVm.admin">
+                </md-list-item>
+                <md-divider></md-divider>
 
-                <md-item-content md-ink-ripple layout="row" ng-click='appVm.goTo(item.link)' layout-align="start center">
-                    <div class="inset">
-                        <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-                    </div>
-                    <div class="inset">{{item.title}}
-                    </div>
-                </md-item-content>
-
-            </md-list-item>
+            </div>
         </md-list>
     </md-sidenav>
     <div layout="column" class="relative" layout-fill role="main">
@@ -62,7 +54,7 @@
                 <md-button aria-label="Search" ng-show="appVm.workspace.searchEnable" ng-click="appVm.workspace.showSearch = !appVm.workspace.showSearch" class="md-mini md-ink-ripple md-icon-button">
                     <ng-md-icon icon="search"></ng-md-icon>
                 </md-button>
-                <md-button aria-label="Open Settings" ng-click="appVm.showListBottomSheet($event)" class="md-mini md-ink-ripple md-icon-button">
+                <md-button aria-label="Open Settings" ng-show="appVm.authorizationData.currentUser" ng-click="appVm.showListBottomSheet($event)" class="md-mini md-ink-ripple md-icon-button">
                     <ng-md-icon icon="more_vert"></ng-md-icon>
                 </md-button>
             </div>
@@ -83,7 +75,8 @@
                     <label>&nbsp;</label>
                     <input ng-model="appVm.workspace.search"  focus-on='!!appVm.workspace.showSearch' placeholder="Informe a busca">
                 </md-input-container>
-                <md-button aria-label="Open Settings" ng-click="appVm.showListBottomSheet($event)" class="md-mini md-ink-ripple md-icon-button">
+                
+                <md-button aria-label="Open Settings"  ng-click="appVm.showListBottomSheet($event)" class="md-mini md-ink-ripple md-icon-button">
                     <ng-md-icon icon="more_vert"></ng-md-icon>
                 </md-button>
             </div>
@@ -106,17 +99,27 @@
     <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script> 
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-hotkeys/build/hotkeys.min.js"></script>
+    <script src="bower_components/a0-angular-storage/dist/angular-storage.min.js"></script>
 
     <script src="app/app.module.js"></script>    
     <script src="app/app.config.js"></script>    
     <script src="app/app.route.js"></script>
     <script src="app/app.constants.js"></script>
 
+    <script src="app/folha/app.route.js"></script>
+    <script src="app/recrutamento/app.route.js"></script>
+    <script src="app/cargo/app.route.js"></script>
+    <script src="app/ficha/app.route.js"></script>
 
 
-    <script src="app/services//menu.service.js"></script>   
+    <script src="app/services/authorization.service.js"></script>   
+    <script src="app/services/api.interceptor.service.js"></script>   
+    <script src="app/services/menu.service.js"></script>
+
+
     <script src="app/application/menu.controller.js"></script>   
     <script src="app/application/menu.edit.controller.js"></script>   
+    <script src="app/application/login.controller.js"></script>   
 
     <script src="app/components/user-avatar.direcive.js"></script>
     <!--<script src="app/services/api.interceptor.service.js"></script>-->

@@ -2,6 +2,13 @@
     angular.module('app').config(["$stateProvider", "$urlRouterProvider", config]);
 
     function config($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            $injector.invoke(["Authorization", "$state", function (Authorization, $state) {
+                    Authorization.loadNiveis().then(function () {
+                        $state.go(Authorization.defaultState);
+                    });
+                }])
+        });
         $stateProvider
                 .state('start', {
                     url: '/',
@@ -13,6 +20,17 @@
                         },
                         "top": {
                             templateUrl: 'app/sample/activity.top.tmpl.html'
+                        }
+                    }
+
+                })
+                .state('login', {
+                    url: '/login',
+                    views: {
+                        "": {
+                            templateUrl: 'app/application/login.tmpl.html',
+                            controller: "LoginController",
+                            controllerAs: "loginVm",
                         }
                     }
 
@@ -47,7 +65,7 @@
                         }
                     }
                 })
-                
+
                 .state('menu', {
                     url: '/menu',
                     views: {
@@ -57,7 +75,7 @@
                             controllerAs: "crudVm",
                         }
                     }
-                })                
+                })
                 .state('menuedit', {
                     url: '/menu/edit/:id',
                     views: {

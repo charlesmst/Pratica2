@@ -27,7 +27,8 @@
     "angular-material-icons": "^0.6.0",
     "mdDataTable": "^1.4.2",
     "angular-messages": "^1.5.0",
-    "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0"
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0",
+    "a0-angular-storage": "^0.0.15"
   },
   "resolutions": {
     "angular": "1.5.0",

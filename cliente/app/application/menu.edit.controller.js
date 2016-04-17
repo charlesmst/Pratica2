@@ -6,7 +6,7 @@
     function MenuEditController($mdToast, $http, Menu, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
-        Workspace.title = "Manutenção de usuário"
+        Workspace.title = "Manutenção de usuário";
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Menu.get({id: $stateParams.id}).$promise.then(function (data) {
                 
