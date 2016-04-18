@@ -1,6 +1,6 @@
 (function () {
-    angular.module('app').service('ApiInterceptor', ["$rootScope", "AuthorizationData", ApiInterceptor]);
-    function ApiInterceptor($rootScope, AuthorizationData) {
+    angular.module('app').service('ApiInterceptor', ["$rootScope", "AuthorizationData","$q", ApiInterceptor]);
+    function ApiInterceptor($rootScope, AuthorizationData,$q) {
         var service = this;
         service.request = function (config) {
             var currentUser = AuthorizationData.getCurrentUser(),
@@ -13,8 +13,9 @@
         service.responseError = function (response) {
             if (response.status === 401 || response.status === 403) {
                 $rootScope.$broadcast('unauthorized',response.data);
+                return $q.resolve(response);
             }
-            return response;
+            return $q.reject(response);
         };
     }
 })()
