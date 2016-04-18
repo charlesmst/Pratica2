@@ -2,13 +2,14 @@ package br.com.empresa.rh.model;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,7 +25,9 @@ public class Menu implements Serializable {
     private String nome;
     private String icone;
     private String url;
-
+    
+    @OneToMany
+    private Set<Nivel> niveis =  new HashSet<>(0);
 
 
     public long getId() {
@@ -57,6 +60,14 @@ public class Menu implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Set<Nivel> getNiveis() {
+        return niveis;
+    }
+
+    public void setNiveis(Set<Nivel> niveis) {
+        this.niveis = niveis;
     }
 
 

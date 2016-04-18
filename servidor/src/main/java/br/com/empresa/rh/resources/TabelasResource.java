@@ -1,8 +1,9 @@
 package br.com.empresa.rh.resources;
 
+
 import br.com.empresa.rh.filter.secure.NivelAcesso;
-import br.com.empresa.rh.service.MenuService;
-import br.com.empresa.rh.model.Menu;
+import br.com.empresa.rh.service.TabelasService;
+import br.com.empresa.rh.model.Tabelas;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.response.CountResponse;
 import java.util.List;
@@ -15,81 +16,83 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Path("/menu")
+@Path("/tabelas")
 @RolesAllowed(NivelAcesso.FUNCIONARIO)
-public class MenuResource {
+public class TabelasResource {
 
     @Autowired
-    private MenuService menuService;
+    private TabelasService TabelasService;
 
     @Context
     protected UriInfo info;
 
-    public MenuService getMenuService() {
-        return menuService;
+    public TabelasService getTabelasService() {
+        return TabelasService;
     }
 
-    public void setMenuService(MenuService marcaService) {
-        this.menuService = marcaService;
+    public void setTabelasService(TabelasService marcaService) {
+        this.TabelasService = marcaService;
     }
 
-    public MenuResource() {
+    public TabelasResource() {
     }
 
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(menuService.count());
+        return new CountResponse(TabelasService.count());
     }
 
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<Menu> m = menuService.findForTable(request);
+        List<Tabelas> m = TabelasService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
     @GET
     @Path("{id}")
-    @Produces("application/json")
-    public Menu findById(@PathParam("id") long id) {
-        Menu m = menuService.findById(id);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Tabelas findById(@PathParam("id") long id) {
+        Tabelas m = TabelasService.findById(id);
         return m;
     }
 
     @GET
     @Path("nivel/{id}")
-    @Produces("application/json")
-    public List<Menu> findByNivel(@PathParam("id") long id) {
-        return menuService.findAll();
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Tabelas> findByNivel(@PathParam("id") long id) {
+        return TabelasService.findAll();
     }
 
     @POST
-    @Consumes({"application/xml", "application/json"})
-    public void insert(Menu m) {
-        menuService.insert(m);
+    @Consumes({MediaType.APPLICATION_JSON})
+    public void insert(Tabelas m) {
+        TabelasService.insert(m);
     }
 
     @POST
-    @Consumes({"application/xml", "application/json"})
+    @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, Menu m) {
-        menuService.update(m);
+    public void update(@PathParam("id") long id, Tabelas entity) {
+        TabelasService.update(entity);
+		
     }
 
     @DELETE
     @Path("{id}")
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") long id) {
-        menuService.delete(id);
+        TabelasService.delete(id);
     }
 
 }
