@@ -2,7 +2,8 @@
     'use strict';
     angular.module('app').controller('${name}Controller', ['${name}', '$state', 'Workspace', '$q', ${name}Controller]);
 
-
+	var state = "${name}"
+	
     function ${name}Controller(${name}, $state, Workspace, $q) {
         var vm = this;
         vm.showDelete = showDelete;
@@ -39,11 +40,11 @@
             });
         }
         function showAdd() {
-            $state.go("${name}add")
+            $state.go(state+"add")
         }
 
         function showEdit(e, id) {
-            $state.go("${name}edit", {"id": id})
+            $state.go(state+"edit", {"id": id})
         }
 
         function load(query) {

@@ -2,7 +2,7 @@
     'use strict';
     angular.module('app').controller('${name}EditController', ['$mdToast', '$http', '${name}', '$state', '$stateParams', 'Workspace', ${name}EditController]);
 
-
+	var state = "${name}"
     function ${name}EditController($mdToast, $http, ${name}, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
@@ -24,11 +24,11 @@
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
         }
         function cancel() {
-            $state.go("menu")
+            $state.go(state)
         }
         function callbackSave(r) {
             Workspace.showMessage("Registro salvo")
-            $state.go("menu")
+            $state.go(state)
 
         }
         function callbackError() {
