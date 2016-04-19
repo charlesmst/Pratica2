@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -23,7 +23,7 @@ public class Cbo  implements java.io.Serializable {
 
      private int id;
      private String nome;
-     private String decricaoSumarizada;
+     private String descricaoSumarizada;
      private Set<Cargo> cargos = new HashSet<Cargo>(0);
 
     public Cbo() {
@@ -34,10 +34,10 @@ public class Cbo  implements java.io.Serializable {
         this.id = id;
         this.nome = nome;
     }
-    public Cbo(int id, String nome, String decricaoSumarizada, Set<Cargo> cargos) {
+    public Cbo(int id, String nome, String descricaoSumarizada, Set<Cargo> cargos) {
        this.id = id;
        this.nome = nome;
-       this.decricaoSumarizada = decricaoSumarizada;
+       this.descricaoSumarizada = descricaoSumarizada;
        this.cargos = cargos;
     }
    
@@ -64,13 +64,13 @@ public class Cbo  implements java.io.Serializable {
     }
 
     
-    @Column(name="decricao_sumarizada", length=1000)
-    public String getDecricaoSumarizada() {
-        return this.decricaoSumarizada;
+    @Column(name="descricao_sumarizada", length=1000)
+    public String getDescricaoSumarizada() {
+        return this.descricaoSumarizada;
     }
     
-    public void setDecricaoSumarizada(String decricaoSumarizada) {
-        this.decricaoSumarizada = decricaoSumarizada;
+    public void setDescricaoSumarizada(String descricaoSumarizada) {
+        this.descricaoSumarizada = descricaoSumarizada;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="cbo")

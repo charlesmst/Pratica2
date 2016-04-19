@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -22,7 +22,7 @@ public class TabelaValores  implements java.io.Serializable {
 
 
      private int id;
-     private Tabelas tabelas;
+     private Tabela tabela;
      private BigDecimal valorInicial;
      private BigDecimal valorFinal;
      private BigDecimal aliquota;
@@ -32,14 +32,14 @@ public class TabelaValores  implements java.io.Serializable {
     }
 
 	
-    public TabelaValores(int id, Tabelas tabelas, BigDecimal valorInicial) {
+    public TabelaValores(int id, Tabela tabela, BigDecimal valorInicial) {
         this.id = id;
-        this.tabelas = tabelas;
+        this.tabela = tabela;
         this.valorInicial = valorInicial;
     }
-    public TabelaValores(int id, Tabelas tabelas, BigDecimal valorInicial, BigDecimal valorFinal, BigDecimal aliquota, BigDecimal desconto) {
+    public TabelaValores(int id, Tabela tabela, BigDecimal valorInicial, BigDecimal valorFinal, BigDecimal aliquota, BigDecimal desconto) {
        this.id = id;
-       this.tabelas = tabelas;
+       this.tabela = tabela;
        this.valorInicial = valorInicial;
        this.valorFinal = valorFinal;
        this.aliquota = aliquota;
@@ -59,13 +59,13 @@ public class TabelaValores  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="tabelas_id", nullable=false)
-    public Tabelas getTabelas() {
-        return this.tabelas;
+    @JoinColumn(name="tabela_id", nullable=false)
+    public Tabela getTabela() {
+        return this.tabela;
     }
     
-    public void setTabelas(Tabelas tabelas) {
-        this.tabelas = tabelas;
+    public void setTabela(Tabela tabela) {
+        this.tabela = tabela;
     }
 
     

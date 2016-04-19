@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -28,6 +28,7 @@ public class Competencia  implements java.io.Serializable {
      private char tipo;
      private Set<Vagas> vagases = new HashSet<Vagas>(0);
      private Set<Candidato> candidatos = new HashSet<Candidato>(0);
+     private Set<CargoNivel> cargoNivels = new HashSet<CargoNivel>(0);
 
     public Competencia() {
     }
@@ -38,12 +39,13 @@ public class Competencia  implements java.io.Serializable {
         this.descricao = descricao;
         this.tipo = tipo;
     }
-    public Competencia(int id, String descricao, char tipo, Set<Vagas> vagases, Set<Candidato> candidatos) {
+    public Competencia(int id, String descricao, char tipo, Set<Vagas> vagases, Set<Candidato> candidatos, Set<CargoNivel> cargoNivels) {
        this.id = id;
        this.descricao = descricao;
        this.tipo = tipo;
        this.vagases = vagases;
        this.candidatos = candidatos;
+       this.cargoNivels = cargoNivels;
     }
    
      @Id 
@@ -100,6 +102,18 @@ public class Competencia  implements java.io.Serializable {
     
     public void setCandidatos(Set<Candidato> candidatos) {
         this.candidatos = candidatos;
+    }
+
+@ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name="competencia_has_cargo_nivel", schema="public", joinColumns = { 
+        @JoinColumn(name="competencia_id", nullable=false, updatable=false) }, inverseJoinColumns = { 
+        @JoinColumn(name="cargo_nivel_id", nullable=false, updatable=false) })
+    public Set<CargoNivel> getCargoNivels() {
+        return this.cargoNivels;
+    }
+    
+    public void setCargoNivels(Set<CargoNivel> cargoNivels) {
+        this.cargoNivels = cargoNivels;
     }
 
 

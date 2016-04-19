@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -29,17 +29,24 @@ public class CargoHasEvento  implements java.io.Serializable {
      private Cargo cargo;
      private Evento evento;
      private Date dataInicio;
-     private Date d;
+     private Date dataFim;
 
     public CargoHasEvento() {
     }
 
-    public CargoHasEvento(CargoHasEventoId id, Cargo cargo, Evento evento, Date dataInicio, Date d) {
+	
+    public CargoHasEvento(CargoHasEventoId id, Cargo cargo, Evento evento, Date dataInicio) {
+        this.id = id;
+        this.cargo = cargo;
+        this.evento = evento;
+        this.dataInicio = dataInicio;
+    }
+    public CargoHasEvento(CargoHasEventoId id, Cargo cargo, Evento evento, Date dataInicio, Date dataFim) {
        this.id = id;
        this.cargo = cargo;
        this.evento = evento;
        this.dataInicio = dataInicio;
-       this.d = d;
+       this.dataFim = dataFim;
     }
    
      @EmbeddedId
@@ -87,13 +94,13 @@ public class CargoHasEvento  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="d", nullable=false, length=13)
-    public Date getD() {
-        return this.d;
+    @Column(name="data_fim", length=13)
+    public Date getDataFim() {
+        return this.dataFim;
     }
     
-    public void setD(Date d) {
-        this.d = d;
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
     }
 
 

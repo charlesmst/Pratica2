@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -28,9 +28,9 @@ public class CargoNivel  implements java.io.Serializable {
      private int id;
      private Cargo cargo;
      private String nome;
-     private String competencias;
      private Integer experiencia;
      private Set<FuncionarioFaixa> funcionarioFaixas = new HashSet<FuncionarioFaixa>(0);
+     private Set<Competencia> competencias = new HashSet<Competencia>(0);
      private Set<FaixaSalarial> faixaSalarials = new HashSet<FaixaSalarial>(0);
 
     public CargoNivel() {
@@ -42,13 +42,13 @@ public class CargoNivel  implements java.io.Serializable {
         this.cargo = cargo;
         this.nome = nome;
     }
-    public CargoNivel(int id, Cargo cargo, String nome, String competencias, Integer experiencia, Set<FuncionarioFaixa> funcionarioFaixas, Set<FaixaSalarial> faixaSalarials) {
+    public CargoNivel(int id, Cargo cargo, String nome, Integer experiencia, Set<FuncionarioFaixa> funcionarioFaixas, Set<Competencia> competencias, Set<FaixaSalarial> faixaSalarials) {
        this.id = id;
        this.cargo = cargo;
        this.nome = nome;
-       this.competencias = competencias;
        this.experiencia = experiencia;
        this.funcionarioFaixas = funcionarioFaixas;
+       this.competencias = competencias;
        this.faixaSalarials = faixaSalarials;
     }
    
@@ -85,16 +85,6 @@ public class CargoNivel  implements java.io.Serializable {
     }
 
     
-    @Column(name="competencias", length=2000)
-    public String getCompetencias() {
-        return this.competencias;
-    }
-    
-    public void setCompetencias(String competencias) {
-        this.competencias = competencias;
-    }
-
-    
     @Column(name="experiencia")
     public Integer getExperiencia() {
         return this.experiencia;
@@ -111,6 +101,18 @@ public class CargoNivel  implements java.io.Serializable {
     
     public void setFuncionarioFaixas(Set<FuncionarioFaixa> funcionarioFaixas) {
         this.funcionarioFaixas = funcionarioFaixas;
+    }
+
+@ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name="competencia_has_cargo_nivel", schema="public", joinColumns = { 
+        @JoinColumn(name="cargo_nivel_id", nullable=false, updatable=false) }, inverseJoinColumns = { 
+        @JoinColumn(name="competencia_id", nullable=false, updatable=false) })
+    public Set<Competencia> getCompetencias() {
+        return this.competencias;
+    }
+    
+    public void setCompetencias(Set<Competencia> competencias) {
+        this.competencias = competencias;
     }
 
 @ManyToMany(fetch=FetchType.LAZY)

@@ -1,14 +1,12 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,7 +23,7 @@ import javax.persistence.TemporalType;
 public class Entrevista  implements java.io.Serializable {
 
 
-     private EntrevistaId id;
+     private int id;
      private Candidato candidato;
      private Pessoa pessoa;
      private Date dataProgramada;
@@ -40,7 +38,7 @@ public class Entrevista  implements java.io.Serializable {
     }
 
 	
-    public Entrevista(EntrevistaId id, Candidato candidato, Pessoa pessoa, Date dataProgramada, Date hora, boolean confirmado, String descricao) {
+    public Entrevista(int id, Candidato candidato, Pessoa pessoa, Date dataProgramada, Date hora, boolean confirmado, String descricao) {
         this.id = id;
         this.candidato = candidato;
         this.pessoa = pessoa;
@@ -49,7 +47,7 @@ public class Entrevista  implements java.io.Serializable {
         this.confirmado = confirmado;
         this.descricao = descricao;
     }
-    public Entrevista(EntrevistaId id, Candidato candidato, Pessoa pessoa, Date dataProgramada, Date hora, boolean confirmado, String descricao, String resposta, String localEntrevista, Character situacao) {
+    public Entrevista(int id, Candidato candidato, Pessoa pessoa, Date dataProgramada, Date hora, boolean confirmado, String descricao, String resposta, String localEntrevista, Character situacao) {
        this.id = id;
        this.candidato = candidato;
        this.pessoa = pessoa;
@@ -62,17 +60,15 @@ public class Entrevista  implements java.io.Serializable {
        this.situacao = situacao;
     }
    
-     @EmbeddedId
+     @Id 
 
     
-    @AttributeOverrides( {
-        @AttributeOverride(name="id", column=@Column(name="id", nullable=false) ), 
-        @AttributeOverride(name="pessoaId", column=@Column(name="pessoa_id", nullable=false) ) } )
-    public EntrevistaId getId() {
+    @Column(name="id", unique=true, nullable=false)
+    public int getId() {
         return this.id;
     }
     
-    public void setId(EntrevistaId id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -87,7 +83,7 @@ public class Entrevista  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="pessoa_id", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="pessoa_id", nullable=false)
     public Pessoa getPessoa() {
         return this.pessoa;
     }

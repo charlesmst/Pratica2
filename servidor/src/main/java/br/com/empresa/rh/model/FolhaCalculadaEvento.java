@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -27,17 +27,19 @@ public class FolhaCalculadaEvento  implements java.io.Serializable {
      private BigDecimal valor;
      private boolean visivel;
      private char tipo;
+     private int referencia;
 
     public FolhaCalculadaEvento() {
     }
 
-    public FolhaCalculadaEvento(int id, Evento evento, FolhaCalculada folhaCalculada, BigDecimal valor, boolean visivel, char tipo) {
+    public FolhaCalculadaEvento(int id, Evento evento, FolhaCalculada folhaCalculada, BigDecimal valor, boolean visivel, char tipo, int referencia) {
        this.id = id;
        this.evento = evento;
        this.folhaCalculada = folhaCalculada;
        this.valor = valor;
        this.visivel = visivel;
        this.tipo = tipo;
+       this.referencia = referencia;
     }
    
      @Id 
@@ -100,6 +102,16 @@ public class FolhaCalculadaEvento  implements java.io.Serializable {
     
     public void setTipo(char tipo) {
         this.tipo = tipo;
+    }
+
+    
+    @Column(name="referencia", nullable=false)
+    public int getReferencia() {
+        return this.referencia;
+    }
+    
+    public void setReferencia(int referencia) {
+        this.referencia = referencia;
     }
 
 

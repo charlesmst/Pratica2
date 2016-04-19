@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -27,7 +27,7 @@ public class Qualificacao  implements java.io.Serializable {
      private char certificado;
      private char validade;
      private String descricao;
-     private Set<QualificacoesHasFuncionario> qualificacoesHasFuncionarios = new HashSet<QualificacoesHasFuncionario>(0);
+     private Set<FuncionarioQualificacao> funcionarioQualificacaos = new HashSet<FuncionarioQualificacao>(0);
 
     public Qualificacao() {
     }
@@ -39,14 +39,14 @@ public class Qualificacao  implements java.io.Serializable {
         this.certificado = certificado;
         this.validade = validade;
     }
-    public Qualificacao(int id, String nome, Integer cargaHoraria, char certificado, char validade, String descricao, Set<QualificacoesHasFuncionario> qualificacoesHasFuncionarios) {
+    public Qualificacao(int id, String nome, Integer cargaHoraria, char certificado, char validade, String descricao, Set<FuncionarioQualificacao> funcionarioQualificacaos) {
        this.id = id;
        this.nome = nome;
        this.cargaHoraria = cargaHoraria;
        this.certificado = certificado;
        this.validade = validade;
        this.descricao = descricao;
-       this.qualificacoesHasFuncionarios = qualificacoesHasFuncionarios;
+       this.funcionarioQualificacaos = funcionarioQualificacaos;
     }
    
      @Id 
@@ -112,12 +112,12 @@ public class Qualificacao  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="qualificacao")
-    public Set<QualificacoesHasFuncionario> getQualificacoesHasFuncionarios() {
-        return this.qualificacoesHasFuncionarios;
+    public Set<FuncionarioQualificacao> getFuncionarioQualificacaos() {
+        return this.funcionarioQualificacaos;
     }
     
-    public void setQualificacoesHasFuncionarios(Set<QualificacoesHasFuncionario> qualificacoesHasFuncionarios) {
-        this.qualificacoesHasFuncionarios = qualificacoesHasFuncionarios;
+    public void setFuncionarioQualificacaos(Set<FuncionarioQualificacao> funcionarioQualificacaos) {
+        this.funcionarioQualificacaos = funcionarioQualificacaos;
     }
 
 

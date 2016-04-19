@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -34,7 +34,6 @@ public class Funcionario  implements java.io.Serializable {
      private VinculoEmpregaticio vinculoEmpregaticio;
      private String conta;
      private int agencia;
-     private Set<QualificacoesHasFuncionario> qualificacoesHasFuncionarios = new HashSet<QualificacoesHasFuncionario>(0);
      private Set<Dependente> dependentes = new HashSet<Dependente>(0);
      private Set<FuncionarioCargo> funcionarioCargos = new HashSet<FuncionarioCargo>(0);
 
@@ -49,13 +48,12 @@ public class Funcionario  implements java.io.Serializable {
         this.conta = conta;
         this.agencia = agencia;
     }
-    public Funcionario(Banco banco, Pessoa pessoa, VinculoEmpregaticio vinculoEmpregaticio, String conta, int agencia, Set<QualificacoesHasFuncionario> qualificacoesHasFuncionarios, Set<Dependente> dependentes, Set<FuncionarioCargo> funcionarioCargos) {
+    public Funcionario(Banco banco, Pessoa pessoa, VinculoEmpregaticio vinculoEmpregaticio, String conta, int agencia, Set<Dependente> dependentes, Set<FuncionarioCargo> funcionarioCargos) {
        this.banco = banco;
        this.pessoa = pessoa;
        this.vinculoEmpregaticio = vinculoEmpregaticio;
        this.conta = conta;
        this.agencia = agencia;
-       this.qualificacoesHasFuncionarios = qualificacoesHasFuncionarios;
        this.dependentes = dependentes;
        this.funcionarioCargos = funcionarioCargos;
     }
@@ -119,15 +117,6 @@ public class Funcionario  implements java.io.Serializable {
     
     public void setAgencia(int agencia) {
         this.agencia = agencia;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="funcionario")
-    public Set<QualificacoesHasFuncionario> getQualificacoesHasFuncionarios() {
-        return this.qualificacoesHasFuncionarios;
-    }
-    
-    public void setQualificacoesHasFuncionarios(Set<QualificacoesHasFuncionario> qualificacoesHasFuncionarios) {
-        this.qualificacoesHasFuncionarios = qualificacoesHasFuncionarios;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="funcionario")

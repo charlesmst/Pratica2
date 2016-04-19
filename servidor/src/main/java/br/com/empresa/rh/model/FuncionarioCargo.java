@@ -1,5 +1,5 @@
 package br.com.empresa.rh.model;
-// Generated 17/04/2016 21:10:50 by Hibernate Tools 4.3.1
+// Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -42,6 +42,7 @@ public class FuncionarioCargo  implements java.io.Serializable {
      private Set<FuncionarioAcidente> funcionarioAcidentes = new HashSet<FuncionarioAcidente>(0);
      private Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas = new HashSet<FuncionarioCargoHasMotivoFalta>(0);
      private Set<FuncionarioFaixa> funcionarioFaixas = new HashSet<FuncionarioFaixa>(0);
+     private Set<FuncionarioQualificacao> funcionarioQualificacaos = new HashSet<FuncionarioQualificacao>(0);
      private Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos = new HashSet<SindicatoHasFuncionarioCargo>(0);
      private Set<Ferias> feriases = new HashSet<Ferias>(0);
 
@@ -58,7 +59,7 @@ public class FuncionarioCargo  implements java.io.Serializable {
         this.dataEntrada = dataEntrada;
         this.ativo = ativo;
     }
-    public FuncionarioCargo(int id, Cargo cargo, DemissaoTipo demissaoTipo, Funcionario funcionario, Sindicato sindicato, Unidade unidade, Date dataEntrada, Date dataSaida, boolean ativo, Set<FuncionarioCargoHasAdvertenciaTipo> funcionarioCargoHasAdvertenciaTipos, Set<EventoMensal> eventoMensals, Set<EventoFuncionario> eventoFuncionarios, Set<FolhaCalculada> folhaCalculadas, Set<FuncionarioAcidente> funcionarioAcidentes, Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas, Set<FuncionarioFaixa> funcionarioFaixas, Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos, Set<Ferias> feriases) {
+    public FuncionarioCargo(int id, Cargo cargo, DemissaoTipo demissaoTipo, Funcionario funcionario, Sindicato sindicato, Unidade unidade, Date dataEntrada, Date dataSaida, boolean ativo, Set<FuncionarioCargoHasAdvertenciaTipo> funcionarioCargoHasAdvertenciaTipos, Set<EventoMensal> eventoMensals, Set<EventoFuncionario> eventoFuncionarios, Set<FolhaCalculada> folhaCalculadas, Set<FuncionarioAcidente> funcionarioAcidentes, Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas, Set<FuncionarioFaixa> funcionarioFaixas, Set<FuncionarioQualificacao> funcionarioQualificacaos, Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos, Set<Ferias> feriases) {
        this.id = id;
        this.cargo = cargo;
        this.demissaoTipo = demissaoTipo;
@@ -75,6 +76,7 @@ public class FuncionarioCargo  implements java.io.Serializable {
        this.funcionarioAcidentes = funcionarioAcidentes;
        this.funcionarioCargoHasMotivoFaltas = funcionarioCargoHasMotivoFaltas;
        this.funcionarioFaixas = funcionarioFaixas;
+       this.funcionarioQualificacaos = funcionarioQualificacaos;
        this.sindicatoHasFuncionarioCargos = sindicatoHasFuncionarioCargos;
        this.feriases = feriases;
     }
@@ -232,6 +234,15 @@ public class FuncionarioCargo  implements java.io.Serializable {
     
     public void setFuncionarioFaixas(Set<FuncionarioFaixa> funcionarioFaixas) {
         this.funcionarioFaixas = funcionarioFaixas;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="funcionarioCargo")
+    public Set<FuncionarioQualificacao> getFuncionarioQualificacaos() {
+        return this.funcionarioQualificacaos;
+    }
+    
+    public void setFuncionarioQualificacaos(Set<FuncionarioQualificacao> funcionarioQualificacaos) {
+        this.funcionarioQualificacaos = funcionarioQualificacaos;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="funcionarioCargo")
