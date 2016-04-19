@@ -1,0 +1,20 @@
+{
+    "inicial": "login",
+    "menus": [
+        {
+            "title":"Site",
+            "links": [
+                {
+                    "link": "vagas",
+                    "title": "Vagas em aberto",
+                    "icon": "dashboard"
+                },
+                {
+                    "link": "login",
+                    "title": "Login",
+                    "icon": "dashboard"
+                }
+            ]
+        }
+    ]
+}

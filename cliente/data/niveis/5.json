@@ -1,0 +1,31 @@
+{
+    "inicial": "menu",
+    "menus": [
+        {
+            "title":"Administrador",
+            "links": [
+                {
+                    "link": "menu",
+                    "title": "Menus",
+                    "icon": "dashboard"
+                },
+                {
+                    "link": "evento",
+                    "title": "Eventos da folha",
+                    "icon": "dashboard"
+                }
+            ]
+        },
+        {
+            "title":"Ficha funcional",
+            "links": [
+                
+                {
+                    "link": "cbo",
+                    "title": "Cbos",
+                    "icon": "nivel"
+                }
+            ]
+        }
+    ]
+}

@@ -1,5 +1,6 @@
 <html lang="en" ng-app="app">
     <head>
+        <meta charset="utf-8"/>
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.layouts.min.css">
         <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
@@ -111,6 +112,13 @@
     <script src="app/cargo/app.route.js"></script>
     <script src="app/ficha/app.route.js"></script>
 
+    
+    <!-- cbo -->
+    <script src="app/services/cbo.service.js"></script>
+    <script src="app/cargo/cbo.controller.js"></script>   
+    <script src="app/cargo/cbo.edit.controller.js"></script>   
+    <!-- /cbo -->
+    
 
     <script src="app/services/authorization.service.js"></script>   
     <script src="app/services/api.interceptor.service.js"></script>   
@@ -118,6 +126,12 @@
     <script src="app/services/nivel.service.js"></script>
 
 
+    <!-- evento -->
+    <script src="app/services/evento.service.js"></script>
+    <script src="app/folha/evento.controller.js"></script>   
+    <script src="app/folha/evento.edit.controller.js"></script>   
+    <!-- /evento -->
+    
     <script src="app/application/menu.controller.js"></script>   
     <script src="app/application/menu.edit.controller.js"></script>   
     <script src="app/application/login.controller.js"></script>   

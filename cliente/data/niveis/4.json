@@ -1,0 +1,15 @@
+{
+    "inicial": "menu",
+    "menus": [
+        {
+            "title":"RH",
+            "links": [
+                {
+                    "link": "menu",
+                    "title": "Menus",
+                    "icon": "dashboard"
+                }
+            ]
+        }
+    ]
+}

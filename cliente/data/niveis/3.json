@@ -1,0 +1,15 @@
+{
+    "inicial": "menu",
+    "menus": [
+        {
+            "title":"Gestor",
+            "links": [
+                {
+                    "link": "menu",
+                    "title": "Menus",
+                    "icon": "dashboard"
+                }
+            ]
+        }
+    ]
+}

@@ -2,21 +2,36 @@
     angular.module('app').config(["$stateProvider", "$urlRouterProvider", config]);
 
     function config($stateProvider, $urlRouterProvider) {
-//        $stateProvider
-//                .state('start', {
-//                    url: '/',
-//                    views: {
-//                        "": {
-//                            templateUrl: 'app/sample/activity.tmpl.html',
-//                            controller: "ActivityController",
-//                            controllerAs: "activityVm",
-//                        },
-//                        "top": {
-//                            templateUrl: 'app/sample/activity.top.tmpl.html'
-//                        }
-//                    }
-//
-//                })
-                
+        $stateProvider
+                .state('evento', {
+                    url: '/evento',
+                    views: {
+                        "": {
+                            templateUrl: 'app/folha/evento.tmpl.html',
+                            controller: "EventoController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('eventoadd', {
+                    url: '/evento/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/folha/evento.edit.tmpl.html',
+                            controller: "EventoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('eventoedit', {
+                    url: '/evento/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/folha/evento.edit.tmpl.html',
+                            controller: "EventoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
     }
 })()
