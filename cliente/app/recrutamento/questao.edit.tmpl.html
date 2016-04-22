@@ -1,0 +1,50 @@
+<form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
+
+    <div class="md-fab-bottom-right app-fixed-bottom-right">
+
+        <button type="submit" class="md-button md-fab"  aria-label="save" >
+            <ng-md-icon icon="save"></ng-md-icon>
+        </button>
+
+        <md-button class="md-fab "  aria-label="Delete" ng-click="crudVm.cancel($event)" >
+            <ng-md-icon icon="cancel"></ng-md-icon>
+        </md-button>
+    </div>
+
+
+    <md-card >
+
+
+        <md-card-content>
+            <h2>Questão</h2>
+            <md-content>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Descrição</label>
+                    <input  name="descricao" ng-model="crudVm.entity.nome" md-maxlength="255" required>
+                    <div ng-messages="formEdit.descricao.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Tipo</label>
+                    <input  name="tipo" ng-model="crudVm.entity.tipo" md-maxlength="1" required>
+                    <div ng-messages="formEdit.tipo.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Visibilidade</label>
+                    <md-checkbox name="visivelCandidato" ng-model="crudVm.entity.visivelCandidato" aria-label="Visivel">
+                    
+                    </md-checkbox>
+
+                </md-input-container>
+
+            </md-content>
+
+        </md-card-content>
+    </md-card>
+</form>

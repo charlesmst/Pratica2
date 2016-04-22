@@ -2,7 +2,7 @@
     angular.module('app').config(["$stateProvider", "$urlRouterProvider", config]);
 
     function config($stateProvider, $urlRouterProvider) {
-//        $stateProvider
+        $stateProvider
 //                .state('start', {
 //                    url: '/',
 //                    views: {
@@ -17,6 +17,35 @@
 //                    }
 //
 //                })
-                
+                .state('questao', {
+                    url: '/questao',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/questao.tmpl.html',
+                            controller: "QuestaoController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('questaoadd', {
+                    url: '/questao/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/questao.edit.tmpl.html',
+                            controller: "QuestaoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('questaoedit', {
+                    url: '/questao/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/questao.edit.tmpl.html',
+                            controller: "QuestaoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
     }
 })()
