@@ -1,0 +1,57 @@
+INSERT INTO escolaridade VALUES (1, 'ENSINO FUNDAMENTAL INCOMPLETO');
+INSERT INTO escolaridade VALUES (2, 'ENSINO FUNDAMENTAL');
+INSERT INTO escolaridade VALUES (3, 'ENSINO MEDIO INCOMPLETO');
+INSERT INTO escolaridade VALUES (4, 'ENSINO MEDIO');
+INSERT INTO escolaridade VALUES (5, 'ENSINO SUPERIOR INCOMPLETO');
+INSERT INTO escolaridade VALUES (6, 'ENSINO SUPERIOR');
+INSERT INTO escolaridade VALUES (7, 'ESPECIALIZAÇÃO INCOMPLETA');
+INSERT INTO escolaridade VALUES (8, 'ESPECIALIZAÇÃO');
+INSERT INTO escolaridade VALUES (9, 'MESTRADO INCOMPLETO');
+INSERT INTO escolaridade VALUES (10, 'MESTRADO');
+INSERT INTO escolaridade VALUES (11, 'DOUTORADO INCOMPLETO');
+INSERT INTO escolaridade VALUES (12, 'DOUTORADO');
+INSERT INTO escolaridade VALUES (13, 'PÓS DOUTRORADO');
+INSERT INTO escolaridade VALUES (14, 'NÃO ALFABETIZADO');
+INSERT INTO escolaridade VALUES (99, 'SEM INFORMAÇÃO');
+
+
+INSERT INTO  necessidade_especial VALUES (1, 'CADEIRANTE');
+INSERT INTO  necessidade_especial VALUES (2, 'NECESSIDADE ESPECIAL - VISUAL');
+INSERT INTO  necessidade_especial VALUES (3, 'NECESSIDADE ESPECIAL - AUDITIVO');
+
+
+INSERT INTO estado_civil  VALUES (1, 'SOLTEIRO (A)');
+INSERT INTO estado_civil  VALUES (2, 'CASADO (A)');
+INSERT INTO estado_civil  VALUES (3, 'OUTROS');
+INSERT INTO estado_civil  VALUES (4, 'MARITAL');
+INSERT INTO estado_civil  VALUES (5, 'VIÚVO (A)');
+INSERT INTO estado_civil  VALUES (6, 'DIVORCIADO (A)');
+INSERT INTO estado_civil  VALUES (7, 'DESQUITADO (A)');
+INSERT INTO estado_civil  VALUES (8, 'CONVIVENTE');
+INSERT INTO estado_civil  VALUES (9, 'UNIAO ESTAVEL');
+
+
+insert into cargo values (1,	'317110',	'PROGRAMADOR',	'PROGRAMACAO',
+
+insert into cargo_nivel values (1,1,'JUNIOR',0);
+
+insert into cargo_nivel values (2,1,'PLENO',2);
+
+insert into cargo_nivel values (3,1,'SENIOR',5);
+
+
+insert into faixa_salarial values(1, 'BASE');
+insert into faixa_salarial values(2, 'BASE + 2 ANOS');
+insert into faixa_salarial values(3, 'BASE + 5 ANOS');
+
+
+
+
+INSERT INTO faixa_salarial_valor (data_inicio, faixa_salarial_id, valor, carga_horaria) VALUES ('2000-01-01', 1, 1000.00, 220);
+INSERT INTO faixa_salarial_valor (data_inicio, faixa_salarial_id, valor, carga_horaria) VALUES ('2000-01-01', 2, 1800.00, 220);
+INSERT INTO faixa_salarial_valor (data_inicio, faixa_salarial_id, valor, carga_horaria) VALUES ('2000-01-01', 3, 3000.00, 220);
+
+
+
+
+
