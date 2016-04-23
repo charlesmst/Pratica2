@@ -34,10 +34,11 @@ public class TableRequest {
         }
         if (queryString.containsKey("order") && queryString.getFirst("order").matches("^\\w+$")) {
             //Verifica se é desc
-            request.setOrder( queryString.getFirst("order"));
+            request.setOrder(queryString.getFirst("order"));
         }
-        if (queryString.containsKey("direction") && queryString.getFirst("direction").matches("^\\d+$")) {
-            request.setDirection(Integer.parseInt(queryString.getFirst("direction")));
+        if (queryString.containsKey("order") && queryString.getFirst("order").startsWith("-")) {
+            request.setDirection(-1);
+            request.setOrder(queryString.getFirst("order").substring(1));
         } else {
             request.setDirection(1);
         }
@@ -115,7 +116,7 @@ public class TableRequest {
         if (order.startsWith("-")) {
             this.direction = -1;
             this.order = order.substring(1);
-        }else{
+        } else {
             this.order = order;
         }
     }

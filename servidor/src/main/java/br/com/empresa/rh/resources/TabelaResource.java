@@ -2,8 +2,8 @@ package br.com.empresa.rh.resources;
 
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
-import br.com.empresa.rh.service.TabelasService;
-import br.com.empresa.rh.model.Tabelas;
+import br.com.empresa.rh.service.TabelaService;
+import br.com.empresa.rh.model.Tabela;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.response.CountResponse;
 import java.util.List;
@@ -23,68 +23,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Path("/tabelas")
+@Path("/tabela")
 @RolesAllowed(NivelAcesso.FUNCIONARIO)
-public class TabelasResource {
+public class TabelaResource {
 
     @Autowired
-    private TabelasService TabelasService;
+    private TabelaService TabelaService;
 
     @Context
     protected UriInfo info;
 
-    public TabelasService getTabelasService() {
-        return TabelasService;
+    public TabelaService getTabelaService() {
+        return TabelaService;
     }
 
-    public void setTabelasService(TabelasService marcaService) {
-        this.TabelasService = marcaService;
+    public void setTabelaService(TabelaService marcaService) {
+        this.TabelaService = marcaService;
     }
 
-    public TabelasResource() {
+    public TabelaResource() {
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(TabelasService.count());
+        return new CountResponse(TabelaService.count());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<Tabelas> m = TabelasService.findForTable(request);
+        List<Tabela> m = TabelaService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Tabelas findById(@PathParam("id") long id) {
-        Tabelas m = TabelasService.findById(id);
+    public Tabela findById(@PathParam("id") long id) {
+        Tabela m = TabelaService.findById(id);
         return m;
     }
 
     @GET
     @Path("nivel/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Tabelas> findByNivel(@PathParam("id") long id) {
-        return TabelasService.findAll();
+    public List<Tabela> findByNivel(@PathParam("id") long id) {
+        return TabelaService.findAll();
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public void insert(Tabelas m) {
-        TabelasService.insert(m);
+    public void insert(Tabela m) {
+        TabelaService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, Tabelas entity) {
-        TabelasService.update(entity);
+    public void update(@PathParam("id") long id, Tabela entity) {
+        TabelaService.update(entity);
 		
     }
 
@@ -92,7 +92,7 @@ public class TabelasResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") long id) {
-        TabelasService.delete(id);
+        TabelaService.delete(id);
     }
 
 }

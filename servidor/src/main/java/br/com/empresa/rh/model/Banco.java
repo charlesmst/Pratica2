@@ -23,7 +23,7 @@ public class Banco  implements java.io.Serializable {
 
      private int id;
      private String nome;
-     private Integer numero;
+     private String numero;
      private Set<Funcionario> funcionarios = new HashSet<Funcionario>(0);
 
     public Banco() {
@@ -34,7 +34,7 @@ public class Banco  implements java.io.Serializable {
         this.id = id;
         this.nome = nome;
     }
-    public Banco(int id, String nome, Integer numero, Set<Funcionario> funcionarios) {
+    public Banco(int id, String nome, String numero, Set<Funcionario> funcionarios) {
        this.id = id;
        this.nome = nome;
        this.numero = numero;
@@ -65,11 +65,11 @@ public class Banco  implements java.io.Serializable {
 
     
     @Column(name="numero")
-    public Integer getNumero() {
+    public String getNumero() {
         return this.numero;
     }
     
-    public void setNumero(Integer numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
