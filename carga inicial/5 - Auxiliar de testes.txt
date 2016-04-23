@@ -30,8 +30,9 @@ INSERT INTO estado_civil  VALUES (7, 'DESQUITADO (A)');
 INSERT INTO estado_civil  VALUES (8, 'CONVIVENTE');
 INSERT INTO estado_civil  VALUES (9, 'UNIAO ESTAVEL');
 
+INSERT INTO vinculo_empregaticio VALUES (1,'CLT');
 
-insert into cargo values (1,	'317110',	'PROGRAMADOR',	'PROGRAMACAO',
+insert into cargo values (1,	'317110',	'PROGRAMADOR',	'PROGRAMACAO');
 
 insert into cargo_nivel values (1,1,'JUNIOR',0);
 
@@ -53,5 +54,27 @@ INSERT INTO faixa_salarial_valor (data_inicio, faixa_salarial_id, valor, carga_h
 
 
 
+INSERT INTO cor values (1,'BRANCO');
+INSERT INTO cor values (2,'AMARELO');
+INSERT INTO cor values (3,'NEGRO');
+INSERT INTO cor values (4,'PARDO');
 
+
+
+INSERT INTO sindicato(id,nome,desconto,valor_mensal) VALUES (1,'SINDICATO 1','0.5','0.5');
+
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, sexo, endereco, email, rg, data_nascimento) VALUES (1, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'pessoa 1', 'M', 'sdads', 'teste@gmail.com', '4115781892', NULL);
+INSERT INTO funcionario(pessoa_id,vinculo_empregaticio_id,banco_id,conta,agencia) VALUES (1,1,1,'123','123');
+
+
+
+INSERT INTO empresa (id, cidade_id, nome, cnpj, nome_fantasia, razao_social, data_fundacao, endereco, bairro, telefone, logo, email) VALUES (1, 1, 'EMPRESA 1', '1111', 'EMPRESA ACB', '213123', '2000-10-10', 'ENDERECO 1', 'AAA', '(55) 5555-5555', NULL, 'empresa1@gmail.com');
+
+INSERT INTO unidade (id, empresa_id, nome) VALUES (1, 1, 'UNIDADE 1');
+
+
+INSERT INTO funcionario_cargo (id, sindicato_id, unidade_id, demissao_tipo_id, funcionario_pessoa_id, cargo_id, data_entrada, data_saida, ativo) VALUES (1, 1, 1, NULL, 1, 1, '2000-10-10', NULL, true);
+
+
+INSERT INTO funcionario_faixa (id, cargo_nivel_id, faixa_salarial_id, funcionario_cargo_id, data_inicio) VALUES (1, 1, 1, 1, '2000-10-10');
 
