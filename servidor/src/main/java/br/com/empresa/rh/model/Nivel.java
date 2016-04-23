@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author charles
  */
-@Entity
-@SequenceGenerator(name = "nivel_seq", sequenceName = "nivel_seq", initialValue = 1, allocationSize = 1)
-@XmlRootElement
+//@Entity
+//@SequenceGenerator(name = "nivel_seq", sequenceName = "nivel_seq", initialValue = 1, allocationSize = 1)
+//@XmlRootElement
 public class Nivel {
     
     @Id

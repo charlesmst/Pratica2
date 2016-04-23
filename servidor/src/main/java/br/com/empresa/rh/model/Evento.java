@@ -23,7 +23,7 @@ import javax.persistence.Table;
 
 public class Evento implements java.io.Serializable {
 
-    private long id;
+    private int id;
     private String nome;
     private boolean visivelFolha;
     private int tipo;
@@ -37,7 +37,7 @@ public class Evento implements java.io.Serializable {
     public Evento() {
     }
 
-    public Evento(long id, String nome, boolean visivelFolha, int tipo, String script, boolean padrao) {
+    public Evento(int id, String nome, boolean visivelFolha, int tipo, String script, boolean padrao) {
         this.id = id;
         this.nome = nome;
         this.visivelFolha = visivelFolha;
@@ -46,7 +46,7 @@ public class Evento implements java.io.Serializable {
         this.padrao = padrao;
     }
 
-    public Evento(long id, String nome, boolean visivelFolha, int tipo, String script, boolean padrao, Set<EventoFuncionario> eventoFuncionarios, Set<EventoMensal> eventoMensals, Set<CargoHasEvento> cargoHasEventos, Set<FolhaCalculadaEvento> folhaCalculadaEventos) {
+    public Evento(int id, String nome, boolean visivelFolha, int tipo, String script, boolean padrao, Set<EventoFuncionario> eventoFuncionarios, Set<EventoMensal> eventoMensals, Set<CargoHasEvento> cargoHasEventos, Set<FolhaCalculadaEvento> folhaCalculadaEventos) {
         this.id = id;
         this.nome = nome;
         this.visivelFolha = visivelFolha;
@@ -64,11 +64,11 @@ public class Evento implements java.io.Serializable {
     @GeneratedValue(generator = "evento_seq", strategy = GenerationType.SEQUENCE)
 
     @Column(name = "id", unique = true, nullable = false)
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

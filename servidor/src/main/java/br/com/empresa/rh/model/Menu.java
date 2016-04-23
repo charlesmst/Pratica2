@@ -15,9 +15,9 @@ import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@Entity
-@SequenceGenerator(name = "menu_seq", sequenceName = "menu_seq", initialValue = 1, allocationSize = 1)
-@XmlRootElement
+//@Entity
+//@SequenceGenerator(name = "menu_seq", sequenceName = "menu_seq", initialValue = 1, allocationSize = 1)
+//@XmlRootElement
 public class Menu implements Serializable {
 
     @Id

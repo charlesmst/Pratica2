@@ -20,7 +20,6 @@ import javax.persistence.Table;
 )
 public class Estado  implements java.io.Serializable {
 
-
      private String uf;
      private String nome;
      private Set<Cidade> cidades = new HashSet<Cidade>(0);
@@ -42,7 +41,7 @@ public class Estado  implements java.io.Serializable {
      @Id 
 
     
-    @Column(name="uf", unique=true, nullable=false, length=2)
+    @Column(name="uf", unique=true, nullable=false, length=2,columnDefinition = "bpchar(2)")
     public String getUf() {
         return this.uf;
     }

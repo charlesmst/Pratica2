@@ -61,8 +61,7 @@ public class Sindicato  implements java.io.Serializable {
         this.id = id;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="nome", nullable=false, length=13)
+    @Column(name="nome", nullable=false, length=100)
     public String getNome() {
         return this.nome;
     }
