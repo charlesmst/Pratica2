@@ -20,6 +20,11 @@
                             templateUrl: 'app/folha/evento.edit.tmpl.html',
                             controller: "EventoEditController",
                             controllerAs: "crudVm",
+                        },
+                        "top": {
+                            templateUrl: 'app/folha/evento.edit.top.tmpl.html',
+                            controller: "TopController",
+                            controllerAs: "topVm",
                         }
                     }
                 })
@@ -30,6 +35,11 @@
                             templateUrl: 'app/folha/evento.edit.tmpl.html',
                             controller: "EventoEditController",
                             controllerAs: "crudVm",
+                        },
+                        "top": {
+                            templateUrl: 'app/folha/evento.edit.top.tmpl.html',
+                            controller: "TopController",
+                            controllerAs: "topVm",
                         }
                     }
                 })

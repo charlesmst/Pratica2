@@ -4,6 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/components/list-bottom-sheet.tmpl.html</file>
+            <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/folha/evento.edit.top.tmpl.html</file>
+            <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/sample/activity.top.tmpl.html</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/data/niveis/4.json</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/app.module.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/cargo/cbo.controller.js</file>
@@ -33,16 +35,19 @@
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/app.config.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/application/menu.edit.tmpl.html</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/services/authorization.service.js</file>
+            <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/application/top.controller.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/services/menu.service.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/application/login.controller.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/services/evento.service.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/cargo/cbo.tmpl.html</file>
+            <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/bower_components/angular-ui-ace/ui-ace.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/data/niveis/2.json</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/application/app.controller.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/assets/css/style.css</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/application/menu.edit.controller.js</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/data/niveis/5.json</file>
             <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/folha/evento.controller.js</file>
+            <file>file:/D:/Projetos/pratica%20rh/trunk/cliente/app/services/shared.service.js</file>
         </group>
     </open-files>
 </project-private>

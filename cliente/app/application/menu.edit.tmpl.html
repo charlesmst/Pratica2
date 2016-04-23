@@ -60,6 +60,17 @@
                         </span>
                     </md-chip-template>
                 </md-chips>
+
+                <md-autocomplete
+                    md-selected-item="crudVm.entity.nivel"
+                    md-search-text="crudVm.searchText"
+                    md-items="item in crudVm.querySearch(crudVm.searchText)"
+                    md-item-text="item.nome"
+                    md-min-length="0"
+                    placeholder="Niveis">
+                    <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
+                </md-autocomplete>
+                {{crudVm.entity}}
             </md-content>
 
         </md-card-content>
