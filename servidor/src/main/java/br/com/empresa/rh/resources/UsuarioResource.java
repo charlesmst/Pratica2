@@ -1,8 +1,9 @@
 package br.com.empresa.rh.resources;
 
+
 import br.com.empresa.rh.filter.secure.NivelAcesso;
-import br.com.empresa.rh.service.QuestaoService;
-import br.com.empresa.rh.model.Questao;
+import br.com.empresa.rh.service.UsuarioService;
+import br.com.empresa.rh.model.Usuario;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.response.CountResponse;
 import java.util.List;
@@ -22,68 +23,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Path("/questao")
-@RolesAllowed(NivelAcesso.FUNCIONARIO)
-public class QuestaoResource {
+@Path("/usuario")
+@RolesAllowed(NivelAcesso.CANDIDATO)
+public class UsuarioResource {
 
     @Autowired
-    private QuestaoService questaoService;
+    private UsuarioService usuarioService;
 
     @Context
     protected UriInfo info;
 
-    public QuestaoService getQuestaoService() {
-        return questaoService;
+    public UsuarioService getUsuarioService() {
+        return usuarioService;
     }
 
-    public void setQuestaoService(QuestaoService marcaService) {
-        this.questaoService = marcaService;
+    public void setUsuarioService(UsuarioService marcaService) {
+        this.usuarioService = marcaService;
     }
 
-    public QuestaoResource() {
+    public UsuarioResource() {
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(questaoService.count());
+        return new CountResponse(usuarioService.count());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<Questao> m = questaoService.findForTable(request);
+        List<Usuario> m = usuarioService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Questao findById(@PathParam("id") long id) {
-        Questao m = questaoService.findById(id);
+    public Usuario findById(@PathParam("id") long id) {
+        Usuario m = usuarioService.findById(id);
         return m;
     }
 
     @GET
     @Path("nivel/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Questao> findByNivel(@PathParam("id") long id) {
-        return questaoService.findAll();
+    public List<Usuario> findByNivel(@PathParam("id") long id) {
+        return usuarioService.findAll();
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public void insert(Questao m) {
-        questaoService.insert(m);
+    public void insert(Usuario m) {
+        usuarioService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, Questao entity) {
-        questaoService.update(entity);
+    public void update(@PathParam("id") long id, Usuario entity) {
+        usuarioService.update(entity);
 		
     }
 
@@ -91,7 +92,7 @@ public class QuestaoResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") long id) {
-        questaoService.delete(id);
+        usuarioService.delete(id);
     }
 
 }
