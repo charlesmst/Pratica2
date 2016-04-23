@@ -2,6 +2,7 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -35,7 +36,7 @@ public class Pessoa  implements java.io.Serializable {
      private Pessoa pessoaByMaeId;
      private String cpf;
      private String nome;
-     private Integer dataNascimento;
+     private Date dataNascimento;
      private char sexo;
      private String endereco;
      private String email;
@@ -63,7 +64,7 @@ public class Pessoa  implements java.io.Serializable {
         this.nome = nome;
         this.sexo = sexo;
     }
-    public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Integer dataNascimento, char sexo, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, PessoaCarteira pessoaCarteira, Set<CurriculoExperiencia> curriculoExperiencias) {
+    public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Date dataNascimento, char sexo, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, PessoaCarteira pessoaCarteira, Set<CurriculoExperiencia> curriculoExperiencias) {
        this.id = id;
        this.cidade = cidade;
        this.cor = cor;
@@ -185,11 +186,11 @@ public class Pessoa  implements java.io.Serializable {
 
     
     @Column(name="data_nascimento")
-    public Integer getDataNascimento() {
+    public Date getDataNascimento() {
         return this.dataNascimento;
     }
     
-    public void setDataNascimento(Integer dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

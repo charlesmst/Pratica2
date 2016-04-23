@@ -26,7 +26,7 @@ public class Sindicato  implements java.io.Serializable {
 
 
      private int id;
-     private Date nome;
+     private String nome;
      private BigDecimal desconto;
      private BigDecimal valorMensal;
      private Set<FuncionarioCargo> funcionarioCargos = new HashSet<FuncionarioCargo>(0);
@@ -36,11 +36,11 @@ public class Sindicato  implements java.io.Serializable {
     }
 
 	
-    public Sindicato(int id, Date nome) {
+    public Sindicato(int id, String nome) {
         this.id = id;
         this.nome = nome;
     }
-    public Sindicato(int id, Date nome, BigDecimal desconto, BigDecimal valorMensal, Set<FuncionarioCargo> funcionarioCargos, Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos) {
+    public Sindicato(int id, String nome, BigDecimal desconto, BigDecimal valorMensal, Set<FuncionarioCargo> funcionarioCargos, Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos) {
        this.id = id;
        this.nome = nome;
        this.desconto = desconto;
@@ -63,11 +63,11 @@ public class Sindicato  implements java.io.Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name="nome", nullable=false, length=13)
-    public Date getNome() {
+    public String getNome() {
         return this.nome;
     }
     
-    public void setNome(Date nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 

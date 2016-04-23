@@ -2,6 +2,7 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,12 +25,12 @@ public class FuncionarioFaixa  implements java.io.Serializable {
      private CargoNivel cargoNivel;
      private FaixaSalarial faixaSalarial;
      private FuncionarioCargo funcionarioCargo;
-     private int dataInicio;
+     private Date dataInicio;
 
     public FuncionarioFaixa() {
     }
 
-    public FuncionarioFaixa(int id, CargoNivel cargoNivel, FaixaSalarial faixaSalarial, FuncionarioCargo funcionarioCargo, int dataInicio) {
+    public FuncionarioFaixa(int id, CargoNivel cargoNivel, FaixaSalarial faixaSalarial, FuncionarioCargo funcionarioCargo, Date dataInicio) {
        this.id = id;
        this.cargoNivel = cargoNivel;
        this.faixaSalarial = faixaSalarial;
@@ -81,11 +82,11 @@ public class FuncionarioFaixa  implements java.io.Serializable {
 
     
     @Column(name="data_inicio", nullable=false)
-    public int getDataInicio() {
+    public Date getDataInicio() {
         return this.dataInicio;
     }
     
-    public void setDataInicio(int dataInicio) {
+    public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
     }
 
