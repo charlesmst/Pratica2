@@ -27,26 +27,23 @@ public class Dependente implements java.io.Serializable {
     private int id;
     private Funcionario funcionario;
     private Pessoa pessoa;
-    private TipoSanguineo tipoSanguineo;
     private Date dataInicial;
     private Date dataFim;
 
     public Dependente() {
     }
 
-    public Dependente(int id, Funcionario funcionario, Pessoa pessoa, TipoSanguineo tipoSanguineo, Date dataInicial) {
+    public Dependente(int id, Funcionario funcionario, Pessoa pessoa,Date dataInicial) {
         this.id = id;
         this.funcionario = funcionario;
         this.pessoa = pessoa;
-        this.tipoSanguineo = tipoSanguineo;
         this.dataInicial = dataInicial;
     }
 
-    public Dependente(int id, Funcionario funcionario, Pessoa pessoa, TipoSanguineo tipoSanguineo, Date dataInicial, Date dataFim) {
+    public Dependente(int id, Funcionario funcionario, Pessoa pessoa,  Date dataInicial, Date dataFim) {
         this.id = id;
         this.funcionario = funcionario;
         this.pessoa = pessoa;
-        this.tipoSanguineo = tipoSanguineo;
         this.dataInicial = dataInicial;
         this.dataFim = dataFim;
     }
@@ -83,15 +80,6 @@ public class Dependente implements java.io.Serializable {
         this.pessoa = pessoa;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipo_sanguineo_id", nullable = false)
-    public TipoSanguineo getTipoSanguineo() {
-        return this.tipoSanguineo;
-    }
-
-    public void setTipoSanguineo(TipoSanguineo tipoSanguineo) {
-        this.tipoSanguineo = tipoSanguineo;
-    }
 
     @Temporal(TemporalType.DATE)
     @Column(name = "data_inicial", nullable = false, length = 13)

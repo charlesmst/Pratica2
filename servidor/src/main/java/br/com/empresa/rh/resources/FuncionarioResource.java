@@ -62,17 +62,11 @@ public class FuncionarioResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Funcionario findById(@PathParam("id") long id) {
+    public Funcionario findById(@PathParam("id") int id) {
         Funcionario m = funcionarioService.findById(id);
         return m;
     }
 
-    @GET
-    @Path("nivel/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Funcionario> findByNivel(@PathParam("id") long id) {
-        return funcionarioService.findAll();
-    }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
@@ -83,7 +77,7 @@ public class FuncionarioResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, Funcionario entity) {
+    public void update(@PathParam("id") int id, Funcionario entity) {
         funcionarioService.update(entity);
 		
     }
@@ -91,7 +85,7 @@ public class FuncionarioResource {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("id") long id) {
+    public void delete(@PathParam("id") int id) {
         funcionarioService.delete(id);
     }
 

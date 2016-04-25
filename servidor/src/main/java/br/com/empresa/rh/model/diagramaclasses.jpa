@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings status="GENERATED" jaxb-support="false" id="_14614310524921" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="AdvertenciaTipo" visibile="true" minimized="false" id="_14614310525854">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_14614310525925">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_14614310525966">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_14614310525977">
+                <jpa:column name="descricao" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-many name="funcionarioCargoHasAdvertenciaTipos" target-entity="FuncionarioCargoHasAdvertenciaTipo" fetch="LAZY" mapped-by="advertenciaTipo" collection-type="java.util.Set" connected-entity-id="_1461431053872225" connected-attribute-id="_1461431053872227" visibile="true" id="_14614310525978"/>
+        </jpa:attributes>
+        <jpa:table name="advertencia_tipo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Auditoria" visibile="true" minimized="false" id="_14614310526859">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105268510">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="acao" attribute-type="String" visibile="true" id="_146143105268612">
+                <jpa:column name="acao" nullable="false" length="1000"/>
+            </jpa:basic>
+            <jpa:basic name="modulo" attribute-type="String" visibile="true" id="_146143105268613">
+                <jpa:column name="modulo" nullable="false" length="30"/>
+            </jpa:basic>
+            <jpa:basic name="dado" attribute-type="String" visibile="true" id="_146143105268614">
+                <jpa:column name="dado" length="1000"/>
+            </jpa:basic>
+            <jpa:many-to-one name="usuario" target-entity="Usuario" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054658378" connected-attribute-id="_1461431054659385" visibile="true" id="_146143105268511">
+                <jpa:join-column name="usuario_id"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="auditoria" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Banco" visibile="true" minimized="false" id="_146143105272815">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105272816">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_146143105272817">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="numero" attribute-type="String" visibile="true" id="_146143105272818">
+                <jpa:column name="numero"/>
+            </jpa:basic>
+            <jpa:one-to-many name="funcionarios" target-entity="Funcionario" fetch="LAZY" mapped-by="banco" collection-type="java.util.Set" connected-entity-id="_1461431053757190" connected-attribute-id="_1461431053757192" visibile="true" id="_146143105272819"/>
+        </jpa:attributes>
+        <jpa:table name="banco" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Candidato" visibile="true" minimized="false" id="_146143105276820">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105276821">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="candidato_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataInscricao" attribute-type="java.util.Date" visibile="true" id="_146143105276824">
+                <jpa:column name="data_inscricao" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="pessoa" target-entity="Pessoa" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179300" visibile="true" id="_146143105276822">
+                <jpa:join-column name="pessoa_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="vagas" target-entity="Vagas" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054696386" connected-attribute-id="_1461431054697397" visibile="true" id="_146143105276823">
+                <jpa:join-column name="vagas_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="respostas" target-entity="Resposta" fetch="LAZY" mapped-by="candidato" collection-type="java.util.Set" connected-entity-id="_1461431054390336" connected-attribute-id="_1461431054390338" visibile="true" id="_146143105276825"/>
+            <jpa:one-to-many name="entrevistas" target-entity="Entrevista" fetch="LAZY" mapped-by="candidato" collection-type="java.util.Set" connected-entity-id="_1461431053268113" connected-attribute-id="_1461431053268115" visibile="true" id="_146143105276927"/>
+            <jpa:many-to-many name="competencias" target-entity="Competencia" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_146143105300564" visibile="true" id="_146143105276926">
+                <jpa:join-table name="competencia_has_candidato" schema="public">
+                    <jpa:join-column name="candidato_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="competencia_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="candidato" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Cargo" visibile="true" minimized="false" id="_146143105281428">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105281429">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_146143105281431">
+                <jpa:column name="nome" nullable="false" length="200"/>
+            </jpa:basic>
+            <jpa:basic name="atribuicoes" attribute-type="String" visibile="true" id="_146143105281432">
+                <jpa:column name="atribuicoes" length="2000"/>
+            </jpa:basic>
+            <jpa:many-to-one name="cbo" target-entity="Cbo" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105293053" connected-attribute-id="_146143105293057" visibile="true" id="_146143105281430">
+                <jpa:join-column name="cbo_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="necessidadePessoas" target-entity="NecessidadePessoa" fetch="LAZY" mapped-by="cargo" collection-type="java.util.Set" connected-entity-id="_1461431054092267" connected-attribute-id="_1461431054092269" visibile="true" id="_146143105281433"/>
+            <jpa:one-to-many name="cargoHasEventos" target-entity="CargoHasEvento" fetch="LAZY" mapped-by="cargo" collection-type="java.util.Set" connected-entity-id="_146143105284937" connected-attribute-id="_146143105285039" visibile="true" id="_146143105281434"/>
+            <jpa:one-to-many name="funcionarioCargos" target-entity="FuncionarioCargo" fetch="LAZY" mapped-by="cargo" collection-type="java.util.Set" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834208" visibile="true" id="_146143105281435"/>
+            <jpa:one-to-many name="cargoNivels" target-entity="CargoNivel" fetch="LAZY" mapped-by="cargo" collection-type="java.util.Set" connected-entity-id="_146143105288845" connected-attribute-id="_146143105288847" visibile="true" id="_146143105281436"/>
+        </jpa:attributes>
+        <jpa:table name="cargo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="EMBEDDEDID" compositePrimaryKeyClass="CargoHasEventoPK" static-metamodel="false" abstract="false" class="CargoHasEvento" visibile="true" minimized="false" id="_146143105284937">
+        <jpa:attributes>
+            <jpa:id name="cargoId" attribute-type="int" visibile="true" id="_146143105285443"/>
+            <jpa:id name="eventoId" attribute-type="int" visibile="true" id="_146143105285444"/>
+            <jpa:embedded-id name="id" attribute-type="CargoHasEventoPK" visibile="true" id="_146143105285038"/>
+            <jpa:basic name="dataInicio" attribute-type="java.util.Date" visibile="true" id="_146143105285041">
+                <jpa:column name="data_inicio" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataFim" attribute-type="java.util.Date" visibile="true" id="_146143105285042">
+                <jpa:column name="data_fim" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="cargo" target-entity="Cargo" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105281428" connected-attribute-id="_146143105281434" visibile="true" id="_146143105285039">
+                <jpa:join-column name="cargo_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="evento" target-entity="Evento" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053403135" connected-attribute-id="_1461431053403143" visibile="true" id="_146143105285040">
+                <jpa:join-column name="evento_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="cargo_has_evento" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="CargoNivel" visibile="true" minimized="false" id="_146143105288845">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105288846">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_146143105288848">
+                <jpa:column name="nome" nullable="false" length="200"/>
+            </jpa:basic>
+            <jpa:basic name="experiencia" attribute-type="Integer" visibile="true" id="_146143105288849">
+                <jpa:column name="experiencia"/>
+            </jpa:basic>
+            <jpa:many-to-one name="cargo" target-entity="Cargo" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105281428" connected-attribute-id="_146143105281436" visibile="true" id="_146143105288847">
+                <jpa:join-column name="cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="funcionarioFaixas" target-entity="FuncionarioFaixa" fetch="LAZY" mapped-by="cargoNivel" collection-type="java.util.Set" connected-entity-id="_1461431053958245" connected-attribute-id="_1461431053958247" visibile="true" id="_146143105288850"/>
+            <jpa:many-to-many name="competencias" target-entity="Competencia" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_146143105300564" visibile="true" id="_146143105288851">
+                <jpa:join-table name="competencia_has_cargo_nivel" schema="public">
+                    <jpa:join-column name="cargo_nivel_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="competencia_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+            <jpa:many-to-many name="faixaSalarials" target-entity="FaixaSalarial" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_1461431053527157" visibile="true" id="_146143105288852">
+                <jpa:join-table name="cargo_nivel_has_faixa_salarial" schema="public">
+                    <jpa:join-column name="cargo_nivel_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="faixa_salarial_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="cargo_nivel" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Cbo" visibile="true" minimized="false" id="_146143105293053">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105293054">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_146143105293055">
+                <jpa:column name="nome" nullable="false" length="500"/>
+            </jpa:basic>
+            <jpa:basic name="descricaoSumarizada" attribute-type="String" visibile="true" id="_146143105293056">
+                <jpa:column name="descricao_sumarizada" length="1000"/>
+            </jpa:basic>
+            <jpa:one-to-many name="cargos" target-entity="Cargo" fetch="LAZY" mapped-by="cbo" collection-type="java.util.Set" connected-entity-id="_146143105281428" connected-attribute-id="_146143105281430" visibile="true" id="_146143105293057"/>
+        </jpa:attributes>
+        <jpa:table name="cbo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Cidade" visibile="true" minimized="false" id="_146143105296958">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105296959">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="cidade_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_146143105296961">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:many-to-one name="estado" target-entity="Estado" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053338127" connected-attribute-id="_1461431053338130" visibile="true" id="_146143105296960">
+                <jpa:join-column name="estado_uf" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="empresas" target-entity="Empresa" fetch="LAZY" mapped-by="cidade" collection-type="java.util.Set" connected-entity-id="_146143105323399" connected-attribute-id="_1461431053233101" visibile="true" id="_146143105296962"/>
+            <jpa:one-to-many name="pessoas" target-entity="Pessoa" fetch="LAZY" mapped-by="cidade" collection-type="java.util.Set" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054178282" visibile="true" id="_146143105296963"/>
+        </jpa:attributes>
+        <jpa:table name="cidade" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Competencia" visibile="true" minimized="false" id="_146143105300564">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105300565">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_146143105300566">
+                <jpa:column name="descricao" nullable="false" length="500"/>
+            </jpa:basic>
+            <jpa:basic name="tipo" attribute-type="char" visibile="true" id="_146143105300567">
+                <jpa:column name="tipo" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:many-to-many name="vagases" target-entity="Vagas" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_1461431054696386" visibile="true" id="_146143105300568">
+                <jpa:join-table name="vagas_has_competencia" schema="public">
+                    <jpa:join-column name="competencia_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="vagas_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+            <jpa:many-to-many name="candidatos" target-entity="Candidato" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_146143105276820" visibile="true" id="_146143105300569">
+                <jpa:join-table name="competencia_has_candidato" schema="public">
+                    <jpa:join-column name="competencia_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="candidato_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+            <jpa:many-to-many name="cargoNivels" target-entity="CargoNivel" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_146143105288845" visibile="true" id="_146143105300570">
+                <jpa:join-table name="competencia_has_cargo_nivel" schema="public">
+                    <jpa:join-column name="competencia_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="cargo_nivel_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="competencia" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Cor" visibile="true" minimized="false" id="_146143105304071">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105304072">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="cor_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_146143105304073">
+                <jpa:column name="nome" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-many name="pessoas" target-entity="Pessoa" fetch="LAZY" mapped-by="cor" collection-type="java.util.Set" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054178283" visibile="true" id="_146143105304074"/>
+        </jpa:attributes>
+        <jpa:table name="cor" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Curriculo" visibile="true" minimized="false" id="_146143105307775">
+        <jpa:attributes>
+            <jpa:id name="pessoaId" attribute-type="int" visibile="true" id="_146143105307776">
+                <annotation>
+                    <name>org.hibernate.annotations.GenericGenerator</name>
+                </annotation>
+                <jpa:column name="pessoa_id" unique="true" nullable="false"/>
+                <jpa:generated-value generator="generator"/>
+                <jpa:sequence-generator name="pessoa_id"/>
+            </jpa:id>
+            <jpa:basic name="objetivo" attribute-type="String" visibile="true" id="_146143105307878">
+                <jpa:column name="objetivo" nullable="false"/>
+            </jpa:basic>
+            <jpa:one-to-one name="pessoa" target-entity="Pessoa" fetch="LAZY" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054178295" visibile="true" id="_146143105307877"/>
+        </jpa:attributes>
+        <jpa:table name="curriculo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="CurriculoExperiencia" visibile="true" minimized="false" id="_146143105311779">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105311780">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="curriculo_experiencia_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="atribuicao" attribute-type="String" visibile="true" id="_146143105311782">
+                <jpa:column name="atribuicao"/>
+            </jpa:basic>
+            <jpa:basic name="dataInicial" attribute-type="java.util.Date" visibile="true" id="_146143105311783">
+                <jpa:column name="data_inicial" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataFinal" attribute-type="java.util.Date" visibile="true" id="_146143105311784">
+                <jpa:column name="data_final" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="pessoaReferencia" attribute-type="String" visibile="true" id="_146143105311785">
+                <jpa:column name="pessoa_referencia" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="pessoaContato" attribute-type="String" visibile="true" id="_146143105311786">
+                <jpa:column name="pessoa_contato" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="empresa" attribute-type="String" visibile="true" id="_146143105311787">
+                <jpa:column name="empresa" length="500"/>
+            </jpa:basic>
+            <jpa:many-to-one name="pessoa" target-entity="Pessoa" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179305" visibile="true" id="_146143105311781">
+                <jpa:join-column name="pessoa_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="curriculo_experiencia" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="DemissaoTipo" visibile="true" minimized="false" id="_146143105316488">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105316489">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_146143105316490">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-many name="funcionarioCargos" target-entity="FuncionarioCargo" fetch="LAZY" mapped-by="demissaoTipo" collection-type="java.util.Set" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834209" visibile="true" id="_146143105316491"/>
+        </jpa:attributes>
+        <jpa:table name="demissao_tipo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Dependente" visibile="true" minimized="false" id="_146143105319892">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_146143105319993">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="dependente_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataInicial" attribute-type="java.util.Date" visibile="true" id="_146143105319997">
+                <jpa:column name="data_inicial" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataFim" attribute-type="java.util.Date" visibile="true" id="_146143105319998">
+                <jpa:column name="data_fim" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="funcionario" target-entity="Funcionario" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053757190" connected-attribute-id="_1461431053757197" visibile="true" id="_146143105319994">
+                <jpa:join-column name="funcionario_pessoa_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="pessoa" target-entity="Pessoa" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179303" visibile="true" id="_146143105319995">
+                <jpa:join-column name="pessoa_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="tipoSanguineo" target-entity="TipoSanguineo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054563369" connected-attribute-id="_1461431054563372" visibile="true" id="_146143105319996">
+                <jpa:join-column name="tipo_sanguineo_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="dependente" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Empresa" visibile="true" minimized="false" id="_146143105323399">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053233100">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431053233102">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="cnpj" attribute-type="String" visibile="true" id="_1461431053233103">
+                <jpa:column name="cnpj" nullable="false" length="14"/>
+            </jpa:basic>
+            <jpa:basic name="nomeFantasia" attribute-type="String" visibile="true" id="_1461431053233104">
+                <jpa:column name="nome_fantasia" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="razaoSocial" attribute-type="String" visibile="true" id="_1461431053233105">
+                <jpa:column name="razao_social" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="dataFundacao" attribute-type="java.util.Date" visibile="true" id="_1461431053233106">
+                <jpa:column name="data_fundacao" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="endereco" attribute-type="String" visibile="true" id="_1461431053233107">
+                <jpa:column name="endereco" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="bairro" attribute-type="String" visibile="true" id="_1461431053233108">
+                <jpa:column name="bairro" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="telefone" attribute-type="String" visibile="true" id="_1461431053233109">
+                <jpa:column name="telefone" nullable="false" length="15"/>
+            </jpa:basic>
+            <jpa:basic name="logo" attribute-type="String" visibile="true" id="_1461431053233110">
+                <jpa:column name="logo" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="email" attribute-type="String" visibile="true" id="_1461431053233111">
+                <jpa:column name="email" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:many-to-one name="cidade" target-entity="Cidade" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105296958" connected-attribute-id="_146143105296962" visibile="true" id="_1461431053233101">
+                <jpa:join-column name="cidade_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="unidades" target-entity="Unidade" fetch="LAZY" mapped-by="empresa" collection-type="java.util.Set" connected-entity-id="_1461431054618373" connected-attribute-id="_1461431054618375" visibile="true" id="_1461431053233112"/>
+        </jpa:attributes>
+        <jpa:table name="empresa" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Entrevista" visibile="true" minimized="false" id="_1461431053268113">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053268114">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="entrevista_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataProgramada" attribute-type="java.util.Date" visibile="true" id="_1461431053268117">
+                <jpa:column name="data_programada" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="hora" attribute-type="java.util.Date" visibile="true" id="_1461431053268118">
+                <jpa:column name="hora" nullable="false" length="15"/>
+                <jpa:temporal>TIME</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_1461431053268119">
+                <jpa:column name="descricao" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="resposta" attribute-type="String" visibile="true" id="_1461431053268120">
+                <jpa:column name="resposta"/>
+            </jpa:basic>
+            <jpa:basic name="localEntrevista" attribute-type="String" visibile="true" id="_1461431053268121">
+                <jpa:column name="local_entrevista" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="situacao" attribute-type="Character" visibile="true" id="_1461431053268122">
+                <jpa:column name="situacao" length="1"/>
+            </jpa:basic>
+            <jpa:many-to-one name="candidato" target-entity="Candidato" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105276820" connected-attribute-id="_146143105276927" visibile="true" id="_1461431053268115">
+                <jpa:join-column name="candidato_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="pessoa" target-entity="Pessoa" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179297" visibile="true" id="_1461431053268116">
+                <jpa:join-column name="pessoa_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="entrevista" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Escolaridade" visibile="true" minimized="false" id="_1461431053305123">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053305124">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="escolaridade_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431053306125">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-many name="pessoas" target-entity="Pessoa" fetch="LAZY" mapped-by="escolaridade" collection-type="java.util.Set" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054178284" visibile="true" id="_1461431053306126"/>
+        </jpa:attributes>
+        <jpa:table name="escolaridade" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Estado" visibile="true" minimized="false" id="_1461431053338127">
+        <jpa:attributes>
+            <jpa:id name="uf" attribute-type="String" visibile="true" id="_1461431053338128">
+                <jpa:column name="uf" unique="true" nullable="false" column-definition="bpchar(2)" length="2"/>
+                <jpa:sequence-generator name="uf"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431053338129">
+                <jpa:column name="nome" nullable="false" length="500"/>
+            </jpa:basic>
+            <jpa:one-to-many name="cidades" target-entity="Cidade" fetch="LAZY" mapped-by="estado" collection-type="java.util.Set" connected-entity-id="_146143105296958" connected-attribute-id="_146143105296960" visibile="true" id="_1461431053338130"/>
+        </jpa:attributes>
+        <jpa:table name="estado" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="EstadoCivil" visibile="true" minimized="false" id="_1461431053370131">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053370132">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="estado_civil_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431053370133">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-many name="pessoas" target-entity="Pessoa" fetch="LAZY" mapped-by="estadoCivil" collection-type="java.util.Set" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054178285" visibile="true" id="_1461431053370134"/>
+        </jpa:attributes>
+        <jpa:table name="estado_civil" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Evento" visibile="true" minimized="false" id="_1461431053403135">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053403136">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="evento_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431053403137">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="tipo" attribute-type="int" visibile="true" id="_1461431053403138">
+                <jpa:column name="tipo" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="script" attribute-type="String" visibile="true" id="_1461431053403139">
+                <jpa:column name="script" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="padrao" attribute-type="boolean" visibile="true" id="_1461431053403140">
+                <jpa:column name="padrao" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:one-to-many name="eventoFuncionarios" target-entity="EventoFuncionario" fetch="LAZY" mapped-by="evento" collection-type="java.util.Set" connected-entity-id="_1461431053453145" connected-attribute-id="_1461431053453147" visibile="true" id="_1461431053403141"/>
+            <jpa:one-to-many name="eventoMensals" target-entity="EventoMensal" fetch="LAZY" mapped-by="evento" collection-type="java.util.Set" connected-entity-id="_1461431053495151" connected-attribute-id="_1461431053495153" visibile="true" id="_1461431053403142"/>
+            <jpa:one-to-many name="cargoHasEventos" target-entity="CargoHasEvento" fetch="LAZY" mapped-by="evento" collection-type="java.util.Set" connected-entity-id="_146143105284937" connected-attribute-id="_146143105285040" visibile="true" id="_1461431053403143"/>
+            <jpa:one-to-many name="folhaCalculadaEventos" target-entity="FolhaCalculadaEvento" fetch="LAZY" mapped-by="evento" collection-type="java.util.Set" connected-entity-id="_1461431053717183" connected-attribute-id="_1461431053717185" visibile="true" id="_1461431053403144"/>
+        </jpa:attributes>
+        <jpa:table name="evento" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="EventoFuncionario" visibile="true" minimized="false" id="_1461431053453145">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053453146">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataInicio" attribute-type="java.util.Date" visibile="true" id="_1461431053453149">
+                <jpa:column name="data_inicio" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataFim" attribute-type="java.util.Date" visibile="true" id="_1461431053453150">
+                <jpa:column name="data_fim" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="evento" target-entity="Evento" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053403135" connected-attribute-id="_1461431053403141" visibile="true" id="_1461431053453147">
+                <jpa:join-column name="evento_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834217" visibile="true" id="_1461431053453148">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="evento_funcionario" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="EventoMensal" visibile="true" minimized="false" id="_1461431053495151">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053495152">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="mes" attribute-type="int" visibile="true" id="_1461431053495155">
+                <jpa:column name="mes" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="ano" attribute-type="int" visibile="true" id="_1461431053495156">
+                <jpa:column name="ano" nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="evento" target-entity="Evento" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053403135" connected-attribute-id="_1461431053403142" visibile="true" id="_1461431053495153">
+                <jpa:join-column name="evento_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834216" visibile="true" id="_1461431053495154">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="evento_mensal" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="FaixaSalarial" visibile="true" minimized="false" id="_1461431053527157">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053527158">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431053527159">
+                <jpa:column name="nome" nullable="false" length="200"/>
+            </jpa:basic>
+            <jpa:one-to-many name="faixaSalarialValors" target-entity="FaixaSalarialValor" fetch="LAZY" mapped-by="faixaSalarial" collection-type="java.util.Set" connected-entity-id="_1461431053568163" connected-attribute-id="_1461431053568165" visibile="true" id="_1461431053527160"/>
+            <jpa:one-to-many name="funcionarioFaixas" target-entity="FuncionarioFaixa" fetch="LAZY" mapped-by="faixaSalarial" collection-type="java.util.Set" connected-entity-id="_1461431053958245" connected-attribute-id="_1461431053958248" visibile="true" id="_1461431053528162"/>
+            <jpa:many-to-many name="cargoNivels" target-entity="CargoNivel" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_146143105288845" visibile="true" id="_1461431053527161">
+                <jpa:join-table name="cargo_nivel_has_faixa_salarial" schema="public">
+                    <jpa:join-column name="faixa_salarial_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="cargo_nivel_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="faixa_salarial" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="EMBEDDEDID" compositePrimaryKeyClass="FaixaSalarialValorPK" static-metamodel="false" abstract="false" class="FaixaSalarialValor" visibile="true" minimized="false" id="_1461431053568163">
+        <jpa:attributes>
+            <jpa:id name="dataInicio" attribute-type="java.util.Date" visibile="true" id="_1461431053579168"/>
+            <jpa:id name="faixaSalarialId" attribute-type="int" visibile="true" id="_1461431053579169"/>
+            <jpa:embedded-id name="id" attribute-type="FaixaSalarialValorPK" visibile="true" id="_1461431053568164"/>
+            <jpa:basic name="valor" attribute-type="java.math.BigDecimal" visibile="true" id="_1461431053568166">
+                <jpa:column name="valor" nullable="false" precision="10"/>
+            </jpa:basic>
+            <jpa:basic name="cargaHoraria" attribute-type="int" visibile="true" id="_1461431053568167">
+                <jpa:column name="carga_horaria" nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="faixaSalarial" target-entity="FaixaSalarial" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053527157" connected-attribute-id="_1461431053527160" visibile="true" id="_1461431053568165">
+                <jpa:join-column name="faixa_salarial_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="faixa_salarial_valor" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Ferias" visibile="true" minimized="false" id="_1461431053640170">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053640171">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataGozoInicio" attribute-type="java.util.Date" visibile="true" id="_1461431053640173">
+                <jpa:column name="data_gozo_inicio" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataGozoFim" attribute-type="java.util.Date" visibile="true" id="_1461431053640174">
+                <jpa:column name="data_gozo_fim" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataAquisitivoInicio" attribute-type="java.util.Date" visibile="true" id="_1461431053640175">
+                <jpa:column name="data_aquisitivo_inicio" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataAquisitivoFim" attribute-type="java.util.Date" visibile="true" id="_1461431053640176">
+                <jpa:column name="data_aquisitivo_fim" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834224" visibile="true" id="_1461431053640172">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="ferias" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="FolhaCalculada" visibile="true" minimized="false" id="_1461431053681177">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053681178">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataReferente" attribute-type="java.util.Date" visibile="true" id="_1461431053681180">
+                <jpa:column name="data_referente" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataGerado" attribute-type="int" visibile="true" id="_1461431053681181">
+                <jpa:column name="data_gerado" nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834218" visibile="true" id="_1461431053681179">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="folhaCalculadaEventos" target-entity="FolhaCalculadaEvento" fetch="LAZY" mapped-by="folhaCalculada" collection-type="java.util.Set" connected-entity-id="_1461431053717183" connected-attribute-id="_1461431053717186" visibile="true" id="_1461431053681182"/>
+        </jpa:attributes>
+        <jpa:table name="folha_calculada" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="FolhaCalculadaEvento" visibile="true" minimized="false" id="_1461431053717183">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053717184">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="valor" attribute-type="java.math.BigDecimal" visibile="true" id="_1461431053717187">
+                <jpa:column name="valor" nullable="false" precision="10"/>
+            </jpa:basic>
+            <jpa:basic name="tipo" attribute-type="char" visibile="true" id="_1461431053718188">
+                <jpa:column name="tipo" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="referencia" attribute-type="int" visibile="true" id="_1461431053718189">
+                <jpa:column name="referencia" nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="evento" target-entity="Evento" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053403135" connected-attribute-id="_1461431053403144" visibile="true" id="_1461431053717185">
+                <jpa:join-column name="evento_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="folhaCalculada" target-entity="FolhaCalculada" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053681177" connected-attribute-id="_1461431053681182" visibile="true" id="_1461431053717186">
+                <jpa:join-column name="folha_calculada_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="folha_calculada_evento" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Funcionario" visibile="true" minimized="false" id="_1461431053757190">
+        <jpa:attributes>
+            <jpa:id name="pessoaId" attribute-type="int" visibile="true" id="_1461431053757191">
+                <annotation>
+                    <name>org.hibernate.annotations.GenericGenerator</name>
+                </annotation>
+                <jpa:column name="pessoa_id" unique="true" nullable="false"/>
+                <jpa:generated-value generator="generator"/>
+                <jpa:sequence-generator name="pessoa_id"/>
+            </jpa:id>
+            <jpa:basic name="conta" attribute-type="String" visibile="true" id="_1461431053757195">
+                <jpa:column name="conta" nullable="false" length="50"/>
+            </jpa:basic>
+            <jpa:basic name="agencia" attribute-type="int" visibile="true" id="_1461431053757196">
+                <jpa:column name="agencia" nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="banco" target-entity="Banco" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105272815" connected-attribute-id="_146143105272819" visibile="true" id="_1461431053757192">
+                <jpa:join-column name="banco_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="vinculoEmpregaticio" target-entity="VinculoEmpregaticio" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054731398" connected-attribute-id="_1461431054732401" visibile="true" id="_1461431053757194">
+                <jpa:join-column name="vinculo_empregaticio_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="dependentes" target-entity="Dependente" fetch="LAZY" mapped-by="funcionario" collection-type="java.util.Set" connected-entity-id="_146143105319892" connected-attribute-id="_146143105319994" visibile="true" id="_1461431053757197"/>
+            <jpa:one-to-many name="funcionarioCargos" target-entity="FuncionarioCargo" fetch="LAZY" mapped-by="funcionario" collection-type="java.util.Set" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834210" visibile="true" id="_1461431053757198"/>
+            <jpa:one-to-one name="pessoa" target-entity="Pessoa" fetch="LAZY" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179296" visibile="true" id="_1461431053757193"/>
+        </jpa:attributes>
+        <jpa:table name="funcionario" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="FuncionarioAcidente" visibile="true" minimized="false" id="_1461431053797199">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053797200">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nivelLesao" attribute-type="int" visibile="true" id="_1461431053797202">
+                <jpa:column name="nivel_lesao" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="perdaPorcentagem" attribute-type="int" visibile="true" id="_1461431053797203">
+                <jpa:column name="perda_porcentagem" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_1461431053797204">
+                <jpa:column name="descricao" nullable="false" length="500"/>
+            </jpa:basic>
+            <jpa:basic name="dataOcorrencia" attribute-type="java.util.Date" visibile="true" id="_1461431053797205">
+                <jpa:column name="data_ocorrencia" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834219" visibile="true" id="_1461431053797201">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="funcionario_acidente" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="FuncionarioCargo" visibile="true" minimized="false" id="_1461431053834206">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053834207">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataEntrada" attribute-type="java.util.Date" visibile="true" id="_1461431053834213">
+                <jpa:column name="data_entrada" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataSaida" attribute-type="java.util.Date" visibile="true" id="_1461431053834214">
+                <jpa:column name="data_saida" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="cargo" target-entity="Cargo" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105281428" connected-attribute-id="_146143105281435" visibile="true" id="_1461431053834208">
+                <jpa:join-column name="cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="demissaoTipo" target-entity="DemissaoTipo" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105316488" connected-attribute-id="_146143105316491" visibile="true" id="_1461431053834209">
+                <jpa:join-column name="demissao_tipo_id"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="funcionario" target-entity="Funcionario" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053757190" connected-attribute-id="_1461431053757198" visibile="true" id="_1461431053834210">
+                <jpa:join-column name="funcionario_pessoa_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="sindicato" target-entity="Sindicato" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054426342" connected-attribute-id="_1461431054426347" visibile="true" id="_1461431053834211">
+                <jpa:join-column name="sindicato_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="unidade" target-entity="Unidade" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054618373" connected-attribute-id="_1461431054618377" visibile="true" id="_1461431053834212">
+                <jpa:join-column name="unidade_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="funcionarioCargoHasAdvertenciaTipos" target-entity="FuncionarioCargoHasAdvertenciaTipo" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053872225" connected-attribute-id="_1461431053872228" visibile="true" id="_1461431053834215"/>
+            <jpa:one-to-many name="eventoMensals" target-entity="EventoMensal" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053495151" connected-attribute-id="_1461431053495154" visibile="true" id="_1461431053834216"/>
+            <jpa:one-to-many name="eventoFuncionarios" target-entity="EventoFuncionario" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053453145" connected-attribute-id="_1461431053453148" visibile="true" id="_1461431053834217"/>
+            <jpa:one-to-many name="folhaCalculadas" target-entity="FolhaCalculada" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053681177" connected-attribute-id="_1461431053681179" visibile="true" id="_1461431053834218"/>
+            <jpa:one-to-many name="funcionarioAcidentes" target-entity="FuncionarioAcidente" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053797199" connected-attribute-id="_1461431053797201" visibile="true" id="_1461431053834219"/>
+            <jpa:one-to-many name="funcionarioCargoHasMotivoFaltas" target-entity="FuncionarioCargoHasMotivoFalta" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053917233" connected-attribute-id="_1461431053917235" visibile="true" id="_1461431053834220"/>
+            <jpa:one-to-many name="funcionarioFaixas" target-entity="FuncionarioFaixa" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053958245" connected-attribute-id="_1461431053958249" visibile="true" id="_1461431053834221"/>
+            <jpa:one-to-many name="funcionarioQualificacaos" target-entity="FuncionarioQualificacao" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053992251" connected-attribute-id="_1461431053992253" visibile="true" id="_1461431053834222"/>
+            <jpa:one-to-many name="sindicatoHasFuncionarioCargos" target-entity="SindicatoHasFuncionarioCargo" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431054460349" connected-attribute-id="_1461431054460351" visibile="true" id="_1461431053834223"/>
+            <jpa:one-to-many name="feriases" target-entity="Ferias" fetch="LAZY" mapped-by="funcionarioCargo" collection-type="java.util.Set" connected-entity-id="_1461431053640170" connected-attribute-id="_1461431053640172" visibile="true" id="_1461431053834224"/>
+        </jpa:attributes>
+        <jpa:table name="funcionario_cargo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="EMBEDDEDID" compositePrimaryKeyClass="FuncionarioCargoHasAdvertenciaTipoPK" static-metamodel="false" abstract="false" class="FuncionarioCargoHasAdvertenciaTipo" visibile="true" minimized="false" id="_1461431053872225">
+        <jpa:attributes>
+            <jpa:id name="funcionarioCargoId" attribute-type="int" visibile="true" id="_1461431053878231"/>
+            <jpa:id name="advertenciaTipoId" attribute-type="int" visibile="true" id="_1461431053878232"/>
+            <jpa:embedded-id name="id" attribute-type="FuncionarioCargoHasAdvertenciaTipoPK" visibile="true" id="_1461431053872226"/>
+            <jpa:basic name="dataOcorrencia" attribute-type="java.util.Date" visibile="true" id="_1461431053872229">
+                <jpa:column name="data_ocorrencia" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_1461431053872230">
+                <jpa:column name="descricao" nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="advertenciaTipo" target-entity="AdvertenciaTipo" fetch="LAZY" primaryKey="false" connected-entity-id="_14614310525854" connected-attribute-id="_14614310525978" visibile="true" id="_1461431053872227">
+                <jpa:join-column name="advertencia_tipo_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834215" visibile="true" id="_1461431053872228">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="funcionario_cargo_has_advertencia_tipo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="EMBEDDEDID" compositePrimaryKeyClass="FuncionarioCargoHasMotivoFaltaPK" static-metamodel="false" abstract="false" class="FuncionarioCargoHasMotivoFalta" visibile="true" minimized="false" id="_1461431053917233">
+        <jpa:attributes>
+            <jpa:id name="funcionarioCargoId" attribute-type="int" visibile="true" id="_1461431053921243"/>
+            <jpa:id name="motivoFaltaId" attribute-type="int" visibile="true" id="_1461431053921244"/>
+            <jpa:embedded-id name="id" attribute-type="FuncionarioCargoHasMotivoFaltaPK" visibile="true" id="_1461431053917234"/>
+            <jpa:basic name="dataInicio" attribute-type="java.util.Date" visibile="true" id="_1461431053917237">
+                <jpa:column name="data_inicio" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataFinal" attribute-type="java.util.Date" visibile="true" id="_1461431053917238">
+                <jpa:column name="data_final" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="atestado" attribute-type="String" visibile="true" id="_1461431053917239">
+                <jpa:column name="atestado" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="documentoArquivo" attribute-type="String" visibile="true" id="_1461431053917240">
+                <jpa:column name="documento_arquivo" nullable="false" length="300"/>
+            </jpa:basic>
+            <jpa:basic name="dataRecebimento" attribute-type="java.util.Date" visibile="true" id="_1461431053917241">
+                <jpa:column name="data_recebimento" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="documentoCid" attribute-type="String" visibile="true" id="_1461431053917242">
+                <jpa:column name="documento_cid" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834220" visibile="true" id="_1461431053917235">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="motivoFalta" target-entity="MotivoFalta" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054025257" connected-attribute-id="_1461431054025262" visibile="true" id="_1461431053917236">
+                <jpa:join-column name="motivo_falta_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="funcionario_cargo_has_motivo_falta" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="FuncionarioFaixa" visibile="true" minimized="false" id="_1461431053958245">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053958246">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataInicio" attribute-type="java.util.Date" visibile="true" id="_1461431053958250">
+                <annotation>
+                    <name>org.hibernate.annotations.Type</name>
+                </annotation>
+                <jpa:column name="data_inicio" nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="cargoNivel" target-entity="CargoNivel" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105288845" connected-attribute-id="_146143105288850" visibile="true" id="_1461431053958247">
+                <jpa:join-column name="cargo_nivel_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="faixaSalarial" target-entity="FaixaSalarial" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053527157" connected-attribute-id="_1461431053528162" visibile="true" id="_1461431053958248">
+                <jpa:join-column name="faixa_salarial_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834221" visibile="true" id="_1461431053958249">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="funcionario_faixa" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="FuncionarioQualificacao" visibile="true" minimized="false" id="_1461431053992251">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431053992252">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="certificado" attribute-type="String" visibile="true" id="_1461431053993255">
+                <jpa:column name="certificado" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="validade" attribute-type="java.util.Date" visibile="true" id="_1461431053993256">
+                <jpa:column name="validade" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834222" visibile="true" id="_1461431053992253">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="qualificacao" target-entity="Qualificacao" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054286316" connected-attribute-id="_1461431054286323" visibile="true" id="_1461431053992254">
+                <jpa:join-column name="qualificacao_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="funcionario_qualificacao" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="MotivoFalta" visibile="true" minimized="false" id="_1461431054025257">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054025258">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054025259">
+                <jpa:column name="nome" nullable="false" length="300"/>
+            </jpa:basic>
+            <jpa:basic name="atestado" attribute-type="char" visibile="true" id="_1461431054025260">
+                <jpa:column name="atestado" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="desconta" attribute-type="Character" visibile="true" id="_1461431054025261">
+                <jpa:column name="desconta" length="1"/>
+            </jpa:basic>
+            <jpa:one-to-many name="funcionarioCargoHasMotivoFaltas" target-entity="FuncionarioCargoHasMotivoFalta" fetch="LAZY" mapped-by="motivoFalta" collection-type="java.util.Set" connected-entity-id="_1461431053917233" connected-attribute-id="_1461431053917236" visibile="true" id="_1461431054025262"/>
+        </jpa:attributes>
+        <jpa:table name="motivo_falta" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="NecessidadeEspecial" visibile="true" minimized="false" id="_1461431054059263">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054059264">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="necessidade_especial_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054059265">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:many-to-many name="pessoas" target-entity="Pessoa" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_1461431054178280" visibile="true" id="_1461431054059266">
+                <jpa:join-table name="pessoa_has_necessidade_especial" schema="public">
+                    <jpa:join-column name="necessidade_especial_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="pessoa_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="necessidade_especial" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="NecessidadePessoa" visibile="true" minimized="false" id="_1461431054092267">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="long" visibile="true" id="_1461431054092268">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="necessidade_pessoa_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_1461431054092271">
+                <jpa:column name="descricao" nullable="false" length="500"/>
+            </jpa:basic>
+            <jpa:basic name="perfil" attribute-type="String" visibile="true" id="_1461431054092272">
+                <jpa:column name="perfil" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="situacao" attribute-type="char" visibile="true" id="_1461431054092273">
+                <jpa:column name="situacao" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="dataRequisicao" attribute-type="java.util.Date" visibile="true" id="_1461431054092274">
+                <jpa:column name="data_requisicao" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="quantidade" attribute-type="long" visibile="true" id="_1461431054092275">
+                <jpa:column name="quantidade" nullable="false"/>
+            </jpa:basic>
+            <jpa:many-to-one name="cargo" target-entity="Cargo" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105281428" connected-attribute-id="_146143105281433" visibile="true" id="_1461431054092269">
+                <jpa:join-column name="cargo_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="usuario" target-entity="Usuario" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054658378" connected-attribute-id="_1461431054659384" visibile="true" id="_1461431054092270">
+                <jpa:join-column name="usuario_pessoa_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="vagases" target-entity="Vagas" fetch="LAZY" mapped-by="necessidadePessoa" collection-type="java.util.Set" connected-entity-id="_1461431054696386" connected-attribute-id="_1461431054697388" visibile="true" id="_1461431054092276"/>
+        </jpa:attributes>
+        <jpa:table name="necessidade_pessoa" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Parametro" visibile="true" minimized="false" id="_1461431054132277">
+        <jpa:attributes>
+            <jpa:id name="chave" attribute-type="String" visibile="true" id="_1461431054132278">
+                <jpa:column name="chave" unique="true" nullable="false" length="100"/>
+                <jpa:sequence-generator name="chave"/>
+            </jpa:id>
+            <jpa:basic name="valor" attribute-type="String" visibile="true" id="_1461431054133279">
+                <jpa:column name="valor" nullable="false"/>
+            </jpa:basic>
+        </jpa:attributes>
+        <jpa:table name="parametro" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Pessoa" visibile="true" minimized="false" id="_1461431054178280">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054178281">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="pessoa_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="cpf" attribute-type="String" visibile="true" id="_1461431054178288">
+                <jpa:column name="cpf" column-definition="bpchar(11)" length="11"/>
+            </jpa:basic>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054178289">
+                <jpa:column name="nome" nullable="false" length="500"/>
+            </jpa:basic>
+            <jpa:basic name="dataNascimento" attribute-type="java.util.Date" visibile="true" id="_1461431054178290">
+                <annotation>
+                    <name>org.hibernate.annotations.Type</name>
+                </annotation>
+                <jpa:column name="data_nascimento"/>
+            </jpa:basic>
+            <jpa:basic name="sexo" attribute-type="char" visibile="true" id="_1461431054178291">
+                <jpa:column name="sexo" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="endereco" attribute-type="String" visibile="true" id="_1461431054178292">
+                <jpa:column name="endereco" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="email" attribute-type="String" visibile="true" id="_1461431054178293">
+                <jpa:column name="email" length="200"/>
+            </jpa:basic>
+            <jpa:basic name="rg" attribute-type="String" visibile="true" id="_1461431054178294">
+                <jpa:column name="rg" length="20"/>
+            </jpa:basic>
+            <jpa:many-to-one name="cidade" target-entity="Cidade" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105296958" connected-attribute-id="_146143105296963" visibile="true" id="_1461431054178282">
+                <jpa:join-column name="cidade_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="cor" target-entity="Cor" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105304071" connected-attribute-id="_146143105304074" visibile="true" id="_1461431054178283">
+                <jpa:join-column name="cor_id"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="escolaridade" target-entity="Escolaridade" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053305123" connected-attribute-id="_1461431053306126" visibile="true" id="_1461431054178284">
+                <jpa:join-column name="escolaridade_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="estadoCivil" target-entity="EstadoCivil" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053370131" connected-attribute-id="_1461431053370134" visibile="true" id="_1461431054178285">
+                <jpa:join-column name="estado_civil_id"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="pessoaByPessoaId" target-entity="Pessoa" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179301" visibile="true" id="_1461431054178286">
+                <jpa:join-column name="pessoa_id"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="pessoaByMaeId" target-entity="Pessoa" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179302" visibile="true" id="_1461431054178287">
+                <jpa:join-column name="mae_id"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="entrevistas" target-entity="Entrevista" fetch="LAZY" mapped-by="pessoa" collection-type="java.util.Set" connected-entity-id="_1461431053268113" connected-attribute-id="_1461431053268116" visibile="true" id="_1461431054179297"/>
+            <jpa:one-to-many name="candidatos" target-entity="Candidato" fetch="LAZY" mapped-by="pessoa" collection-type="java.util.Set" connected-entity-id="_146143105276820" connected-attribute-id="_146143105276822" visibile="true" id="_1461431054179300"/>
+            <jpa:one-to-many name="pessoasForPessoaId" target-entity="Pessoa" fetch="LAZY" mapped-by="pessoaByPessoaId" collection-type="java.util.Set" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054178286" visibile="true" id="_1461431054179301"/>
+            <jpa:one-to-many name="pessoasForMaeId" target-entity="Pessoa" fetch="LAZY" mapped-by="pessoaByMaeId" collection-type="java.util.Set" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054178287" visibile="true" id="_1461431054179302"/>
+            <jpa:one-to-many name="dependentes" target-entity="Dependente" fetch="LAZY" mapped-by="pessoa" collection-type="java.util.Set" connected-entity-id="_146143105319892" connected-attribute-id="_146143105319995" visibile="true" id="_1461431054179303"/>
+            <jpa:one-to-many name="curriculoExperiencias" target-entity="CurriculoExperiencia" fetch="LAZY" mapped-by="pessoa" collection-type="java.util.Set" connected-entity-id="_146143105311779" connected-attribute-id="_146143105311781" visibile="true" id="_1461431054179305"/>
+            <jpa:one-to-one name="curriculo" target-entity="Curriculo" fetch="LAZY" mapped-by="pessoa" connected-entity-id="_146143105307775" connected-attribute-id="_146143105307877" visibile="true" id="_1461431054178295"/>
+            <jpa:one-to-one name="funcionario" target-entity="Funcionario" fetch="LAZY" mapped-by="pessoa" connected-entity-id="_1461431053757190" connected-attribute-id="_1461431053757193" visibile="true" id="_1461431054179296"/>
+            <jpa:one-to-one name="usuario" target-entity="Usuario" fetch="LAZY" mapped-by="pessoa" connected-entity-id="_1461431054658378" connected-attribute-id="_1461431054658380" visibile="true" id="_1461431054179298"/>
+            <jpa:one-to-one name="pessoaCarteira" target-entity="PessoaCarteira" fetch="LAZY" mapped-by="pessoa" connected-entity-id="_1461431054216306" connected-attribute-id="_1461431054216308" visibile="true" id="_1461431054179304"/>
+            <jpa:many-to-many name="necessidadeEspecials" target-entity="NecessidadeEspecial" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_1461431054059263" visibile="true" id="_1461431054179299">
+                <jpa:join-table name="pessoa_has_necessidade_especial" schema="public">
+                    <jpa:join-column name="pessoa_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="necessidade_especial_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="pessoa" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="PessoaCarteira" visibile="true" minimized="false" id="_1461431054216306">
+        <jpa:attributes>
+            <jpa:id name="pessoaId" attribute-type="int" visibile="true" id="_1461431054216307">
+                <annotation>
+                    <name>org.hibernate.annotations.GenericGenerator</name>
+                </annotation>
+                <jpa:column name="pessoa_id" unique="true" nullable="false"/>
+                <jpa:generated-value generator="generator"/>
+                <jpa:sequence-generator name="pessoa_id"/>
+            </jpa:id>
+            <jpa:basic name="cnh" attribute-type="String" visibile="true" id="_1461431054216309">
+                <annotation>
+                    <name>org.hibernate.annotations.Type</name>
+                </annotation>
+                <jpa:column name="cnh" nullable="false" length="11"/>
+            </jpa:basic>
+            <jpa:basic name="categoria" attribute-type="String" visibile="true" id="_1461431054216310">
+                <jpa:column name="categoria" nullable="false" length="2"/>
+            </jpa:basic>
+            <jpa:one-to-one name="pessoa" target-entity="Pessoa" fetch="LAZY" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179304" visibile="true" id="_1461431054216308"/>
+        </jpa:attributes>
+        <jpa:table name="pessoa_carteira" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="PlanoAvaliacao" visibile="true" minimized="false" id="_1461431054251311">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054251312">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054251313">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-many name="vagases" target-entity="Vagas" fetch="LAZY" mapped-by="planoAvaliacao" collection-type="java.util.Set" connected-entity-id="_1461431054696386" connected-attribute-id="_1461431054697389" visibile="true" id="_1461431054251315"/>
+            <jpa:many-to-many name="questaos" target-entity="Questao" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_1461431054322324" visibile="true" id="_1461431054251314">
+                <jpa:join-table name="plano_avaliacao_has_questao" schema="public">
+                    <jpa:join-column name="plano_avaliacao_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="questao_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="plano_avaliacao" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Qualificacao" visibile="true" minimized="false" id="_1461431054286316">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054286317">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054286318">
+                <jpa:column name="nome" nullable="false" length="400"/>
+            </jpa:basic>
+            <jpa:basic name="cargaHoraria" attribute-type="Integer" visibile="true" id="_1461431054286319">
+                <jpa:column name="carga_horaria"/>
+            </jpa:basic>
+            <jpa:basic name="certificado" attribute-type="char" visibile="true" id="_1461431054286320">
+                <jpa:column name="certificado" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="validade" attribute-type="char" visibile="true" id="_1461431054286321">
+                <jpa:column name="validade" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_1461431054286322">
+                <jpa:column name="descricao" length="2000"/>
+            </jpa:basic>
+            <jpa:one-to-many name="funcionarioQualificacaos" target-entity="FuncionarioQualificacao" fetch="LAZY" mapped-by="qualificacao" collection-type="java.util.Set" connected-entity-id="_1461431053992251" connected-attribute-id="_1461431053992254" visibile="true" id="_1461431054286323"/>
+        </jpa:attributes>
+        <jpa:table name="qualificacao" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Questao" visibile="true" minimized="false" id="_1461431054322324">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="long" visibile="true" id="_1461431054322325">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:generated-value strategy="SEQUENCE" generator="questao_seq"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_1461431054322326">
+                <jpa:column name="descricao" nullable="false" length="2000"/>
+            </jpa:basic>
+            <jpa:basic name="tipo" attribute-type="Character" visibile="true" id="_1461431054322327">
+                <jpa:column name="tipo" length="1"/>
+            </jpa:basic>
+            <jpa:one-to-many name="respostas" target-entity="Resposta" fetch="LAZY" mapped-by="questao" collection-type="java.util.Set" connected-entity-id="_1461431054390336" connected-attribute-id="_1461431054390339" visibile="true" id="_1461431054322328"/>
+            <jpa:one-to-many name="questaoOpcaos" target-entity="QuestaoOpcao" fetch="LAZY" mapped-by="questao" collection-type="java.util.Set" connected-entity-id="_1461431054356331" connected-attribute-id="_1461431054356333" visibile="true" id="_1461431054322329"/>
+            <jpa:many-to-many name="planoAvaliacaos" target-entity="PlanoAvaliacao" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_1461431054251311" visibile="true" id="_1461431054322330">
+                <jpa:join-table name="plano_avaliacao_has_questao" schema="public">
+                    <jpa:join-column name="questao_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="plano_avaliacao_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="questao" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="QuestaoOpcao" visibile="true" minimized="false" id="_1461431054356331">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054356332">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="texto" attribute-type="String" visibile="true" id="_1461431054356334">
+                <jpa:column name="texto" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:many-to-one name="questao" target-entity="Questao" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054322324" connected-attribute-id="_1461431054322329" visibile="true" id="_1461431054356333">
+                <jpa:join-column name="questao_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="respostas" target-entity="Resposta" fetch="LAZY" mapped-by="questaoOpcao" collection-type="java.util.Set" connected-entity-id="_1461431054390336" connected-attribute-id="_1461431054390340" visibile="true" id="_1461431054356335"/>
+        </jpa:attributes>
+        <jpa:table name="questao_opcao" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Resposta" visibile="true" minimized="false" id="_1461431054390336">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054390337">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_1461431054390341">
+                <jpa:column name="descricao"/>
+            </jpa:basic>
+            <jpa:many-to-one name="candidato" target-entity="Candidato" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105276820" connected-attribute-id="_146143105276825" visibile="true" id="_1461431054390338">
+                <jpa:join-column name="candidato_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="questao" target-entity="Questao" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054322324" connected-attribute-id="_1461431054322328" visibile="true" id="_1461431054390339">
+                <jpa:join-column name="questao_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="questaoOpcao" target-entity="QuestaoOpcao" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054356331" connected-attribute-id="_1461431054356335" visibile="true" id="_1461431054390340">
+                <jpa:join-column name="questao_opcao_id"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="resposta" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Sindicato" visibile="true" minimized="false" id="_1461431054426342">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054426343">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054426344">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="desconto" attribute-type="java.math.BigDecimal" visibile="true" id="_1461431054426345">
+                <jpa:column name="desconto" precision="10"/>
+            </jpa:basic>
+            <jpa:basic name="valorMensal" attribute-type="java.math.BigDecimal" visibile="true" id="_1461431054426346">
+                <jpa:column name="valor_mensal" precision="10"/>
+            </jpa:basic>
+            <jpa:one-to-many name="funcionarioCargos" target-entity="FuncionarioCargo" fetch="LAZY" mapped-by="sindicato" collection-type="java.util.Set" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834211" visibile="true" id="_1461431054426347"/>
+            <jpa:one-to-many name="sindicatoHasFuncionarioCargos" target-entity="SindicatoHasFuncionarioCargo" fetch="LAZY" mapped-by="sindicato" collection-type="java.util.Set" connected-entity-id="_1461431054460349" connected-attribute-id="_1461431054460352" visibile="true" id="_1461431054426348"/>
+        </jpa:attributes>
+        <jpa:table name="sindicato" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="EMBEDDEDID" compositePrimaryKeyClass="SindicatoHasFuncionarioCargoPK" static-metamodel="false" abstract="false" class="SindicatoHasFuncionarioCargo" visibile="true" minimized="false" id="_1461431054460349">
+        <jpa:attributes>
+            <jpa:id name="sindicatoId" attribute-type="int" visibile="true" id="_1461431054467355"/>
+            <jpa:id name="funcionarioCargoId" attribute-type="int" visibile="true" id="_1461431054467356"/>
+            <jpa:embedded-id name="id" attribute-type="SindicatoHasFuncionarioCargoPK" visibile="true" id="_1461431054460350"/>
+            <jpa:basic name="dataInicio" attribute-type="java.util.Date" visibile="true" id="_1461431054460353">
+                <jpa:column name="data_inicio" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataFim" attribute-type="java.util.Date" visibile="true" id="_1461431054460354">
+                <jpa:column name="data_fim" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="funcionarioCargo" target-entity="FuncionarioCargo" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834223" visibile="true" id="_1461431054460351">
+                <jpa:join-column name="funcionario_cargo_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="sindicato" target-entity="Sindicato" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054426342" connected-attribute-id="_1461431054426348" visibile="true" id="_1461431054460352">
+                <jpa:join-column name="sindicato_id" nullable="false" insertable="false" updatable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="sindicato_has_funcionario_cargo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Tabela" visibile="true" minimized="false" id="_1461431054498357">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054498358">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="dataInicio" attribute-type="java.util.Date" visibile="true" id="_1461431054498359">
+                <jpa:column name="data_inicio" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="tipo" attribute-type="String" visibile="true" id="_1461431054498360">
+                <jpa:column name="tipo" length="10"/>
+            </jpa:basic>
+            <jpa:one-to-many name="tabelaValoreses" target-entity="TabelaValores" fetch="LAZY" mapped-by="tabela" collection-type="java.util.Set" connected-entity-id="_1461431054531362" connected-attribute-id="_1461431054531364" visibile="true" id="_1461431054499361"/>
+        </jpa:attributes>
+        <jpa:table name="tabela" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="TabelaValores" visibile="true" minimized="false" id="_1461431054531362">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054531363">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="valorInicial" attribute-type="java.math.BigDecimal" visibile="true" id="_1461431054531365">
+                <jpa:column name="valor_inicial" nullable="false" precision="10"/>
+            </jpa:basic>
+            <jpa:basic name="valorFinal" attribute-type="java.math.BigDecimal" visibile="true" id="_1461431054531366">
+                <jpa:column name="valor_final" precision="10"/>
+            </jpa:basic>
+            <jpa:basic name="aliquota" attribute-type="java.math.BigDecimal" visibile="true" id="_1461431054531367">
+                <jpa:column name="aliquota" precision="10"/>
+            </jpa:basic>
+            <jpa:basic name="desconto" attribute-type="java.math.BigDecimal" visibile="true" id="_1461431054531368">
+                <jpa:column name="desconto" precision="10"/>
+            </jpa:basic>
+            <jpa:many-to-one name="tabela" target-entity="Tabela" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054498357" connected-attribute-id="_1461431054499361" visibile="true" id="_1461431054531364">
+                <jpa:join-column name="tabela_id" nullable="false"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+        <jpa:table name="tabela_valores" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="TipoSanguineo" visibile="true" minimized="false" id="_1461431054563369">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054563370">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054563371">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-many name="dependentes" target-entity="Dependente" fetch="LAZY" mapped-by="tipoSanguineo" collection-type="java.util.Set" connected-entity-id="_146143105319892" connected-attribute-id="_146143105319996" visibile="true" id="_1461431054563372"/>
+        </jpa:attributes>
+        <jpa:table name="tipo_sanguineo" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Unidade" visibile="true" minimized="false" id="_1461431054618373">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054618374">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054618376">
+                <jpa:column name="nome" length="100"/>
+            </jpa:basic>
+            <jpa:many-to-one name="empresa" target-entity="Empresa" fetch="LAZY" primaryKey="false" connected-entity-id="_146143105323399" connected-attribute-id="_1461431053233112" visibile="true" id="_1461431054618375">
+                <jpa:join-column name="empresa_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="funcionarioCargos" target-entity="FuncionarioCargo" fetch="LAZY" mapped-by="unidade" collection-type="java.util.Set" connected-entity-id="_1461431053834206" connected-attribute-id="_1461431053834212" visibile="true" id="_1461431054618377"/>
+        </jpa:attributes>
+        <jpa:table name="unidade" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Usuario" visibile="true" minimized="false" id="_1461431054658378">
+        <jpa:attributes>
+            <jpa:id name="pessoaId" attribute-type="int" visibile="true" id="_1461431054658379">
+                <annotation>
+                    <name>org.hibernate.annotations.GenericGenerator</name>
+                </annotation>
+                <jpa:column name="pessoa_id" unique="true" nullable="false"/>
+                <jpa:generated-value generator="generator"/>
+                <jpa:sequence-generator name="pessoa_id"/>
+            </jpa:id>
+            <jpa:basic name="usuario" attribute-type="String" visibile="true" id="_1461431054658381">
+                <jpa:column name="usuario" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="senha" attribute-type="String" visibile="true" id="_1461431054659382">
+                <jpa:column name="senha" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="nivel" attribute-type="Integer" visibile="true" id="_1461431054659383">
+                <jpa:column name="nivel"/>
+            </jpa:basic>
+            <jpa:one-to-many name="necessidadePessoas" target-entity="NecessidadePessoa" fetch="LAZY" mapped-by="usuario" collection-type="java.util.Set" connected-entity-id="_1461431054092267" connected-attribute-id="_1461431054092270" visibile="true" id="_1461431054659384"/>
+            <jpa:one-to-many name="auditorias" target-entity="Auditoria" fetch="LAZY" mapped-by="usuario" collection-type="java.util.Set" connected-entity-id="_14614310526859" connected-attribute-id="_146143105268511" visibile="true" id="_1461431054659385"/>
+            <jpa:one-to-one name="pessoa" target-entity="Pessoa" fetch="LAZY" connected-entity-id="_1461431054178280" connected-attribute-id="_1461431054179298" visibile="true" id="_1461431054658380"/>
+        </jpa:attributes>
+        <jpa:table name="usuario" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="Vagas" visibile="true" minimized="false" id="_1461431054696386">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054696387">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="descricao" attribute-type="String" visibile="true" id="_1461431054697390">
+                <jpa:column name="descricao" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="perfil" attribute-type="String" visibile="true" id="_1461431054697391">
+                <jpa:column name="perfil" nullable="false"/>
+            </jpa:basic>
+            <jpa:basic name="tipo" attribute-type="char" visibile="true" id="_1461431054697392">
+                <jpa:column name="tipo" nullable="false" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="dataInicio" attribute-type="java.util.Date" visibile="true" id="_1461431054697393">
+                <jpa:column name="data_inicio" nullable="false" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="dataFim" attribute-type="java.util.Date" visibile="true" id="_1461431054697394">
+                <jpa:column name="data_fim" length="13"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="finalizado" attribute-type="Boolean" visibile="true" id="_1461431054697395">
+                <jpa:column name="finalizado"/>
+            </jpa:basic>
+            <jpa:many-to-one name="necessidadePessoa" target-entity="NecessidadePessoa" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054092267" connected-attribute-id="_1461431054092276" visibile="true" id="_1461431054697388">
+                <jpa:join-column name="necessidade_pessoa_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="planoAvaliacao" target-entity="PlanoAvaliacao" fetch="LAZY" primaryKey="false" connected-entity-id="_1461431054251311" connected-attribute-id="_1461431054251315" visibile="true" id="_1461431054697389">
+                <jpa:join-column name="plano_avaliacao_id" nullable="false"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="candidatos" target-entity="Candidato" fetch="LAZY" mapped-by="vagas" collection-type="java.util.Set" connected-entity-id="_146143105276820" connected-attribute-id="_146143105276823" visibile="true" id="_1461431054697397"/>
+            <jpa:many-to-many name="competencias" target-entity="Competencia" fetch="LAZY" collection-type="java.util.Set" connected-entity-id="_146143105300564" visibile="true" id="_1461431054697396">
+                <jpa:join-table name="vagas_has_competencia" schema="public">
+                    <jpa:join-column name="vagas_id" nullable="false" updatable="false"/>
+                    <jpa:inverse-join-column name="competencia_id" nullable="false" updatable="false"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:table name="vagas" schema="public"/>
+    </jpa:entity>
+    <jpa:entity jaxb-root-element="false" compositePrimaryKeyType="NONE" static-metamodel="false" abstract="false" class="VinculoEmpregaticio" visibile="true" minimized="false" id="_1461431054731398">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="int" visibile="true" id="_1461431054731399">
+                <jpa:column name="id" unique="true" nullable="false"/>
+                <jpa:sequence-generator name="id"/>
+            </jpa:id>
+            <jpa:basic name="nome" attribute-type="String" visibile="true" id="_1461431054732400">
+                <jpa:column name="nome" nullable="false" length="100"/>
+            </jpa:basic>
+            <jpa:one-to-many name="funcionarios" target-entity="Funcionario" fetch="LAZY" mapped-by="vinculoEmpregaticio" collection-type="java.util.Set" connected-entity-id="_1461431053757190" connected-attribute-id="_1461431053757194" visibile="true" id="_1461431054732401"/>
+        </jpa:attributes>
+        <jpa:table name="vinculo_empregaticio" schema="public"/>
+    </jpa:entity>
+    <jpa:diagram id="_14614310524972">
+        <plane elementRef="_14614310524921" id="_14614310524993_p"/>
+    </jpa:diagram>
+</jpa:entity-mappings>

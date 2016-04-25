@@ -7,6 +7,8 @@ import br.com.empresa.rh.service.MenuService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
@@ -70,6 +72,7 @@ public class JAXRSServerConfig {
         //JaxbAnnotationModule jaxbModule = new JaxbAnnotationModule();
         //objectMapper.registerModule(jaxbModule);
         objectMapper.registerModule(new Hibernate4Module());
+          objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         jacksonJsonProvider.setMapper(objectMapper);
 
         factory.setProvider(jacksonJsonProvider);

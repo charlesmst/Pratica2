@@ -21,5 +21,5 @@ public interface IEvento {
 
     boolean isAplicavel();
     
-    void calcula(Parametros parametros);
+    void calcula(Parametros parametros,Consulta consultas,EventoCollection eventos,Console console,Utilitarios utilitarios);
 }

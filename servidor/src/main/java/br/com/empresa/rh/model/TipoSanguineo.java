@@ -23,7 +23,7 @@ public class TipoSanguineo  implements java.io.Serializable {
 
      private int id;
      private String nome;
-     private Set<Dependente> dependentes = new HashSet<Dependente>(0);
+     private Set<Funcionario> dependentes = new HashSet<Funcionario>(0);
 
     public TipoSanguineo() {
     }
@@ -33,7 +33,7 @@ public class TipoSanguineo  implements java.io.Serializable {
         this.id = id;
         this.nome = nome;
     }
-    public TipoSanguineo(int id, String nome, Set<Dependente> dependentes) {
+    public TipoSanguineo(int id, String nome, Set<Funcionario> dependentes) {
        this.id = id;
        this.nome = nome;
        this.dependentes = dependentes;
@@ -62,11 +62,11 @@ public class TipoSanguineo  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="tipoSanguineo")
-    public Set<Dependente> getDependentes() {
+    public Set<Funcionario> getDependentes() {
         return this.dependentes;
     }
     
-    public void setDependentes(Set<Dependente> dependentes) {
+    public void setDependentes(Set<Funcionario> dependentes) {
         this.dependentes = dependentes;
     }
 

@@ -9,6 +9,7 @@ import br.com.empresa.rh.model.Funcionario;
 import br.com.empresa.rh.model.Tabela;
 import br.com.empresa.rh.service.EventoService;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,25 +20,13 @@ import org.springframework.stereotype.Service;
  */
 public class Parametros {
 
-    private double salario;
-    private List<Tabela> tabelas;
-    private double fgts;
+    private Date dataReferencia;
 
-    public Parametros(double salario, List<Tabela> tabelas, double fgts) {
-        this.salario = salario;
-        this.tabelas = tabelas;
-        this.fgts = fgts;
+    public Parametros(Date dataReferencia) {
+        this.dataReferencia = dataReferencia;
     }
 
-    public double getSalario() {
-        return salario;
-    }
-
-    public List<Tabela> getTabelas() {
-        return tabelas;
-    }
-
-    public double getFgts() {
-        return fgts;
+    public Date getDataReferencia() {
+        return dataReferencia;
     }
 }

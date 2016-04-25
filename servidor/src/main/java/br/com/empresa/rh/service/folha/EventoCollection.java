@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author charles
  */
-public class EventoCollection implements Serializable{
+public class EventoCollection implements Serializable {
 
     private List<IEvento> eventos;
 
@@ -30,11 +30,54 @@ public class EventoCollection implements Serializable{
             this.eventos.add(new EventoScript(evento));
         }
     }
+    
+    public void addAll(List<Evento> eventos){
+        for (Evento evento : eventos) {
+            this.eventos.add(new EventoScript(evento));
+        }
+    }
+    public EventoCollection() {
+            this.eventos = new ArrayList<>();
+    }
 
     public double getTotalVencimentos() {
+        return getBases() + getProventos() + getBeneficios();
+    }
+
+    public double getDescontos() {
         double valor = 0d;
         for (IEvento evento : eventos) {
-            if (evento.getEvento().getTipo() == EventoTipo.BASE || evento.getEvento().getTipo() == EventoTipo.BENEFICIO) {
+            if (evento.getEvento().getTipo() == EventoTipo.DESCONTO) {
+                valor += evento.getValorCalculado();
+            }
+        }
+        return valor;
+    }
+
+    public double getProventos() {
+        double valor = 0d;
+        for (IEvento evento : eventos) {
+            if (evento.getEvento().getTipo() == EventoTipo.PROVENTO) {
+                valor += evento.getValorCalculado();
+            }
+        }
+        return valor;
+    }
+
+    public double getBeneficios() {
+        double valor = 0d;
+        for (IEvento evento : eventos) {
+            if (evento.getEvento().getTipo() == EventoTipo.BENEFICIO) {
+                valor += evento.getValorCalculado();
+            }
+        }
+        return valor;
+    }
+
+    public double getBases() {
+        double valor = 0d;
+        for (IEvento evento : eventos) {
+            if (evento.getEvento().getTipo() == EventoTipo.BASE) {
                 valor += evento.getValorCalculado();
             }
         }

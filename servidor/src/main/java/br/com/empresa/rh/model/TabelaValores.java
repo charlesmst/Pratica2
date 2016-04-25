@@ -2,6 +2,7 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ public class TabelaValores  implements java.io.Serializable {
 
 
      private int id;
+     @JsonIgnore
      private Tabela tabela;
      private BigDecimal valorInicial;
      private BigDecimal valorFinal;

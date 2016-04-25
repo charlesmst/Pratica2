@@ -25,6 +25,7 @@ public class EventoMensal  implements java.io.Serializable {
      private FuncionarioCargo funcionarioCargo;
      private int mes;
      private int ano;
+     private int referencia;
 
     public EventoMensal() {
     }
@@ -89,6 +90,15 @@ public class EventoMensal  implements java.io.Serializable {
         this.ano = ano;
     }
 
+    public int getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(int referencia) {
+        this.referencia = referencia;
+    }
+
+    
 
 
 
