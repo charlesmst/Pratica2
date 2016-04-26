@@ -13,6 +13,7 @@ import br.com.empresa.rh.model.Tabela;
 import br.com.empresa.rh.model.TabelaValores;
 import br.com.empresa.rh.service.DependenteService;
 import br.com.empresa.rh.service.FaixaSalarialService;
+import br.com.empresa.rh.service.FeriasService;
 import br.com.empresa.rh.service.TabelaService;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,12 +32,16 @@ public class Consulta {
     private FuncionarioCargo funcionarioCargo;
     private FaixaSalarialService faixaSalarialService;
     private DependenteService dependenteService;
-    public Consulta(TabelaService tabelaService, Date data, FuncionarioCargo funcionarioCargo,FaixaSalarialService faixaSalarialService,DependenteService dependenteService) {
+    private FeriasService feriasService;
+    private Parametros parametros;
+    public Consulta(TabelaService tabelaService, Date data, FuncionarioCargo funcionarioCargo,FaixaSalarialService faixaSalarialService,DependenteService dependenteService,FeriasService feriasService,Parametros parametros) {
         this.tabelaService = tabelaService;
         this.data = data;
         this.funcionarioCargo = funcionarioCargo;
         this.faixaSalarialService = faixaSalarialService;
         this.dependenteService = dependenteService;
+        this.feriasService = feriasService;
+        this.parametros = parametros;
     }
     
     public Set<TabelaValores> getTabela(String tipo){
@@ -49,6 +54,10 @@ public class Consulta {
     
     public List<Pessoa> getDependentes(){
         return dependenteService.dependentesDe(funcionarioCargo.getFuncionario().getPessoaId(),data);
+    }
+    
+    public int getQuantidadeFerias(){
+        return feriasService.quantidadeDiasFerias(funcionarioCargo.getId(), parametros.getMes(),parametros.getAno());
     }
     
 }

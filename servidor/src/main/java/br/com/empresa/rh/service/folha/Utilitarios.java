@@ -37,4 +37,8 @@ public class Utilitarios {
         cal.setTime(date);
         return cal;
     }
+    
+    public double descontaDias(double valor, int dias){
+        return valor / parametros.getDiasMes() * dias;
+    }
 }

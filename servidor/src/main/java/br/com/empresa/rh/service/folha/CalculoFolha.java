@@ -10,6 +10,7 @@ import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.Tabela;
 import br.com.empresa.rh.service.DependenteService;
 import br.com.empresa.rh.service.FaixaSalarialService;
+import br.com.empresa.rh.service.FeriasService;
 import br.com.empresa.rh.service.TabelaService;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,13 +34,15 @@ public class CalculoFolha {
     private FaixaSalarialService faixaSalarialService;
     @Autowired
     private DependenteService dependenteService;
+    @Autowired
+    private FeriasService feriasService;
     public void setEventos(EventoCollection eventos) {
         this.eventos = eventos;
     }
 
     public void calcula(FuncionarioCargo funcionario,Date data) {
         Parametros parametros = parametrosFuncionario(data,funcionario);
-        Consulta c = consultas(data,funcionario);
+        Consulta c = consultas(data,funcionario,parametros);
         Utilitarios u = new Utilitarios(parametros);
         Console console = new Console();
         int[] ordem = new int[]{EventoTipo.BASE, EventoTipo.PROVENTO, EventoTipo.DESCONTO, EventoTipo.BENEFICIO,EventoTipo.FINALIZACAO};
@@ -58,8 +61,8 @@ public class CalculoFolha {
         return p;
         
     }
-    private Consulta consultas(Date data,FuncionarioCargo func){
-        return new Consulta(tabelaService, data,func,faixaSalarialService,dependenteService);
+    private Consulta consultas(Date data,FuncionarioCargo func,Parametros parametros){
+        return new Consulta(tabelaService, data,func,faixaSalarialService,dependenteService,feriasService,parametros);
     }
 
     public HashMap<String,Object> getLog() {

@@ -5,19 +5,11 @@
  */
 package br.com.empresa.rh.service;
 
-import br.com.empresa.rh.model.request.TableRequest;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.metamodel.EmbeddableType;
-import javax.persistence.metamodel.SingularAttribute;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

@@ -38,7 +38,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @Configuration
-@ComponentScan("br.com.empresa.restfulapp.resources")
+@ComponentScan("br.com.empresa.rh.resources")
 @ImportResource({"classpath:META-INF/cxf/cxf.xml"})
 public class JAXRSServerConfig {
 
