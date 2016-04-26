@@ -1,33 +1,81 @@
 <script type="text/ng-template" id="modal.edit.evento.html">
-   <md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+    <md-dialog aria-label="Mango (Fruit)" style="width:90%"  ng-cloak>
     <form>
-      <md-toolbar>
-        <div class="md-toolbar-tools">
-          <h2>Testar resultado</h2>
-          <span flex></span>
-         
-        </div>
-      </md-toolbar>
-      <md-dialog-content>
-        <div class="md-dialog-content">
-        {{resultado}}
+    <md-toolbar>
+    <div class="md-toolbar-tools">
+    <h2>Testar resultado</h2>
+    <span flex></span>
 
-        </div>
-      </md-dialog-content>
-        <md-dialog-actions layout="row">
+    </div>
+    </md-toolbar>
+    <md-dialog-content>
+    <div class="md-dialog-content">
 
-          <span flex></span>
-          <md-button ng-click="testar()">
-              Testar
-          </md-button>
-          <md-button ng-click="cancel()" style="margin-right:20px;">
-              Cancelar
-          </md-button>
-        </md-dialog-actions>
+    <md-autocomplete
+    md-selected-item="funcionario"
+    md-search-text="searchText"
+    md-items="item in querySearch(crudVm.searchText)"
+    md-item-text="item.funcionario.pessoa.nome"
+    md-min-length="0"
+    placeholder="Funcionário">
+    <span md-highlight-text="crudVm.searchText">{{item.funcionario.pessoa.nome}} - {{item.cargo.nome}}</span>
+    </md-autocomplete>
+    <p class="md-title">Eventos (Resultado)</p>
+
+    <table md-table>
+    <thead md-head >
+    <tr md-row>
+    <th md-column><span>Nome</span></th>
+    <th md-column><span>Visível Folha</span></th>         
+    <th md-column><span>Tipo</span></th>         
+    <th md-column><span>Valor</span></th>  
+    <th md-column><span>Ref.</span></th>
+    <th md-column><span>Aplicável</span></th>  
+
+    </tr>
+    </thead>
+    <tbody md-body>
+    <tr ng-repeat="row in (eventos.eventos || [])">
+
+    <td md-cell>{{row.evento.nome}}</td>   
+    <td md-cell>{{row.evento.visivelFolha}}</td>                
+    <td md-cell>{{row.evento.tipo}}</td>   
+    <td md-cell>{{row.valorCalculado}}</td>   
+    <td md-cell>{{row.referencia}}</td>   
+    <td md-cell>{{row.aplicavel}}</td>   
+
+
+    </tr>
+    </tbody>
+    </table>
+    <p class="md-title">LOG(console.log)</p>
+    <div ui-ace="{
+    require: ['ace/ext/language_tools'],
+    mode:'javascript',
+    advanced: {
+    enableSnippets: true,
+    enableBasicAutocompletion: true,
+    enableLiveAutocompletion: true
+    }
+    }"
+    ng-model="log"
+    ></div>
+
+    </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+
+    <span flex></span>
+    <md-button ng-click="testar()">
+    Testar
+    </md-button>
+    <md-button ng-click="cancel()" style="margin-right:20px;">
+    Cancelar
+    </md-button>
+    </md-dialog-actions>
     </form>
-  </md-dialog>
+    </md-dialog>
 </script>
-
 <form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
 
     <div class="md-fab-bottom-right app-fixed-bottom-right">
@@ -73,6 +121,8 @@
                                         <md-radio-button value="2">Provento</md-radio-button>
                                         <md-radio-button value="3">Desconto</md-radio-button>
                                         <md-radio-button value="4">Benefício social</md-radio-button>
+                                        <md-radio-button value="5">Finalização</md-radio-button>
+
                                     </md-radio-group>
                                     <div ng-messages="formEdit.nome.$error">
                                         <div ng-message="required">Campo obrigatório.</div>

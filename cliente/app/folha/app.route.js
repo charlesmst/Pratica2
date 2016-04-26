@@ -43,5 +43,16 @@
                         }
                     }
                 })
+                .state('calculofolha', {
+                    url: '/calculofolha',
+                    views: {
+                        "": {
+                            templateUrl: 'app/folha/calculo.folha.tmpl.html',
+                            controller: "CalculoFolhaController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+
     }
 })()

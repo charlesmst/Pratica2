@@ -1,0 +1,52 @@
+<form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
+
+    <md-card >
+
+
+        <md-card-content>
+            <h2>Cálculo de folha</h2>
+            <md-content>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Mês</label>
+                        <md-select required name="mes" ng-model="crudVm.entity.mes">
+                            <md-option ng-repeat="item in crudVm.meses" value="{{item.numero}}">
+                                {{item.nome}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="formEdit.mes.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Ano</label>
+                        <input required type="number" step="any" name="ano" ng-model="crudVm.entity.ano" min="2000"
+                               max="2100" ng-pattern="/^[0-9]{4}$/" />
+                        <div ng-messages="formEdit.ano.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-radio-group ng-model="crudVm.entity.tipo">
+                    <md-radio-button value="1" class="md-primary">Folha do mês</md-radio-button>
+                    <md-radio-button value="2"> Folha de férias </md-radio-button>
+                    <md-radio-button value="3">Folha complementar</md-radio-button>
+                </md-radio-group>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Empresa</label>
+                    <md-select required name="empresa" ng-model="crudVm.entity.empresa">
+                        <md-option ng-repeat="item in crudVm.empresas" value="{{item.id}}">
+                            {{item.nome}} - {{item.cnpj}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="formEdit.empresa.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+                </md-input-container>
+            </md-content>
+            <md-button class="md-raised md-warn">Cálcular</md-button>
+
+        </md-card-content>
+    </md-card>
+</form>

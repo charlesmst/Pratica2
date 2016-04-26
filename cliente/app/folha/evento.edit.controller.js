@@ -52,18 +52,29 @@
 
         }
 
-        function DialogController($scope, $mdDialog) {
+        function DialogController($scope, $mdDialog, FuncionarioCargo) {
             var modalVm = $scope;
             modalVm.cancel = cancel;
             modalVm.testar = testar;
+            modalVm.querySearch = querySearch;
             function cancel() {
-                 $mdDialog.cancel()
+                $mdDialog.cancel()
             }
             function testar() {
-                console.log("Teste")
-                Evento.test(vm.entity).$promise.then(function (r) {
-                    modalVm.resultado = r
+                Evento.test({
+                    funcionario:modalVm.funcionario.id
+                },vm.entity).$promise.then(function (r) {
+                    modalVm.log = "";
+                    angular.forEach(r.logs,function(item,k){
+                       modalVm.log += '"'+k+'":'+JSON.stringify(item)+"\n"; 
+                    })
+                    modalVm.eventos = r.eventos;
                 })
+            }
+            function querySearch(text) {
+                return FuncionarioCargo.query({
+                    filter: text
+                }).$promise;
             }
         }
 
