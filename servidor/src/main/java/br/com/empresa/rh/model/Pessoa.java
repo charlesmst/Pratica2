@@ -1,7 +1,10 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
-
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,42 +29,44 @@ import org.hibernate.annotations.Type;
  */
 @Entity
 @SequenceGenerator(name = "pessoa_seq", sequenceName = "pessoa_seq", initialValue = 1, allocationSize = 1)
-@Table(name="pessoa"
-    ,schema="public"
+@Table(name = "pessoa", schema = "public"
 )
-public class Pessoa  implements java.io.Serializable {
+public class Pessoa implements java.io.Serializable {
 
+    
+    @JsonView({Folha.Funcionario.class})
+    private int id;
+    private Cidade cidade;
+    private Cor cor;
+    private Escolaridade escolaridade;
+    private EstadoCivil estadoCivil;
+    private Pessoa pessoaByPessoaId;
+    private Pessoa pessoaByMaeId;
+    private String cpf;
+    @JsonView({Folha.Funcionario.class})    
+    private String nome;
+    private Date dataNascimento;
+    private char sexo;
+    private String endereco;
+    private String email;
+    private String rg;
+    private Curriculo curriculo;
 
-     private int id;
-     private Cidade cidade;
-     private Cor cor;
-     private Escolaridade escolaridade;
-     private EstadoCivil estadoCivil;
-     private Pessoa pessoaByPessoaId;
-     private Pessoa pessoaByMaeId;
-     private String cpf;
-     private String nome;
-     private Date dataNascimento;
-     private char sexo;
-     private String endereco;
-     private String email;
-     private String rg;
-     private Curriculo curriculo;
-     private Funcionario funcionario;
-     private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
-     private Usuario usuario;
-     private Set<NecessidadeEspecial> necessidadeEspecials = new HashSet<NecessidadeEspecial>(0);
-     private Set<Candidato> candidatos = new HashSet<Candidato>(0);
-     private Set<Pessoa> pessoasForPessoaId = new HashSet<Pessoa>(0);
-     private Set<Pessoa> pessoasForMaeId = new HashSet<Pessoa>(0);
-     private Set<Dependente> dependentes = new HashSet<Dependente>(0);
-     private PessoaCarteira pessoaCarteira;
-     private Set<CurriculoExperiencia> curriculoExperiencias = new HashSet<CurriculoExperiencia>(0);
+    @JsonBackReference
+    private Funcionario funcionario;
+    private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
+    private Usuario usuario;
+    private Set<NecessidadeEspecial> necessidadeEspecials = new HashSet<NecessidadeEspecial>(0);
+    private Set<Candidato> candidatos = new HashSet<Candidato>(0);
+    private Set<Pessoa> pessoasForPessoaId = new HashSet<Pessoa>(0);
+    private Set<Pessoa> pessoasForMaeId = new HashSet<Pessoa>(0);
+    private Set<Dependente> dependentes = new HashSet<Dependente>(0);
+    private PessoaCarteira pessoaCarteira;
+    private Set<CurriculoExperiencia> curriculoExperiencias = new HashSet<CurriculoExperiencia>(0);
 
     public Pessoa() {
     }
 
-	
     public Pessoa(int id, Cidade cidade, Escolaridade escolaridade, String nome, char sexo) {
         this.id = id;
         this.cidade = cidade;
@@ -69,280 +74,272 @@ public class Pessoa  implements java.io.Serializable {
         this.nome = nome;
         this.sexo = sexo;
     }
+
     public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Date dataNascimento, char sexo, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, PessoaCarteira pessoaCarteira, Set<CurriculoExperiencia> curriculoExperiencias) {
-       this.id = id;
-       this.cidade = cidade;
-       this.cor = cor;
-       this.escolaridade = escolaridade;
-       this.estadoCivil = estadoCivil;
-       this.pessoaByPessoaId = pessoaByPessoaId;
-       this.pessoaByMaeId = pessoaByMaeId;
-       this.cpf = cpf;
-       this.nome = nome;
-       this.dataNascimento = dataNascimento;
-       this.sexo = sexo;
-       this.endereco = endereco;
-       this.email = email;
-       this.rg = rg;
-       this.curriculo = curriculo;
-       this.funcionario = funcionario;
-       this.entrevistas = entrevistas;
-       this.usuario = usuario;
-       this.necessidadeEspecials = necessidadeEspecials;
-       this.candidatos = candidatos;
-       this.pessoasForPessoaId = pessoasForPessoaId;
-       this.pessoasForMaeId = pessoasForMaeId;
-       this.dependentes = dependentes;
-       this.pessoaCarteira = pessoaCarteira;
-       this.curriculoExperiencias = curriculoExperiencias;
+        this.id = id;
+        this.cidade = cidade;
+        this.cor = cor;
+        this.escolaridade = escolaridade;
+        this.estadoCivil = estadoCivil;
+        this.pessoaByPessoaId = pessoaByPessoaId;
+        this.pessoaByMaeId = pessoaByMaeId;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
+        this.endereco = endereco;
+        this.email = email;
+        this.rg = rg;
+        this.curriculo = curriculo;
+        this.funcionario = funcionario;
+        this.entrevistas = entrevistas;
+        this.usuario = usuario;
+        this.necessidadeEspecials = necessidadeEspecials;
+        this.candidatos = candidatos;
+        this.pessoasForPessoaId = pessoasForPessoaId;
+        this.pessoasForMaeId = pessoasForMaeId;
+        this.dependentes = dependentes;
+        this.pessoaCarteira = pessoaCarteira;
+        this.curriculoExperiencias = curriculoExperiencias;
     }
-   
-     @Id 
-     @GeneratedValue(generator = "pessoa_seq", strategy = GenerationType.SEQUENCE)
-    
-    @Column(name="id", unique=true, nullable=false)
+
+    @Id
+    @GeneratedValue(generator = "pessoa_seq", strategy = GenerationType.SEQUENCE)
+
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="cidade_id", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cidade_id", nullable = false)
     public Cidade getCidade() {
         return this.cidade;
     }
-    
+
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="cor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cor_id")
     public Cor getCor() {
         return this.cor;
     }
-    
+
     public void setCor(Cor cor) {
         this.cor = cor;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="escolaridade_id", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "escolaridade_id", nullable = false)
     public Escolaridade getEscolaridade() {
         return this.escolaridade;
     }
-    
+
     public void setEscolaridade(Escolaridade escolaridade) {
         this.escolaridade = escolaridade;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="estado_civil_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estado_civil_id")
     public EstadoCivil getEstadoCivil() {
         return this.estadoCivil;
     }
-    
+
     public void setEstadoCivil(EstadoCivil estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="pessoa_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pessoa_id")
     public Pessoa getPessoaByPessoaId() {
         return this.pessoaByPessoaId;
     }
-    
+
     public void setPessoaByPessoaId(Pessoa pessoaByPessoaId) {
         this.pessoaByPessoaId = pessoaByPessoaId;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="mae_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mae_id")
     public Pessoa getPessoaByMaeId() {
         return this.pessoaByMaeId;
     }
-    
+
     public void setPessoaByMaeId(Pessoa pessoaByMaeId) {
         this.pessoaByMaeId = pessoaByMaeId;
     }
 
-    
-    @Column(name="cpf", length=11,columnDefinition = "bpchar(11)")
+    @Column(name = "cpf", length = 11, columnDefinition = "bpchar(11)")
     public String getCpf() {
         return this.cpf;
     }
-    
+
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    
-    @Column(name="nome", nullable=false, length=500)
+    @Column(name = "nome", nullable = false, length = 500)
     public String getNome() {
         return this.nome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    
-    @Column(name="data_nascimento")
+    @Column(name = "data_nascimento")
     @Type(type = "date")
     public Date getDataNascimento() {
         return this.dataNascimento;
     }
-    
+
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    
-    @Column(name="sexo", nullable=false, length=1)
+    @Column(name = "sexo", nullable = false, length = 1)
     public char getSexo() {
         return this.sexo;
     }
-    
+
     public void setSexo(char sexo) {
         this.sexo = sexo;
     }
 
-    
-    @Column(name="endereco", length=100)
+    @Column(name = "endereco", length = 100)
     public String getEndereco() {
         return this.endereco;
     }
-    
+
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
 
-    
-    @Column(name="email", length=200)
+    @Column(name = "email", length = 200)
     public String getEmail() {
         return this.email;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    
-    @Column(name="rg", length=20)
+    @Column(name = "rg", length = 20)
     public String getRg() {
         return this.rg;
     }
-    
+
     public void setRg(String rg) {
         this.rg = rg;
     }
 
-@OneToOne(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
     public Curriculo getCurriculo() {
         return this.curriculo;
     }
-    
+
     public void setCurriculo(Curriculo curriculo) {
         this.curriculo = curriculo;
     }
 
-@OneToOne(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
+
     public Funcionario getFuncionario() {
         return this.funcionario;
     }
-    
+
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
     public Set<Entrevista> getEntrevistas() {
         return this.entrevistas;
     }
-    
+
     public void setEntrevistas(Set<Entrevista> entrevistas) {
         this.entrevistas = entrevistas;
     }
 
-@OneToOne(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
     public Usuario getUsuario() {
         return this.usuario;
     }
-    
+
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-@ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="pessoa_has_necessidade_especial", schema="public", joinColumns = { 
-        @JoinColumn(name="pessoa_id", nullable=false, updatable=false) }, inverseJoinColumns = { 
-        @JoinColumn(name="necessidade_especial_id", nullable=false, updatable=false) })
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "pessoa_has_necessidade_especial", schema = "public", joinColumns = {
+        @JoinColumn(name = "pessoa_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "necessidade_especial_id", nullable = false, updatable = false)})
     public Set<NecessidadeEspecial> getNecessidadeEspecials() {
         return this.necessidadeEspecials;
     }
-    
+
     public void setNecessidadeEspecials(Set<NecessidadeEspecial> necessidadeEspecials) {
         this.necessidadeEspecials = necessidadeEspecials;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
     public Set<Candidato> getCandidatos() {
         return this.candidatos;
     }
-    
+
     public void setCandidatos(Set<Candidato> candidatos) {
         this.candidatos = candidatos;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoaByPessoaId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoaByPessoaId")
     public Set<Pessoa> getPessoasForPessoaId() {
         return this.pessoasForPessoaId;
     }
-    
+
     public void setPessoasForPessoaId(Set<Pessoa> pessoasForPessoaId) {
         this.pessoasForPessoaId = pessoasForPessoaId;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoaByMaeId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoaByMaeId")
     public Set<Pessoa> getPessoasForMaeId() {
         return this.pessoasForMaeId;
     }
-    
+
     public void setPessoasForMaeId(Set<Pessoa> pessoasForMaeId) {
         this.pessoasForMaeId = pessoasForMaeId;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
     public Set<Dependente> getDependentes() {
         return this.dependentes;
     }
-    
+
     public void setDependentes(Set<Dependente> dependentes) {
         this.dependentes = dependentes;
     }
 
-@OneToOne(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
     public PessoaCarteira getPessoaCarteira() {
         return this.pessoaCarteira;
     }
-    
+
     public void setPessoaCarteira(PessoaCarteira pessoaCarteira) {
         this.pessoaCarteira = pessoaCarteira;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="pessoa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
     public Set<CurriculoExperiencia> getCurriculoExperiencias() {
         return this.curriculoExperiencias;
     }
-    
+
     public void setCurriculoExperiencias(Set<CurriculoExperiencia> curriculoExperiencias) {
         this.curriculoExperiencias = curriculoExperiencias;
     }
-
-
-
 
 }

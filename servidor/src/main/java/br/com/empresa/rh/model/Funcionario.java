@@ -1,6 +1,10 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -25,8 +29,14 @@ import org.hibernate.annotations.Parameter;
 )
 public class Funcionario implements java.io.Serializable {
 
+    
+    @JsonView({Folha.Funcionario.class})
     private int pessoaId;
     private Banco banco;
+    @JsonManagedReference
+     
+    
+    @JsonView({Folha.Funcionario.class})
     private Pessoa pessoa;
     private VinculoEmpregaticio vinculoEmpregaticio;
     private String conta;

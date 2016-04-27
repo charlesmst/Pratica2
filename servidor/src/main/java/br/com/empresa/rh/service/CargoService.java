@@ -18,6 +18,16 @@ public class CargoService extends Service<Cargo>{
         classRef = Cargo.class;
     }
     
+    public List<Cargo> daEmpresa(int codigoEmpresa){
+        String hql = "from Cargo c  "
+                + " left join  fetch c.funcionarioCargos fc "
+                + " inner join fetch fc.funcionario f "
+                + " inner join fetch f.pessoa p "
+                + " where fc.unidade.empresa.id = :id and fc is not EMPTY ";
+        return entityManager.createQuery(hql)
+                .setParameter("id", codigoEmpresa)
+                .getResultList();
+    }
     @Transactional
     public List<Cargo> findForTable(TableRequest request) {
 

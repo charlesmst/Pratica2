@@ -1,11 +1,12 @@
 package br.com.empresa.rh.resources;
 
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.CargoService;
 import br.com.empresa.rh.model.Cargo;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -28,17 +29,17 @@ import org.springframework.stereotype.Component;
 public class CargoResource {
 
     @Autowired
-    private CargoService CargoService;
+    private CargoService cargoService;
 
     @Context
     protected UriInfo info;
 
     public CargoService getCargoService() {
-        return CargoService;
+        return cargoService;
     }
 
     public void setCargoService(CargoService marcaService) {
-        this.CargoService = marcaService;
+        this.cargoService = marcaService;
     }
 
     public CargoResource() {
@@ -48,14 +49,14 @@ public class CargoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(CargoService.count());
+        return new CountResponse(cargoService.count());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<Cargo> m = CargoService.findForTable(request);
+        List<Cargo> m = cargoService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
@@ -63,36 +64,37 @@ public class CargoResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Cargo findById(@PathParam("id") long id) {
-        Cargo m = CargoService.findById(id);
+        Cargo m = cargoService.findById(id);
         return m;
     }
 
     @GET
-    @Path("nivel/{id}")
+    @Path("empresa/{id}/funcionarios")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Cargo> findByNivel(@PathParam("id") long id) {
-        return CargoService.findAll();
+    @JsonView(Folha.CargosFuncionario.class)
+    public List<Cargo> findByNivel(@PathParam("id") int id) {
+        return cargoService.daEmpresa(id);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(Cargo m) {
-        CargoService.insert(m);
+        cargoService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
     public void update(@PathParam("id") long id, Cargo entity) {
-        CargoService.update(entity);
-		
+        cargoService.update(entity);
+
     }
 
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") long id) {
-        CargoService.delete(id);
+        cargoService.delete(id);
     }
 
 }
