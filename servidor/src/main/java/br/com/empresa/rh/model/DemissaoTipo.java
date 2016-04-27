@@ -23,6 +23,8 @@ public class DemissaoTipo  implements java.io.Serializable {
 
      private int id;
      private String nome;
+     private boolean ativo = true;
+
      private Set<FuncionarioCargo> funcionarioCargos = new HashSet<FuncionarioCargo>(0);
 
     public DemissaoTipo() {
@@ -68,6 +70,14 @@ public class DemissaoTipo  implements java.io.Serializable {
     
     public void setFuncionarioCargos(Set<FuncionarioCargo> funcionarioCargos) {
         this.funcionarioCargos = funcionarioCargos;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 

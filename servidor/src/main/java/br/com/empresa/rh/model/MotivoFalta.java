@@ -25,6 +25,8 @@ public class MotivoFalta  implements java.io.Serializable {
      private String nome;
      private char atestado;
      private Character desconta;
+     private boolean ativo = true;
+
      private Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas = new HashSet<FuncionarioCargoHasMotivoFalta>(0);
 
     public MotivoFalta() {
@@ -93,6 +95,14 @@ public class MotivoFalta  implements java.io.Serializable {
     
     public void setFuncionarioCargoHasMotivoFaltas(Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas) {
         this.funcionarioCargoHasMotivoFaltas = funcionarioCargoHasMotivoFaltas;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 

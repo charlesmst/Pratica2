@@ -28,6 +28,7 @@ public class Cargo implements java.io.Serializable {
     @JsonView(Folha.CargosFuncionario.class)
     private String nome;
     private String atribuicoes;
+    private boolean ativo = true;
     private Set<NecessidadePessoa> necessidadePessoas = new HashSet<NecessidadePessoa>(0);
     private Set<CargoHasEvento> cargoHasEventos = new HashSet<CargoHasEvento>(0);
     @JsonView(Folha.CargosFuncionario.class)
@@ -127,6 +128,14 @@ public class Cargo implements java.io.Serializable {
 
     public void setCargoNivels(Set<CargoNivel> cargoNivels) {
         this.cargoNivels = cargoNivels;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 }

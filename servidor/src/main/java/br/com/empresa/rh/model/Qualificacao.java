@@ -27,6 +27,7 @@ public class Qualificacao  implements java.io.Serializable {
      private char certificado;
      private char validade;
      private String descricao;
+     private boolean ativo = true;
      private Set<FuncionarioQualificacao> funcionarioQualificacaos = new HashSet<FuncionarioQualificacao>(0);
 
     public Qualificacao() {
@@ -118,6 +119,14 @@ public class Qualificacao  implements java.io.Serializable {
     
     public void setFuncionarioQualificacaos(Set<FuncionarioQualificacao> funcionarioQualificacaos) {
         this.funcionarioQualificacaos = funcionarioQualificacaos;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 

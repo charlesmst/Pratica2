@@ -29,6 +29,8 @@ public class Evento implements java.io.Serializable {
     private int tipo;
     private String script;
     private boolean padrao;
+    private boolean ativo = true;
+
     private Set<EventoFuncionario> eventoFuncionarios = new HashSet<EventoFuncionario>(0);
     private Set<EventoMensal> eventoMensals = new HashSet<EventoMensal>(0);
     private Set<CargoHasEvento> cargoHasEventos = new HashSet<CargoHasEvento>(0);
@@ -151,6 +153,14 @@ public class Evento implements java.io.Serializable {
 
     public void setFolhaCalculadaEventos(Set<FolhaCalculadaEvento> folhaCalculadaEventos) {
         this.folhaCalculadaEventos = folhaCalculadaEventos;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 }

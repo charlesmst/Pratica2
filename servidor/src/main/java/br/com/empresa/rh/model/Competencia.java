@@ -26,6 +26,7 @@ public class Competencia  implements java.io.Serializable {
      private int id;
      private String descricao;
      private char tipo;
+     private boolean ativo = true;
      private Set<Vagas> vagases = new HashSet<Vagas>(0);
      private Set<Candidato> candidatos = new HashSet<Candidato>(0);
      private Set<CargoNivel> cargoNivels = new HashSet<CargoNivel>(0);
@@ -114,6 +115,14 @@ public class Competencia  implements java.io.Serializable {
     
     public void setCargoNivels(Set<CargoNivel> cargoNivels) {
         this.cargoNivels = cargoNivels;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 

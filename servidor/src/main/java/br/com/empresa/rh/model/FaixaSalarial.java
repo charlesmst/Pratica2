@@ -26,6 +26,7 @@ public class FaixaSalarial  implements java.io.Serializable {
 
      private int id;
      private String nome;
+     private boolean ativo = true;
      private Set<FaixaSalarialValor> faixaSalarialValors = new HashSet<FaixaSalarialValor>(0);
      private Set<CargoNivel> cargoNivels = new HashSet<CargoNivel>(0);
      private Set<FuncionarioFaixa> funcionarioFaixas = new HashSet<FuncionarioFaixa>(0);
@@ -96,6 +97,14 @@ public class FaixaSalarial  implements java.io.Serializable {
     
     public void setFuncionarioFaixas(Set<FuncionarioFaixa> funcionarioFaixas) {
         this.funcionarioFaixas = funcionarioFaixas;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 
