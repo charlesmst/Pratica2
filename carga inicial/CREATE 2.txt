@@ -1,0 +1,1049 @@
+CREATE TABLE demissao_tipo (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL ,
+  ativo BOOL   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE parametro (
+  chave VARCHAR(100)   NOT NULL ,
+  valor TEXT   NOT NULL   ,
+PRIMARY KEY(chave));
+
+
+
+
+CREATE TABLE necessidade_especial (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE cor (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)      ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE qualificacao (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(400)   NOT NULL ,
+  carga_horaria INTEGER    ,
+  certificado CHAR(1)   NOT NULL ,
+  validade CHAR(1)   NOT NULL ,
+  descricao VARCHAR(2000)    ,
+  ativo BOOL   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE plano_avaliacao (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL ,
+  ativo BOOL  DEFAULT true NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE evento (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL ,
+  visivel_folha BOOL   NOT NULL ,
+  tipo INTEGER   NOT NULL ,
+  script TEXT   NOT NULL ,
+  padrao BOOL   NOT NULL ,
+  ativo BOOL   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE motivo_falta (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(300)   NOT NULL ,
+  atestado CHAR(1)   NOT NULL ,
+  desconta CHAR(1)    ,
+  ativo BOOL   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE faixa_salarial (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(200)   NOT NULL ,
+  ativo BOOL  DEFAULT true NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE escolaridade (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE estado (
+  uf CHAR(2)   NOT NULL ,
+  nome VARCHAR(500)   NOT NULL   ,
+PRIMARY KEY(uf));
+
+
+
+
+CREATE TABLE estado_civil (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE questao (
+  id INTEGER   NOT NULL ,
+  descricao VARCHAR(2000)   NOT NULL ,
+  tipo CHAR(1)    ,
+  visivel_candidato BOOL   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+
+CREATE TABLE tipo_sanguineo (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE tabela (
+  id INTEGER   NOT NULL ,
+  data_inicio DATE   NOT NULL ,
+  tipo VARCHAR(10)      ,
+PRIMARY KEY(id));
+
+
+
+
+
+CREATE TABLE banco (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL ,
+  numero VARCHAR(10)      ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE advertencia_tipo (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL ,
+  descricao VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE vinculo_empregaticio (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE sindicato (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL ,
+  desconto DECIMAL(10,2)    ,
+  valor_mensal DECIMAL(10,2)      ,
+PRIMARY KEY(id));
+
+
+
+
+
+CREATE TABLE competencia (
+  id INTEGER   NOT NULL ,
+  descricao VARCHAR(500)   NOT NULL ,
+  tipo CHAR(1)   NOT NULL ,
+  ativo BOOL   NOT NULL   ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE cbo (
+  id INTEGER   NOT NULL ,
+  nome VARCHAR(500)   NOT NULL ,
+  descricao_sumarizada VARCHAR(1000)      ,
+PRIMARY KEY(id));
+
+
+
+
+CREATE TABLE questao_opcao (
+  id INTEGER   NOT NULL ,
+  questao_id INTEGER   NOT NULL ,
+  texto VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(questao_id)
+    REFERENCES questao(id));
+
+
+CREATE INDEX vaga_questao_opcao_FKIndex1 ON questao_opcao (questao_id);
+
+
+CREATE INDEX IFK_Rel_67 ON questao_opcao (questao_id);
+
+
+CREATE TABLE tabela_valores (
+  id INTEGER   NOT NULL ,
+  tabela_id INTEGER   NOT NULL ,
+  valor_inicial DECIMAL(10,2)   NOT NULL ,
+  valor_final DECIMAL(10,2)    ,
+  aliquota DECIMAL(10,2)    ,
+  desconto DECIMAL(10,2)      ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(tabela_id)
+    REFERENCES tabela(id));
+
+
+CREATE INDEX inss_valores_FKIndex1 ON tabela_valores (tabela_id);
+
+
+CREATE INDEX IFK_Rel_22 ON tabela_valores (tabela_id);
+
+
+CREATE TABLE cargo (
+  id INTEGER   NOT NULL ,
+  cbo_id INTEGER   NOT NULL ,
+  nome VARCHAR(200)   NOT NULL ,
+  atribuicoes VARCHAR(2000)    ,
+  ativo BOOL  DEFAULT true NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(cbo_id)
+    REFERENCES cbo(id));
+
+
+CREATE INDEX cargo_FKIndex1 ON cargo (cbo_id);
+
+
+CREATE INDEX IFK_Rel_02 ON cargo (cbo_id);
+
+
+CREATE TABLE cidade (
+  id INTEGER   NOT NULL ,
+  estado_uf CHAR(2)   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(estado_uf)
+    REFERENCES estado(uf));
+
+
+CREATE INDEX cidade_FKIndex1 ON cidade (estado_uf);
+
+
+CREATE INDEX IFK_Rel_80 ON cidade (estado_uf);
+
+
+CREATE TABLE cargo_nivel (
+  id INTEGER   NOT NULL ,
+  cargo_id INTEGER   NOT NULL ,
+  nome VARCHAR(200)   NOT NULL ,
+  experiencia INTEGER      ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(cargo_id)
+    REFERENCES cargo(id));
+
+
+CREATE INDEX cargo_nivel_FKIndex1 ON cargo_nivel (cargo_id);
+
+
+CREATE INDEX IFK_Rel_03 ON cargo_nivel (cargo_id);
+
+
+CREATE TABLE faixa_salarial_valor (
+  data_inicio DATE   NOT NULL ,
+  faixa_salarial_id INTEGER   NOT NULL ,
+  valor DECIMAL(10,2)   NOT NULL ,
+  carga_horaria INTEGER   NOT NULL   ,
+PRIMARY KEY(data_inicio, faixa_salarial_id)  ,
+  FOREIGN KEY(faixa_salarial_id)
+    REFERENCES faixa_salarial(id));
+
+
+CREATE INDEX faixa_salarial_valor_FKIndex1 ON faixa_salarial_valor (faixa_salarial_id);
+
+
+CREATE INDEX IFK_Rel_04 ON faixa_salarial_valor (faixa_salarial_id);
+
+
+CREATE TABLE plano_avaliacao_has_questao (
+  plano_avaliacao_id INTEGER   NOT NULL ,
+  questao_id INTEGER   NOT NULL   ,
+PRIMARY KEY(plano_avaliacao_id, questao_id)    ,
+  FOREIGN KEY(plano_avaliacao_id)
+    REFERENCES plano_avaliacao(id),
+  FOREIGN KEY(questao_id)
+    REFERENCES questao(id));
+
+
+CREATE INDEX plano_avaliacao_has_questao_FKIndex1 ON plano_avaliacao_has_questao (plano_avaliacao_id);
+CREATE INDEX plano_avaliacao_has_questao_FKIndex2 ON plano_avaliacao_has_questao (questao_id);
+
+
+CREATE INDEX IFK_Rel_81 ON plano_avaliacao_has_questao (plano_avaliacao_id);
+CREATE INDEX IFK_Rel_82 ON plano_avaliacao_has_questao (questao_id);
+
+
+CREATE TABLE competencia_has_cargo_nivel (
+  competencia_id INTEGER   NOT NULL ,
+  cargo_nivel_id INTEGER   NOT NULL   ,
+PRIMARY KEY(competencia_id, cargo_nivel_id)    ,
+  FOREIGN KEY(competencia_id)
+    REFERENCES competencia(id),
+  FOREIGN KEY(cargo_nivel_id)
+    REFERENCES cargo_nivel(id));
+
+
+CREATE INDEX competencia_has_cargo_nivel_FKIndex1 ON competencia_has_cargo_nivel (competencia_id);
+CREATE INDEX competencia_has_cargo_nivel_FKIndex2 ON competencia_has_cargo_nivel (cargo_nivel_id);
+
+
+CREATE INDEX IFK_Rel_77 ON competencia_has_cargo_nivel (competencia_id);
+CREATE INDEX IFK_Rel_78asdasd ON competencia_has_cargo_nivel (cargo_nivel_id);
+
+
+CREATE TABLE cargo_nivel_has_faixa_salarial (
+  cargo_nivel_id INTEGER   NOT NULL ,
+  faixa_salarial_id INTEGER   NOT NULL   ,
+PRIMARY KEY(cargo_nivel_id, faixa_salarial_id)    ,
+  FOREIGN KEY(cargo_nivel_id)
+    REFERENCES cargo_nivel(id),
+  FOREIGN KEY(faixa_salarial_id)
+    REFERENCES faixa_salarial(id));
+
+
+CREATE INDEX cargo_nivel_has_faixa_salarial_FKIndex1 ON cargo_nivel_has_faixa_salarial (cargo_nivel_id);
+CREATE INDEX cargo_nivel_has_faixa_salarial_FKIndex2 ON cargo_nivel_has_faixa_salarial (faixa_salarial_id);
+
+
+CREATE INDEX IFK_Rel_05 ON cargo_nivel_has_faixa_salarial (cargo_nivel_id);
+CREATE INDEX IFK_Rel_06 ON cargo_nivel_has_faixa_salarial (faixa_salarial_id);
+
+
+CREATE TABLE cargo_has_evento (
+  cargo_id INTEGER   NOT NULL ,
+  evento_id INTEGER   NOT NULL ,
+  data_inicio DATE   NOT NULL ,
+  data_fim DATE      ,
+PRIMARY KEY(cargo_id, evento_id)    ,
+  FOREIGN KEY(cargo_id)
+    REFERENCES cargo(id),
+  FOREIGN KEY(evento_id)
+    REFERENCES evento(id));
+
+
+CREATE INDEX cargo_has_evento_FKIndex1 ON cargo_has_evento (cargo_id);
+CREATE INDEX cargo_has_evento_FKIndex2 ON cargo_has_evento (evento_id);
+
+
+CREATE INDEX IFK_cargo_has_evento_fk ON cargo_has_evento (cargo_id);
+CREATE INDEX IFK_Rel_23 ON cargo_has_evento (evento_id);
+
+
+CREATE TABLE evento_dependencia (
+  id SERIAL  NOT NULL ,
+  evento_dependencia_id INTEGER   NOT NULL ,
+  nome_variavel VARCHAR(100)   NOT NULL ,
+  evento_id INTEGER   NOT NULL   ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(evento_id)
+    REFERENCES evento(id),
+  FOREIGN KEY(evento_dependencia_id)
+    REFERENCES evento(id));
+
+
+CREATE INDEX evento_dependencia_FKIndex1 ON evento_dependencia (evento_id);
+CREATE INDEX evento_dependencia_FKIndex2 ON evento_dependencia (evento_dependencia_id);
+
+
+CREATE INDEX IFK_Rel_78 ON evento_dependencia (evento_id);
+CREATE INDEX IFK_Rel_7asdsa9 ON evento_dependencia (evento_dependencia_id);
+
+
+CREATE TABLE pessoa (
+  id SERIAL  NOT NULL ,
+  cidade_id INTEGER   NOT NULL ,
+  escolaridade_id INTEGER   NOT NULL ,
+  estado_civil_id INTEGER    ,
+  mae_id INTEGER    ,
+  pessoa_id INTEGER    ,
+  cor_id INTEGER    ,
+  cpf CHAR(11)    ,
+  nome VARCHAR(500)   NOT NULL ,
+  data_nascimento DATE    ,
+  sexo CHAR(1)   NOT NULL ,
+  endereco VARCHAR(100)    ,
+  email VARCHAR(200)    ,
+  rg VARCHAR(20)      ,
+PRIMARY KEY(id)            ,
+  FOREIGN KEY(cor_id)
+    REFERENCES cor(id),
+  FOREIGN KEY(mae_id)
+    REFERENCES pessoa(id),
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id),
+  FOREIGN KEY(cidade_id)
+    REFERENCES cidade(id),
+  FOREIGN KEY(estado_civil_id)
+    REFERENCES estado_civil(id),
+  FOREIGN KEY(escolaridade_id)
+    REFERENCES escolaridade(id));
+
+
+CREATE INDEX pessoa_FKIndex1 ON pessoa (cor_id);
+CREATE INDEX pessoa_FKIndex2 ON pessoa (mae_id);
+CREATE INDEX pessoa_FKIndex3 ON pessoa (pessoa_id);
+CREATE INDEX pessoa_FKIndex4 ON pessoa (cidade_id);
+CREATE INDEX pessoa_FKIndex5 ON pessoa (estado_civil_id);
+CREATE INDEX pessoa_FKIndex6 ON pessoa (escolaridade_id);
+
+
+CREATE INDEX IFK_Rel_37 ON pessoa (cor_id);
+CREATE INDEX IFK_Rel_38 ON pessoa (mae_id);
+CREATE INDEX IFK_Rel_39 ON pessoa (pessoa_id);
+CREATE INDEX IFK_Rel_40 ON pessoa (cidade_id);
+CREATE INDEX IFK_Rel_43 ON pessoa (estado_civil_id);
+CREATE INDEX IFK_Rel_44 ON pessoa (escolaridade_id);
+
+
+CREATE TABLE usuario (
+  pessoa_id INTEGER   NOT NULL ,
+  usuario VARCHAR(100)   NOT NULL ,
+  senha VARCHAR(100)   NOT NULL ,
+  nivel INTEGER      ,
+PRIMARY KEY(pessoa_id)  ,
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX usuario_FKIndex1 ON usuario (pessoa_id);
+
+
+
+CREATE INDEX IFK_Rel_52 ON usuario (pessoa_id);
+
+
+CREATE TABLE pessoa_carteira (
+  pessoa_id INTEGER   NOT NULL ,
+  cnh CHAR(11)   NOT NULL ,
+  categoria VARCHAR(2)   NOT NULL   ,
+PRIMARY KEY(pessoa_id)  ,
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX pessoa_carteira_FKIndex1 ON pessoa_carteira (pessoa_id);
+
+
+CREATE INDEX IFK_Rel_46 ON pessoa_carteira (pessoa_id);
+
+
+CREATE TABLE empresa (
+  id INTEGER   NOT NULL ,
+  cidade_id INTEGER   NOT NULL ,
+  nome VARCHAR(100)   NOT NULL ,
+  cnpj VARCHAR(14)   NOT NULL ,
+  nome_fantasia VARCHAR(100)   NOT NULL ,
+  razao_social VARCHAR(100)   NOT NULL ,
+  data_fundacao DATE   NOT NULL ,
+  endereco VARCHAR(100)   NOT NULL ,
+  bairro VARCHAR(100)   NOT NULL ,
+  telefone VARCHAR(15)   NOT NULL ,
+  logo VARCHAR(100)    ,
+  email VARCHAR(100)   NOT NULL ,
+  ativo BOOL   NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(cidade_id)
+    REFERENCES cidade(id));
+
+
+CREATE INDEX empresa_FKIndex1 ON empresa (cidade_id);
+
+
+CREATE INDEX IFK_Rel_01 ON empresa (cidade_id);
+
+
+CREATE TABLE curriculo (
+  pessoa_id INTEGER   NOT NULL ,
+  objetivo TEXT   NOT NULL   ,
+PRIMARY KEY(pessoa_id)  ,
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX curriculo_FKIndex1 ON curriculo (pessoa_id);
+
+
+CREATE INDEX IFK_Rel_60 ON curriculo (pessoa_id);
+
+
+CREATE TABLE auditoria (
+  id INTEGER   NOT NULL ,
+  usuario_id INTEGER    ,
+  acao VARCHAR(1000)   NOT NULL ,
+  modulo VARCHAR(30)   NOT NULL ,
+  dado VARCHAR(1000)      ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(usuario_id)
+    REFERENCES usuario(pessoa_id));
+
+
+CREATE INDEX auditoria_FKIndex1 ON auditoria (usuario_id);
+
+
+CREATE INDEX IFK_Rel_79 ON auditoria (usuario_id);
+
+
+CREATE TABLE curriculo_experiencia (
+  id INTEGER   NOT NULL ,
+  pessoa_id INTEGER   NOT NULL ,
+  atribuicao TEXT    ,
+  data_inicial DATE   NOT NULL ,
+  data_final DATE    ,
+  pessoa_referencia VARCHAR(100)    ,
+  pessoa_contato VARCHAR(100)    ,
+  empresa VARCHAR(500)      ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX curriculo_experiencia_FKIndex1 ON curriculo_experiencia (pessoa_id);
+
+
+CREATE INDEX IFK_Rel_62 ON curriculo_experiencia (pessoa_id);
+
+
+CREATE TABLE necessidade_pessoa (
+  id INTEGER   NOT NULL ,
+  usuario_pessoa_id INTEGER   NOT NULL ,
+  cargo_id INTEGER   NOT NULL ,
+  descricao VARCHAR(500)   NOT NULL ,
+  perfil TEXT   NOT NULL ,
+  situacao CHAR(1)   NOT NULL ,
+  data_requisicao DATE   NOT NULL ,
+  quantidade INTEGER   NOT NULL   ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(cargo_id)
+    REFERENCES cargo(id),
+  FOREIGN KEY(usuario_pessoa_id)
+    REFERENCES usuario(pessoa_id));
+
+
+CREATE INDEX necessidade_pessoa_FKIndex1 ON necessidade_pessoa (cargo_id);
+CREATE INDEX necessidade_pessoa_FKIndex2 ON necessidade_pessoa (usuario_pessoa_id);
+
+
+CREATE INDEX IFK_Rel_57 ON necessidade_pessoa (cargo_id);
+CREATE INDEX IFK_Rel_58 ON necessidade_pessoa (usuario_pessoa_id);
+
+
+CREATE TABLE pessoa_has_necessidade_especial (
+  pessoa_id INTEGER   NOT NULL ,
+  necessidade_especial_id INTEGER   NOT NULL   ,
+PRIMARY KEY(pessoa_id, necessidade_especial_id)    ,
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id),
+  FOREIGN KEY(necessidade_especial_id)
+    REFERENCES necessidade_especial(id));
+
+
+CREATE INDEX pessoa_has_deficiencia_tipo_FKIndex1 ON pessoa_has_necessidade_especial (pessoa_id);
+CREATE INDEX pessoa_has_deficiencia_tipo_FKIndex2 ON pessoa_has_necessidade_especial (necessidade_especial_id);
+
+
+CREATE INDEX IFK_Rel_47 ON pessoa_has_necessidade_especial (pessoa_id);
+CREATE INDEX IFK_Rel_48 ON pessoa_has_necessidade_especial (necessidade_especial_id);
+
+
+CREATE TABLE funcionario (
+  pessoa_id INTEGER   NOT NULL ,
+  tipo_sanguineo_id INTEGER    ,
+  vinculo_empregaticio_id INTEGER   NOT NULL ,
+  banco_id INTEGER   NOT NULL ,
+  conta VARCHAR(50)   NOT NULL ,
+  agencia INTEGER   NOT NULL   ,
+PRIMARY KEY(pessoa_id)        ,
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id),
+  FOREIGN KEY(banco_id)
+    REFERENCES banco(id),
+  FOREIGN KEY(vinculo_empregaticio_id)
+    REFERENCES vinculo_empregaticio(id),
+  FOREIGN KEY(tipo_sanguineo_id)
+    REFERENCES tipo_sanguineo(id));
+
+
+CREATE INDEX funcionario_FKIndex1 ON funcionario (pessoa_id);
+CREATE INDEX funcionario_FKIndex2 ON funcionario (banco_id);
+CREATE INDEX funcionario_FKIndex3 ON funcionario (vinculo_empregaticio_id);
+CREATE INDEX funcionario_FKIndex4 ON funcionario (tipo_sanguineo_id);
+
+
+CREATE INDEX IFK_Rel_07 ON funcionario (pessoa_id);
+CREATE INDEX IFK_Rel_42 ON funcionario (banco_id);
+CREATE INDEX IFK_Rel_49 ON funcionario (vinculo_empregaticio_id);
+CREATE INDEX IFK_Relasdsad_76 ON funcionario (tipo_sanguineo_id);
+
+
+CREATE TABLE unidade (
+  id SERIAL  NOT NULL ,
+  empresa_id INTEGER   NOT NULL ,
+  nome VARCHAR(100)    ,
+  ativo BOOL   NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(empresa_id)
+    REFERENCES empresa(id));
+
+
+CREATE INDEX unidade_FKIndex1 ON unidade (empresa_id);
+
+
+CREATE INDEX IFK_Rel_34 ON unidade (empresa_id);
+
+
+CREATE TABLE vagas (
+  id INTEGER   NOT NULL ,
+  plano_avaliacao_id INTEGER   NOT NULL ,
+  necessidade_pessoa_id INTEGER   NOT NULL ,
+  sigiloso BOOL   NOT NULL ,
+  descricao TEXT   NOT NULL ,
+  perfil TEXT   NOT NULL ,
+  tipo CHAR(1)   NOT NULL ,
+  data_inicio DATE   NOT NULL ,
+  data_fim DATE    ,
+  finalizado BOOL      ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(necessidade_pessoa_id)
+    REFERENCES necessidade_pessoa(id),
+  FOREIGN KEY(plano_avaliacao_id)
+    REFERENCES plano_avaliacao(id));
+
+
+CREATE INDEX vagas_FKIndex1 ON vagas (necessidade_pessoa_id);
+CREATE INDEX vagas_FKIndex2 ON vagas (plano_avaliacao_id);
+
+
+CREATE INDEX IFK_Rel_59 ON vagas (necessidade_pessoa_id);
+CREATE INDEX IFK_Rel_83 ON vagas (plano_avaliacao_id);
+
+
+CREATE TABLE vagas_has_competencia (
+  vagas_id INTEGER   NOT NULL ,
+  competencia_id INTEGER   NOT NULL   ,
+PRIMARY KEY(vagas_id, competencia_id)    ,
+  FOREIGN KEY(vagas_id)
+    REFERENCES vagas(id),
+  FOREIGN KEY(competencia_id)
+    REFERENCES competencia(id));
+
+
+CREATE INDEX vagas_has_competencia_FKIndex1 ON vagas_has_competencia (vagas_id);
+CREATE INDEX vagas_has_competencia_FKIndex2 ON vagas_has_competencia (competencia_id);
+
+
+CREATE INDEX IFK_Rel_69 ON vagas_has_competencia (vagas_id);
+CREATE INDEX IFK_Rel_70 ON vagas_has_competencia (competencia_id);
+
+
+CREATE TABLE dependente (
+  id SERIAL  NOT NULL ,
+  pessoa_id INTEGER   NOT NULL ,
+  funcionario_pessoa_id INTEGER   NOT NULL ,
+  data_inicial DATE   NOT NULL ,
+  data_fim DATE      ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(funcionario_pessoa_id)
+    REFERENCES funcionario(pessoa_id),
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX dependentes_FKIndex1 ON dependente (funcionario_pessoa_id);
+CREATE INDEX dependentes_FKIndex2 ON dependente (pessoa_id);
+
+
+CREATE INDEX IFK_Rel_24 ON dependente (funcionario_pessoa_id);
+CREATE INDEX IFK_Rel_25 ON dependente (pessoa_id);
+
+
+CREATE TABLE funcionario_cargo (
+  id INTEGER   NOT NULL ,
+  sindicato_id INTEGER   NOT NULL ,
+  unidade_id INTEGER   NOT NULL ,
+  demissao_tipo_id INTEGER    ,
+  funcionario_pessoa_id INTEGER   NOT NULL ,
+  cargo_id INTEGER   NOT NULL ,
+  data_entrada DATE   NOT NULL ,
+  data_saida DATE    ,
+  ativo BOOL   NOT NULL   ,
+PRIMARY KEY(id)          ,
+  FOREIGN KEY(cargo_id)
+    REFERENCES cargo(id),
+  FOREIGN KEY(funcionario_pessoa_id)
+    REFERENCES funcionario(pessoa_id),
+  FOREIGN KEY(demissao_tipo_id)
+    REFERENCES demissao_tipo(id),
+  FOREIGN KEY(unidade_id)
+    REFERENCES unidade(id),
+  FOREIGN KEY(sindicato_id)
+    REFERENCES sindicato(id));
+
+
+CREATE INDEX funcionario_cargo_FKIndex1 ON funcionario_cargo (cargo_id);
+CREATE INDEX funcionario_cargo_FKIndex2 ON funcionario_cargo (funcionario_pessoa_id);
+CREATE INDEX funcionario_cargo_FKIndex3 ON funcionario_cargo (demissao_tipo_id);
+CREATE INDEX funcionario_cargo_FKIndex4 ON funcionario_cargo (unidade_id);
+CREATE INDEX funcionario_cargo_FKIndex5 ON funcionario_cargo (sindicato_id);
+
+
+CREATE INDEX IFK_Rel_08 ON funcionario_cargo (cargo_id);
+CREATE INDEX IFK_Rel_09 ON funcionario_cargo (funcionario_pessoa_id);
+CREATE INDEX IFK_Rel_33 ON funcionario_cargo (demissao_tipo_id);
+CREATE INDEX IFK_Rel_35 ON funcionario_cargo (unidade_id);
+CREATE INDEX IFK_Rel_66 ON funcionario_cargo (sindicato_id);
+
+
+CREATE TABLE folha_calculada (
+  id INTEGER   NOT NULL ,
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  data_referente DATE   NOT NULL ,
+  data_gerado INTEGER   NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id));
+
+
+CREATE INDEX folha_calculada_FKIndex1 ON folha_calculada (funcionario_cargo_id);
+
+
+CREATE INDEX IFK_Rel_19 ON folha_calculada (funcionario_cargo_id);
+
+
+CREATE TABLE funcionario_acidente (
+  id INTEGER   NOT NULL ,
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  nivel_lesao INTEGER   NOT NULL ,
+  perda_porcentagem INTEGER   NOT NULL ,
+  descricao VARCHAR(500)   NOT NULL ,
+  data_ocorrencia DATE   NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id));
+
+
+CREATE INDEX funcionario_acidente_FKIndex1 ON funcionario_acidente (funcionario_cargo_id);
+
+
+CREATE INDEX IFK_Rel_30 ON funcionario_acidente (funcionario_cargo_id);
+
+
+CREATE TABLE ferias (
+  id INTEGER   NOT NULL ,
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  data_gozo_inicio DATE   NOT NULL ,
+  data_gozo_fim DATE   NOT NULL ,
+  data_aquisitivo_inicio DATE   NOT NULL ,
+  data_aquisitivo_fim DATE   NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id));
+
+
+CREATE INDEX ferias_FKIndex1 ON ferias (funcionario_cargo_id);
+
+
+CREATE INDEX IFK_Rel_65 ON ferias (funcionario_cargo_id);
+
+
+CREATE TABLE candidato (
+  id INTEGER   NOT NULL ,
+  pessoa_id INTEGER   NOT NULL ,
+  vagas_id INTEGER   NOT NULL ,
+  data_inscricao DATE   NOT NULL   ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(vagas_id)
+    REFERENCES vagas(id),
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX candidato_FKIndex1 ON candidato (vagas_id);
+CREATE INDEX candidato_FKIndex2 ON candidato (pessoa_id);
+
+
+CREATE INDEX IFK_Rel_73 ON candidato (vagas_id);
+CREATE INDEX IFK_Rel_74 ON candidato (pessoa_id);
+
+
+CREATE TABLE sindicato_has_funcionario_cargo (
+  sindicato_id INTEGER   NOT NULL ,
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  data_inicio DATE   NOT NULL ,
+  data_fim DATE   NOT NULL   ,
+PRIMARY KEY(sindicato_id, funcionario_cargo_id)    ,
+  FOREIGN KEY(sindicato_id)
+    REFERENCES sindicato(id),
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id));
+
+
+CREATE INDEX sindicato_has_funcionario_cargo_FKIndex1 ON sindicato_has_funcionario_cargo (sindicato_id);
+CREATE INDEX sindicato_has_funcionario_cargo_FKIndex2 ON sindicato_has_funcionario_cargo (funcionario_cargo_id);
+
+
+CREATE INDEX IFK_sindicato_funcionario_fk ON sindicato_has_funcionario_cargo (sindicato_id);
+CREATE INDEX IFK_Rel_68 ON sindicato_has_funcionario_cargo (funcionario_cargo_id);
+
+
+CREATE TABLE funcionario_cargo_has_advertencia_tipo (
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  advertencia_tipo_id INTEGER   NOT NULL ,
+  data_ocorrencia DATE   NOT NULL ,
+  descricao TEXT   NOT NULL   ,
+PRIMARY KEY(funcionario_cargo_id, advertencia_tipo_id)    ,
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id),
+  FOREIGN KEY(advertencia_tipo_id)
+    REFERENCES advertencia_tipo(id));
+
+
+CREATE INDEX funcionario_cargo_has_advertencia_tipo_FKIndex1 ON funcionario_cargo_has_advertencia_tipo (funcionario_cargo_id);
+CREATE INDEX funcionario_cargo_has_advertencia_tipo_FKIndex2 ON funcionario_cargo_has_advertencia_tipo (advertencia_tipo_id);
+
+
+CREATE INDEX IFK_Rel_31 ON funcionario_cargo_has_advertencia_tipo (funcionario_cargo_id);
+CREATE INDEX IFK_Rel_32 ON funcionario_cargo_has_advertencia_tipo (advertencia_tipo_id);
+
+
+CREATE TABLE funcionario_cargo_has_motivo_falta (
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  motivo_falta_id INTEGER   NOT NULL ,
+  data_inicio DATE   NOT NULL ,
+  data_final DATE   NOT NULL ,
+  atestado VARCHAR(100)   NOT NULL ,
+  documento_arquivo VARCHAR(300)   NOT NULL ,
+  data_recebimento DATE    ,
+  documento_cid VARCHAR(100)   NOT NULL   ,
+PRIMARY KEY(funcionario_cargo_id, motivo_falta_id)    ,
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id),
+  FOREIGN KEY(motivo_falta_id)
+    REFERENCES motivo_falta(id));
+
+
+CREATE INDEX funcionario_cargo_has_motivo_faltas_FKIndex1 ON funcionario_cargo_has_motivo_falta (funcionario_cargo_id);
+CREATE INDEX funcionario_cargo_has_motivo_faltas_FKIndex2 ON funcionario_cargo_has_motivo_falta (motivo_falta_id);
+
+
+CREATE INDEX IFK_Rel_28 ON funcionario_cargo_has_motivo_falta (funcionario_cargo_id);
+CREATE INDEX IFK_Rel_29 ON funcionario_cargo_has_motivo_falta (motivo_falta_id);
+
+
+CREATE TABLE funcionario_qualificacao (
+  id INTEGER   NOT NULL ,
+  qualificacao_id INTEGER   NOT NULL ,
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  certificado VARCHAR(100)    ,
+  validade DATE      ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id),
+  FOREIGN KEY(qualificacao_id)
+    REFERENCES qualificacao(id));
+
+
+CREATE INDEX funcionario_qualificacao_FKIndex1 ON funcionario_qualificacao (funcionario_cargo_id);
+CREATE INDEX funcionario_qualificacao_FKIndex2 ON funcionario_qualificacao (qualificacao_id);
+
+
+CREATE INDEX IFK_Rel_75 ON funcionario_qualificacao (funcionario_cargo_id);
+CREATE INDEX IFK_Rel_76 ON funcionario_qualificacao (qualificacao_id);
+
+
+CREATE TABLE evento_mensal (
+  id INTEGER   NOT NULL ,
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  evento_id INTEGER   NOT NULL ,
+  mes INTEGER   NOT NULL ,
+  ano INTEGER   NOT NULL ,
+  referencia INTEGER   NOT NULL   ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(evento_id)
+    REFERENCES evento(id),
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id));
+
+
+CREATE INDEX evento_mensal_FKIndex1 ON evento_mensal (evento_id);
+CREATE INDEX evento_mensal_FKIndex2 ON evento_mensal (funcionario_cargo_id);
+
+
+CREATE INDEX IFK_Rel_17 ON evento_mensal (evento_id);
+CREATE INDEX IFK_Rel_18 ON evento_mensal (funcionario_cargo_id);
+
+
+CREATE TABLE folha_calculada_evento (
+  id INTEGER   NOT NULL ,
+  evento_id INTEGER   NOT NULL ,
+  folha_calculada_id INTEGER   NOT NULL ,
+  valor DECIMAL(10,2)   NOT NULL ,
+  visivel BOOL   NOT NULL ,
+  tipo CHAR(1)   NOT NULL ,
+  referencia INTEGER   NOT NULL   ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(folha_calculada_id)
+    REFERENCES folha_calculada(id),
+  FOREIGN KEY(evento_id)
+    REFERENCES evento(id));
+
+
+CREATE INDEX folha_calculada_evento_FKIndex1 ON folha_calculada_evento (folha_calculada_id);
+CREATE INDEX folha_calculada_evento_FKIndex2 ON folha_calculada_evento (evento_id);
+
+
+CREATE INDEX IFK_Rel_20 ON folha_calculada_evento (folha_calculada_id);
+CREATE INDEX IFK_Rel_21 ON folha_calculada_evento (evento_id);
+
+
+CREATE TABLE evento_funcionario (
+  id INTEGER   NOT NULL ,
+  funcionario_cargo_id INTEGER   NOT NULL ,
+  evento_id INTEGER   NOT NULL ,
+  data_inicio DATE   NOT NULL ,
+  data_fim DATE      ,
+PRIMARY KEY(id)    ,
+  FOREIGN KEY(evento_id)
+    REFERENCES evento(id),
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id));
+
+
+CREATE INDEX evento_funcionario_FKIndex1 ON evento_funcionario (evento_id);
+CREATE INDEX evento_funcionario_FKIndex2 ON evento_funcionario (funcionario_cargo_id);
+
+
+CREATE INDEX IFK_Rel_15 ON evento_funcionario (evento_id);
+CREATE INDEX IFK_Rel_16 ON evento_funcionario (funcionario_cargo_id);
+
+
+CREATE TABLE entrevista (
+  id INTEGER   NOT NULL ,
+  pessoa_id INTEGER   NOT NULL ,
+  candidato_id INTEGER   NOT NULL ,
+  data_programada DATE   NOT NULL ,
+  hora TIME   NOT NULL ,
+  confirmado BOOL   NOT NULL ,
+  descricao TEXT   NOT NULL ,
+  resposta TEXT    ,
+  local_entrevista VARCHAR(100)    ,
+  situacao CHAR(1)      ,
+PRIMARY KEY(id)      ,
+  FOREIGN KEY(candidato_id)
+    REFERENCES candidato(id),
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX entrevista_index2136 ON entrevista (candidato_id);
+CREATE INDEX entrevista_FKIndex2 ON entrevista (pessoa_id);
+
+
+CREATE INDEX IFK_candidato_fk ON entrevista (candidato_id);
+CREATE INDEX IFK_Relsadsad_76 ON entrevista (pessoa_id);
+
+
+CREATE TABLE resposta (
+  id SERIAL  NOT NULL ,
+  questao_id INTEGER   NOT NULL ,
+  candidato_id INTEGER   NOT NULL ,
+  questao_opcao_id INTEGER    ,
+  descricao VARCHAR      ,
+PRIMARY KEY(id)      ,
+  FOREIGN KEY(questao_opcao_id)
+    REFERENCES questao_opcao(id),
+  FOREIGN KEY(candidato_id)
+    REFERENCES candidato(id),
+  FOREIGN KEY(questao_id)
+    REFERENCES questao(id));
+
+
+CREATE INDEX resposta_FKIndex1 ON resposta (questao_opcao_id);
+CREATE INDEX resposta_FKIndex2 ON resposta (candidato_id);
+CREATE INDEX resposta_FKIndex3 ON resposta (questao_id);
+
+
+CREATE INDEX IFK_Rel_87 ON resposta (questao_opcao_id);
+CREATE INDEX IFK_Rel_88 ON resposta (candidato_id);
+CREATE INDEX IFK_Rel_89 ON resposta (questao_id);
+
+
+CREATE TABLE funcionario_faixa (
+  id INTEGER   NOT NULL ,
+  data_inicio DATE   NOT NULL ,
+  cargo_nivel_id INTEGER   NOT NULL ,
+  faixa_salarial_id INTEGER   NOT NULL ,
+  funcionario_cargo_id INTEGER   NOT NULL   ,
+PRIMARY KEY(id)      ,
+  FOREIGN KEY(funcionario_cargo_id)
+    REFERENCES funcionario_cargo(id),
+  FOREIGN KEY(faixa_salarial_id)
+    REFERENCES faixa_salarial(id),
+  FOREIGN KEY(cargo_nivel_id)
+    REFERENCES cargo_nivel(id));
+
+
+CREATE INDEX funcionario_faixa_FKIndex1 ON funcionario_faixa (funcionario_cargo_id);
+CREATE INDEX funcionario_faixa_FKIndex2 ON funcionario_faixa (faixa_salarial_id);
+CREATE INDEX funcionario_faixa_FKIndex3 ON funcionario_faixa (cargo_nivel_id);
+
+
+CREATE INDEX IFK_Rel_10 ON funcionario_faixa (funcionario_cargo_id);
+CREATE INDEX IFK_Rel_11 ON funcionario_faixa (faixa_salarial_id);
+CREATE INDEX IFK_Rel_12 ON funcionario_faixa (cargo_nivel_id);
+
+
+CREATE TABLE competencia_has_candidato (
+  competencia_id INTEGER   NOT NULL ,
+  candidato_id INTEGER   NOT NULL   ,
+PRIMARY KEY(competencia_id, candidato_id)    ,
+  FOREIGN KEY(competencia_id)
+    REFERENCES competencia(id),
+  FOREIGN KEY(candidato_id)
+    REFERENCES candidato(id));
+
+
+CREATE INDEX competencia_has_candidato_FKIndex1 ON competencia_has_candidato (competencia_id);
+CREATE INDEX competencia_has_candidato_FKIndex2 ON competencia_has_candidato (candidato_id);
+
+
+CREATE INDEX IFK_Rel_sadasd75 ON competencia_has_candidato (competencia_id);
+CREATE INDEX IFK_Relasdasdsa_76 ON competencia_has_candidato (candidato_id);
+
+
