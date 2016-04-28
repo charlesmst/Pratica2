@@ -27,20 +27,20 @@ import javax.persistence.TemporalType;
 )
 public class NecessidadePessoa implements java.io.Serializable {
 
-    private long id;
+    private int id;
     private Cargo cargo;
     private Usuario usuario;
     private String descricao;
     private String perfil;
     private char situacao;
     private Date dataRequisicao;
-    private long quantidade;
+    private int quantidade;
     private Set<Vagas> vagases = new HashSet<Vagas>(0);
 
     public NecessidadePessoa() {
     }
 
-    public NecessidadePessoa(long id, Cargo cargo, Usuario usuario, String descricao, String perfil, char situacao, Date dataRequisicao, long quantidade) {
+    public NecessidadePessoa(int id, Cargo cargo, Usuario usuario, String descricao, String perfil, char situacao, Date dataRequisicao, int quantidade) {
         this.id = id;
         this.cargo = cargo;
         this.usuario = usuario;
@@ -51,7 +51,7 @@ public class NecessidadePessoa implements java.io.Serializable {
         this.quantidade = quantidade;
     }
 
-    public NecessidadePessoa(long id, Cargo cargo, Usuario usuario, String descricao, String perfil, char situacao, Date dataRequisicao, long quantidade, Set<Vagas> vagases) {
+    public NecessidadePessoa(int id, Cargo cargo, Usuario usuario, String descricao, String perfil, char situacao, Date dataRequisicao, int quantidade, Set<Vagas> vagases) {
         this.id = id;
         this.cargo = cargo;
         this.usuario = usuario;
@@ -67,11 +67,11 @@ public class NecessidadePessoa implements java.io.Serializable {
     @GeneratedValue(generator = "necessidade_pessoa_seq", strategy = GenerationType.SEQUENCE)
 
     @Column(name = "id", unique = true, nullable = false)
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -133,11 +133,11 @@ public class NecessidadePessoa implements java.io.Serializable {
     }
 
     @Column(name = "quantidade", nullable = false)
-    public long getQuantidade() {
+    public int getQuantidade() {
         return this.quantidade;
     }
 
-    public void setQuantidade(long quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 

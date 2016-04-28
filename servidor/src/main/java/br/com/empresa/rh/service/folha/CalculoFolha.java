@@ -45,10 +45,11 @@ public class CalculoFolha {
         Consulta c = consultas(data,funcionario,parametros);
         Utilitarios u = new Utilitarios(parametros);
         Console console = new Console();
+        ordena();
         int[] ordem = new int[]{EventoTipo.BASE, EventoTipo.PROVENTO, EventoTipo.DESCONTO, EventoTipo.BENEFICIO,EventoTipo.FINALIZACAO};
         for (int ordem1 : ordem) {
             for (IEvento evento : eventos.getEventos()) {
-                if (ordem1 == evento.getEvento().getTipo()) {
+                if (ordem1 == evento.getEvento().getTipo() ) {
                     evento.calcula(parametros,c,eventos,console,u);
                 }
             }
@@ -56,6 +57,9 @@ public class CalculoFolha {
         log = console.getLogs();
     }
     
+    private void ordena(){
+        //Trazer o INSS pro começo
+    }
     private Parametros parametrosFuncionario(Date data,FuncionarioCargo func){
         Parametros p = new Parametros(data);
         return p;

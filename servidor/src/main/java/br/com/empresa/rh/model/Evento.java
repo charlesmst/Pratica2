@@ -3,12 +3,14 @@ package br.com.empresa.rh.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,6 +37,8 @@ public class Evento implements java.io.Serializable {
     private Set<EventoMensal> eventoMensals = new HashSet<EventoMensal>(0);
     private Set<CargoHasEvento> cargoHasEventos = new HashSet<CargoHasEvento>(0);
     private Set<FolhaCalculadaEvento> folhaCalculadaEventos = new HashSet<FolhaCalculadaEvento>(0);
+
+    private Set<EventoDependencia> eventoDependencias = new HashSet<EventoDependencia>(0);
 
     public Evento() {
     }
@@ -163,4 +167,13 @@ public class Evento implements java.io.Serializable {
         this.ativo = ativo;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "evento_id")
+    public Set<EventoDependencia> getEventoDependencias() {
+        return this.eventoDependencias;
+    }
+
+    public void setEventoDependencias(Set<EventoDependencia> eventoDependencias) {
+        this.eventoDependencias = eventoDependencias;
+    }
 }

@@ -23,6 +23,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class EventoService extends Service<Evento> {
 
+    @Override
+    public Evento findById(Object id) {
+        String hql = "select t from Evento t "
+                + " left join fetch t.eventoDependencias e "
+                + " where t.id = :id";
+        return (Evento)entityManager.createQuery(hql)
+                .setParameter("id", id)
+                .getSingleResult(); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public EventoService() {
         classRef = Evento.class;
     }
