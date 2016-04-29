@@ -6,6 +6,7 @@
 package br.com.empresa.rh.service.folha;
 
 import br.com.empresa.rh.model.Evento;
+import java.util.Stack;
 
 /**
  *
@@ -21,5 +22,7 @@ public interface IEvento {
 
     boolean isAplicavel();
     
-    void calcula(Parametros parametros,Consulta consultas,EventoCollection eventos,Console console,Utilitarios utilitarios);
+    void calcula(Parametros parametros,Consulta consultas,EventoCollection eventos,Console console,Utilitarios utilitarios,Stack<IEvento> stack);
+    
+    boolean isCalculado();
 }

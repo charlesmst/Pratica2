@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,21 +46,18 @@ public class CalculoFolha {
         Consulta c = consultas(data,funcionario,parametros);
         Utilitarios u = new Utilitarios(parametros);
         Console console = new Console();
-        ordena();
+        Stack<IEvento> stack = new Stack<>();//Para não acontecer loop infinito de dependencias
         int[] ordem = new int[]{EventoTipo.BASE, EventoTipo.PROVENTO, EventoTipo.DESCONTO, EventoTipo.BENEFICIO,EventoTipo.FINALIZACAO};
         for (int ordem1 : ordem) {
             for (IEvento evento : eventos.getEventos()) {
-                if (ordem1 == evento.getEvento().getTipo() ) {
-                    evento.calcula(parametros,c,eventos,console,u);
+                if (ordem1 == evento.getEvento().getTipo() && !evento.isCalculado()) {
+                    evento.calcula(parametros,c,eventos,console,u,stack);
                 }
             }
         }
         log = console.getLogs();
     }
     
-    private void ordena(){
-        //Trazer o INSS pro começo
-    }
     private Parametros parametrosFuncionario(Date data,FuncionarioCargo func){
         Parametros p = new Parametros(data);
         return p;

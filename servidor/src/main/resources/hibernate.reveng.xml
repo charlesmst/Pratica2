@@ -43,6 +43,7 @@
   <table-filter match-name="motivo_falta"/>
   <table-filter match-name="candidato"/>
   <table-filter match-name="evento"/>
+  <table-filter match-name="evento_dependencia"/>
   <table-filter match-name="dependente"/>
   <table-filter match-name="pessoa"/>
   <table-filter match-name="funcionario_acidente"/>

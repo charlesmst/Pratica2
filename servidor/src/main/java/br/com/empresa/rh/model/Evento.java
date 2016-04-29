@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -167,8 +169,15 @@ public class Evento implements java.io.Serializable {
         this.ativo = ativo;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "evento_id")
+//    @OneToMany(fetch = FetchType.LAZY
+//            , orphanRemoval = true, cascade = { CascadeType.MERGE,CascadeType.PERSIST}
+//    )
+//    @JoinColumn(name = "evento_id")
+//    @JoinTable(name = "evento_dependencia", joinColumns = {
+//        @JoinColumn(name = "evento_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+//        @JoinColumn(name = "evento_dependencia_id", referencedColumnName = "id", nullable = false)})
+//    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventoByEventoId",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<EventoDependencia> getEventoDependencias() {
         return this.eventoDependencias;
     }

@@ -6,8 +6,11 @@
 package br.com.empresa.rh.service.folha;
 
 import br.com.empresa.rh.model.Evento;
+import br.com.empresa.rh.model.EventoDependencia;
+import br.com.empresa.rh.util.ApiException;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Stack;
 import javax.script.Bindings;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
@@ -28,6 +31,7 @@ public class EventoScript implements IEvento {
     private double valorCalculado;
     private int referencia;
     private boolean aplicavel = true;
+    private boolean calculado = false;
 
     public EventoScript(Evento evento) {
         this.evento = evento;
@@ -74,7 +78,27 @@ public class EventoScript implements IEvento {
     }
 
     @Override
-    public void calcula(Parametros parametros, Consulta consulta, EventoCollection eventos, Console console, Utilitarios utilitarios) {
+    public void calcula(Parametros parametros, Consulta consulta, EventoCollection eventos, Console console, Utilitarios utilitarios, Stack<IEvento> stack) {
+        if (stack.contains(this)) {
+            throw new ApiException("Dependência mutua detectada em evento " + evento.getId(), null);
+        }
+        Dependencia dependencia = new Dependencia();
+        stack.push(this);
+        //calcula as dependencias primeiro se ainda não foi calculada
+        for (EventoDependencia eventoDependencia : getEvento().getEventoDependencias()) {
+            //Encontra o evento com esse id
+            for (IEvento e : eventos.getEventos()) {
+                if (e.getEvento().getId() == eventoDependencia.getId().getEventoDependenciaId()) {
+                    if (!e.isCalculado()) {
+                        e.calcula(parametros, consulta, eventos, console, utilitarios, stack);
+                    }
+                    dependencia.add(eventoDependencia.getNomeVariavel(), e);
+                    break;
+                }
+            }
+        }
+        stack.pop();
+
         String evaluationScript = evento.getScript();
         ScriptEngineManager scriptManager = new ScriptEngineManager();
         ScriptEngine nashornEngine = scriptManager.getEngineByName("nashorn");
@@ -86,38 +110,20 @@ public class EventoScript implements IEvento {
         bindings.put("console", console);
         bindings.put("parametros", parametros);
         bindings.put("utilitarios", utilitarios);
+        bindings.put("dependencia", dependencia);
 
         nashornEngine.setBindings(bindings, ScriptContext.GLOBAL_SCOPE);
-
-        // Create a Stock object to evaluate.
-        // Create and enter a Context. A Context stores information about the execution environment of a script.
-//        Context cx = Context.enter();
         try {
             nashornEngine.eval(evaluationScript);
-            // Initialize the standard objects (Object, Function, etc.). This must be done before scripts can be
-            // executed. The null parameter tells initStandardObjects
-            // to create and return a scope object that we use
-            // in later calls.
-//            Scriptable scope = cx.initStandardObjects();
-//
-//            // Pass the Stock Java object to the JavaScript context
-//            Object wrappedEvento = Context.javaToJS(this, scope);
-//            Object wrappedConsulta = Context.javaToJS(consulta, scope);
-//            Object wrappedEventos = Context.javaToJS(eventos, scope);
-//
-//            ScriptableObject.putProperty(scope, "evento", wrappedEvento);
-//            ScriptableObject.putProperty(scope, "consulta", wrappedConsulta);
-//            ScriptableObject.putProperty(scope, "eventos", wrappedEventos);
-
-            // Execute the script
-//            cx.evaluateString(scope, evaluationScript, "EvaluationScript", 1, null);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // Exit the Context. This removes the association between the Context and the current thread and is an
-            // essential cleanup action. There should be a call to exit for every call to enter.
-//            Context.exit();
-        }
+            throw new FolhaException("Erro no cálculo do evento " + evento.getId() + " para colaborador ",e);
+        } 
+        calculado = true;
+    }
+
+    public boolean isCalculado() {
+        return calculado;
     }
 
 }

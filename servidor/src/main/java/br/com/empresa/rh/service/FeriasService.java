@@ -45,8 +45,6 @@ public class FeriasService extends Service<Ferias> {
 
         List<Ferias> ferias = entityManager.createQuery(hql)
                 .setParameter("id", cargoId)
-                .setParameter("dataInicio", dIni)
-                .setParameter("dataFim", dFim)
                 .getResultList();
         if (ferias.size() == 0) {
             return 0;
