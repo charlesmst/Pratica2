@@ -22,4 +22,8 @@ public class Recrutamento {
     public static class NecessidadePessoa extends Usuario {
 
     }
+    
+    public static class Cargo {
+        
+    }
 }

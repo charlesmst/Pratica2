@@ -23,9 +23,10 @@ public class NecessidadePessoaService extends Service<NecessidadePessoa>{
 
         
         String hql = "select t from NecessidadePessoa t"
-                + " inner join fetch t.usuario u ";
-        hql+= request.applyFilter("id","cargo","situacao","dataRequisicao","u.nome");     
-        hql+= request.applyOrder("id","cargo","situacao","dataRequisicao","u.nome");        
+                + " inner join fetch t.usuario u "
+                + " inner join fetch t.cargo c";
+        hql+= request.applyFilter("t.id","c.nome");     
+        hql+= request.applyOrder("t.id","c.nome");        
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);

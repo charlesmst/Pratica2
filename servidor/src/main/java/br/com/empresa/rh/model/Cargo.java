@@ -2,6 +2,7 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 import br.com.empresa.rh.model.view.Folha;
+import br.com.empresa.rh.model.view.Recrutamento;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,10 +23,10 @@ import javax.persistence.Table;
 )
 public class Cargo implements java.io.Serializable {
 
-    @JsonView(Folha.CargosFuncionario.class)
+    @JsonView({Folha.CargosFuncionario.class, Recrutamento.NecessidadePessoa.class})
     private int id;
     private Cbo cbo;
-    @JsonView(Folha.CargosFuncionario.class)
+    @JsonView({Folha.CargosFuncionario.class, Recrutamento.NecessidadePessoa.class})
     private String nome;
     private String atribuicoes;
     private boolean ativo = true;

@@ -28,7 +28,8 @@ import javax.persistence.TemporalType;
 @Table(name = "necessidade_pessoa", schema = "public"
 )
 public class NecessidadePessoa implements java.io.Serializable {
-
+    
+    @JsonView({Recrutamento.NecessidadePessoa.class})
     private int id;
     @JsonView({Recrutamento.NecessidadePessoa.class})
     private Cargo cargo;
@@ -42,6 +43,7 @@ public class NecessidadePessoa implements java.io.Serializable {
     private char situacao;
     @JsonView({Recrutamento.NecessidadePessoa.class})
     private Date dataRequisicao;
+    @JsonView({Recrutamento.NecessidadePessoa.class})
     private int quantidade;
     private Set<Vagas> vagases = new HashSet<Vagas>(0);
 

@@ -63,7 +63,7 @@ public class NecessidadePessoaResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public NecessidadePessoa findById(@PathParam("id") long id) {
+    public NecessidadePessoa findById(@PathParam("id") int id) {
         NecessidadePessoa m = necessidadePessoaService.findById(id);
         return m;
     }
@@ -71,7 +71,7 @@ public class NecessidadePessoaResource {
     @GET
     @Path("nivel/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NecessidadePessoa> findByNivel(@PathParam("id") long id) {
+    public List<NecessidadePessoa> findByNivel(@PathParam("id") int id) {
         return necessidadePessoaService.findAll();
     }
 
@@ -84,7 +84,7 @@ public class NecessidadePessoaResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, NecessidadePessoa entity) {
+    public void update(@PathParam("id") int id, NecessidadePessoa entity) {
         necessidadePessoaService.update(entity);
 		
     }
@@ -92,7 +92,7 @@ public class NecessidadePessoaResource {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("id") long id) {
+    public void delete(@PathParam("id") int id) {
         necessidadePessoaService.delete(id);
     }
 
