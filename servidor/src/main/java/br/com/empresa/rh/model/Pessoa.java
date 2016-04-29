@@ -2,9 +2,11 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 import br.com.empresa.rh.model.view.Folha;
+import br.com.empresa.rh.model.view.Recrutamento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -43,7 +45,7 @@ public class Pessoa implements java.io.Serializable {
     private Pessoa pessoaByPessoaId;
     private Pessoa pessoaByMaeId;
     private String cpf;
-    @JsonView({Folha.Funcionario.class})    
+    @JsonView({Folha.Funcionario.class, Recrutamento.Pessoa.class})    
     private String nome;
     private Date dataNascimento;
     private char sexo;

@@ -22,9 +22,10 @@ public class NecessidadePessoaService extends Service<NecessidadePessoa>{
     public List<NecessidadePessoa> findForTable(TableRequest request) {
 
         
-        String hql = "select t from NecessidadePessoa t ";
-        hql+= request.applyFilter("id","cargo","situacao","dataRequisicao");     
-        hql+= request.applyOrder("id","cargo","situacao","dataRequisicao");        
+        String hql = "select t from NecessidadePessoa t"
+                + " inner join fetch t.usuario u ";
+        hql+= request.applyFilter("id","cargo","situacao","dataRequisicao","u.nome");     
+        hql+= request.applyOrder("id","cargo","situacao","dataRequisicao","u.nome");        
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);

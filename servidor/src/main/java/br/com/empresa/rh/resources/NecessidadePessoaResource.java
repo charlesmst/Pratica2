@@ -1,11 +1,11 @@
 package br.com.empresa.rh.resources;
-
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.NecessidadePessoaService;
 import br.com.empresa.rh.model.NecessidadePessoa;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -53,6 +53,7 @@ public class NecessidadePessoaResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(Recrutamento.NecessidadePessoa.class)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
         List<NecessidadePessoa> m = necessidadePessoaService.findForTable(request);
