@@ -12,7 +12,11 @@
             <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
                 <tr md-row>
                     <th md-column md-numeric ></th>
-                    <th md-column md-order-by="descricao"><span>Descrição</span></th>             
+                    <th md-column md-order-by="descricao"><span>Descrição</span></th>
+                    <th md-column md-order-by="cargo.nome"><span>Cargo</span></th>
+                    <th md-column md-order-by="quantidade"><span>Quantidade</span></th>
+                    <th md-column md-order-by="dataRequisicao"><span>Data</span></th>
+                    <th md-column md-order-by="usuario.pessoa.nome"><span>Solicitante</span></th>
                 </tr>
             </thead>
             <tbody md-body>
@@ -24,7 +28,10 @@
             </md-button>
             </td>
             <td md-cell>{{row.descricao}}</td>   
-
+            <td md-cell>{{row.cargo.nome}}</td>
+            <td md-cell>{{row.quantidade}}</td>
+            <td md-cell>{{row.dataRequisicao | date:'dd/MM/yyyy'}}</td>
+            <td md-cell>{{row.usuario.pessoa.nome}}</td>
             </tr>
             </tbody>
         </table>

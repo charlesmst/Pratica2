@@ -1,10 +1,10 @@
 (function () {
     'use strict';
-    angular.module('app').controller('NecessidadePessoaEditController', ['NecessidadePessoa', '$state', 'Workspace', '$q', NecessidadePessoaEditController]);
+    angular.module('app').controller('NecessidadePessoaEditController', ['NecessidadePessoa', '$state', 'Workspace', '$q', 'Cargo', NecessidadePessoaEditController]);
 
     var state = "necessidade-pessoa"
 
-    function NecessidadePessoaEditController(NecessidadePessoa, $state, Workspace, $q) {
+    function NecessidadePessoaEditController(NecessidadePessoa, $state, Workspace, $q, Cargo) {
         var vm = this;
         vm.showDelete = showDelete;
         vm.showAdd = showAdd;
@@ -13,6 +13,25 @@
         vm.onReorder = onReorder;
         vm.list = []
         vm.selectedItems = []
+        vm.cargos = []
+        vm.situacoes = [
+            {
+                cod: "p",
+                nome: "Pendente"
+            },
+            {
+                cod: "n",
+                nome: "Análise"
+            },
+            {
+                cod: "r",
+                nome: "Reprovado"
+            },
+             {
+                cod: "a",
+                nome: "Aprovado"
+            }
+        ]
         Workspace.title = "NecessidadePessoa"
         Workspace.enableSearch(onFilter)
 
@@ -39,6 +58,13 @@
                 }));
             });
         }
+        loadCargos()
+        function loadCargos() {
+            Cargo.query().$promise.then(function (resposta) {
+                vm.cargos = resposta.data
+            })
+        }
+
         function showAdd() {
             $state.go(state + "add")
         }
