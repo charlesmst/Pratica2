@@ -42,7 +42,7 @@ md-sidenav ng-md-icon {
 }
 
 md-toolbar .md-button.md-default-theme {
-    border-radius: 99%; // round toolbar buttons
+    border-radius: 99%; 
 }
 
 h2 {
@@ -64,7 +64,7 @@ md-sidenav {
 }
 md-sidenav ng-md-icon {
     position: relative;
-    top: 5px; // adjust for svg viewbox
+    top: 5px; 
 }
 .user-avatar {
     border-radius: 99%;

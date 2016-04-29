@@ -1,6 +1,6 @@
 (function () {
     angular.module('app').config(["$stateProvider", "$urlRouterProvider", config]);
-
+    
     function config($stateProvider, $urlRouterProvider) {
         $stateProvider
 //                .state('start', {
@@ -43,6 +43,36 @@
                         "": {
                             templateUrl: 'app/recrutamento/questao.edit.tmpl.html',
                             controller: "QuestaoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('necessidade-pessoa', {
+                    url: '/necessidade-pessoa',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/necessidade-pessoa.tmpl.html',
+                            controller: "NecessidadePessoaController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('necessidade-pessoaadd', {
+                    url: '/necessidade-pessoa/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/necessidade-pessoa.edit.tmpl.html',
+                            controller: "NecessidadePessoaEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('necessidade-pessoaedit', {
+                    url: '/necessidade-pessoa/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/necessidade-pessoa.edit.tmpl.html',
+                            controller: "NecessidadePessoaEditController",
                             controllerAs: "crudVm",
                         }
                     }
