@@ -28,10 +28,11 @@ public class Dependencia {
         if (eventos.containsKey(identificador)) {
             return eventos.get(identificador);
         } else {
-            throw new FolhaException("Evento dependente com o identificador de "+identificador+" não encontrado para funcionário");
+            throw new FolhaException("Evento dependente com o identificador de " + identificador + " não encontrado para funcionário");
         }
     }
-     public IEvento getOpcional(String identificador) {
+
+    public IEvento getOpcional(String identificador) {
         if (eventos.containsKey(identificador)) {
             return eventos.get(identificador);
         } else {

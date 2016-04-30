@@ -35,19 +35,15 @@ public class EventoService extends Service<Evento> {
             eventoDependencia.setEventoByEventoId(e);
             EventoDependenciaId ev = new EventoDependenciaId();
             ev.setEventoDependenciaId(eventoDependencia.getEventoByEventoDependenciaId().getId());
-            ev.setEventoId(eventoDependencia.getEventoByEventoId().getId());
-
+            ev.setEventoId(e.getId());
+            eventoDependencia.setId(ev);
+            
         }
         entityManager.merge(e);
 
-//        for (EventoDependencia eventoDependencia : e.getEventoDependencias()) {
-//            eventoDependencia.setEvento(ev);
-//            entityManager.merge(eventoDependencia);
-//        }
-//        for (EventoDependencia eventoDependencia : e.getEventoDependencias()) {
-//            eventoDependencia.setEvento(e);
-//            entityManager.persist(eventoDependencia);
-//        }
+        for (EventoDependencia eventoDependencia : e.getEventoDependencias()) {
+            entityManager.persist(eventoDependencia);
+        }
     }
 
     @Override
