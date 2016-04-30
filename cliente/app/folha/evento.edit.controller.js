@@ -15,7 +15,7 @@
         vm.test = test;
         vm.save = save;
         vm.cancel = cancel;
-
+        vm.eventos = []
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Evento.get({id: $stateParams.id}).$promise.then(function (data) {
                 vm.entity = data
@@ -23,7 +23,8 @@
         }
         else
             vm.entity = new Evento()
-
+        vm.entity.eventoDependencias = vm.entity.eventoDependencias || [];
+        loadEventos();
         function save($event, $valid) {
             if (!$valid)
                 return;
@@ -51,6 +52,11 @@
             })
 
         }
+        function loadEventos() {
+            Evento.query().$promise.then(function (r) {
+                vm.eventos = r
+            })
+        }
 
         function DialogController($scope, $mdDialog, FuncionarioCargo) {
             var modalVm = $scope;
@@ -62,11 +68,11 @@
             }
             function testar() {
                 Evento.test({
-                    funcionario:modalVm.funcionario.id
-                },vm.entity).$promise.then(function (r) {
+                    funcionario: modalVm.funcionario.id
+                }, vm.entity).$promise.then(function (r) {
                     modalVm.log = "";
-                    angular.forEach(r.logs,function(item,k){
-                       modalVm.log += '"'+k+'":'+JSON.stringify(item)+"\n"; 
+                    angular.forEach(r.logs, function (item, k) {
+                        modalVm.log += '"' + k + '":' + JSON.stringify(item) + "\n";
                     })
                     modalVm.eventos = r.eventos;
                 })

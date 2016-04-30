@@ -153,6 +153,49 @@
              md-swipe-left="next()"
              md-swipe-right="previous()"
              >
+
+            <md-card >
+
+
+                <md-card-content>
+                     <h2>Dependências</h2>
+
+                    <md-table-container>
+                        <table md-table >
+                           
+                            <tbody md-body>
+                                <tr md-row md-auto-select ng-repeat="row in crudVm.entity.eventoDependencias">
+                                    
+                                    <td md-cell>
+                                        <md-input-container>
+                                            <label>Nome</label>
+                                            <input type="text" required max-length="100" ng-model="row.nomeVariavel"/>
+                                        </md-input-container>
+                                    </td>  
+                                    <td md-cell>
+                                        <md-select placeholder="Evento" required name="empresa" ng-model="row.eventoByEventoDependenciaId" >
+                                            <md-option ng-selected="item.id === row.eventoByEventoDependenciaId.id" ng-repeat="item in crudVm.eventos" ng-value="{{item}}" required>
+                                                {{item.nome}} - {{item.tipo}}
+                                            </md-option>
+                                        </md-select>
+                                    </td>
+                                    <td  md-cell md-numeric> 
+                                        <md-button  aria-label="Delete" ng-click="crudVm.entity.eventoDependencias.splice(row,1)" >
+                                            <ng-md-icon icon="delete"></ng-md-icon>
+                                        </md-button>
+                                    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                  </md-table-container>
+                    <button class="md-button md-raised md-primary" ng-click="crudVm.entity.eventoDependencias.push({})">
+                         <ng-md-icon icon="add"></ng-md-icon>
+                    </button>
+
+                </md-card-content>
+               
+            </md-card>
             <md-card >
 
 

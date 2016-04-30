@@ -27,16 +27,18 @@
                         </div>
                     </md-input-container>
                 </div>
-                <md-radio-group ng-model="crudVm.entity.tipo">
-                    <md-radio-button value="1" class="md-primary">Folha do mês</md-radio-button>
-                    <md-radio-button value="2"> Folha de férias </md-radio-button>
-                    <md-radio-button value="3">Folha complementar</md-radio-button>
-                </md-radio-group>
+                <md-input-container class="md-block" flex-gt-sm>
 
+                    <md-radio-group ng-model="crudVm.entity.tipo">
+                        <md-radio-button value="1" class="md-primary">Folha do mês</md-radio-button>
+                        <md-radio-button value="2"> Folha de férias </md-radio-button>
+                        <md-radio-button value="3">Folha complementar</md-radio-button>
+                    </md-radio-group>
+                </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Empresa</label>
-                    <md-select required name="empresa" ng-model="crudVm.entity.empresa">
-                        <md-option ng-repeat="item in crudVm.empresas" value="{{item.id}}">
+                    <md-select required name="empresa" ng-model="crudVm.entity.empresa" >
+                        <md-option ng-repeat="item in crudVm.empresas" ng-value="{{item}}" ng-selected="$first">
                             {{item.nome}} - {{item.cnpj}}
                         </md-option>
                     </md-select>
@@ -44,6 +46,21 @@
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
                 </md-input-container>
+
+
+                <div layout-gt-sm="row">
+                    <md-input-container>
+                        <md-switch ng-model="crudVm.somenteFuncionario" ng-init="crudVm.somenteFuncionario = true" aria-label="Somente do funcionário">
+                            Todos da empresa
+                        </md-switch>
+                    </md-input-container>
+                    <md-select ng-disabled="crudVm.somenteFuncionario" style="padding-left: 30px;width:100%" ng-model="crudVm.entity.funcionarios" placeholder="Funcionários" multiple="true">
+                        <md-optgroup label="{{group.nome}}" ng-repeat="group in crudVm.cargos">
+                            <md-option ng-value="item" ng-repeat="item in group.funcionarioCargos">{{item.funcionario.pessoa.nome}}</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </div>
+
             </md-content>
             <md-button class="md-raised md-warn">Cálcular</md-button>
 
