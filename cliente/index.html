@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/animations.css">
     </head>
-    <body layout="row" ng-controller="AppController as appVm">
+    <body layout="row" ng-controller="AppController as appVm" ng-cloak>
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
         <md-toolbar class="md-tall md-hue-2" ng-show="appVm.authorizationData.currentUser">
             <span flex></span>
@@ -147,6 +147,7 @@
     <script src="app/services/nivel.service.js"></script>
     <script src="app/services/shared.service.js"></script>
     <script src="app/services/empresa.service.js"></script>
+    <script src="app/services/cargo.service.js"></script>
 
 
     <script src="app/services/funcionariocargo.service.js"></script>
