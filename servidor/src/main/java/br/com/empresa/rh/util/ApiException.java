@@ -13,10 +13,14 @@ import java.util.logging.Logger;
  * @author charles
  */
 public class ApiException  extends RuntimeException{
+    
     public ApiException(String mensagem, Exception ex){
         super(mensagem);
     }
     
+    public ApiException(String mensagem){
+        super(mensagem);
+    }
     public ApiException(String mensagem, Exception ex, Logger logger){
         super(mensagem);
         if(ex != null){
