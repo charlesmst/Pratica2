@@ -2,6 +2,9 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +25,6 @@ import org.hibernate.annotations.Parameter;
     ,schema="public"
 )
 public class Curriculo  implements java.io.Serializable {
-
 
      private int pessoaId;
      private Pessoa pessoa;

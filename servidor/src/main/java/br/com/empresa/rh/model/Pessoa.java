@@ -45,13 +45,13 @@ public class Pessoa implements java.io.Serializable {
     private Pessoa pessoaByPessoaId;
     private Pessoa pessoaByMaeId;
     private String cpf;
-    @JsonView({Folha.Funcionario.class, Recrutamento.Pessoa.class})    
     private String nome;
     private Date dataNascimento;
     private char sexo;
     private String endereco;
     private String email;
     private String rg;
+    @JsonIgnore
     private Curriculo curriculo;
 
     @JsonBackReference

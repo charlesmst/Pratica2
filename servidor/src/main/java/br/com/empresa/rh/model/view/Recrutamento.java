@@ -5,13 +5,15 @@
  */
 package br.com.empresa.rh.model.view;
 
+import br.com.empresa.rh.model.Curriculo;
+
 /**
  *
  * @author gusta
  */
 public class Recrutamento {
 
-    public static class Pessoa {
+    public static class Pessoa{
 
     }
 
@@ -26,4 +28,6 @@ public class Recrutamento {
     public static class Cargo {
         
     }
+    
+    
 }

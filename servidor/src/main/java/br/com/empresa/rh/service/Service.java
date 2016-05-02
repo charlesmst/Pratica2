@@ -25,12 +25,12 @@ public abstract class Service<T> {
 
     @Transactional
     public void insert(T m) {
-        entityManager.persist(m);
+        entityManager.merge(m);
     }
 
     @Transactional
     public void update(T m) {
-        entityManager.merge(m);
+        entityManager.persist(m);
     }
 
     @Transactional
