@@ -1,14 +1,14 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
-
-
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -18,21 +18,23 @@ import javax.persistence.Table;
 @Table(name="folha_calculada_evento"
     ,schema="public"
 )
+@SequenceGenerator(name = "folha_calculada_evento_seq", sequenceName = "folha_calculada_evento_seq", initialValue = 1, allocationSize = 1)
+
 public class FolhaCalculadaEvento  implements java.io.Serializable {
 
 
      private int id;
      private Evento evento;
      private FolhaCalculada folhaCalculada;
-     private BigDecimal valor;
+     private double valor;
      private boolean visivel;
-     private char tipo;
+     private int tipo;
      private int referencia;
 
     public FolhaCalculadaEvento() {
     }
 
-    public FolhaCalculadaEvento(int id, Evento evento, FolhaCalculada folhaCalculada, BigDecimal valor, boolean visivel, char tipo, int referencia) {
+    public FolhaCalculadaEvento(int id, Evento evento, FolhaCalculada folhaCalculada, double valor, boolean visivel, int tipo, int referencia) {
        this.id = id;
        this.evento = evento;
        this.folhaCalculada = folhaCalculada;
@@ -43,6 +45,7 @@ public class FolhaCalculadaEvento  implements java.io.Serializable {
     }
    
      @Id 
+    @GeneratedValue(generator = "folha_calculada_evento_seq", strategy = GenerationType.SEQUENCE)
 
     
     @Column(name="id", unique=true, nullable=false)
@@ -76,11 +79,11 @@ public class FolhaCalculadaEvento  implements java.io.Serializable {
 
     
     @Column(name="valor", nullable=false, precision=10)
-    public BigDecimal getValor() {
+    public double getValor() {
         return this.valor;
     }
     
-    public void setValor(BigDecimal valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
@@ -96,11 +99,11 @@ public class FolhaCalculadaEvento  implements java.io.Serializable {
 
     
     @Column(name="tipo", nullable=false, length=1)
-    public char getTipo() {
+    public int getTipo() {
         return this.tipo;
     }
     
-    public void setTipo(char tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
@@ -65,7 +66,8 @@ public class JAXRSServerConfig {
 //        MappingJackson2HttpMessageConverter jacksonJsonProvider = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+//        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+        final DateFormat df = new ISO8601DateFormat();
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
         objectMapper.setDateFormat(df);
 
@@ -81,7 +83,7 @@ public class JAXRSServerConfig {
         factory.setProvider(jacksonJsonProvider);
         factory.setProvider(new CORSFilter());
         factory.setProvider(new SecurityFilter());
-
+        factory.setProvider(new ThrowableExceptionMapper());
         Server s = null;
         s = factory.create();
 

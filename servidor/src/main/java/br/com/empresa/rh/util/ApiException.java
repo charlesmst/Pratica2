@@ -5,14 +5,22 @@
  */
 package br.com.empresa.rh.util;
 
+import br.com.empresa.rh.model.response.MensagemResponse;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import javax.ws.rs.core.Response;
 
 /**
  *
  * @author charles
  */
-public class ApiException  extends RuntimeException{
+public class ApiException  extends RuntimeException implements ApiResponseException{
+
+    @Override
+    public Response toResponse() {
+        MensagemResponse m = new MensagemResponse(false, getMessage());
+        return Response.status(500).entity(m).build();                
+    }
     
     public ApiException(String mensagem, Exception ex){
         super(mensagem);

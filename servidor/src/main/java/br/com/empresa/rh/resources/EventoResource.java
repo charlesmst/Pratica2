@@ -1,22 +1,32 @@
 package br.com.empresa.rh.resources;
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.Cargo;
 import br.com.empresa.rh.service.EventoService;
 import br.com.empresa.rh.model.Evento;
+import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.Funcionario;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.Parametro;
+import br.com.empresa.rh.model.request.CalculoFolhaRequest;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.response.EventoTesteResponse;
+import br.com.empresa.rh.model.response.MensagemResponse;
 import br.com.empresa.rh.response.CountResponse;
+import br.com.empresa.rh.service.CargoService;
+import br.com.empresa.rh.service.FolhaCalculadaService;
 import br.com.empresa.rh.service.FuncionarioCargoService;
 import br.com.empresa.rh.service.FuncionarioService;
 import br.com.empresa.rh.service.folha.CalculoFolha;
 import br.com.empresa.rh.service.folha.EventoCollection;
 import br.com.empresa.rh.service.folha.IEvento;
 import br.com.empresa.rh.service.folha.Parametros;
+import br.com.empresa.rh.service.folha.TipoCalculo;
+import br.com.empresa.rh.service.folha.Utilitarios;
+import br.com.empresa.rh.util.ApiException;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +42,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.ws.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +59,14 @@ public class EventoResource {
     @Autowired
     private CalculoFolha calculoFolha;
 
-    
+    @Autowired
+    private CargoService cargoService;
+
     @Autowired
     private FuncionarioCargoService funcionarioCargoService;
 
+    @Autowired
+    private FolhaCalculadaService folhaCalculadaService;
     @Context
     protected UriInfo info;
 
@@ -129,12 +144,12 @@ public class EventoResource {
                 }
             }
         }
-        if(!added ){
+        if (!added) {
             c.addAll(Arrays.asList(m));
         }
 
         FuncionarioCargo f = funcionarioCargoService.findById(funcionarioCargo);
-        
+
         calculoFolha.setEventos(c);
         calculoFolha.calcula(f, periodo);
 
@@ -142,5 +157,59 @@ public class EventoResource {
         e.setEventos(c);
         e.setLogs(calculoFolha.getLog());
         return e;
+    }
+
+    @POST
+    @Path("calcular/mes/verificar")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public MensagemResponse verificarFolhaMes(CalculoFolhaRequest request) {
+        TipoCalculo t = TipoCalculo.parse(request.getTipo());
+
+        List<FuncionarioCargo> funcionariosCalculo = funcionariosRequest(request);
+        //Exclui os antigos e verifica se pode excluir
+        List<String> nomes = new ArrayList<>();
+        for (FuncionarioCargo funcionariosCalculo1 : funcionariosCalculo) {
+            FolhaCalculada calculada = folhaCalculadaService.folhaCalculadaMes(request.getMes(), request.getAno(), t, funcionariosCalculo1);
+            if (calculada != null) {
+                nomes.add(funcionariosCalculo1.getFuncionario().getPessoa().getNome());
+            }
+        }
+        String mensagme = String.join(",", nomes) + " possui(em) folha já calculada";
+        MensagemResponse r = new MensagemResponse(nomes.isEmpty(), mensagme);
+        return r;
+
+    }
+
+    private List<FuncionarioCargo> funcionariosRequest(CalculoFolhaRequest request) {
+        List<FuncionarioCargo> funcionariosCalculo;
+        TipoCalculo t = TipoCalculo.parse(request.getTipo());
+        if (request.isTodosEmpresa()) {
+            List<Cargo> cargos = cargoService.daEmpresa(request.getEmpresa().getId());
+            funcionariosCalculo = new ArrayList<>();
+
+            for (Cargo cargo : cargos) {
+                funcionariosCalculo.addAll(cargo.getFuncionarioCargos());
+            }
+        } else {
+            if (request.getFuncionarios() == null || request.getFuncionarios().isEmpty()) {
+                throw new ApiException("Funcionário é obrigatório", null);
+            }
+            funcionariosCalculo = request.getFuncionarios();
+        }
+        return funcionariosCalculo;
+    }
+
+    @POST
+    @Path("calcular/mes")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public void calcular(CalculoFolhaRequest request, @Context SecurityContext securityContext) {
+        TipoCalculo t = TipoCalculo.parse(request.getTipo());
+
+        List<FuncionarioCargo> funcionariosCalculo = funcionariosRequest(request);
+        //Exclui os antigos e verifica se pode excluir
+        folhaCalculadaService.excluirFolhasAntigas(funcionariosCalculo, request.getMes(), request.getAno(), t, securityContext.isUserInRole(NivelAcesso.ADMIN));
+        calculoFolha.calcularTodos(funcionariosCalculo, request.getMes(), request.getAno(), t);
+
+//        return new MensagemResponse(true, "Folha de pagamento calculada com sucesso");
     }
 }

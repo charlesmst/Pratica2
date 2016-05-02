@@ -11,6 +11,7 @@ import br.com.empresa.rh.service.folha.EventoCollection;
 import br.com.empresa.rh.service.folha.EventoScript;
 import br.com.empresa.rh.service.folha.IEvento;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +47,15 @@ public class EventoService extends Service<Evento> {
         }
     }
 
+    public EventoCollection eventosFerias(){
+        List<Integer> eventosId = Arrays.asList(11);
+        List<Evento> eventos = new ArrayList<>();
+        for (Integer eventoId : eventosId) {
+            eventos.add(findById(eventoId));
+        }        
+        EventoCollection col = new EventoCollection(eventos);
+        return col;
+    }
     @Override
     public void insert(Evento m) {
         persistDependencias(m);
