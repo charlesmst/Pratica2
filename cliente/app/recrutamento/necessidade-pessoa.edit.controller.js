@@ -1,107 +1,59 @@
 (function () {
     'use strict';
-    angular.module('app').controller('NecessidadePessoaEditController', ['NecessidadePessoa', '$state', 'Workspace', '$q', 'Cargo', NecessidadePessoaEditController]);
+    angular.module('app').controller('NecessidadePessoaEditController', ['$mdToast', '$http', 'NecessidadePessoa', '$state', '$stateParams', 'Workspace', 'Cargo', NecessidadePessoaEditController]);
 
     var state = "necessidade-pessoa"
-
-    function NecessidadePessoaEditController(NecessidadePessoa, $state, Workspace, $q, Cargo) {
+    function NecessidadePessoaEditController($mdToast, $http, NecessidadePessoa, $state, $stateParams, Workspace, Cargo) {
         var vm = this;
-        vm.showDelete = showDelete;
-        vm.showAdd = showAdd;
-        vm.showEdit = showEdit;
-        vm.onPaginate = onPaginate;
-        vm.onReorder = onReorder;
-        vm.list = []
-        vm.selectedItems = []
+        vm.entity = {}
         vm.cargos = []
-        vm.situacoes = [
-            {
-                cod: "p",
-                nome: "Pendente"
-            },
-            {
-                cod: "n",
-                nome: "Análise"
-            },
-            {
-                cod: "r",
-                nome: "Reprovado"
-            },
-             {
-                cod: "a",
-                nome: "Aprovado"
-            }
-        ]
-        Workspace.title = "NecessidadePessoa"
-        Workspace.enableSearch(onFilter)
+        
+        vm.situacoes = []
+        Workspace.title = "Manutenção de Necessidade de Pessoa";
+        if ($stateParams.id) {
+            Workspace.loading("Carregando...", NecessidadePessoa.get({id: $stateParams.id}).$promise.then(function (data) {
 
-        vm.query = {
-            filter: "",
-            order: 'id',
-            limit: 10,
-            page: 1
-        };
+                vm.entity = data
+            }))
 
-        load(vm.query)
-        function showDelete($event) {
-            Workspace.showDeleteDialog($event).then(function () {
-                //Confirmou
-                var promises = [];
-                var items = angular.copy(vm.selectedItems);
-                vm.selectedItems = [];
-                angular.forEach(items, function (value) {
-                    promises.push(value.$delete());
-                });
-                Workspace.loading("Excluindo...", $q.all(promises).then(function () {
-                    Workspace.showMessage("Registros excluidos");
-                    load(vm.query);
-                }));
-            });
-        }
+        } else
+            vm.entity = new NecessidadePessoa()
+
         loadCargos()
+        loadSituacoes()
+        vm.save = save;
+        vm.cancel = cancel;
+        function save($event, $valid) {
+            if (!$valid) {
+                return;
+            } else {
+                vm.entity.usuario = null;
+                vm.entity.dataRequisicao = null;
+                Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
+            }
+        }
+        function cancel() {
+            $state.go(state)
+        }
+        function callbackSave(r) {
+            Workspace.showMessage("Registro salvo")
+            $state.go(state)
+
+        }
+        function callbackError() {
+            Workspace.showMessage("Ocorreu um erro ao salvar o registro")
+        }
         function loadCargos() {
             Cargo.query().$promise.then(function (resposta) {
-                vm.cargos = resposta.data
+                vm.cargos = resposta;
             })
         }
+        function loadSituacoes() {
+            $http.get('data/recrutamento/statusNecessidadePessoa.json').then(function (resposta) {
+                vm.situacoes = (resposta.data)
 
-        function showAdd() {
-            $state.go(state + "add")
+            })
         }
-
-        function showEdit(e, id) {
-            $state.go(state + "edit", {"id": id})
-        }
-
-        function load(query) {
-            vm.promise = NecessidadePessoa.query(query, success).$promise;
-            loadCount()
-        }
-
-        function success(response) {
-            vm.list = response;
-        }
-
-        function onPaginate(page, limit) {
-            load(angular.extend({}, vm.query, {page: page, limit: limit}));
-        }
-
-        function onReorder(order) {
-            load(angular.extend(vm.query, {order: order}));
-        }
-
-        function onFilter(filter) {
-            load(angular.extend(vm.query, {'filter': filter, page: 1}))
-
-        }
-        function loadCount() {
-            NecessidadePessoa.count(vm.query).$promise.then(function (e) {
-                vm.count = e.count
-            });
-
-        }
-
-
     }
 
 })()

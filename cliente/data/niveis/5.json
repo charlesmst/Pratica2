@@ -23,7 +23,7 @@
                 {
                     "link": "cbo",
                     "title": "Cbos",
-                    "icon": "nivel"
+                    "icon": "dashboard"
                 }
             ]
         },
@@ -34,7 +34,7 @@
                 {
                     "link": "necessidade-pessoa",
                     "title": "Necessidade de pessoa",
-                    "icon": "nivel"
+                    "icon": "dashboard"
                 }
             ]
         }

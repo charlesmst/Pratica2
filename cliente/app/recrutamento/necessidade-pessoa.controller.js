@@ -18,7 +18,7 @@
 
         vm.query = {
             filter: "",
-            order: 'id',
+            order: 't.id',
             limit: 10,
             page: 1
         };
