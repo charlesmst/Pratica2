@@ -35,6 +35,11 @@
                     "link": "necessidade-pessoa",
                     "title": "Necessidade de pessoa",
                     "icon": "dashboard"
+                },
+                {
+                    "link": "vagas",
+                    "title": "Vagas",
+                    "icon": "dashboard"
                 }
             ]
         }

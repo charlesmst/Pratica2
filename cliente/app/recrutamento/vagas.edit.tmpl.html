@@ -1,0 +1,57 @@
+<form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
+
+    <div class="md-fab-bottom-right app-fixed-bottom-right">
+
+        <button type="submit" class="md-button md-fab"  aria-label="save" >
+            <ng-md-icon icon="save"></ng-md-icon>
+        </button>
+
+        <md-button class="md-fab "  aria-label="Delete" ng-click="crudVm.cancel($event)" >
+            <ng-md-icon icon="cancel"></ng-md-icon>
+        </md-button>
+    </div>
+
+
+    <md-card >
+
+{{crudVm.entity}}
+        <md-card-content>
+             
+            <h2>Vagas</h2>
+            <md-content>
+                
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Descrição</label>
+                    <input  name="descricao" ng-model="crudVm.entity.descricao" md-maxlength="255" required>
+                    <div ng-messages="formEdit.descricao.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+                
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Perfil</label>
+                    <textarea name="perfil" ng-model="crudVm.entity.perfil" md-maxlength="255" required></textarea>
+                    <div ng-messages="formEdit.perfil.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+                
+                <div layout-gt-xs="row">
+                
+                    <md-datepicker ng-model="crudVm.entity.dataInicio" md-placeholder="Data de início.">
+                        
+                    </md-datepicker>
+                    <md-datepicker ng-model="crudVm.entity.dataFim" md-placeholder="Data final.">
+                        
+                    </md-datepicker>
+                </div>
+                 
+
+            </md-content>
+
+        </md-card-content>
+      
+    </md-card>
+</form>

@@ -47,6 +47,9 @@
                         }
                     }
                 })
+                
+                //Necessidade Pessoa
+                
                 .state('necessidade-pessoa', {
                     url: '/necessidade-pessoa',
                     views: {
@@ -73,6 +76,39 @@
                         "": {
                             templateUrl: 'app/recrutamento/necessidade-pessoa.edit.tmpl.html',
                             controller: "NecessidadePessoaEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                
+                //Vagas
+                
+                .state('vagas', {
+                    url: '/vagas',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/vagas.tmpl.html',
+                            controller: "VagasController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('vagasadd', {
+                    url: '/vagas/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/vagas.edit.tmpl.html',
+                            controller: "VagasEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('vagasedit', {
+                    url: '/vagas/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/vagas.edit.tmpl.html',
+                            controller: "VagasEditController",
                             controllerAs: "crudVm",
                         }
                     }
