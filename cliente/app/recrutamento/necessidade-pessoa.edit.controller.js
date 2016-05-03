@@ -7,7 +7,7 @@
         var vm = this;
         vm.entity = {}
         vm.cargos = []
-        
+
         vm.situacoes = []
         Workspace.title = "Manutenção de Necessidade de Pessoa";
         if ($stateParams.id) {

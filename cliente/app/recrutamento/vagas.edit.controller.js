@@ -11,6 +11,10 @@
             Workspace.loading("Carregando...", Vagas.get({id: $stateParams.id}).$promise.then(function (data) {
 
                 vm.entity = data
+                vm.entity.dataInicio= Workspace.toDate(vm.entity.dataInicio)
+                
+                vm.entity.dataFim= Workspace.toDate(vm.entity.dataFim)
+                console.log(data)
             }))
 
         } else

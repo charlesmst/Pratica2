@@ -8,6 +8,7 @@
         vm.search = "";
         vm.showSearch = false;
         vm.onFilterChange = undefined;
+        vm.toDate = toDate;
         vm.setDefaults = setDefaults;
         vm.enableSearch = enableSearch
         vm.showDeleteDialog = showDeleteDialog;
@@ -58,8 +59,8 @@
                 $mdToast.hide(toast)
             }
             $mdToast.show(toast)
-            if (p){
-                return p.then(toast.hide,toast.hide)
+            if (p) {
+                return p.then(toast.hide, toast.hide)
             }
             return toast;
         }
@@ -70,6 +71,11 @@
                     .position("top right")
                     .hideDelay(3000)
                     );
+        }
+
+        function toDate(str) {
+            return new Date(str)
+
         }
 
     }
