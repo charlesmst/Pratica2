@@ -71,13 +71,6 @@ public class NecessidadePessoaResource {
         return m;
     }
 
-    @GET
-    @Path("nivel/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<NecessidadePessoa> findByNivel(@PathParam("id") int id) {
-        return necessidadePessoaService.findAll();
-    }
-
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(NecessidadePessoa m,@Context SecurityContext security) {

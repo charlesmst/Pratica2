@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -40,7 +41,7 @@ public class NecessidadePessoa implements java.io.Serializable {
     @JsonView({Recrutamento.NecessidadePessoa.class})
     private String perfil;
     @JsonView({Recrutamento.NecessidadePessoa.class})
-    private char situacao;
+    private int situacao;
     @JsonView({Recrutamento.NecessidadePessoa.class})
     private Date dataRequisicao;
     @JsonView({Recrutamento.NecessidadePessoa.class})
@@ -105,7 +106,7 @@ public class NecessidadePessoa implements java.io.Serializable {
         this.usuario = usuario;
     }
 
-    @Column(name = "descricao", nullable = false, length = 500)
+    @Column(name = "descricao", nullable = false)
     public String getDescricao() {
         return this.descricao;
     }
@@ -123,12 +124,12 @@ public class NecessidadePessoa implements java.io.Serializable {
         this.perfil = perfil;
     }
 
-    @Column(name = "situacao", nullable = false, length = 1)
-    public char getSituacao() {
+    @Column(name = "situacao", nullable = false)
+    public int getSituacao() {
         return this.situacao;
     }
 
-    public void setSituacao(char situacao) {
+    public void setSituacao(int situacao) {
         this.situacao = situacao;
     }
 

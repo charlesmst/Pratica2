@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -38,7 +39,7 @@ public class Vagas  implements java.io.Serializable {
      private boolean sigiloso;
      private String descricao;
      private String perfil;
-     private char tipo;
+     private int tipo;
      private Date dataInicio;
      private Date dataFim;
      private Boolean finalizado;
@@ -137,12 +138,12 @@ public class Vagas  implements java.io.Serializable {
     }
 
     
-    @Column(name="tipo", nullable=false, length=1)
-    public char getTipo() {
+    @Column(name="tipo", nullable=false)
+    public int getTipo() {
         return this.tipo;
     }
     
-    public void setTipo(char tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 

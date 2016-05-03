@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class NecessidadePessoaService extends Service<NecessidadePessoa>{
 
     @Override
+    @Transactional
     public void update(NecessidadePessoa m) {
         NecessidadePessoa necessidade = findById(m.getId());
         necessidade.setCargo(m.getCargo());
@@ -24,7 +25,7 @@ public class NecessidadePessoaService extends Service<NecessidadePessoa>{
         necessidade.setDescricao(m.getDescricao());
         necessidade.setPerfil(m.getPerfil());
         necessidade.setQuantidade(m.getQuantidade());
-        super.update(necessidade); 
+        entityManager.merge(necessidade);
     }
 
     @Override
