@@ -14,6 +14,8 @@
         vm.showDeleteDialog = showDeleteDialog;
         vm.showMessage = showMessage;
         vm.loading = loading;
+        vm.showConfirmDialog = showConfirmDialog;
+        vm.showError = showError;
         $rootScope.$on('$stateChangeStart', setDefaults)
 
         init()
@@ -51,10 +53,19 @@
             return $mdDialog.show(confirm)
 
         }
+        function showConfirmDialog($event,titulo,mensagem) {
+            var confirm = $mdDialog.confirm("Wa")
+                    .title(titulo)
+                    .textContent(mensagem)
+                    .ok('Sim')
+                    .cancel('Não').openFrom($event.target).closeTo($event.target)
+            return $mdDialog.show(confirm)
+
+        }
         function loading(message, p) {
             var toast = $mdToast.simple()
                     .textContent(message)
-                    .position("top right");
+                    .position("bottom left");
             toast.hide = function () {
                 $mdToast.hide(toast)
             }
@@ -68,9 +79,25 @@
             $mdToast.show(
                     $mdToast.simple()
                     .textContent(message)
-                    .position("top right")
+                    .position("bottom left")
                     .hideDelay(3000)
                     );
+        }
+        function showError(message) {
+            $mdToast.show({
+                template: '<md-toast><span flex>' + message + '</span><md-button ng-click="vm.closeToast()">Fechar</md-button></md-toast>',
+                hideDelay: false,
+                position: "bottom left",
+                controller: function ($mdToast) {
+                    var vm = this
+                    vm.closeToast = closeToast
+                    function closeToast() {
+                        $mdToast.hide()
+                    }
+                },
+                controllerAs: "vm"
+
+            })
         }
 
         function toDate(str) {

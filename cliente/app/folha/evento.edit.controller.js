@@ -58,17 +58,23 @@
             })
         }
 
-        function DialogController($scope, $mdDialog, FuncionarioCargo) {
+        function DialogController($scope, $mdDialog, FuncionarioCargo,$http) {
             var modalVm = $scope;
             modalVm.cancel = cancel;
             modalVm.testar = testar;
             modalVm.querySearch = querySearch;
+            $http.get("data/meses.json").then(function (r) {
+                modalVm.meses = r.data
+            })
             function cancel() {
                 $mdDialog.cancel()
             }
             function testar() {
                 Evento.test({
-                    funcionario: modalVm.funcionario.id
+                    funcionario: modalVm.funcionario.id,
+                    ano:modalVm.entity.ano,
+                    mes:modalVm.entity.mes,
+                    tipo:1
                 }, vm.entity).$promise.then(function (r) {
                     modalVm.log = "";
                     angular.forEach(r.logs, function (item, k) {

@@ -13,6 +13,11 @@
                     "link": "evento",
                     "title": "Eventos da folha",
                     "icon": "dashboard"
+                },
+                {
+                    "link": "calculofolha",
+                    "title": "Cálculo da folha",
+                    "icon": "dashboard"
                 }
             ]
         },

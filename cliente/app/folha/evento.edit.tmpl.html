@@ -20,6 +20,29 @@
     placeholder="Funcionário">
     <span md-highlight-text="crudVm.searchText">{{item.funcionario.pessoa.nome}} - {{item.cargo.nome}}</span>
     </md-autocomplete>
+
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Mês</label>
+                        <md-select required name="mes" ng-model="entity.mes">
+                            <md-option ng-repeat="item in meses" value="{{item.numero}}">
+                                {{item.nome}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="formEdit.mes.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Ano</label>
+                        <input required type="number" step="any" name="ano" ng-model="entity.ano" min="2000"
+                               max="2100" ng-pattern="/^[0-9]{4}$/" />
+                        <div ng-messages="formEdit.ano.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
     <p class="md-title">Eventos (Resultado)</p>
 
     <table md-table>
@@ -158,43 +181,43 @@
 
 
                 <md-card-content>
-                     <h2>Dependências</h2>
+                    <h2>Dependências</h2>
 
                     <md-table-container>
                         <table md-table >
-                           
+
                             <tbody md-body>
                                 <tr md-row md-auto-select ng-repeat="row in crudVm.entity.eventoDependencias">
-                                    
+
                                     <td md-cell>
-                                        <md-input-container>
-                                            <label>Nome</label>
-                                            <input type="text" required max-length="100" ng-model="row.nomeVariavel"/>
-                                        </md-input-container>
-                                    </td>  
-                                    <td md-cell>
-                                        <md-select placeholder="Evento" required name="empresa" ng-model="row.eventoByEventoDependenciaId" >
-                                            <md-option ng-selected="item.id === row.eventoByEventoDependenciaId.id" ng-repeat="item in crudVm.eventos" ng-value="{{item}}" required>
-                                                {{item.nome}} - {{item.tipo}}
-                                            </md-option>
-                                        </md-select>
-                                    </td>
-                                    <td  md-cell md-numeric> 
-                                        <md-button  aria-label="Delete" ng-click="crudVm.entity.eventoDependencias.splice(row,1)" >
-                                            <ng-md-icon icon="delete"></ng-md-icon>
-                                        </md-button>
-                                    
-                                    </td>
-                                </tr>
+                            <md-input-container>
+                                <label>Nome</label>
+                                <input type="text" required max-length="100" ng-model="row.nomeVariavel"/>
+                            </md-input-container>
+                            </td>  
+                            <td md-cell>
+                            <md-select placeholder="Evento" required name="empresa" ng-model="row.eventoDependencia" >
+                                <md-option ng-selected="item.id === row.eventoDependencia.id" ng-repeat="item in crudVm.eventos" ng-value="{{item}}" required>
+                                    {{item.nome}} - {{item.tipo}}
+                                </md-option>
+                            </md-select>
+                            </td>
+                            <td  md-cell md-numeric> 
+                            <md-button  aria-label="Delete" ng-click="crudVm.entity.eventoDependencias.splice(row, 1)" >
+                                <ng-md-icon icon="delete"></ng-md-icon>
+                            </md-button>
+
+                            </td>
+                            </tr>
                             </tbody>
                         </table>
-                  </md-table-container>
+                    </md-table-container>
                     <button class="md-button md-raised md-primary" ng-click="crudVm.entity.eventoDependencias.push({})">
-                         <ng-md-icon icon="add"></ng-md-icon>
+                        <ng-md-icon icon="add"></ng-md-icon>
                     </button>
 
                 </md-card-content>
-               
+
             </md-card>
             <md-card >
 
