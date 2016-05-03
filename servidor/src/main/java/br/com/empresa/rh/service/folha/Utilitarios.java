@@ -39,6 +39,6 @@ public class Utilitarios {
     }
     
     public double descontaDias(double valor, int dias){
-        return valor / parametros.getDiasMes() * dias;
+        return valor / dias * parametros.getDiasMes() ;
     }
 }

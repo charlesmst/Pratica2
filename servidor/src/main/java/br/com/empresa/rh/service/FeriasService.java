@@ -1,6 +1,7 @@
 package br.com.empresa.rh.service;
 
 import br.com.empresa.rh.model.Ferias;
+import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.util.DataComercial;
 import java.util.Calendar;
@@ -25,6 +26,18 @@ public class FeriasService extends Service<Ferias> {
 
     public FeriasService() {
         classRef = Ferias.class;
+    }
+
+    public List<Ferias> feriasMes(FuncionarioCargo cargo, int mes, int ano) {
+        String hql = "from Ferias f  "
+                + " where f.funcionarioCargo.id = :id and str(to_char(f.dataGozoInicio,'YYYYMM')) like :data";
+        String data = String.format("%04d", ano) + String.format("%02d", mes);
+        List<Ferias> ferias = entityManager.createQuery(hql)
+                .setParameter("id", cargo.getId())
+                .setParameter("data", data)
+                .getResultList();
+        return ferias;
+
     }
 
     public int quantidadeDiasFerias(int cargoId, int mes, int ano) {

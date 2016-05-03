@@ -45,6 +45,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.ws.Provider;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -107,14 +108,18 @@ public class EventoResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(Evento m) {
-        eventoService.insert(m);
+//        eventoService.insert(m);
+//        eventoService.persistDependencias2(m);
+        eventoService.salvar(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
     public void update(@PathParam("id") int id, Evento entity) {
-        eventoService.update(entity);
+//        eventoService.update(entity);
+//        eventoService.persistDependencias2(entity);
+        eventoService.salvar(entity);
 
     }
 
@@ -126,12 +131,13 @@ public class EventoResource {
     }
 
     @POST
-    @Path("test/{funcionario}")
+    @Path("test/{funcionario}/{mes}/{ano}/{tipo}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public EventoTesteResponse testar(Evento m, @PathParam("funcionario") int funcionarioCargo) {
+    public EventoTesteResponse testar(Evento m, @PathParam("funcionario") int funcionarioCargo, @PathParam("mes") int mes, @PathParam("ano") int ano, @PathParam("tipo") int tipo) {
 //        EventoCollection c = new EventoCollection(Arrays.asList(m));
-        Date periodo = new Date();
-        EventoCollection c = eventoService.todosEventosFuncionario(funcionarioCargo, periodo);
+        Date data = new DateTime().withYear(ano).withMonthOfYear(mes).withDayOfMonth(1).toDate();
+
+        EventoCollection c = eventoService.todosEventosFuncionario(funcionarioCargo, data);
 
         boolean added = false;
         if (m.getId() > 0) {
@@ -149,9 +155,8 @@ public class EventoResource {
         }
 
         FuncionarioCargo f = funcionarioCargoService.findById(funcionarioCargo);
-
         calculoFolha.setEventos(c);
-        calculoFolha.calcula(f, periodo);
+        calculoFolha.calcula(f, data);
 
         EventoTesteResponse e = new EventoTesteResponse();
         e.setEventos(c);

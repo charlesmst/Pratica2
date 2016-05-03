@@ -5,6 +5,7 @@
  */
 package br.com.empresa.rh.service.folha;
 
+import br.com.empresa.rh.model.Ferias;
 import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.FolhaCalculadaEvento;
 import br.com.empresa.rh.model.Funcionario;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,11 +56,11 @@ public class CalculoFolha {
     }
 
     public void calcula(FuncionarioCargo funcionario, Date data) {
-        calcula(funcionario, data, this.eventos);
+        calcula(funcionario, data, this.eventos,parametrosFuncionario(data, funcionario));
     }
 
-    public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos) {
-        Parametros parametros = parametrosFuncionario(data, funcionario);
+    public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos,Parametros parametros) {
+        
         Consulta c = consultas(data, funcionario, parametros);
         Utilitarios u = new Utilitarios(parametros);
         Console console = new Console();
@@ -79,9 +81,15 @@ public class CalculoFolha {
 
         for (FuncionarioCargo funcionario : funcionarios) {
 
+            Parametros parametros = parametrosFuncionario(data, funcionario);
             EventoCollection eventosFuncionario;
             switch (tipo) {
                 case ferias:
+                    List<Ferias> f = feriasService.feriasMes(funcionario, mes, ano);
+                    //Se não tem férias no mês, não precisa calcular
+                    if(f.isEmpty())
+                        continue;
+                    parametros.setDiasMes(Days.daysBetween(new DateTime(f.get(0).getDataGozoInicio()), new DateTime(f.get(0).getDataGozoFim())).getDays());
                     eventosFuncionario = eventoService.eventosFerias();
                     break;
                 case mes:
@@ -89,7 +97,7 @@ public class CalculoFolha {
                     eventosFuncionario = eventoService.todosEventosFuncionario(funcionario, data);
                     break;
             }
-            calcula(funcionario, data, eventosFuncionario);
+            calcula(funcionario, data, eventosFuncionario,parametros);
             salvarEventos(funcionario, data, eventosFuncionario, mes, ano, tipo);
         }
     }
@@ -122,7 +130,7 @@ public class CalculoFolha {
     }
 
     private Consulta consultas(Date data, FuncionarioCargo func, Parametros parametros) {
-        return new Consulta(tabelaService, data, func, faixaSalarialService, dependenteService, feriasService, parametros);
+        return new Consulta(tabelaService, data, func, faixaSalarialService, dependenteService, feriasService, parametros,eventoService);
     }
 
     public HashMap<String, Object> getLog() {

@@ -82,19 +82,25 @@ public class EventoScript implements IEvento {
         if (stack.contains(this)) {
             throw new ApiException("Dependência mutua detectada em evento " + evento.getId(), null);
         }
-        Dependencia dependencia = new Dependencia();
+        Dependencia dependencia = new Dependencia(consulta);
         stack.push(this);
         //calcula as dependencias primeiro se ainda não foi calculada
         for (EventoDependencia eventoDependencia : getEvento().getEventoDependencias()) {
             //Encontra o evento com esse id
+            boolean adicionado = false;
             for (IEvento e : eventos.getEventos()) {
-                if (e.getEvento().getId() == eventoDependencia.getId().getEventoDependenciaId()) {
+                if (e.getEvento().getId() == eventoDependencia.getEventoDependencia().getId()) {
                     if (!e.isCalculado()) {
                         e.calcula(parametros, consulta, eventos, console, utilitarios, stack);
                     }
+                    adicionado = true;
                     dependencia.add(eventoDependencia.getNomeVariavel(), e);
                     break;
                 }
+            }
+            //Se não foi adicionado, adiciona somente um eventoScript com o código do evento
+            if (!adicionado) {
+                dependencia.add(eventoDependencia.getNomeVariavel(), new EventoNaoCalculavel(eventoDependencia.getEventoDependencia()));
             }
         }
         stack.pop();
@@ -117,8 +123,8 @@ public class EventoScript implements IEvento {
             nashornEngine.eval(evaluationScript);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new FolhaException("Erro no cálculo do evento " + evento.getId() + " para colaborador ",e);
-        } 
+            throw new FolhaException("Erro no cálculo do evento " + evento.getId() + " para colaborador ", e);
+        }
         calculado = true;
     }
 

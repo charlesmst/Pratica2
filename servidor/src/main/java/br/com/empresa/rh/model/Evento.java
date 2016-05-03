@@ -177,7 +177,7 @@ public class Evento implements java.io.Serializable {
 //        @JoinColumn(name = "evento_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
 //        @JoinColumn(name = "evento_dependencia_id", referencedColumnName = "id", nullable = false)})
 //    @OneToMany
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventoByEventoId",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evento",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<EventoDependencia> getEventoDependencias() {
         return this.eventoDependencias;
     }

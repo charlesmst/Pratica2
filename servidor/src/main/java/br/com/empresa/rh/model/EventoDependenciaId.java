@@ -6,68 +6,68 @@
 package br.com.empresa.rh.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author charles
  */
-@Embeddable
-public class EventoDependenciaId  implements java.io.Serializable {
+public class EventoDependenciaId implements java.io.Serializable {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(insertable = false, updatable = false)
 
-     private int eventoDependenciaId;
-     private int eventoId;
+    private Evento evento;
+//    @JoinColumn(insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Evento eventoDependencia;
 
-    public EventoDependenciaId() {
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.evento);
+        hash = 17 * hash + Objects.hashCode(this.eventoDependencia);
+        return hash;
     }
 
-    public EventoDependenciaId(int eventoDependenciaId, int eventoId) {
-       this.eventoDependenciaId = eventoDependenciaId;
-       this.eventoId = eventoId;
-    }
-   
-
-
-    @Column(name="evento_dependencia_id", unique=true, nullable=false)
-    public int getEventoDependenciaId() {
-        return this.eventoDependenciaId;
-    }
-    
-    public void setEventoDependenciaId(int eventoDependenciaId) {
-        this.eventoDependenciaId = eventoDependenciaId;
-    }
-
-
-    @Column(name="evento_id", unique=true, nullable=false)
-    public int getEventoId() {
-        return this.eventoId;
-    }
-    
-    public void setEventoId(int eventoId) {
-        this.eventoId = eventoId;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EventoDependenciaId other = (EventoDependenciaId) obj;
+        if (!Objects.equals(this.evento, other.evento)) {
+            return false;
+        }
+        if (!Objects.equals(this.eventoDependencia, other.eventoDependencia)) {
+            return false;
+        }
+        return true;
     }
 
+    public Evento getEvento() {
+        return evento;
+    }
 
-   public boolean equals(Object other) {
-         if ( (this == other ) ) return true;
-		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof EventoDependenciaId) ) return false;
-		 EventoDependenciaId castOther = ( EventoDependenciaId ) other; 
-         
-		 return (this.getEventoDependenciaId()==castOther.getEventoDependenciaId())
- && (this.getEventoId()==castOther.getEventoId());
-   }
-   
-   public int hashCode() {
-         int result = 17;
-         
-         result = 37 * result + this.getEventoDependenciaId();
-         result = 37 * result + this.getEventoId();
-         return result;
-   }   
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
 
+    public Evento getEventoDependencia() {
+        return eventoDependencia;
+    }
+
+    public void setEventoDependencia(Evento eventoDependencia) {
+        this.eventoDependencia = eventoDependencia;
+    }
 
 }
-

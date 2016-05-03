@@ -24,13 +24,17 @@ public class Parametros {
     private Date dataReferencia;
     private int mes;
     private int ano;
+    private int diasMes = 30;
 
+    public void setDiasMes(int diasMes) {
+        this.diasMes = diasMes;
+    }
     public Parametros(Date dataReferencia) {
         this.dataReferencia = dataReferencia;
 
         Calendar c = Calendar.getInstance();
         c.setTime(dataReferencia);
-        mes = c.get(Calendar.MONTH);
+        mes = c.get(Calendar.MONTH)+1;//Mes vem um a menos do calendar
         ano = c.get(Calendar.YEAR);
     }
 
@@ -47,7 +51,7 @@ public class Parametros {
     }
 
     public int getDiasMes(){
-        return 30;
+        return diasMes;
     }
     public int getAno() {
         return ano;
