@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +82,9 @@ public class Utilitarios {
 
     public static int usuarioId(SecurityContext context) {
         return 1;
+    }
+    
+    public String formataDinheiro(double d){
+            return new DecimalFormat("'R$'###,##0.00").format(d);
     }
 }

@@ -4,6 +4,7 @@ import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.FolhaCalculadaService;
 import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.response.FolhaResponse;
 import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
 import br.com.empresa.rh.util.ApiException;
@@ -65,15 +66,18 @@ public class FolhaCalculadaResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     
-    public FolhaCalculada findById(@PathParam("id") int id, @Context SecurityContext securityContext) {
+    public FolhaResponse findById(@PathParam("id") int id, @Context SecurityContext securityContext) {
         utilitarios.setSecutiryContext(securityContext);
         FolhaCalculada m = folhaCalculadaService.findById(id);
-        if(!utilitarios.usuarioTemPermissao(NivelAcesso.RH) && utilitarios.usuarioTemPermissao(NivelAcesso.RH)){
+        if(!utilitarios.usuarioTemPermissao(NivelAcesso.RH)){
             if(m.getFuncionarioCargo().getFuncionario().getPessoaId() != utilitarios.usuario()){
                 throw new SecurityApiException();
             }
         }
-        return m;
+        FolhaResponse r = folhaCalculadaService.fromFolhaCalculada(m);
+        if(!utilitarios.usuarioTemPermissao(NivelAcesso.RH))
+            r.setEventosInvisiveis(null);
+        return r;
     }
 
     @DELETE

@@ -5,7 +5,9 @@ import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.FuncionarioCargoService;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -53,6 +55,7 @@ public class FuncionarioCargoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView({Folha.FuncionarioCargo.class})
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
         List<FuncionarioCargo> m = funcionarioCargoService.findForTable(request);
