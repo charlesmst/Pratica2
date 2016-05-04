@@ -92,6 +92,9 @@ public class CalculoFolha {
                     parametros.setDiasMes(Days.daysBetween(new DateTime(f.get(0).getDataGozoInicio()), new DateTime(f.get(0).getDataGozoFim())).getDays());
                     eventosFuncionario = eventoService.eventosFerias();
                     break;
+                case complementar:
+                    eventosFuncionario = this.eventos;
+                    break;
                 case mes:
                 default:
                     eventosFuncionario = eventoService.todosEventosFuncionario(funcionario, data);

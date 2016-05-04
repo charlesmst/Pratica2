@@ -19,6 +19,7 @@ import br.com.empresa.rh.service.FuncionarioCargoService;
 import br.com.empresa.rh.service.FuncionarioService;
 import br.com.empresa.rh.service.folha.CalculoFolha;
 import br.com.empresa.rh.service.folha.EventoCollection;
+import br.com.empresa.rh.service.folha.EventoScript;
 import br.com.empresa.rh.service.folha.IEvento;
 import br.com.empresa.rh.service.folha.Parametros;
 import br.com.empresa.rh.service.folha.TipoCalculo;
@@ -212,7 +213,19 @@ public class EventoResource {
 
         List<FuncionarioCargo> funcionariosCalculo = funcionariosRequest(request);
         //Exclui os antigos e verifica se pode excluir
-        folhaCalculadaService.excluirFolhasAntigas(funcionariosCalculo, request.getMes(), request.getAno(), t, securityContext.isUserInRole(NivelAcesso.ADMIN));
+
+        if (t == TipoCalculo.complementar) {
+            EventoCollection collection = new EventoCollection();
+            for (EventoScript evento : request.getEventos()) {
+                Evento newEvento = eventoService.findById(evento.getEvento().getId());
+                EventoScript newEventoScript = new EventoScript(newEvento);
+                newEventoScript.setReferencia(evento.getReferencia());
+                collection.getEventos().add(newEventoScript);
+            }
+            calculoFolha.setEventos(collection);
+        } else {
+            folhaCalculadaService.excluirFolhasAntigas(funcionariosCalculo, request.getMes(), request.getAno(), t, securityContext.isUserInRole(NivelAcesso.ADMIN));
+        }
         calculoFolha.calcularTodos(funcionariosCalculo, request.getMes(), request.getAno(), t);
 
 //        return new MensagemResponse(true, "Folha de pagamento calculada com sucesso");

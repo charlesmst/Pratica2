@@ -1,6 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,18 +31,24 @@ import javax.persistence.TemporalType;
 
 public class FolhaCalculada implements java.io.Serializable {
 
+    @JsonView({Folha.FolhaCalculada.class})
     private int id;
+    @JsonView({Folha.FolhaCalculada.class})
     private FuncionarioCargo funcionarioCargo;
+    @JsonView({Folha.FolhaCalculada.class})
     private Date dataReferente;
+    @JsonView({Folha.FolhaCalculada.class})
     private Date dataGerado;
     private Set<FolhaCalculadaEvento> folhaCalculadaEventos = new HashSet<FolhaCalculadaEvento>(0);
-
+    @JsonView({Folha.FolhaCalculada.class})
     private int mes;
+    @JsonView({Folha.FolhaCalculada.class})
     private int ano;
+    @JsonView({Folha.FolhaCalculada.class})
     private int tipo;
 
     private boolean excluido;
-    
+
     public FolhaCalculada() {
     }
 

@@ -17,6 +17,9 @@ public class Folha {
     public static class FuncionarioCargo extends Funcionario{
     }
 
+    public static class FolhaCalculada extends FuncionarioCargo{
+    }
+
     public static class CargosFuncionario extends Funcionario {
     }
 

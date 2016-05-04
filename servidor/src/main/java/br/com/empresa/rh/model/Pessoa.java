@@ -45,7 +45,7 @@ public class Pessoa implements java.io.Serializable {
     private Pessoa pessoaByPessoaId;
     private Pessoa pessoaByMaeId;
     private String cpf;
-    @JsonView(Recrutamento.Pessoa.class)
+    @JsonView({Folha.Funcionario.class,Recrutamento.Pessoa.class})
     private String nome;
     private Date dataNascimento;
     private char sexo;

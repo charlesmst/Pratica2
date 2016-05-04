@@ -8,6 +8,7 @@ package br.com.empresa.rh.model.request;
 import br.com.empresa.rh.model.Empresa;
 import br.com.empresa.rh.model.Funcionario;
 import br.com.empresa.rh.model.FuncionarioCargo;
+import br.com.empresa.rh.service.folha.EventoScript;
 import java.util.List;
 
 /**
@@ -21,6 +22,8 @@ public class CalculoFolhaRequest {
     private int mes;
     private int ano;
     private int tipo;
+    
+    private List<EventoScript> eventos;
     public List<FuncionarioCargo> getFuncionarios() {
         return funcionarios;
     }
@@ -67,6 +70,14 @@ public class CalculoFolhaRequest {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    public List<EventoScript> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<EventoScript> eventos) {
+        this.eventos = eventos;
     }
     
 }

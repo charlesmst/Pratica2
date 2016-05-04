@@ -33,6 +33,7 @@ public class EventoScript implements IEvento {
     private boolean aplicavel = true;
     private boolean calculado = false;
 
+    public EventoScript(){}
     public EventoScript(Evento evento) {
         this.evento = evento;
     }

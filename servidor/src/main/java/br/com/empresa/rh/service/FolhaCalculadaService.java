@@ -18,6 +18,25 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class FolhaCalculadaService extends Service<FolhaCalculada> {
 
+    @Override
+    public FolhaCalculada findById(Object id) {
+        return super.findById(id); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public long count() {
+        Object o = entityManager.createQuery("select count(*) from " + classRef.getName()+" where  excluido is false").getSingleResult();
+        return (long) o;
+    }
+
+    @Override
+    @Transactional
+    public void delete(Object id) {
+        FolhaCalculada f = entityManager.find(classRef, id);
+        f.setExcluido(true);
+        entityManager.merge(f);
+    }
+
     public FolhaCalculadaService() {
         classRef = FolhaCalculada.class;
     }
@@ -55,9 +74,14 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
     @Transactional
     public List<FolhaCalculada> findForTable(TableRequest request) {
 
-        String hql = "select t from FolhaCalculada t ";
-        hql += request.applyFilter("id", "nome");
-        hql += request.applyOrder("id", "nome");
+        String hql = "select t from FolhaCalculada t "
+                + " inner join fetch t.funcionarioCargo f "
+                + " inner join fetch f.funcionario ff "
+                + " inner join fetch ff.pessoa ";
+        hql += request.applyFilter("t.id");
+        hql+= (!hql.contains("where")?" where t.excluido is  false " :" and t.excluido is false ");
+//        hql += request.applyOrder("t.id");
+        hql+= !hql.contains("order")?" order by t.ano desc, t.mes desc,tipo ":",t.ano desc, t.mes desc,tipo ";
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);
