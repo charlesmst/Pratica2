@@ -1,0 +1,46 @@
+<md-dialog aria-label="Folha de Pagamento" style="width:90%"  ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Folha de Pagamento</h2>
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+
+
+                <p class="md-title">Resultado</p>
+
+                <table md-table>
+                    <thead md-head >
+                        <tr md-row>
+                            <th md-column><span>Nome</span></th>
+                            <th md-column><span>Ref.</span></th>
+                            <th md-column><span>Tipo</span></th>         
+                            <th md-column><span>Valor</span></th>  
+
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr ng-repeat="row in (folhaVm.eventos|| [])">
+
+                            <td md-cell>{{row.evento.nome}}</td>   
+                            <td md-cell>{{row.referencia}}</td>   
+                            <td md-cell>{{row.evento.tipo}}</td>   
+                            <td md-cell>{{row.valorCalculado}}</td>   
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button ng-click="folhaVm.cancel()" style="margin-right:20px;">
+                Fechar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

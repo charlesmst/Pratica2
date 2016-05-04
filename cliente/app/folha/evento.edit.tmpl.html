@@ -203,7 +203,7 @@
                             </md-select>
                             </td>
                             <td  md-cell md-numeric> 
-                            <md-button  aria-label="Delete" ng-click="crudVm.entity.eventoDependencias.splice(row, 1)" >
+                            <md-button  aria-label="Delete" ng-click="crudVm.entity.eventoDependencias.splice(crudVm.entity.eventoDependencias.indexOf(row), 1)" >
                                 <ng-md-icon icon="delete"></ng-md-icon>
                             </md-button>
 

@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CalculoFolhaController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'Empresa', 'Cargo', '$scope', '$parse', 'Evento', '$q', CalculoFolhaController]);
+    angular.module('app').controller('CalculoFolhaController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'Empresa', 'Cargo', '$scope', '$parse', 'Evento', '$q', '$mdDialog', CalculoFolhaController]);
 
-    function CalculoFolhaController($mdToast, $http, $state, $stateParams, Workspace, Empresa, Cargo, $scope, $parse, Evento, $q) {
+    function CalculoFolhaController($mdToast, $http, $state, $stateParams, Workspace, Empresa, Cargo, $scope, $parse, Evento, $q, $mdDialog) {
         var vm = this;
         vm.meses = []
         vm.empresas = []
@@ -14,7 +14,9 @@
         vm.entity = angular.extend(new Evento(), {
             ano: new Date().getFullYear(),
             empresa: undefined,
-            funcionarios: []
+            funcionarios: [],
+            eventos: [{referencia: 0}],
+            tipo: 1
         });
 
         $scope.$watch('crudVm.entity.empresa', function () {
@@ -27,24 +29,45 @@
         function save($event, $valid) {
             if (!$valid)
                 return;
-            switch (vm.entity.tipo){
-                case "1":
+            switch (parseInt(vm.entity.tipo)) {
+                case 1:
                     calculaMes($event);
                     break;
-                case "2":
+                case 2:
                     calculaFerias($event);
+                    break;
+                case 3:
+                    calculaComplementar($event);
                     break;
             }
         }
-        function calculaFerias($event){
+        function calculaFerias($event) {
             calculaMes($event)
         }
-        function calculaMes($event){
+        function calculaMes($event) {
             verificarCalculado($event).then(function () {
                 Workspace.loading("Cálculando...", vm.entity.$calcularMes(callbackSave, callbackError).$promise)
 
             });
         }
+        function calculaComplementar($event) {
+            $mdDialog.show({
+                controller: "CalculoFolhaDialogController as modalVm",
+                templateUrl: 'app/folha/calculo.folha.modal.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                resolve: {
+                    CalculoData: function () {
+                        return vm.entity
+                    }
+                }
+            }).then(function (r) {
+                vm.entity.eventos = r;
+
+                Workspace.loading("Cálculando...", vm.entity.$calcularMes(callbackSave, callbackError).$promise)
+            })
+        }
+
         function verificarCalculado($event) {
             return $q(function (resolve, reject) {
                 vm.entity.$verificarJaCalculado().then(function (r) {
@@ -67,6 +90,7 @@
                 vm.meses = r.data
             })
         }
+
         function loadEmpresas() {
             Empresa.query().$promise.then(function (r) {
                 vm.empresas = r;

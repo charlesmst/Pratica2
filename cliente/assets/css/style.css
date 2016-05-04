@@ -92,3 +92,7 @@ md-sidenav ng-md-icon {
     fill:rgba(0,0,0,.54);
     padding:3px!important;
 }
+
+.md-white-icon svg{
+    fill:#fff!important;
+}

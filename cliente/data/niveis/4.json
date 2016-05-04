@@ -1,6 +1,21 @@
 {
-    "inicial": "menu",
+    "inicial": "folhacalculada",
     "menus": [
+        {
+            "title":"Folha de pagamento",
+            "links": [
+                {
+                    "link": "folhacalculada",
+                    "title": "Folhas de pagamento",
+                    "icon": "dashboard"
+                },
+                {
+                    "link": "calculofolha",
+                    "title": "Cálculo da folha",
+                    "icon": "dashboard"
+                }
+            ]
+        },
         {
             "title":"RH",
             "links": [

@@ -1,0 +1,52 @@
+<md-dialog aria-label="Folha de pagamento complementar" style="width:90%"  ng-cloak>
+    <form name="formCalculoFolhaComplementar" novalidate ng-submit="modalVm.calcular($event, formCalculoFolhaComplementar.$valid)">
+
+        <md-dialog-content>
+            <md-toolbar class="md-theme-light">
+                <h2 class="md-toolbar-tools">
+                    <span>Eventos da folha complementar</span>
+                </h2>
+            </md-toolbar>
+            <md-content>
+                <md-list>
+                    <md-list-item class="md-3-line" ng-repeat="row in modalVm.entity.eventos">
+                        <div  class="md-list-item-text">
+                            <div layout="row" flex>
+                                <md-input-container flex="40">
+                                    <label>Referência</label>
+                                    <input type="number" ng-required="true" max-length="100" ng-model="row.referencia"/>
+                                </md-input-container>
+                                <md-input-container flex="50">
+                                    <md-select ng-required="true" placeholder="Evento" name="empresa" ng-model="row.evento" >
+                                        <md-option ng-selected="item.id === row.evento.id" ng-repeat="item in modalVm.eventos" ng-value="{{item}}" required>
+                                            {{item.nome}} - {{item.tipo}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-button flex="10"  aria-label="Delete" class="md-secondary" ng-click="crudVm.entity.eventos.splice(crudVm.entity.eventos.indexOf(row), 1)" >
+                                    <ng-md-icon icon="delete"></ng-md-icon>
+                                </md-button>
+                            </div>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+
+            <button class="md-button md-raised md-primary" ng-click="modalVm.add()" type="button">
+                <ng-md-icon icon="add"></ng-md-icon>
+            </button>
+        </md-dialog-content>
+        <md-dialog-actions>
+
+            <md-button type="submit" class="md-warn md-raised">
+                Calcular
+            </md-button>
+            <md-button class="md-raised" ng-click="modalVm.cancel()" style="margin-right:20px;">
+                Cancelar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+
+
+</md-dialog>

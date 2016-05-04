@@ -1,17 +1,17 @@
 {
-    "inicial": "menu",
+    "inicial": "folhacalculada",
     "menus": [
         {
             "title":"Administrador",
             "links": [
                 {
-                    "link": "menu",
-                    "title": "Menus",
+                    "link": "evento",
+                    "title": "Eventos da folha",
                     "icon": "dashboard"
                 },
                 {
-                    "link": "evento",
-                    "title": "Eventos da folha",
+                    "link": "folhacalculada",
+                    "title": "Folhas de pagamento",
                     "icon": "dashboard"
                 },
                 {

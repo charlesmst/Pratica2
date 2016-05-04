@@ -53,6 +53,17 @@
                         }
                     }
                 })
+                
+                .state('folhacalculada', {
+                    url: '/folha',
+                    views: {
+                        "": {
+                            templateUrl: 'app/folha/folhacalculada.tmpl.html',
+                            controller: "FolhaCalculadaController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
 
     }
 })()
