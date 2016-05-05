@@ -63,9 +63,15 @@ INSERT INTO cor values (4,'PARDO');
 
 INSERT INTO sindicato(id,nome,desconto,valor_mensal) VALUES (1,'SINDICATO 1','0.5','0.5');
 
-INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, sexo, endereco, email, rg, data_nascimento) VALUES (1, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'pessoa 1', 'M', 'sdads', 'teste@gmail.com', '4115781892', NULL);
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (1, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'pessoa 1', NULL, 'M', 'sdads', 'teste@gmail.com', '4115781892');
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (2, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'filho 1', '2005-10-10', 'M', 'sdads', 'teste@gmail.com', '4115781892');
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (3, 1, 1, 1, NULL, NULL, NULL, '1111111111 ', 'ADMIN', NULL, 'M', NULL, 'admin@admin.com', '41241241241');
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (4, 1, 1, 1, NULL, NULL, NULL, '1111111111 ', 'RH', NULL, 'M', NULL, 'rg@admin.com', '
+');
 
-INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, sexo, endereco, email, rg, data_nascimento) VALUES (2, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'filho 1', 'M', 'sdads', 'teste@gmail.com', '4115781892', '2005-10-10');
+INSERT INTO usuario (pessoa_id, usuario, senha, nivel) VALUES (3, 'ADMIN', '123', 5);
+INSERT INTO usuario (pessoa_id, usuario, senha, nivel) VALUES (4, 'RH', '123', 4);
+INSERT INTO usuario (pessoa_id, usuario, senha, nivel) VALUES (1, 'FUNCIONARIO', '123', 2);
 
 INSERT INTO funcionario(pessoa_id,vinculo_empregaticio_id,banco_id,conta,agencia) VALUES (1,1,1,'123','123');
 
@@ -88,6 +94,7 @@ INSERT INTO tabela (id, data_inicio, tipo) VALUES (1, '2016-01-01', 'INSS');
 INSERT INTO tabela (id, data_inicio, tipo) VALUES (2, '2016-01-01', 'IRRF');
 INSERT INTO tabela (id, data_inicio, tipo) VALUES (3, '2016-01-01', 'FGTS');
 INSERT INTO tabela (id, data_inicio, tipo) VALUES (4, '2016-01-01', 'FAMILIA');
+INSERT INTO tabela (id, data_inicio, tipo) VALUES (5, '2016-01-01', 'IRRF DEP');
 
 
 INSERT INTO tabela_valores (id, tabela_id, valor_inicial, valor_final, aliquota, desconto) VALUES (1, 1, 0.00, 1556.94, 8.00, NULL);
@@ -101,19 +108,13 @@ INSERT INTO tabela_valores (id, tabela_id, valor_inicial, valor_final, aliquota,
 INSERT INTO tabela_valores (id, tabela_id, valor_inicial, valor_final, aliquota, desconto) VALUES (9, 4, 0.00, 806.80, NULL, 41.37);
 INSERT INTO tabela_valores (id, tabela_id, valor_inicial, valor_final, aliquota, desconto) VALUES (10, 4, 806.81, 1212.64, NULL, 29.16);
 
+INSERT INTO tabela_valores (id, tabela_id, valor_inicial, valor_final, aliquota, desconto) VALUES (11, 5, 0, NULL, NULL, 189.59);
 
 
 
 
 
-
-
-
-
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,2, 'Salário', true, 1, 'var salario = consulta.salario;
-evento.valorCalculado = salario.valor;
-evento.referencia = salario.cargaHoraria;', true);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,3, 'INSS', true, 3, 'var tabela = consulta.getTabela("INSS");
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (3, 'INSS', true, 3, 'var tabela = consulta.getTabela("INSS");
 var vencimentos = eventos.bases + eventos.proventos;
 
 function aplicar(item){
@@ -144,8 +145,66 @@ function calcular(){
     
     
 }
-calcular()', true);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,5, 'IRRF', true, 3, 'var tabela = consulta.getTabela("IRRF");
+calcular()', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (6, '1/3 de férias - Mensal', false, 5, 'var vencimentos = eventos.bases + eventos.proventos
+var valor = vencimentos * (1/12) * (1/3)
+evento.valorCalculado = valor', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (7, 'Férias - Mensal', false, 5, 'var vencimentos = eventos.bases + eventos.proventos
+var valor = vencimentos * (1/12)
+evento.valorCalculado = valor;', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (8, '13º - Mensal', false, 5, 'var vencimentos = eventos.bases + eventos.proventos
+var valor = vencimentos * (1/12)
+evento.valorCalculado = valor;', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (9, 'Insalubridade 40%', true, 2, 'var vencimentos = eventos.bases;
+var valor = vencimentos * 0.4;
+evento.valorCalculado = valor;', false, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (10, 'Insalubridade 20%', true, 2, 'var vencimentos = eventos.bases;
+var valor = vencimentos * 0.2;
+evento.valorCalculado = valor;', false, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (11, 'Insalubridade 10%', true, 2, 'var vencimentos = eventos.bases;
+var valor = vencimentos * 0.1;
+evento.valorCalculado = valor;', false, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (12, 'Cota Patronal', false, 5, 'evento.valorCalculado = (eventos.bases+eventos.proventos) * 0.2', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (13, 'Salário Família', true, 4, 'var dependentes = consulta.dependentes;
+var valorGanho = eventos.bases + eventos.proventos
+calcula()
+function determinar(){
+    var quantidade = 0
+    for each(var pessoa in dependentes){
+        if(utilitarios.idadePessoa(pessoa) <=14 || pessoa.necessidadeEspecials.size() > 0)    
+            quantidade++
+    }
+    return quantidade;
+}
+function calcula(){
+    var q = determinar();
+    if(q === 0){
+        evento.aplicavel = false;
+        return;
+    }
+    
+    var tabela = consulta.getTabela(''FAMILIA'')
+    for each(var a in tabela){
+        if(a.valorInicial <= valorGanho && a.valorFinal >= valorGanho){
+            var valorBeneficio = a.desconto;
+            evento.valorCalculado = q * valorBeneficio;
+            evento.referencia = q;
+            return;
+        }
+    }
+    evento.aplicavel = false;
+}
+
+', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (14, 'Desconto de salário adiantado de férias', true, 3, 'var quantidade = consulta.quantidadeFerias;
+if(quantidade == 0 )
+{
+    evento.aplicavel = false;
+}else{
+    evento.referencia = quantidade;
+    evento.valorCalculado = utilitarios.descontaDias(eventos.bases,quantidade);
+}', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (5, 'IRRF', true, 3, 'var tabela = consulta.getTabela("IRRF");
 var vencimentos = eventos.bases + eventos.proventos;
 
 if(verificaAplicavel())
@@ -167,9 +226,24 @@ function verificaAplicavel(){
 function aplicar(item){
     var aliquota = item.aliquota /100;
     var venc = vencimentos;
-    evento.setValorCalculado(venc * aliquota - item.desconto);
-    evento.setReferencia(item.aliquota);
+    var desconto = 0;
+    var quantidadeDependentes = consulta.dependentes.size();
+    if(quantidadeDependentes > 0){
+        desconto += valorDependente() * quantidadeDependentes;
+    }
     
+    var r = ((venc - dependencia.get(''inss'').valorCalculado) * aliquota - item.desconto) - deconto;
+    if(r < 0)
+        r = 0;
+    evento.valorCalculado = r;
+    evento.referencia = (item.aliquota);
+    
+}
+function valorDependente(){
+    var t = consulta.getTabela(''IRRF DEP'');
+    for each(var a in t){
+        return a.desconto;
+    }
 }
 function calcular(){
     for each(var item in tabela){
@@ -178,29 +252,36 @@ function calcular(){
             return;
         }
     }
-}', true);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,6, '1/3 de férias - Mensal', false, 5, 'var vencimentos = eventos.bases + eventos.proventos
-var valor = vencimentos * (1/12) * (1/3)
-evento.valorCalculado = valor', true);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,7, 'Férias - Mensal', false, 5, 'var vencimentos = eventos.bases + eventos.proventos
-var valor = vencimentos * (1/12)
-evento.valorCalculado = valor;', true);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,8, '13º - Mensal', false, 5, 'var vencimentos = eventos.bases + eventos.proventos
-var valor = vencimentos * (1/12)
-evento.valorCalculado = valor;', true);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,9, 'Insalubridade 40%', true, 2, 'var vencimentos = eventos.bases;
-var valor = vencimentos * 0.4;
-evento.valorCalculado = valor;', false);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,10, 'Insalubridade 20%', true, 2, 'var vencimentos = eventos.bases;
-var valor = vencimentos * 0.2;
-evento.valorCalculado = valor;', false);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,11, 'Insalubridade 10%', true, 2, 'var vencimentos = eventos.bases;
-var valor = vencimentos * 0.1;
-evento.valorCalculado = valor;', false);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,12, 'Cota Patronal', false, 5, 'evento.valorCalculado = (eventos.bases+eventos.proventos) * 0.2', true);
-INSERT INTO evento (ativo,id, nome, visivel_folha, tipo, script, padrao) VALUES (true,13, 'Salário Família', true, 4, 'var dependentes = consulta.dependentes;
-console.log(dependentes)
-for each(var pessoa in dependentes){
-    console.log(utilitarios.idadePessoa(pessoa))    
-}
-', true);
+}', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (2, 'Salário', true, 1, 'var salario = consulta.salario;
+evento.valorCalculado = utilitarios.descontaDias(  salario.valor,30);
+evento.referencia = salario.cargaHoraria;', true, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (47, 'Férias', true, 2, '
+var ferias = consulta.feriasDoMes;
+var valorTotal = 0;
+for each(var f in ferias)
+    valorTotal += dependencia.getValorPeriodo("ferias",f.dataAquisitivoInicio,f.dataAquisitivoFim);
+
+evento.valorCalculado = valorTotal', false, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (48, '1/3 de Férias', false, 2, '
+var ferias = consulta.feriasDoMes;
+var valorTotal = 0;
+for each(var f in ferias)
+    valorTotal += dependencia.getValorPeriodo("ferias",f.dataAquisitivoInicio,f.dataAquisitivoFim);
+
+evento.valorCalculado = valorTotal', false, true);
+INSERT INTO evento (id, nome, visivel_folha, tipo, script, padrao, ativo) VALUES (50, 'Ajuste de Dissídio Coletivo', true, 2, 'evento.valorCalculado = consulta.salario.valor * 0.05;', false, true);
+
+
+--
+-- TOC entry 2216 (class 0 OID 46668)
+-- Dependencies: 252
+-- Data for Name: evento_dependencia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO evento_dependencia (nomevariavel, eventodependencia_id, evento_id) VALUES ('inss', 3, 5);
+INSERT INTO evento_dependencia (nomevariavel, eventodependencia_id, evento_id) VALUES ('ferias', 7, 47);
+INSERT INTO evento_dependencia (nomevariavel, eventodependencia_id, evento_id) VALUES ('ferias', 6, 48);
+
+
+INSERT INTO ferias (id, funcionario_cargo_id, data_gozo_inicio, data_gozo_fim, data_aquisitivo_inicio, data_aquisitivo_fim) VALUES (1, 1, '2016-04-01', '2016-04-16', '2015-01-01', '2016-01-31');
