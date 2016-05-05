@@ -56,14 +56,14 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Descrição</label>
-                    <textarea  name="descricao" ng-model="crudVm.entity.descricao" md-maxlength="500" required></textarea>
+                    <textarea  name="descricao" ng-model="crudVm.entity.descricao" required></textarea>
                     <div ng-messages="formEdit.descricao.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
                 </md-input-container> 
                 <md-input-container class="md-block" >
                     <label>Perfil</label>
-                    <textarea  name="perfil" ng-model="crudVm.entity.perfil" style="min-height: 200px" required></textarea>
+                    <textarea  name="perfil" ng-model="crudVm.entity.perfil" required></textarea>
                     <div ng-messages="formEdit.perfil.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>

@@ -6,6 +6,7 @@
     function VagasEditController($mdToast, $http, Vagas, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
+        vm.tipos = []
         Workspace.title = "Manutenção de Vagas";
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Vagas.get({id: $stateParams.id}).$promise.then(function (data) {
@@ -19,6 +20,8 @@
 
         } else
             vm.entity = new Vagas()
+        
+        loadTipos()
         vm.save = save;
         vm.cancel = cancel;
         function save($event, $valid) {
@@ -36,6 +39,12 @@
         }
         function callbackError() {
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
+        }
+        function loadTipos() {
+            $http.get('data/recrutamento/tipoRecrutamento.json').then(function (resposta) {
+                vm.tipos = (resposta.data)
+
+            })
         }
 
     }

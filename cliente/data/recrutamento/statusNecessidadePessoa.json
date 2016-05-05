@@ -1,10 +1,22 @@
 [
     {
         "id":1,
-        "nome":"Pendente"
+        "nome":"PENDENTE"
     },
     {
         "id":2,
-        "nome":"Análise"
+        "nome":"ANÁLISE"
+    },
+    {
+        "id":3,
+        "nome":"APROVADO"
+    },
+    {
+        "id":4,
+        "nome":"REPROVADO"
+    },
+    {
+        "id":5,
+        "nome":"CANCELADO"
     }
 ]
