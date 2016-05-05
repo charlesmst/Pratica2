@@ -88,7 +88,7 @@ public class Vagas  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="necessidade_pessoa_id", nullable=false)
+    @JoinColumn(name="necessidade_pessoa_id", nullable=true)
     public NecessidadePessoa getNecessidadePessoa() {
         return this.necessidadePessoa;
     }
