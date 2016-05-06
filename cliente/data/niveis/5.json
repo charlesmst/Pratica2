@@ -38,12 +38,17 @@
                 
                 {
                     "link": "necessidade-pessoa",
-                    "title": "Necessidade de pessoa",
+                    "title": "Necessidade de Pessoa",
                     "icon": "dashboard"
                 },
                 {
                     "link": "vagas",
                     "title": "Vagas",
+                    "icon": "dashboard"
+                },
+                {
+                    "link": "curriculo",
+                    "title": "Currículo",
                     "icon": "dashboard"
                 }
             ]

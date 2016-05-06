@@ -113,5 +113,36 @@
                         }
                     }
                 })
+                
+                .state('curriculo', {
+                    url: '/curriculo',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/curriculo.tmpl.html',
+                            controller: "CurriculoController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('curriculoadd', {
+                    url: '/curriculo/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/curriculo.edit.tmpl.html',
+                            controller: "CurriculoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('curriculoedit', {
+                    url: '/curriculo/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/curriculo.edit.tmpl.html',
+                            controller: "CurriculoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
     }
 })()
