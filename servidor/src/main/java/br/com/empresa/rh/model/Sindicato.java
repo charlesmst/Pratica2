@@ -9,8 +9,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +25,9 @@ import javax.persistence.TemporalType;
 @Table(name="sindicato"
     ,schema="public"
 )
+
+@SequenceGenerator(name = "sindicato_seq", sequenceName = "sindicato_seq", initialValue = 1, allocationSize = 1)
+
 public class Sindicato  implements java.io.Serializable {
 
 
@@ -51,7 +57,8 @@ public class Sindicato  implements java.io.Serializable {
    
      @Id 
 
-    
+        @GeneratedValue(generator = "sindicato_seq", strategy = GenerationType.SEQUENCE)
+
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;

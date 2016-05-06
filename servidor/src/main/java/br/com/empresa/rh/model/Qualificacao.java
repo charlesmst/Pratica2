@@ -7,8 +7,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -18,14 +21,16 @@ import javax.persistence.Table;
 @Table(name="qualificacao"
     ,schema="public"
 )
+@SequenceGenerator(name = "qualificacao_seq", sequenceName = "qualificacao_seq", initialValue = 1, allocationSize = 1)
+
 public class Qualificacao  implements java.io.Serializable {
 
 
      private int id;
      private String nome;
      private Integer cargaHoraria;
-     private char certificado;
-     private char validade;
+     private boolean certificado;
+     private boolean validade;
      private String descricao;
      private boolean ativo = true;
      private Set<FuncionarioQualificacao> funcionarioQualificacaos = new HashSet<FuncionarioQualificacao>(0);
@@ -34,13 +39,13 @@ public class Qualificacao  implements java.io.Serializable {
     }
 
 	
-    public Qualificacao(int id, String nome, char certificado, char validade) {
+    public Qualificacao(int id, String nome, boolean certificado, boolean validade) {
         this.id = id;
         this.nome = nome;
         this.certificado = certificado;
         this.validade = validade;
     }
-    public Qualificacao(int id, String nome, Integer cargaHoraria, char certificado, char validade, String descricao, Set<FuncionarioQualificacao> funcionarioQualificacaos) {
+    public Qualificacao(int id, String nome, Integer cargaHoraria, boolean certificado, boolean validade, String descricao, Set<FuncionarioQualificacao> funcionarioQualificacaos) {
        this.id = id;
        this.nome = nome;
        this.cargaHoraria = cargaHoraria;
@@ -52,7 +57,8 @@ public class Qualificacao  implements java.io.Serializable {
    
      @Id 
 
-    
+        @GeneratedValue(generator = "qualificacao_seq", strategy = GenerationType.SEQUENCE)
+
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;
@@ -84,21 +90,21 @@ public class Qualificacao  implements java.io.Serializable {
 
     
     @Column(name="certificado", nullable=false, length=1)
-    public char getCertificado() {
+    public boolean getCertificado() {
         return this.certificado;
     }
     
-    public void setCertificado(char certificado) {
+    public void setCertificado(boolean certificado) {
         this.certificado = certificado;
     }
 
     
     @Column(name="validade", nullable=false, length=1)
-    public char getValidade() {
+    public boolean getValidade() {
         return this.validade;
     }
     
-    public void setValidade(char validade) {
+    public void setValidade(boolean validade) {
         this.validade = validade;
     }
 

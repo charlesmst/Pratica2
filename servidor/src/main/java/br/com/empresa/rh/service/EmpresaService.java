@@ -22,9 +22,10 @@ public class EmpresaService extends Service<Empresa>{
     public List<Empresa> findForTable(TableRequest request) {
 
         
-        String hql = "select t from Empresa t ";
-        hql+= request.applyFilter("id","nome");     
-        hql+= request.applyOrder("id","nome");        
+        String hql = "select t from Cidade t " 
+                + "inner join fetch t.cidade c";
+        hql+= request.applyFilter("t.id","t.nome");     
+        hql+= request.applyOrder("t.id","t.nome");        
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);
