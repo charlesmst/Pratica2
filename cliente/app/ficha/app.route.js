@@ -2,6 +2,94 @@
     angular.module('app').config(["$stateProvider", "$urlRouterProvider", config]);
 
     function config($stateProvider, $urlRouterProvider) {
+
+
+        function onEnterModal(controller, view, stateback) {
+            return function ($stateParams, $state, $mdDialog) {
+
+                $mdDialog.show({
+                    controller: controller + ' as crudVm',
+                    templateUrl: view,
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: true
+                }).then(function () {
+                    $state.transitionTo(stateback, angular.copy($stateParams), {reload: false, inherit: true, notify: true});
+                }, function () {
+                    $state.transitionTo(stateback, angular.copy($stateParams), {reload: false, inherit: true, notify: true});
+                })
+            }
+        }
+        $stateProvider
+                .state('ficha', {
+                    url: '/ficha',
+                    views: {
+                        "": {
+                            templateUrl: 'app/ficha/funcionario.tmpl.html',
+                            controller: "FuncionarioController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('fichaadd', {
+                    url: '/ficha/add',
+                    views: {
+                        "top": {
+                            templateUrl: "app/ficha/ficha.top.tmpl.html",
+                            controller: "FichaTopController",
+                            controllerAs: "topVm"
+                        },
+                        "": {
+                            templateUrl: 'app/ficha/funcionario.edit.tmpl.html',
+                            controller: "FuncionarioEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('fichaedit', {
+                    url: '/ficha/edit/:id',
+                    views: {
+                        "top": {
+                            templateUrl: "app/ficha/ficha.top.tmpl.html",
+                            controller: "FichaTopController",
+                            controllerAs: "topVm"
+                        },
+                        "": {
+                            templateUrl: 'app/ficha/funcionario.edit.tmpl.html',
+                            controller: "FuncionarioEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('fichafuncionarioevento', {
+                    url: '/ficha/edit/:id/folha',
+                    views: {
+                        "top": {
+                            templateUrl: "app/ficha/ficha.top.tmpl.html",
+                            controller: "FichaTopController",
+                            controllerAs: "topVm"
+                        },
+                        "": {
+                            templateUrl: 'app/folha/funcionario-evento.tmpl.html',
+                            controller: "FuncionarioEventoController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('fichafuncionarioevento.add', {
+                    url: "/add",
+                    onEnter: onEnterModal('FuncionarioEventoEditController', 'app/folha/funcionario-evento.edit.tmpl.html', 'fichafuncionarioevento'),
+                    onExit: function ($mdDialog) {
+                        $mdDialog.hide();
+                    }
+                })
+                .state('fichafuncionarioevento.edit', {
+                    url: "/edit/:idCargo",
+                    onEnter: onEnterModal('FuncionarioEventoEditController', 'app/folha/funcionario-evento.edit.tmpl.html', 'fichafuncionarioevento'),
+                    onExit: function ($mdDialog) {
+                        $mdDialog.hide();
+                    }
+                })
+
         $stateProvider
                 .state('qualificacao', {
                     url: '/qualificacao',
@@ -94,7 +182,8 @@
                         }
                     }
                 })
-                
+
+
                 .state('funcionario-acidente', {
                     url: '/funcionario-acidente',
                     views: {
@@ -125,7 +214,7 @@
                         }
                     }
                 })
-                
+
                 .state('empresa', {
                     url: '/empresa',
                     views: {
