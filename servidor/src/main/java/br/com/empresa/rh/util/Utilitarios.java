@@ -11,8 +11,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
+import java.util.Date;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
+import org.joda.time.LocalDate;
+import org.joda.time.MutableDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -86,5 +89,18 @@ public class Utilitarios {
     
     public String formataDinheiro(double d){
             return new DecimalFormat("'R$'###,##0.00").format(d);
+    }
+    
+    public Date dataPeriodo(int mes, int ano) {
+        LocalDate d = new LocalDate();
+        d = d.withDayOfMonth(1);
+        d = d.withMonthOfYear(mes);
+        d = d.withYear(ano);
+        return d.toDate();
+//        new org.joda.time.DateTime(new Date()).withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0)
+////                .withDayOfMonth(1)
+//                .withMonthOfYear(mes)
+////                .withYear(ano)
+//                .toDate();
     }
 }

@@ -1,6 +1,7 @@
 package br.com.empresa.rh.service;
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.Evento;
 import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.FolhaCalculadaEvento;
 import br.com.empresa.rh.model.FuncionarioCargo;
@@ -46,6 +47,16 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         return (long) o;
     }
 
+    public boolean possuiFolhaCalculadaComEvento(Evento evento,FuncionarioCargo cargo){
+        Object o = entityManager.createQuery("select count(*) from FolhaCalculada f "
+                + " inner join f.folhaCalculadaEventos fce "
+                + " where f.funcionarioCargo.id = :idFuncionario and fce.evento.id = :idEvento ")
+                .setParameter("idFuncionario", cargo.getId())
+                .setParameter("idEvento", evento.getId())
+                .getSingleResult();
+        
+        return o != null && ((long) o) > 0;
+    }
     @Override
     @Transactional
     public void delete(Object id) {

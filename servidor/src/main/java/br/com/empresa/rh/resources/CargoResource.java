@@ -75,6 +75,7 @@ public class CargoResource {
     public List<Cargo> findByNivel(@PathParam("id") int id) {
         return cargoService.daEmpresa(id);
     }
+    
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})

@@ -22,9 +22,10 @@ public class FuncionarioService extends Service<Funcionario>{
     public List<Funcionario> findForTable(TableRequest request) {
 
         
-        String hql = "select t from Funcionario t ";
-        hql+= request.applyFilter("id");     
-        hql+= request.applyOrder("id");        
+        String hql = "select t from Funcionario t "
+                + " inner join fetch t.pessoa p ";
+        hql+= request.applyFilter("t.id","p.nome");     
+        hql+= request.applyOrder("t.id","p.nome");        
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);

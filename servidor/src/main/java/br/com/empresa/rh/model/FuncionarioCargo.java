@@ -28,6 +28,8 @@ public class FuncionarioCargo implements java.io.Serializable {
 
     @JsonView(Folha.Funcionario.class)
     private int id;
+    @JsonView(Folha.CargosFuncionario.class)
+
     private Cargo cargo;
     private DemissaoTipo demissaoTipo;
     @JsonView(Folha.Funcionario.class)

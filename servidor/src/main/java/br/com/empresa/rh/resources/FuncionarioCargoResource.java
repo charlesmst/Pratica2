@@ -1,6 +1,5 @@
 package br.com.empresa.rh.resources;
 
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.FuncionarioCargoService;
 import br.com.empresa.rh.model.FuncionarioCargo;
@@ -70,6 +69,15 @@ public class FuncionarioCargoResource {
         return m;
     }
 
+    @GET
+    @Path("funcionario/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(NivelAcesso.RH)
+    @JsonView(Folha.CargosFuncionario.class)
+    public List<FuncionarioCargo> findByFuncionario(@PathParam("id") int id) {
+        return funcionarioCargoService.findByFuncionario(id);
+    }
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(FuncionarioCargo m) {
@@ -81,7 +89,7 @@ public class FuncionarioCargoResource {
     @Path("{id}")
     public void update(@PathParam("id") int id, FuncionarioCargo entity) {
         funcionarioCargoService.update(entity);
-		
+
     }
 
     @DELETE

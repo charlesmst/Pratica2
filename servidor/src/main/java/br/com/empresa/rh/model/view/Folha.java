@@ -22,5 +22,6 @@ public class Folha {
 
     public static class CargosFuncionario extends Funcionario {
     }
-
+    public static class EventoVisualizacao{}
+    public static class FuncionarioEvento extends EventoVisualizacao{}
 }

@@ -49,6 +49,8 @@ public class CalculoFolha {
     private EventoService eventoService;
 
     @Autowired
+    private br.com.empresa.rh.util.Utilitarios utilitarios;
+    @Autowired
     private FolhaCalculadaService folhaCalculadaService;
 
     public void setEventos(EventoCollection eventos) {
@@ -77,7 +79,7 @@ public class CalculoFolha {
     }
 
     public void calcularTodos(List<FuncionarioCargo> funcionarios, int mes, int ano, TipoCalculo tipo) {
-        Date data = new DateTime().withYear(ano).withMonthOfYear(mes).withDayOfMonth(1).toDate();
+        Date data = utilitarios.dataPeriodo(mes, ano);
 
         for (FuncionarioCargo funcionario : funcionarios) {
 

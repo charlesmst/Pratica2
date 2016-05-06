@@ -1,6 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -27,7 +29,9 @@ import javax.persistence.Table;
 
 public class Evento implements java.io.Serializable {
 
+    @JsonView(Folha.EventoVisualizacao.class)
     private int id;
+    @JsonView(Folha.EventoVisualizacao.class)
     private String nome;
     private boolean visivelFolha;
     private int tipo;
@@ -177,7 +181,7 @@ public class Evento implements java.io.Serializable {
 //        @JoinColumn(name = "evento_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
 //        @JoinColumn(name = "evento_dependencia_id", referencedColumnName = "id", nullable = false)})
 //    @OneToMany
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evento",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<EventoDependencia> getEventoDependencias() {
         return this.eventoDependencias;
     }

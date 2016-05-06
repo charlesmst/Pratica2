@@ -8,6 +8,8 @@ package br.com.empresa.rh.service.folha;
 import br.com.empresa.rh.model.Pessoa;
 import java.util.Calendar;
 import java.util.Date;
+import org.joda.time.DateTime;
+import org.joda.time.MutableDateTime;
 
 /**
  *
@@ -20,7 +22,7 @@ public class Utilitarios {
     public Utilitarios(Parametros parametros) {
         this.parametros = parametros;
     }
-    
+
     public int idadePessoa(Pessoa p) {
         Calendar a = getCalendar(p.getDataNascimento());
         Calendar b = getCalendar(parametros.getDataReferencia());
@@ -37,8 +39,9 @@ public class Utilitarios {
         cal.setTime(date);
         return cal;
     }
-    
-    public double descontaDias(double valor, int dias){
-        return valor / dias * parametros.getDiasMes() ;
+
+    public double descontaDias(double valor, int dias) {
+        return valor / dias * parametros.getDiasMes();
     }
+
 }

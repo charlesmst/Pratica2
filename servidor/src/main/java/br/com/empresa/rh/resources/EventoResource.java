@@ -68,6 +68,8 @@ public class EventoResource {
     private FuncionarioCargoService funcionarioCargoService;
 
     @Autowired
+    private br.com.empresa.rh.util.Utilitarios utilitarios;
+    @Autowired
     private FolhaCalculadaService folhaCalculadaService;
     @Context
     protected UriInfo info;
@@ -136,7 +138,7 @@ public class EventoResource {
     @Consumes({MediaType.APPLICATION_JSON})
     public EventoTesteResponse testar(Evento m, @PathParam("funcionario") int funcionarioCargo, @PathParam("mes") int mes, @PathParam("ano") int ano, @PathParam("tipo") int tipo) {
 //        EventoCollection c = new EventoCollection(Arrays.asList(m));
-        Date data = new DateTime().withYear(ano).withMonthOfYear(mes).withDayOfMonth(1).toDate();
+        Date data = utilitarios.dataPeriodo(mes,ano);
 
         EventoCollection c = eventoService.todosEventosFuncionario(funcionarioCargo, data);
 
