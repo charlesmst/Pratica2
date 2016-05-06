@@ -9,36 +9,44 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
+                <div layout="row">
+                    <span class="span-dado-folha">Funcionário: {{folhaVm.dados.nome}}</span>
+                    <span class="span-dado-folha">Cargo: {{folhaVm.dados.cargo}}</span>
 
+                </div>
 
-                <p class="md-title">Resultado</p>
+                <div ng-repeat="eventos in folhaVm.eventos">
+                    <p class="md-title">{{eventos.titulo}}</p>
 
-                <table md-table>
-                    <thead md-head >
-                        <tr md-row>
-                            <th md-column><span>Nome</span></th>
-                            <th md-column><span>Ref.</span></th>
-                            <th md-column><span>Tipo</span></th>         
-                            <th md-column><span>Valor</span></th>  
+                    <table md-table>
+                        <thead md-head >
+                            <tr md-row>
+                                <th md-column md-numeric><span>Evento</span></th>
+                                <th md-column><span>Nome</span></th>
+                                <th md-column><span>Ref.</span></th>
+                                <th md-column><span>Vencimento</span></th>         
+                                <th md-column><span>Desconto</span></th>  
 
-                        </tr>
-                    </thead>
-                    <tbody md-body>
-                        <tr ng-repeat="row in (folhaVm.eventos|| [])">
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr ng-repeat="row in (eventos.eventos)">
 
-                            <td md-cell>{{row.evento.nome}}</td>   
-                            <td md-cell>{{row.referencia}}</td>   
-                            <td md-cell>{{row.evento.tipo}}</td>   
-                            <td md-cell>{{row.valorCalculado}}</td>   
-                        </tr>
-                    </tbody>
-                </table>
+                                <td md-cell md-numeric>{{row.id}}</td>   
+                                <td md-cell>{{row.nome}}</td>   
+                                <td md-cell>{{row.referencia}}</td>   
+                                <td md-cell>{{row.valorVencimento}}</td>   
+                                <td md-cell>{{row.valorDesconto}}</td>   
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
 
             <span flex></span>
-            <md-button ng-click="folhaVm.cancel()" style="margin-right:20px;">
+            <md-button ng-click="folhaVm.cancelar()" style="margin-right:20px;">
                 Fechar
             </md-button>
         </md-dialog-actions>

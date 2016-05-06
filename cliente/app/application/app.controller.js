@@ -6,6 +6,10 @@
     function AppController($mdBottomSheet, $mdSidenav, $mdDialog, Workspace, hotkeys, $scope, $state, Authorization, AuthorizationData,$rootScope) {
         var vm = this;
         vm.alert = '';
+        vm.isSubState = false;
+        
+        
+        console.log($state.current)
         vm.workspace = Workspace;
         vm.showListBottomSheet = showListBottomSheet;
         vm.toggleSidenav = toggleSidenav;
@@ -21,8 +25,12 @@
         }
        
 
-        init()
+        $rootScope.$on('$stateChangeStart', function($event,state){
+            vm.isSubState = state.name.indexOf('.') >0;
+ 
+        })
 
+        init()
         function showListBottomSheet($event) {
             vm.alert = '';
             $mdBottomSheet.show({

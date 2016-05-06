@@ -47,27 +47,7 @@
                     </div>
                 </md-input-container>
 
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Mês</label>
-                        <md-select ng-required="true" md-name="mes" ng-model="crudVm.entity.mes">
-                            <md-option ng-repeat="item in crudVm.meses" value="{{item.numero}}">
-                                {{item.nome}}
-                            </md-option>
-                        </md-select>
-                        <div ng-messages="formCalculoFolha.mes.$error">
-                            <div ng-message="required">Campo obrigatório.</div>
-                        </div>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>Ano</label>
-                        <input ng-required="true" type="number" step="any" name="ano" ng-model="crudVm.entity.ano" min="2000"
-                               max="2100" ng-pattern="/^[0-9]{4}$/" />
-                        <div ng-messages="formCalculoFolha.ano.$error">
-                            <div ng-message="required">Campo obrigatório.</div>
-                        </div>
-                    </md-input-container>
-                </div>
+                <datepicker-mes ano="crudVm.entity.ano" mes="crudVm.entity.mes" required="true"></datepicker-mes>
 
             </md-content>
             <md-button class="md-raised md-warn" type="submit">Cálcular</md-button>

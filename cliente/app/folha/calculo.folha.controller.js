@@ -4,7 +4,6 @@
 
     function CalculoFolhaController($mdToast, $http, $state, $stateParams, Workspace, Empresa, Cargo, $scope, $parse, Evento, $q, $mdDialog) {
         var vm = this;
-        vm.meses = []
         vm.empresas = []
         vm.cargos = []
         Workspace.title = "Cálculo de folha";
@@ -24,7 +23,6 @@
                 loadFuncionarios();
             }
         });
-        loadMes();
         loadEmpresas();
         function save($event, $valid) {
             if (!$valid)
@@ -84,11 +82,6 @@
         }
         function callbackError(r) {
             Workspace.showError(r.data.mensagem);
-        }
-        function loadMes() {
-            $http.get("data/meses.json").then(function (r) {
-                vm.meses = r.data
-            })
         }
 
         function loadEmpresas() {

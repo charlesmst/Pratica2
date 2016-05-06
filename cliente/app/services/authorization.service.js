@@ -51,15 +51,13 @@
 
         }
         function login(user, pass) {
-            console.log(arguments)
+//            console.log(arguments)
             return $q(function (resolve, reject) {
                 $http.post(config.apiUrl + "/authorize", {
                     usuario: user,
                     senha: pass
                 }).then(function (e) {
 
-                    console.log(e.data)
-                    console.log(vm)
                     vm.setCurrentUser(e.data).then(resolve, reject);
                 }, reject);
             });
@@ -85,7 +83,7 @@
                     resolve(0);
                 else
                     $http.get(config.apiUrl + "/authorize").then(function (r) {
-                        console.log(r)
+   
                         resolve(r.data.nivel)
                     }, reject);
             });

@@ -1,0 +1,48 @@
+<div class="md-fab-bottom-right app-fixed-bottom-right fade">
+    <md-button class="md-fab flipInX flipOutX" ng-show="crudVm.selectedItems.length && !appVm.isSubState" aria-label="Delete" ng-click="crudVm.showDelete($event)" >
+        <ng-md-icon icon="delete"></ng-md-icon>
+    </md-button>
+    <md-button class="md-fab "  aria-label="Add" ng-show="!appVm.isSubState" ng-click="crudVm.showAdd($event)">
+        <ng-md-icon icon="add"></ng-md-icon>
+    </md-button>
+</div>
+<md-card>
+    <md-table-container>
+        <section layout="row">
+            <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioCargo" placeholder="Cargo" >
+                <md-option ng-value="item" ng-select="item.id == crudVm.funcionarioCargo.id" ng-repeat="item in crudVm.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>               
+            </md-select>
+        </section>
+
+        <datepicker-mes ano="crudVm.ano" mes="crudVm.mes" required="true"></datepicker-mes>
+        <table md-table md-progress="promise"  md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise" >
+            <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
+                <tr md-row>
+                    <th md-column md-numeric ></th>
+                    <th md-column md-numeric >Id</th>
+                    <th md-column md-order-by="t.evento.nome"><span>Evento</span></th>             
+                    <th md-column ><span>Data de Início</span></th>             
+                    <th md-column ><span>Data de Finalização</span></th>             
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row md-select="row" md-select-id="{{row}}" md-auto-select ng-repeat="row in crudVm.list">
+                    <td md-cell width="15" class="button-column">
+
+            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.showEdit($event, row.id)">
+                <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+            </md-button>
+            </td>
+            <td md-cell>{{row.id}}</td>   
+            <td md-cell>{{row.evento.nome}}</td>   
+            <td md-cell>{{row.dataInicio}}</td>   
+            <td md-cell>{{row.dataFim|| "Vigênte"}}</td>     
+
+            </tr>
+            </tbody>
+        </table>
+
+        <md-table-pagination md-label="{{appVm.labelPagination}}" md-limit="crudVm.query.limit" md-page="crudVm.query.page" md-total="{{crudVm.count}}" md-on-paginate="crudVm.onPaginate" md-page-select></md-table-pagination>
+    </md-table-container>
+</md-card>
+

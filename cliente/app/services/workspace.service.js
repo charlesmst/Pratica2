@@ -16,6 +16,7 @@
         vm.loading = loading;
         vm.showConfirmDialog = showConfirmDialog;
         vm.showError = showError;
+        vm.callbackOnEnterState = callbackOnEnterState;
         $rootScope.$on('$stateChangeStart', setDefaults)
 
         init()
@@ -36,13 +37,22 @@
             vm.searchEnable = true;
             vm.onFilterChange = callback;
         }
-        function setDefaults() {
-            lastSearch = ""
-            vm.title = "";
-            vm.searchEnable = false;
-            vm.search = "";
-            vm.showSearch = false;
-            vm.onFilterChange = undefined;
+        function setDefaults($event, $curState, $stPar, $oldState) {
+            var reloadState = true;
+            if ($curState && $oldState && $oldState.name && $curState.name) {
+                //Se são do mesmo pai
+                if ($curState.name.indexOf($oldState) === 0 || $oldState.name.indexOf($curState)) {
+                    reloadState = false;
+                }
+            }
+            if (reloadState) {
+                lastSearch = ""
+                vm.title = "";
+                vm.searchEnable = false;
+                vm.search = "";
+                vm.showSearch = false;
+                vm.onFilterChange = undefined;
+            }
         }
         function showDeleteDialog($event) {
             var confirm = $mdDialog.confirm("Wa")
@@ -53,7 +63,7 @@
             return $mdDialog.show(confirm)
 
         }
-        function showConfirmDialog($event,titulo,mensagem) {
+        function showConfirmDialog($event, titulo, mensagem) {
             var confirm = $mdDialog.confirm("Wa")
                     .title(titulo)
                     .textContent(mensagem)
@@ -104,6 +114,17 @@
             return new Date(str)
 
         }
+        function callbackOnEnterState(scope, $state, callback) {
+            var curState = $state.current.name
+            var remove = $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                if (toState.name == curState) {
+                    callback()
+                }
+            });
+            scope.$on('$destroy', function () {
+                remove();
+            });
 
+        }
     }
 })();
