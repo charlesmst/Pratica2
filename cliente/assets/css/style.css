@@ -96,3 +96,7 @@ md-sidenav ng-md-icon {
 .md-white-icon svg{
     fill:#fff!important;
 }
+
+.span-dado-folha:not(:first-child){
+    padding-left:30px;
+}
