@@ -29,6 +29,26 @@
                     "link": "cbo",
                     "title": "Cbos",
                     "icon": "dashboard"
+                },
+                {
+                "link": "qualificacao",
+                        "title": "Qualificações",
+                        "icon": "dashboard"
+                },
+                {
+                "link": "funcionario-acidente",
+                        "title": "Acidentes de trabalho",
+                        "icon": "dashboard"
+                },
+                {
+                "link": "sindicato",
+                        "title": "Sindicatos",
+                        "icon": "dashboard"
+                },
+                {
+                "link": "empresa",
+                        "title": "Empresas",
+                        "icon": "dashboard"
                 }
             ]
         },

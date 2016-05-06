@@ -1,0 +1,54 @@
+<form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
+
+    <div class="md-fab-bottom-right app-fixed-bottom-right">
+
+        <button type="submit" class="md-button md-fab"  aria-label="save" >
+            <ng-md-icon icon="save"></ng-md-icon>
+        </button>
+
+        <md-button class="md-fab "  aria-label="Delete" ng-click="crudVm.cancel($event)" >
+            <ng-md-icon icon="cancel"></ng-md-icon>
+        </md-button>
+    </div>
+
+
+    <md-card >
+
+
+        <md-card-content>
+            <h2>Qualificação</h2>
+            <md-content>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Nome</label>
+                    <input  name="nome" ng-model="crudVm.entity.nome">
+                    <div ng-messages="formEdit.nome.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Descrição</label>
+                    <textarea  name="descricao" ng-model="crudVm.entity.descricao" md-maxlength="2000" required></textarea>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Carga Horária</label>
+                    <textarea  name="cargaHoraria" ng-model="crudVm.entity.cargaHoraria"></textarea>
+                    <div ng-messages="formEdit.cargaHoraria.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+                </md-input-container>
+
+                <md-checkbox ng-model="crudVm.entity.validade" aria-label="validade">
+                  Possui validade {{ data.validade }}
+                </md-checkbox>
+                 
+                 <md-checkbox ng-model="crudVm.entity.certificado" aria-label="certificado">
+                  Possui certificação {{ data.certificado }}
+                </md-checkbox>
+
+            </md-content>
+
+        </md-card-content>
+    </md-card>
+</form>

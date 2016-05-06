@@ -1,0 +1,69 @@
+<form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
+
+    <div class="md-fab-bottom-right app-fixed-bottom-right">
+
+        <button type="submit" class="md-button md-fab"  aria-label="save" >
+            <ng-md-icon icon="save"></ng-md-icon>
+        </button>
+
+        <md-button class="md-fab "  aria-label="Delete" ng-click="crudVm.cancel($event)" >
+            <ng-md-icon icon="cancel"></ng-md-icon>
+        </md-button>
+    </div>
+
+
+    <md-card >
+
+
+        <md-card-content>
+            <h2>FuncionarioAcidente</h2>
+            <md-content>
+                                              
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Cargo</label>
+                    <md-select ng-model="crudVm.entity.cargo">
+                        <md-option ng-repeat="item in crudVm.cargos" ng-value="{{item}}" ng-selected="item.id===crudVm.entity.cargoFuncionario.id" >
+                            {{item.nome}}
+                        </md-option>
+                    </md-select>
+
+                </md-input-container>
+                
+                 <md-input-container class="md-block" flex-gt-xs>
+                    <label>Perda de capacidade</label>
+                    <input  name="perdaPorcentagem" ng-model="crudVm.entity.perdaPorcentagem" >
+                </md-input-container>
+                
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Descrição</label>
+                    <input  name="descricao" ng-model="crudVm.entity.descricao" md-maxlength="2000" required >
+                </md-input-container>
+                
+                <md-input-container class="md-input-has-value">
+                                    <label>Grau da lesão</label>
+                                    <md-radio-group ng-model="crudVm.entity.nivelLesao">
+                                        <md-radio-button value="1">Leve</md-radio-button>
+                                        <md-radio-button value="2">Médio</md-radio-button>
+                                        <md-radio-button value="3">Grave</md-radio-button>
+                                       
+                                    </md-radio-group>
+                                    <div ng-messages="formEdit.nome.$error">
+                                        <div ng-message="required">Campo obrigatório.</div>
+                                    </div>
+
+                                </md-input-container>
+                
+                <div layout-gt-xs="row">
+                
+                    <md-datepicker ng-model="crudVm.entity.dataIniciodataOcorrencia" md-placeholder="Data do ocorrido.">
+                       
+                    </md-datepicker>
+                </div>
+                
+                </erjhgorhgoh
+
+            </md-content>
+
+        </md-card-content>
+    </md-card>
+</form>
