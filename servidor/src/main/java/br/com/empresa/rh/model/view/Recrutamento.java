@@ -9,7 +9,7 @@ import br.com.empresa.rh.model.Curriculo;
 
 /**
  *
- * @author gusta
+ * @author gustavo.michels
  */
 public class Recrutamento {
 
@@ -29,5 +29,8 @@ public class Recrutamento {
         
     }
     
+    public static class Curriculo{
+        
+    }
     
 }

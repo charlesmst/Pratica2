@@ -36,23 +36,32 @@ import org.hibernate.annotations.Type;
 public class Pessoa implements java.io.Serializable {
 
     
-    @JsonView({Folha.Funcionario.class})
+    @JsonView({Folha.Funcionario.class,Recrutamento.Curriculo.class})
     private int id;
+    @JsonView({Recrutamento.Curriculo.class})
     private Cidade cidade;
+    @JsonView({Recrutamento.Curriculo.class})
     private Cor cor;
+    @JsonView({Recrutamento.Curriculo.class})
     private Escolaridade escolaridade;
+    @JsonView({Recrutamento.Curriculo.class})
     private EstadoCivil estadoCivil;
     private Pessoa pessoaByPessoaId;
     private Pessoa pessoaByMaeId;
+    @JsonView({Recrutamento.Curriculo.class})
     private String cpf;
-    @JsonView({Folha.Funcionario.class,Recrutamento.Pessoa.class})
+    @JsonView({Folha.Funcionario.class, Recrutamento.Pessoa.class, Recrutamento.Curriculo.class})
     private String nome;
+    @JsonView({Recrutamento.Curriculo.class})
     private Date dataNascimento;
+    @JsonView({Recrutamento.Curriculo.class})
     private char sexo;
+    @JsonView({Recrutamento.Curriculo.class})
     private String endereco;
+    @JsonView({Recrutamento.Curriculo.class})
     private String email;
+    @JsonView({Recrutamento.Curriculo.class})
     private String rg;
-    @JsonIgnore
     private Curriculo curriculo;
 
     @JsonBackReference
@@ -64,7 +73,9 @@ public class Pessoa implements java.io.Serializable {
     private Set<Pessoa> pessoasForPessoaId = new HashSet<Pessoa>(0);
     private Set<Pessoa> pessoasForMaeId = new HashSet<Pessoa>(0);
     private Set<Dependente> dependentes = new HashSet<Dependente>(0);
+    @JsonView({Recrutamento.Curriculo.class})
     private PessoaCarteira pessoaCarteira;
+    @JsonView({Recrutamento.Curriculo.class})
     private Set<CurriculoExperiencia> curriculoExperiencias = new HashSet<CurriculoExperiencia>(0);
 
     public Pessoa() {

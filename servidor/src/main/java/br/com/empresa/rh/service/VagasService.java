@@ -23,7 +23,7 @@ public class VagasService extends Service<Vagas>{
 
         
         String hql = "select t from Vagas t "
-                + "inner join fetch t.necessidadePessoa n ";
+                + "left join fetch t.necessidadePessoa n ";
         hql+= request.applyFilter("t.id","descricao");     
         hql+= request.applyOrder("t.id","descricao");        
         Query q = entityManager.createQuery(hql);

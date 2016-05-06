@@ -5,7 +5,9 @@ import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.CurriculoService;
 import br.com.empresa.rh.model.Curriculo;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -53,6 +55,7 @@ public class CurriculoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(Recrutamento.Curriculo.class)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
         List<Curriculo> m = curriculoService.findForTable(request);
@@ -62,6 +65,7 @@ public class CurriculoResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(Recrutamento.Curriculo.class)
     public Curriculo findById(@PathParam("id") long id) {
         Curriculo m = curriculoService.findById(id);
         return m;
