@@ -1,11 +1,12 @@
 package br.com.empresa.rh.resources;
 
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.EmpresaService;
 import br.com.empresa.rh.model.Empresa;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -60,6 +61,16 @@ public class EmpresaResource {
     }
 
     @GET
+    @Path("listagem")
+    @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(Folha.EmpresaVisualizacao.class)
+    public Response findListagem() {
+        TableRequest request = TableRequest.build(info);
+        List<Empresa> m = empresaService.findForTable(request);
+        return Response.ok().entity(m).build();
+    }
+
+    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Empresa findById(@PathParam("id") int id) {
@@ -78,7 +89,7 @@ public class EmpresaResource {
     @Path("{id}")
     public void update(@PathParam("id") int id, Empresa entity) {
         empresaService.update(entity);
-		
+
     }
 
     @DELETE

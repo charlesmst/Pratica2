@@ -13,15 +13,22 @@ public class Folha {
 
     public static class Funcionario {
     }
-    
-    public static class FuncionarioCargo extends Funcionario{
+
+    public static class FuncionarioCargo extends Funcionario {
     }
 
-    public static class FolhaCalculada extends FuncionarioCargo{
+    public static class FolhaCalculada extends FuncionarioCargo {
     }
 
     public static class CargosFuncionario extends Funcionario {
     }
-    public static class EventoVisualizacao{}
-    public static class FuncionarioEvento extends EventoVisualizacao{}
+
+    public static class EventoVisualizacao {
+    }
+
+    public static class FuncionarioEvento extends EventoVisualizacao {
+    }
+
+    public static class EmpresaVisualizacao {
+    }
 }

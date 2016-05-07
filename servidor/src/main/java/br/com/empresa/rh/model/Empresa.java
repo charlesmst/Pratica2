@@ -1,6 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,9 +25,12 @@ import javax.persistence.TemporalType;
 )
 public class Empresa implements java.io.Serializable {
 
+    @JsonView(Folha.EmpresaVisualizacao.class)
     private int id;
     private Cidade cidade;
+    @JsonView(Folha.EmpresaVisualizacao.class)
     private String nome;
+    @JsonView(Folha.EmpresaVisualizacao.class)
     private String cnpj;
     private String nomeFantasia;
     private String razaoSocial;

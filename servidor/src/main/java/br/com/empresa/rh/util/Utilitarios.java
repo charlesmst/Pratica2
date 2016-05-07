@@ -86,11 +86,11 @@ public class Utilitarios {
     public static int usuarioId(SecurityContext context) {
         return 1;
     }
-    
-    public String formataDinheiro(double d){
-            return new DecimalFormat("'R$'###,##0.00").format(d);
+
+    public String formataDinheiro(double d) {
+        return new DecimalFormat("'R$'###,##0.00").format(d);
     }
-    
+
     public Date dataPeriodo(int mes, int ano) {
         LocalDate d = new LocalDate();
         d = d.withDayOfMonth(1);
@@ -102,5 +102,16 @@ public class Utilitarios {
 //                .withMonthOfYear(mes)
 ////                .withYear(ano)
 //                .toDate();
+    }
+
+    public Date dataPeriodoInicio(Date data) {
+        LocalDate d = new LocalDate(data);
+        d = d.withDayOfMonth(1);
+        return d.toDate();
+    }
+     public Date dataPeriodoFim(Date data) {
+        LocalDate d = new LocalDate(data);
+        d = d.withDayOfMonth(1).plusMonths(1).minusDays(1);
+        return d.toDate();
     }
 }

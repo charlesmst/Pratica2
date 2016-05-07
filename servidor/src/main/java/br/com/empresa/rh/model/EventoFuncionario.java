@@ -7,9 +7,12 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +23,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "evento_funcionario", schema = "public"
 )
+@SequenceGenerator(name = "evento_funcionario_seq", sequenceName = "evento_funcionario_seq", initialValue = 1, allocationSize = 1)
+
 public class EventoFuncionario implements java.io.Serializable {
 
     @JsonView(Folha.FuncionarioEvento.class)
@@ -34,7 +39,8 @@ public class EventoFuncionario implements java.io.Serializable {
 
     private double referencia;
     private boolean mensal;
-    
+
+    private boolean excluido;
     public EventoFuncionario() {
     }
 
@@ -54,6 +60,7 @@ public class EventoFuncionario implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(generator = "evento_funcionario_seq", strategy = GenerationType.SEQUENCE)
 
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {
@@ -118,6 +125,14 @@ public class EventoFuncionario implements java.io.Serializable {
 
     public void setMensal(boolean mensal) {
         this.mensal = mensal;
+    }
+
+    public boolean isExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(boolean excluido) {
+        this.excluido = excluido;
     }
 
 }

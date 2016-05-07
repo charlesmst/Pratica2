@@ -5,6 +5,7 @@
  */
 package br.com.empresa.rh.service.folha;
 
+import br.com.empresa.rh.model.EventoFuncionario;
 import br.com.empresa.rh.model.Ferias;
 import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.FolhaCalculadaEvento;
@@ -12,6 +13,7 @@ import br.com.empresa.rh.model.Funcionario;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.Tabela;
 import br.com.empresa.rh.service.DependenteService;
+import br.com.empresa.rh.service.EventoFuncionarioService;
 import br.com.empresa.rh.service.EventoService;
 import br.com.empresa.rh.service.FaixaSalarialService;
 import br.com.empresa.rh.service.FeriasService;
@@ -49,6 +51,8 @@ public class CalculoFolha {
     private EventoService eventoService;
 
     @Autowired
+    private EventoFuncionarioService eventoFuncionarioService;
+    @Autowired
     private br.com.empresa.rh.util.Utilitarios utilitarios;
     @Autowired
     private FolhaCalculadaService folhaCalculadaService;
@@ -58,11 +62,11 @@ public class CalculoFolha {
     }
 
     public void calcula(FuncionarioCargo funcionario, Date data) {
-        calcula(funcionario, data, this.eventos,parametrosFuncionario(data, funcionario));
+        calcula(funcionario, data, this.eventos, parametrosFuncionario(data, funcionario));
     }
 
-    public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos,Parametros parametros) {
-        
+    public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos, Parametros parametros) {
+
         Consulta c = consultas(data, funcionario, parametros);
         Utilitarios u = new Utilitarios(parametros);
         Console console = new Console();
@@ -89,8 +93,9 @@ public class CalculoFolha {
                 case ferias:
                     List<Ferias> f = feriasService.feriasMes(funcionario, mes, ano);
                     //Se não tem férias no mês, não precisa calcular
-                    if(f.isEmpty())
+                    if (f.isEmpty()) {
                         continue;
+                    }
                     parametros.setDiasMes(Days.daysBetween(new DateTime(f.get(0).getDataGozoInicio()), new DateTime(f.get(0).getDataGozoFim())).getDays());
                     eventosFuncionario = eventoService.eventosFerias();
                     break;
@@ -102,7 +107,7 @@ public class CalculoFolha {
                     eventosFuncionario = eventoService.todosEventosFuncionario(funcionario, data);
                     break;
             }
-            calcula(funcionario, data, eventosFuncionario,parametros);
+            calcula(funcionario, data, eventosFuncionario, parametros);
             salvarEventos(funcionario, data, eventosFuncionario, mes, ano, tipo);
         }
     }
@@ -113,6 +118,10 @@ public class CalculoFolha {
         folha.setAno(ano);
         folha.setTipo(tipo.getNumero());
 
+        List<EventoFuncionario> eventosFuncionario = null;
+        if (tipo == TipoCalculo.mes) {
+            eventosFuncionario = eventoFuncionarioService.findForTable(null, funcionario, mes, ano);
+        }
         for (IEvento evento : eventos.getEventos()) {
             if (evento.isAplicavel()) {
                 FolhaCalculadaEvento folhaEvento = new FolhaCalculadaEvento();
@@ -123,6 +132,16 @@ public class CalculoFolha {
                 folhaEvento.setValor(evento.getValorCalculado());
                 folhaEvento.setVisivel(evento.getEvento().isVisivelFolha());
                 folha.getFolhaCalculadaEventos().add(folhaEvento);
+
+                if (eventosFuncionario != null) {
+                    //Setar os valores certos de relação com o evento do funcionário
+                    for (EventoFuncionario eventosFuncionario1 : eventosFuncionario) {
+                        if (eventosFuncionario1.getEvento().getId() == evento.getEvento().getId()) {
+                            folhaEvento.setEventoFuncionario(eventosFuncionario1);
+                            break;
+                        }
+                    }
+                }
             }
         }
         folhaCalculadaService.insert(folha);
@@ -135,7 +154,7 @@ public class CalculoFolha {
     }
 
     private Consulta consultas(Date data, FuncionarioCargo func, Parametros parametros) {
-        return new Consulta(tabelaService, data, func, faixaSalarialService, dependenteService, feriasService, parametros,eventoService);
+        return new Consulta(tabelaService, data, func, faixaSalarialService, dependenteService, feriasService, parametros, eventoService);
     }
 
     public HashMap<String, Object> getLog() {

@@ -82,13 +82,6 @@ public class EventoFuncionarioResource {
         EventoFuncionarioService.insert(m);
     }
 
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Path("{id}")
-    public void update(@PathParam("id") int id, EventoFuncionario entity) {
-        EventoFuncionarioService.update(entity);
-
-    }
 
     @DELETE
     @Path("{id}")

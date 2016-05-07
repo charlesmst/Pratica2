@@ -2,6 +2,7 @@ package br.com.empresa.rh.service;
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.model.Evento;
+import br.com.empresa.rh.model.EventoFuncionario;
 import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.FolhaCalculadaEvento;
 import br.com.empresa.rh.model.FuncionarioCargo;
@@ -13,6 +14,7 @@ import br.com.empresa.rh.service.folha.TipoCalculo;
 import br.com.empresa.rh.util.ApiException;
 import br.com.empresa.rh.util.Utilitarios;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class FolhaCalculadaService extends Service<FolhaCalculada> {
 
     @Autowired
-    private Utilitarios Utilitarios;
+    private Utilitarios utilitarios;
+
     @Override
     public FolhaCalculada findById(Object id) {
         FolhaCalculada f = entityManager.createQuery("from FolhaCalculada f "
@@ -47,16 +50,58 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         return (long) o;
     }
 
-    public boolean possuiFolhaCalculadaComEvento(Evento evento,FuncionarioCargo cargo){
+    public boolean possuiFolhaCalculadaComEvento(Evento evento, FuncionarioCargo cargo) {
         Object o = entityManager.createQuery("select count(*) from FolhaCalculada f "
                 + " inner join f.folhaCalculadaEventos fce "
                 + " where f.funcionarioCargo.id = :idFuncionario and fce.evento.id = :idEvento ")
                 .setParameter("idFuncionario", cargo.getId())
                 .setParameter("idEvento", evento.getId())
                 .getSingleResult();
-        
+
         return o != null && ((long) o) > 0;
     }
+
+    public boolean possuiFolhaCalculadaPeriodo(FuncionarioCargo cargo, Date inicio, Date fim) {
+        Query q = entityManager.createQuery("select count(*) from FolhaCalculada f "
+                + " where f.funcionarioCargo.id = :idFuncionario and f.dataReferente >= :inicio and f.excluido is false "
+                + (fim != null ? "and f.dataReferente <= :fim " : ""))
+                .setParameter("idFuncionario", cargo.getId())
+                .setParameter("inicio", inicio);
+        if (fim != null) {
+            q.setParameter("fim", fim);
+        }
+        Object o = q.getSingleResult();
+
+        return o != null && ((long) o) > 0;
+    }
+
+    public boolean possuiFolhaCalculadaComEvento(Evento evento, FuncionarioCargo cargo, Date dataInicio, Date dataFim) {
+        Object o = entityManager.createQuery("select count(*) from FolhaCalculada f "
+                + " inner join f.folhaCalculadaEventos fce "
+                + " where f.funcionarioCargo.id = :idFuncionario and fce.evento.id = :idEvento and f.dataReferente between :dataInicio and :dataFim")
+                .setParameter("idFuncionario", cargo.getId())
+                .setParameter("idEvento", evento.getId())
+                .setParameter("dataInicio", dataInicio)
+                .setParameter("dataFim", dataFim)
+                .getSingleResult();
+
+        return o != null && ((long) o) > 0;
+    }
+
+    public boolean possuiFolhaCalculadaComEvento(Evento evento, FuncionarioCargo cargo, Date dataMes) {
+
+        Object o = entityManager.createQuery("select count(*) from FolhaCalculada f "
+                + " inner join f.folhaCalculadaEventos fce "
+                + " where f.funcionarioCargo.id = :idFuncionario and fce.evento.id = :idEvento and f.dataReferente between :dataInicio and :dataFim")
+                .setParameter("idFuncionario", cargo.getId())
+                .setParameter("idEvento", evento.getId())
+                .setParameter("dataInicio", utilitarios.dataPeriodoInicio(dataMes))
+                .setParameter("dataFim", utilitarios.dataPeriodoFim(dataMes))
+                .getSingleResult();
+
+        return o != null && ((long) o) > 0;
+    }
+
     @Override
     @Transactional
     public void delete(Object id) {
@@ -82,6 +127,36 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
             return null;
         }
         return l.get(0);
+    }
+
+    public FolhaCalculada folhaCalculadaMes(FuncionarioCargo funcionario, Date data) {
+
+        String hql = "from FolhaCalculada f"
+                + " where f.excluido = :excluido and f.funcionarioCargo.id = :idCargo and f.dataReferente between :inicio and :fim";
+        List<FolhaCalculada> l = entityManager.createQuery(hql)
+                .setParameter("inicio", utilitarios.dataPeriodoInicio(data))
+                .setParameter("fim", utilitarios.dataPeriodoFim(data))
+                .setParameter("excluido", false)
+                .setParameter("idCargo", funcionario.getId())
+                .getResultList();
+        if (l.isEmpty()) {
+            return null;
+        }
+        return l.get(0);
+    }
+
+    public Date ultimaDataFolhaCalculadaEvento(EventoFuncionario ev) {
+        String hql = "select max(f.dataReferente) from FolhaCalculada f"
+                + " inner join f.folhaCalculadaEventos fe"
+                + " where f.excluido = :excluido and fe.eventoFuncionario.id = :id";
+        List<Date> d = entityManager.createQuery(hql)
+                .setParameter("excluido", false)
+                .setParameter("id", ev.getId())
+                .getResultList();
+        if (d.isEmpty()) {
+            return null;
+        }
+        return d.get(0);
     }
 
     @Transactional
@@ -133,20 +208,21 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
             evento.setReferencia(eventoCalculado.getReferencia());
 
             switch (eventoCalculado.getTipo()) {
-                case EventoTipo.BASE:              
+                case EventoTipo.BASE:
                 case EventoTipo.PROVENTO:
                 case EventoTipo.BENEFICIO:
                     evento.setValorVencimento(eventoCalculado.getValor());
                     break;
-                case EventoTipo.DESCONTO:              
+                case EventoTipo.DESCONTO:
                 case EventoTipo.FINALIZACAO:
                     evento.setValorDesconto(eventoCalculado.getValor());
                     break;
             }
-            if(eventoCalculado.isVisivel())
+            if (eventoCalculado.isVisivel()) {
                 fr.getEventos().add(evento);
-            else
+            } else {
                 fr.getEventosInvisiveis().add(evento);
+            }
         }
         return fr;
     }

@@ -20,35 +20,70 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class EventoFuncionarioService extends Service<EventoFuncionario> {
 
-    @Override
-    public void insert(EventoFuncionario m) {
-        if(m.isMensal())
-            m.setDataFim(null);
-        
-        //Verificar se não tem folha cálculada para o funcionário
-//        if(m.get)
-    }
-
-    @Override
-    public EventoFuncionario findById(Object id) {
-        return entityManager.createQuery("from EventoFuncionario ef "
-                + " inner join fetch ef.evento ev"
-                + " inner join fetch ef.funcionarioCargo fc where ef.id = :id ",EventoFuncionario.class)
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
     @Autowired
     private FolhaCalculadaService folhaCalculadaService;
 
     @Override
+    @Transactional
+    public void insert(EventoFuncionario m) {
+
+        if (m.getFuncionarioCargo() == null) {
+            throw new IllegalArgumentException("funcionarioCargo");
+        }
+        m.setDataInicio(utilitarios.dataPeriodoInicio(m.getDataInicio()));
+
+        if (m.isMensal() && folhaCalculadaService.folhaCalculadaMes(m.getFuncionarioCargo(), m.getDataInicio()) != null) {
+            throw new ApiException("Evento já possui cálculo relacionado, exclua a folha de pagamento do funcionário no mês para alterar");
+        }
+        if (m.isMensal()) {
+            m.setDataFim(utilitarios.dataPeriodoFim(m.getDataInicio()));
+            m.setDataInicio(utilitarios.dataPeriodoInicio(m.getDataInicio()));
+        }
+
+        if (folhaCalculadaService.possuiFolhaCalculadaPeriodo(m.getFuncionarioCargo(), m.getDataInicio(), m.getDataFim())) {
+            throw new ApiException("Não é possível excluir evento " + m.getEvento().getNome() + " pois já possui folha de pagamento calculada no período");
+        }
+
+        super.insert(m);
+    }
+
+    private EventoFuncionario findById(Object id, boolean excluido) {
+        return entityManager.createQuery("from EventoFuncionario ef "
+                + " inner join fetch ef.evento ev"
+                + " inner join fetch ef.funcionarioCargo fc where ef.id = :id " + (!excluido ? " and ef.excluido is false" : ""), EventoFuncionario.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public EventoFuncionario findById(Object id) {
+        return findById(id, false);
+    }
+
+    @Override
+    @Transactional
     public void delete(Object id) {
         //Só pode excluir se ainda nao possui folha calculada com esse evento
         EventoFuncionario e = findById(id);
-        if (folhaCalculadaService.possuiFolhaCalculadaComEvento(e.getEvento(), e.getFuncionarioCargo())) {
-            throw new ApiException("Não é possível excluir evento " + e.getEvento().getNome() + " pois já possui folha de pagamento calculada atrelada a este evento");
+        if (e.isMensal() && folhaCalculadaService.possuiFolhaCalculadaComEvento(e.getEvento(), e.getFuncionarioCargo(), e.getDataInicio())) {
+            throw new ApiException("Não é possível excluir evento " + e.getEvento().getNome() + " pois já possui folha de pagamento calculada atrelada a este evento no mês atual");
         }
-        super.delete(id);
+        if (e.getDataFim() != null) {
+            if (folhaCalculadaService.possuiFolhaCalculadaComEvento(e.getEvento(), e.getFuncionarioCargo(), e.getDataInicio(), e.getDataFim())) {
+                throw new ApiException("Não é possível excluir evento " + e.getEvento().getNome() + " pois já possui folha de pagamento calculada atrelada a este evento");
+            }
+        }
+
+        Date d = folhaCalculadaService.ultimaDataFolhaCalculadaEvento(e);
+        //Se existiu alguma folha e esta não está excluida, colocar a data final como a última
+        if (d == null) {
+            e.setExcluido(true);
+        } else {
+            e.setDataFim(utilitarios.dataPeriodoFim(d));
+        }
+
+        super.update(e);
+
     }
 
     @Autowired
@@ -73,13 +108,20 @@ public class EventoFuncionarioService extends Service<EventoFuncionario> {
 
         String hql = "select t from EventoFuncionario t "
                 + " inner join fetch t.evento "
-                + " where t.funcionarioCargo.id = :id  and t.dataInicio <= :d and (t.dataFim is null or t.dataFim >= :d)";
+                + " where t.funcionarioCargo.id = :id  and t.dataInicio <= :d and (t.dataFim is null or t.dataFim >= :d) and t.excluido is false";
 //        hql+= request.applyFilter("id","nome");     
-        hql += request.applyOrder("t.id", "t.evento.nome");
+
+        if (request != null) {
+            hql += request.applyOrder("t.id", "t.evento.nome");
+        }
         Query q = entityManager.createQuery(hql)
                 .setParameter("id", cargo.getId())
                 .setParameter("d", d);
-        request.applyPagination(q);
+
+        if (request != null) {
+            request.applyPagination(q);
+        }
+
 //        request.applyParameters(q);
         List<EventoFuncionario> l = q.getResultList();
         return l;

@@ -136,7 +136,7 @@ public class EventoService extends Service<Evento> {
         FuncionarioCargo cargo = (FuncionarioCargo) entityManager.createQuery(
                 "from FuncionarioCargo f"
                 + " left join fetch f.cargo "
-                + " where f.id = :id"
+                + " where f.id = :id "
         ).setParameter("id", idCargo).getSingleResult();
         return todosEventosFuncionario(cargo, data);
     }
@@ -151,11 +151,11 @@ public class EventoService extends Service<Evento> {
     }
 
     public List<IEvento> eventosFuncionario(FuncionarioCargo cargoFuncionario, Date data) {
-        String query = "from Evento e "
-                + " inner join e.eventoFuncionarios f "
+        String query = "from EventoFuncionario f "
+                + " inner join fetch f.evento e "
                 + " left join fetch e.eventoDependencias ed"
                 + " where f.funcionarioCargo.id = :idCargo and "
-                + " f.dataInicio <= :data and (f.dataFim is null or f.dataFim >= :data) ";
+                + " f.dataInicio <= :data and (f.dataFim is null or f.dataFim >= :data) and f.excluido is false ";
         
          List<EventoFuncionario> eventos = entityManager.createQuery(query)
                 .setParameter("idCargo", cargoFuncionario.getId())
