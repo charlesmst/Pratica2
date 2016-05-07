@@ -8,6 +8,7 @@
         vm.alert = '';
         vm.isSubState = false;
         
+        // $rootScope.$on("api-error",handleError);
         
         console.log($state.current)
         vm.workspace = Workspace;
@@ -47,6 +48,8 @@
             $state.go(Authorization.defaultState);
             Workspace.showMessage(args.mensagem);
         }
+        
+        
         function goTo(r) {
             $state.go(r)
         }

@@ -8,7 +8,8 @@
             return function ($stateParams, $state, $mdDialog) {
 
                 $mdDialog.show({
-                    controller: controller + ' as crudVm',
+                    controller: controller,
+                    controllerAs:"modalVm",
                     templateUrl: view,
                     parent: angular.element(document.body),
                     clickOutsideToClose: true
