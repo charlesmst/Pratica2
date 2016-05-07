@@ -63,10 +63,10 @@ INSERT INTO cor values (4,'PARDO');
 
 INSERT INTO sindicato(id,nome,desconto,valor_mensal) VALUES (1,'SINDICATO 1','0.5','0.5');
 
-INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (1, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'pessoa 1', NULL, 'M', 'sdads', 'teste@gmail.com', '4115781892');
-INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (2, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'filho 1', '2005-10-10', 'M', 'sdads', 'teste@gmail.com', '4115781892');
-INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (3, 1, 1, 1, NULL, NULL, NULL, '1111111111 ', 'ADMIN', NULL, 'M', NULL, 'admin@admin.com', '41241241241');
-INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (4, 1, 1, 1, NULL, NULL, NULL, '1111111111 ', 'RH', NULL, 'M', NULL, 'rg@admin.com', '
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (1, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'pessoa 1', NULL, 1, 'sdads', 'teste@gmail.com', '4115781892');
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (2, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'filho 1', '2005-10-10', 2, 'sdads', 'teste@gmail.com', '4115781892');
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (3, 1, 1, 1, NULL, NULL, NULL, '1111111111 ', 'ADMIN', NULL, 1, NULL, 'admin@admin.com', '41241241241');
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (4, 1, 1, 1, NULL, NULL, NULL, '1111111111 ', 'RH', NULL, 1, NULL, 'rg@admin.com', '
 ');
 
 INSERT INTO usuario (pessoa_id, usuario, senha, nivel) VALUES (3, 'ADMIN', '123', 5);
