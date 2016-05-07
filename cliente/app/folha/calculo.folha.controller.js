@@ -85,7 +85,7 @@
         }
 
         function loadEmpresas() {
-            Empresa.query().$promise.then(function (r) {
+            Empresa.listagem().$promise.then(function (r) {
                 vm.empresas = r;
             })
         }

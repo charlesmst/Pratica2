@@ -1,7 +1,7 @@
 <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
         <label>Mês</label>
-        <md-select ng-required="required" md-name="mes" ng-model="mes">
+        <md-select ng-required="isRequired" md-name="mes" ng-model="mes">
             <md-option ng-repeat="item in meses" ng-value="{{item.numero}}">
                 {{item.nome}}
             </md-option>
@@ -10,7 +10,7 @@
     </md-input-container>
     <md-input-container class="md-block">
         <label>Ano</label>
-        <input ng-required="required" type="number" step="any" name="ano" ng-model="ano" min="2000"
+        <input ng-required="isRequired" type="number" step="any" name="ano" ng-model="ano" min="2000"
                max="2100" ng-pattern="/^[0-9]{4}$/" />
         
     </md-input-container>

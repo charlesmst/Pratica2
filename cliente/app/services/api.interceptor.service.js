@@ -16,7 +16,7 @@
                 return $q.reject(response);
             }
             if (response.status === 500) {
-                console.log("Erro da api:",response.data.mensagem)
+                console.error("Erro da api:",response.data.mensagem)
                 if (response.data && response.data.success == false)
                     $rootScope.$broadcast('api-error', response.data);
 

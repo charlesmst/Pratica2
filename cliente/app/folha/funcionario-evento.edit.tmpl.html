@@ -33,13 +33,19 @@
                 </div>
                 <md-checkbox flex-gt-xs ng-model="modalVm.entity.mensal" aria-label="Mensal">Mensal</md-checkbox>
 
-                <md-datepicker ng-required="!modalVm.entity.mensal"  ng-show="!modalVm.entity.mensal" name="dataInicio" flex-gt-xs="30" ng-model="modalVm.entity.dataInicio" md-placeholder="Data de início">
-                </md-datepicker>
+                <div layout="row">
+                    <datepicker-mes flex mes="modalVm.mes" ano="modalVm.ano" required="true"></datepicker-mes>
 
-                <md-datepicker ng-show="!modalVm.entity.mensal" flex-gt-xs ng-model="modalVm.entity.dataFim" md-placeholder="Data de Finalização"
-                    ng-show="!modalVm.entity.mensal"></md-datepicker>
-                    
-                <datepicker-mes mes="modalVm.mes" ano="modalVm.ano" ng-show="modalVm.entity.mensal" required="!modalVm.entity.mensal"></datepicker-mes>
+                    <md-divider></md-divider>
+                    <div flex>
+                        <datepicker-mes mes="modalVm.mesFim" ano="modalVm.anoFim" ng-show="!modalVm.entity.mensal" ></datepicker-mes>
+
+                    </div>
+
+
+
+                </div>
+
 
             </md-card-content>
         </md-card>

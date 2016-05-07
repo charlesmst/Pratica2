@@ -7,7 +7,7 @@
             scope: {
                 mes: '=',
                 ano: '=',
-                required:'='
+                isRequired:'=required'
             },
         };
 
