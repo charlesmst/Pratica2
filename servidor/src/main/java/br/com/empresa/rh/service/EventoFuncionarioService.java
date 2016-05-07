@@ -21,6 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventoFuncionarioService extends Service<EventoFuncionario> {
 
     @Override
+    public void insert(EventoFuncionario m) {
+        if(m.isMensal())
+            m.setDataFim(null);
+        
+        //Verificar se não tem folha cálculada para o funcionário
+//        if(m.get)
+    }
+
+    @Override
     public EventoFuncionario findById(Object id) {
         return entityManager.createQuery("from EventoFuncionario ef "
                 + " inner join fetch ef.evento ev"

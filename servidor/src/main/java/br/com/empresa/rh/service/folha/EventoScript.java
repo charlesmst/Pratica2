@@ -29,7 +29,7 @@ public class EventoScript implements IEvento {
 
     private Evento evento;
     private double valorCalculado;
-    private int referencia;
+    private double referencia;
     private boolean aplicavel = true;
     private boolean calculado = false;
 
@@ -61,11 +61,11 @@ public class EventoScript implements IEvento {
     }
 
     @Override
-    public int getReferencia() {
+    public double getReferencia() {
         return referencia;
     }
 
-    public void setReferencia(int referencia) {
+    public void setReferencia(double referencia) {
         this.referencia = referencia;
     }
 

@@ -5,6 +5,7 @@
  */
 package br.com.empresa.rh.resources;
 
+import br.com.empresa.rh.model.response.MensagemResponse;
 import br.com.empresa.rh.util.ApiResponseException;
 import java.io.InputStream;
 import java.util.Scanner;
@@ -35,10 +36,13 @@ public class ThrowableExceptionMapper implements ExceptionMapper<Throwable> {
             return ((ApiResponseException) t).toResponse();
 
         } else {
-            String errorMessage = buildErrorMessage(request);
-//            log.error(errorMessage, t);
-            return Response.serverError().entity("").build();
+            return normalResponse(t);
         }
+    }
+
+    private Response normalResponse(Throwable ex) {
+        MensagemResponse m = new MensagemResponse(false, ex.getMessage());
+        return Response.status(500).entity(m).build();
     }
 
     private String buildErrorMessage(HttpServletRequest req) {

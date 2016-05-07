@@ -13,7 +13,7 @@ public class EventoFolha {
 
     private int id;
     private String nome;
-    private int referencia;
+    private double referencia;
     private double valorVencimento;
     private double valorDesconto;
 
@@ -33,11 +33,11 @@ public class EventoFolha {
         this.nome = nome;
     }
 
-    public int getReferencia() {
+    public double getReferencia() {
         return referencia;
     }
 
-    public void setReferencia(int referencia) {
+    public void setReferencia(double referencia) {
         this.referencia = referencia;
     }
 

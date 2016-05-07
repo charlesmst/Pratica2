@@ -4,7 +4,8 @@ import br.com.empresa.rh.model.Cargo;
 import br.com.empresa.rh.model.Evento;
 import br.com.empresa.rh.model.EventoDependencia;
 import br.com.empresa.rh.model.EventoDependenciaId;
-import br.com.empresa.rh.model.EventoMensal;
+import br.com.empresa.rh.model.EventoFuncionario;
+
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.service.folha.EventoCollection;
@@ -142,23 +143,32 @@ public class EventoService extends Service<Evento> {
 
     public EventoCollection todosEventosFuncionario(FuncionarioCargo funcionario, Date data) {
         EventoCollection collection = new EventoCollection();
-        collection.addAll(eventosFuncionario(funcionario, data));
+        collection.getEventos().addAll(eventosFuncionario(funcionario, data));
         collection.addAll(eventosCargo(funcionario.getCargo(), data));
         collection.addAll(eventosPadrao());
-        collection.getEventos().addAll(eventosMensais(funcionario, data));
+//        collection.getEventos().addAll(eventosMensais(funcionario, data));
         return collection;
     }
 
-    public List<Evento> eventosFuncionario(FuncionarioCargo cargoFuncionario, Date data) {
+    public List<IEvento> eventosFuncionario(FuncionarioCargo cargoFuncionario, Date data) {
         String query = "from Evento e "
                 + " inner join e.eventoFuncionarios f "
                 + " left join fetch e.eventoDependencias ed"
                 + " where f.funcionarioCargo.id = :idCargo and "
                 + " f.dataInicio <= :data and (f.dataFim is null or f.dataFim >= :data) ";
-        return entityManager.createQuery(query)
+        
+         List<EventoFuncionario> eventos = entityManager.createQuery(query)
                 .setParameter("idCargo", cargoFuncionario.getId())
                 .setParameter("data", data)
                 .getResultList();
+        List<IEvento> l = new ArrayList<>();
+        for (EventoFuncionario evento : eventos) {
+            EventoScript e = new EventoScript(evento.getEvento());
+            e.setReferencia(evento.getReferencia());
+            l.add(e);
+        }
+        return l;
+       
     }
 
     public List<Evento> eventosCargo(Cargo cargo, Date data) {
@@ -179,29 +189,29 @@ public class EventoService extends Service<Evento> {
                 + " where e.padrao = :p";
         return entityManager.createQuery(query).setParameter("p", true).getResultList();
     }
-
-    public List<IEvento> eventosMensais(FuncionarioCargo cargoFuncionario, Date data) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(data);
-        int ano = c.get(Calendar.YEAR);
-        int mes = c.get(Calendar.MONTH);
-
-        String query = "from EventoMensal e "
-                + " inner join fetch e.evento m "
-                + " where e.funcionarioCargo.id = :id and e.mes = :mes and e.ano = :ano ";
-
-        List<EventoMensal> eventos = entityManager.createQuery(query)
-                .setParameter("id", cargoFuncionario.getId())
-                .setParameter("mes", mes)
-                .setParameter("ano", ano)
-                .getResultList();
-
-        List<IEvento> l = new ArrayList<>();
-        for (EventoMensal evento : eventos) {
-            EventoScript e = new EventoScript(evento.getEvento());
-            e.setReferencia(evento.getReferencia());
-            l.add(e);
-        }
-        return l;
-    }
+////
+//    public List<IEvento> eventosMensais(FuncionarioCargo cargoFuncionario, Date data) {
+//        Calendar c = Calendar.getInstance();
+//        c.setTime(data);
+//        int ano = c.get(Calendar.YEAR);
+//        int mes = c.get(Calendar.MONTH);
+//
+//        String query = "from EventoMensal e "
+//                + " inner join fetch e.evento m "
+//                + " where e.funcionarioCargo.id = :id and e.mes = :mes and e.ano = :ano ";
+//
+//        List<EventoMensal> eventos = entityManager.createQuery(query)
+//                .setParameter("id", cargoFuncionario.getId())
+//                .setParameter("mes", mes)
+//                .setParameter("ano", ano)
+//                .getResultList();
+//
+//        List<IEvento> l = new ArrayList<>();
+//        for (EventoMensal evento : eventos) {
+//            EventoScript e = new EventoScript(evento.getEvento());
+//            e.setReferencia(evento.getReferencia());
+//            l.add(e);
+//        }
+//        return l;
+//    }
 }

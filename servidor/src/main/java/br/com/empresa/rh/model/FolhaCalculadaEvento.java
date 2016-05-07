@@ -29,7 +29,7 @@ public class FolhaCalculadaEvento  implements java.io.Serializable {
      private double valor;
      private boolean visivel;
      private int tipo;
-     private int referencia;
+     private double referencia;
 
     public FolhaCalculadaEvento() {
     }
@@ -109,11 +109,11 @@ public class FolhaCalculadaEvento  implements java.io.Serializable {
 
     
     @Column(name="referencia", nullable=false)
-    public int getReferencia() {
+    public double getReferencia() {
         return this.referencia;
     }
     
-    public void setReferencia(int referencia) {
+    public void setReferencia(double referencia) {
         this.referencia = referencia;
     }
 

@@ -32,6 +32,9 @@ public class EventoFuncionario implements java.io.Serializable {
     @JsonView(Folha.FuncionarioEvento.class)
     private Date dataFim;
 
+    private double referencia;
+    private boolean mensal;
+    
     public EventoFuncionario() {
     }
 
@@ -99,6 +102,22 @@ public class EventoFuncionario implements java.io.Serializable {
 
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
+    }
+
+    public double getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(double referencia) {
+        this.referencia = referencia;
+    }
+
+    public boolean isMensal() {
+        return mensal;
+    }
+
+    public void setMensal(boolean mensal) {
+        this.mensal = mensal;
     }
 
 }

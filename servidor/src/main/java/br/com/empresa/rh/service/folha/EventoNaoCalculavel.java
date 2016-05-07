@@ -26,7 +26,7 @@ public class EventoNaoCalculavel implements IEvento {
     }
 
     @Override
-    public int getReferencia() {
+    public double getReferencia() {
         throw new UnsupportedOperationException("Método não suportado.");
     }
 

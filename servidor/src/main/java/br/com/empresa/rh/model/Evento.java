@@ -40,7 +40,6 @@ public class Evento implements java.io.Serializable {
     private boolean ativo = true;
 
     private Set<EventoFuncionario> eventoFuncionarios = new HashSet<EventoFuncionario>(0);
-    private Set<EventoMensal> eventoMensals = new HashSet<EventoMensal>(0);
     private Set<CargoHasEvento> cargoHasEventos = new HashSet<CargoHasEvento>(0);
     private Set<FolhaCalculadaEvento> folhaCalculadaEventos = new HashSet<FolhaCalculadaEvento>(0);
 
@@ -58,7 +57,7 @@ public class Evento implements java.io.Serializable {
         this.padrao = padrao;
     }
 
-    public Evento(int id, String nome, boolean visivelFolha, int tipo, String script, boolean padrao, Set<EventoFuncionario> eventoFuncionarios, Set<EventoMensal> eventoMensals, Set<CargoHasEvento> cargoHasEventos, Set<FolhaCalculadaEvento> folhaCalculadaEventos) {
+    public Evento(int id, String nome, boolean visivelFolha, int tipo, String script, boolean padrao, Set<EventoFuncionario> eventoFuncionarios,  Set<CargoHasEvento> cargoHasEventos, Set<FolhaCalculadaEvento> folhaCalculadaEventos) {
         this.id = id;
         this.nome = nome;
         this.visivelFolha = visivelFolha;
@@ -66,7 +65,6 @@ public class Evento implements java.io.Serializable {
         this.script = script;
         this.padrao = padrao;
         this.eventoFuncionarios = eventoFuncionarios;
-        this.eventoMensals = eventoMensals;
         this.cargoHasEventos = cargoHasEventos;
         this.folhaCalculadaEventos = folhaCalculadaEventos;
     }
@@ -138,14 +136,6 @@ public class Evento implements java.io.Serializable {
         this.eventoFuncionarios = eventoFuncionarios;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evento")
-    public Set<EventoMensal> getEventoMensals() {
-        return this.eventoMensals;
-    }
-
-    public void setEventoMensals(Set<EventoMensal> eventoMensals) {
-        this.eventoMensals = eventoMensals;
-    }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "evento")
     public Set<CargoHasEvento> getCargoHasEventos() {

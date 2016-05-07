@@ -16,7 +16,7 @@ public interface IEvento {
 
     Evento getEvento();
 
-    int getReferencia();
+    double getReferencia();
 
     double getValorCalculado();
 
