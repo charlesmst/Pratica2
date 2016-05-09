@@ -14,6 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class EmpresaService extends Service<Empresa> {
 
+    @Override
+    public Empresa findById(Object id) {
+        String hql = "select t from Empresa t "
+                + "inner join fetch t.cidade c "
+                + " where t.id = :id ";
+        return entityManager.createQuery(hql,Empresa.class).setParameter("id", id).getSingleResult();
+    }
+
     public EmpresaService() {
         classRef = Empresa.class;
     }
@@ -23,6 +31,7 @@ public class EmpresaService extends Service<Empresa> {
 
         String hql = "select t from Empresa t "
                 + "inner join fetch t.cidade c ";
+
         hql += request.applyFilter("t.id", "t.nome");
         hql += request.applyOrder("t.id", "t.nome");
         Query q = entityManager.createQuery(hql);

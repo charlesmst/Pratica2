@@ -1,7 +1,7 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -21,88 +21,82 @@ import javax.persistence.Table;
  */
 @Entity
 @SequenceGenerator(name = "cidade_seq", sequenceName = "cidade_seq", initialValue = 1, allocationSize = 1)
-@Table(name="cidade"
-    ,schema="public"
+@Table(name = "cidade", schema = "public"
 )
-public class Cidade  implements java.io.Serializable {
+public class Cidade implements java.io.Serializable {
 
-
-     private int id;
-     private Estado estado;
-     private String nome;
-     private Set<Empresa> empresas = new HashSet<Empresa>(0);
-     private Set<Pessoa> pessoas = new HashSet<Pessoa>(0);
+    private int id;
+    private Estado estado;
+    private String nome;
+    @JsonIgnore
+    private Set<Empresa> empresas = new HashSet<Empresa>(0);
+    @JsonIgnore
+    private Set<Pessoa> pessoas = new HashSet<Pessoa>(0);
 
     public Cidade() {
     }
 
-	
     public Cidade(int id, Estado estado, String nome) {
         this.id = id;
         this.estado = estado;
         this.nome = nome;
     }
+
     public Cidade(int id, Estado estado, String nome, Set<Empresa> empresas, Set<Pessoa> pessoas) {
-       this.id = id;
-       this.estado = estado;
-       this.nome = nome;
-       this.empresas = empresas;
-       this.pessoas = pessoas;
+        this.id = id;
+        this.estado = estado;
+        this.nome = nome;
+        this.empresas = empresas;
+        this.pessoas = pessoas;
     }
-   
-     @Id 
-     @GeneratedValue(generator = "cidade_seq", strategy = GenerationType.SEQUENCE)
-    
-    @Column(name="id", unique=true, nullable=false)
+
+    @Id
+    @GeneratedValue(generator = "cidade_seq", strategy = GenerationType.SEQUENCE)
+
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="estado_uf", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estado_uf", nullable = false)
     public Estado getEstado() {
         return this.estado;
     }
-    
+
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
-    
-    @Column(name="nome", nullable=false, length=100)
+    @Column(name = "nome", nullable = false, length = 100)
     public String getNome() {
         return this.nome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="cidade")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cidade")
     public Set<Empresa> getEmpresas() {
         return this.empresas;
     }
-    
+
     public void setEmpresas(Set<Empresa> empresas) {
         this.empresas = empresas;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="cidade")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cidade")
     public Set<Pessoa> getPessoas() {
         return this.pessoas;
-    }
-    
+    }   
+
     public void setPessoas(Set<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
 
-
-
-
 }
-
-

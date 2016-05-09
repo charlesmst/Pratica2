@@ -37,8 +37,10 @@
     <bean id="dataSource"
           class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
           p:driverClassName="org.postgresql.Driver"
-          p:url="jdbc:postgresql://localhost:5432/praticarh3" p:username="postgres"
-          p:password="123" />
+
+          p:url="jdbc:postgresql://localhost:5432/praticarh2" p:username="postgres"
+          p:password="root" />
+
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
