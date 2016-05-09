@@ -1,6 +1,7 @@
 package br.com.empresa.rh.service;
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.Empresa;
 import br.com.empresa.rh.model.Evento;
 import br.com.empresa.rh.model.EventoFuncionario;
 import br.com.empresa.rh.model.FolhaCalculada;
@@ -15,7 +16,9 @@ import br.com.empresa.rh.util.ApiException;
 import br.com.empresa.rh.util.Utilitarios;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -174,8 +177,46 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         }
     }
 
-    @Transactional
-    public List<FolhaCalculada> findForTable(TableRequest request) {
+     
+    public long count(TableRequest request, Empresa empresa, int mes, int ano, List<FuncionarioCargo> funcionarios) {
+
+        String hql = "select count(*) from FolhaCalculada t ";
+        hql += request.applyFilter("t.id");
+        hql += (!hql.contains("where") ? " where t.excluido is  false " : " and t.excluido is false ");
+
+        HashMap<String, Object> parametros = new HashMap<>();
+        if (empresa != null) {
+            hql += " and t.funcionarioCargo.unidade.empresa.id = :empresaId";
+            parametros.put("empresaId", empresa.getId());
+        }
+        if (funcionarios != null && funcionarios.size() > 0) {
+            hql += " and t.funcionarioCargo.id in (:funcionarios)";
+            List<Integer> func = new ArrayList<>();
+            for (FuncionarioCargo funcionario : funcionarios) {
+                func.add(funcionario.getId());
+            }
+            parametros.put("funcionarios", func);
+        }
+        if (mes > 0) {
+            hql += " and t.mes = :mes";
+            parametros.put("mes", mes);
+        }
+
+        if (ano > 0) {
+            hql += " and t.ano = :ano";
+            parametros.put("ano", ano);
+        }
+//        hql += request.applyOrder("t.id");
+        Query q = entityManager.createQuery(hql);
+        request.applyParameters(q);
+        for (Map.Entry<String, Object> entrySet : parametros.entrySet()) {
+            String key = entrySet.getKey();
+            Object value = entrySet.getValue();
+            q.setParameter(key, value);
+        }
+        return (long) q.getSingleResult();
+    }
+    public List<FolhaCalculada> findForTable(TableRequest request, Empresa empresa, int mes, int ano, List<FuncionarioCargo> funcionarios) {
 
         String hql = "select t from FolhaCalculada t "
                 + " inner join fetch t.funcionarioCargo f "
@@ -183,11 +224,39 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
                 + " inner join fetch ff.pessoa ";
         hql += request.applyFilter("t.id");
         hql += (!hql.contains("where") ? " where t.excluido is  false " : " and t.excluido is false ");
+
+        HashMap<String, Object> parametros = new HashMap<>();
+        if (empresa != null) {
+            hql += " and t.funcionarioCargo.unidade.empresa.id = :empresaId";
+            parametros.put("empresaId", empresa.getId());
+        }
+        if (funcionarios != null && funcionarios.size() > 0) {
+            hql += " and t.funcionarioCargo.id in (:funcionarios)";
+            List<Integer> func = new ArrayList<>();
+            for (FuncionarioCargo funcionario : funcionarios) {
+                func.add(funcionario.getId());
+            }
+            parametros.put("funcionarios", func);
+        }
+        if (mes > 0) {
+            hql += " and t.mes = :mes";
+            parametros.put("mes", mes);
+        }
+
+        if (ano > 0) {
+            hql += " and t.ano = :ano";
+            parametros.put("ano", ano);
+        }
 //        hql += request.applyOrder("t.id");
         hql += !hql.contains("order") ? " order by t.ano desc, t.mes desc,tipo " : ",t.ano desc, t.mes desc,tipo ";
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);
+        for (Map.Entry<String, Object> entrySet : parametros.entrySet()) {
+            String key = entrySet.getKey();
+            Object value = entrySet.getValue();
+            q.setParameter(key, value);
+        }
         List<FolhaCalculada> l = q.getResultList();
         return l;
     }

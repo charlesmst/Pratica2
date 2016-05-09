@@ -22,7 +22,7 @@ public class Folha {
 
     public static class CargosFuncionario extends Funcionario {
     }
-
+    public static class CargosFuncionarioComCargo extends CargosFuncionario{}
     public static class EventoVisualizacao {
     }
 

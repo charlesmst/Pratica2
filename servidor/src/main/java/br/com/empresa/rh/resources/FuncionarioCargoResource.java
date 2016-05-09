@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Path("/funcionariocargo")
-@RolesAllowed(NivelAcesso.FUNCIONARIO)
+@RolesAllowed(NivelAcesso.RH)
 public class FuncionarioCargoResource {
 
     @Autowired
@@ -73,7 +73,7 @@ public class FuncionarioCargoResource {
     @Path("funcionario/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed(NivelAcesso.RH)
-    @JsonView(Folha.CargosFuncionario.class)
+    @JsonView(Folha.CargosFuncionarioComCargo.class)
     public List<FuncionarioCargo> findByFuncionario(@PathParam("id") int id) {
         return funcionarioCargoService.findByFuncionario(id);
     }

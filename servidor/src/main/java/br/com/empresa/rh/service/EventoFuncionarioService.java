@@ -63,19 +63,21 @@ public class EventoFuncionarioService extends Service<EventoFuncionario> {
     @Override
     @Transactional
     public void delete(Object id) {
-        //Só pode excluir se ainda nao possui folha calculada com esse evento
+        //SÃ³ pode excluir se ainda nao possui folha calculada com esse evento
         EventoFuncionario e = findById(id);
         if (e.isMensal() && folhaCalculadaService.possuiFolhaCalculadaComEvento(e.getEvento(), e.getFuncionarioCargo(), e.getDataInicio())) {
             throw new ApiException("Não é possível excluir evento " + e.getEvento().getNome() + " pois já possui folha de pagamento calculada atrelada a este evento no mês atual");
         }
+        Date d = folhaCalculadaService.ultimaDataFolhaCalculadaEvento(e);
+        Date dFim = utilitarios.dataPeriodoFim(d);
         if (e.getDataFim() != null) {
-            if (folhaCalculadaService.possuiFolhaCalculadaComEvento(e.getEvento(), e.getFuncionarioCargo(), e.getDataInicio(), e.getDataFim())) {
+            if (dFim.equals(e.getDataFim()) && folhaCalculadaService.possuiFolhaCalculadaComEvento(e.getEvento(), e.getFuncionarioCargo(), e.getDataInicio(), e.getDataFim())) {
                 throw new ApiException("Não é possível excluir evento " + e.getEvento().getNome() + " pois já possui folha de pagamento calculada atrelada a este evento");
             }
         }
 
-        Date d = folhaCalculadaService.ultimaDataFolhaCalculadaEvento(e);
-        //Se existiu alguma folha e esta não está excluida, colocar a data final como a última
+        
+        //Se existiu alguma folha e esta não está excluida, colocar a data final como a Ãºltima
         if (d == null) {
             e.setExcluido(true);
         } else {
@@ -95,7 +97,7 @@ public class EventoFuncionarioService extends Service<EventoFuncionario> {
 
     public long count(FuncionarioCargo cargo, int mes, int ano) {
         Date d = utilitarios.dataPeriodo(mes, ano);
-        Object o = entityManager.createQuery("select count(*) from " + classRef.getName() + " t where t.funcionarioCargo.id = :id and t.dataInicio <= :d and (t.dataFim is null or t.dataFim >= :d)")
+        Object o = entityManager.createQuery("select count(*) from " + classRef.getName() + " t where t.funcionarioCargo.id = :id and t.dataInicio <= :d and (t.dataFim is null or t.dataFim >= :d) and t.excluido is false")
                 .setParameter("id", cargo.getId())
                 .setParameter("d", d)
                 .getSingleResult();
