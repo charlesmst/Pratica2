@@ -246,5 +246,35 @@
                         }
                     }
                 })
+                .state('unidade', {
+                    url: '/unidade',
+                    views: {
+                        "": {
+                            templateUrl: 'app/ficha/unidade.tmpl.html',
+                            controller: "UnidadeController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('unidadeadd', {
+                    url: '/unidade/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/ficha/unidade.edit.tmpl.html',
+                            controller: "UnidadeEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('unidadeedit', {
+                    url: '/unidade/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/ficha/unidade.edit.tmpl.html',
+                            controller: "UnidadeEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
     }
 })()

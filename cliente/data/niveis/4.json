@@ -23,6 +23,11 @@
                 "link": "empresa",
                         "title": "Empresa",
                         "icon": "dashboard"
+                },
+                {
+                "link": "unidade",
+                        "title": "Unidades",
+                        "icon": "dashboard"
                 }
                 ]
         }

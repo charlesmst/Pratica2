@@ -1,20 +1,20 @@
 (function () {
     'use strict';
-    angular.module('app').controller('QualificacaoEditController', ['$mdToast', '$http', 'Qualificacao', '$state', '$stateParams', 'Workspace', QualificacaoEditController]);
+    angular.module('app').controller('UnidadeEditController', ['$mdToast', '$http', 'Unidade', '$state', '$stateParams', 'Workspace', UnidadeEditController]);
 
-    var state = "qualificacao"
-    function QualificacaoEditController($mdToast, $http, Qualificacao, $state, $stateParams, Workspace) {
+    var state = "unidade"
+    function UnidadeEditController($mdToast, $http, Unidade, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
-        Workspace.title = "Manutenção de qualificações";
+        Workspace.title = "Manutenção de Unidades";
         if ($stateParams.id) {
-            Workspace.loading("Carregando...", Qualificacao.get({id: $stateParams.id}).$promise.then(function (data) {
+            Workspace.loading("Carregando...", Unidade.get({id: $stateParams.id}).$promise.then(function (data) {
 
                 vm.entity = data
             }))
 
         } else
-            vm.entity = new Qualificacao()
+            vm.entity = new Unidade()
         vm.save = save;
         vm.cancel = cancel;
         function save($event, $valid) {
@@ -33,5 +33,7 @@
         function callbackError() {
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
         }
+
     }
+
 })()

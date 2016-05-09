@@ -1,10 +1,10 @@
 (function () {
     'use strict';
-    angular.module('app').controller('EmpresaController', ['Empresa', '$state', 'Workspace', '$q', EmpresaController]);
+    angular.module('app').controller('UnidadeController', ['Unidade', '$state', 'Workspace', '$q', UnidadeController]);
 
-    var state = "empresa"
+    var state = "unidade"
 
-    function EmpresaController(Empresa, $state, Workspace, $q) {
+    function UnidadeController(Unidade, $state, Workspace, $q) {
         var vm = this;
         vm.showDelete = showDelete;
         vm.showAdd = showAdd;
@@ -13,12 +13,12 @@
         vm.onReorder = onReorder;
         vm.list = []
         vm.selectedItems = []
-        Workspace.title = "Empresa"
+        Workspace.title = "Unidade"
         Workspace.enableSearch(onFilter)
 
         vm.query = {
             filter: "",
-            order: 't.nome',
+            order: 'id',
             limit: 10,
             page: 1
         };
@@ -48,7 +48,7 @@
         }
 
         function load(query) {
-            vm.promise = Empresa.query(query, success).$promise;
+            vm.promise = Unidade.query(query, success).$promise;
             loadCount()
 
         }
@@ -70,7 +70,7 @@
 
         }
         function loadCount() {
-            Empresa.count(vm.query).$promise.then(function (e) {
+            Unidade.count(vm.query).$promise.then(function (e) {
                 vm.count = e.count
             });
 
