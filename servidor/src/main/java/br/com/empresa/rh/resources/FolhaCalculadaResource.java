@@ -9,6 +9,7 @@ import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.response.FolhaResponse;
 import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
+import br.com.empresa.rh.service.FuncionarioCargoService;
 import br.com.empresa.rh.util.ApiException;
 import br.com.empresa.rh.util.SecurityApiException;
 import br.com.empresa.rh.util.Utilitarios;
@@ -42,6 +43,8 @@ public class FolhaCalculadaResource {
     private FolhaCalculadaService folhaCalculadaService;
 
     @Autowired
+    private FuncionarioCargoService funcionarioCargoService;
+    @Autowired
     private Utilitarios utilitarios;
 
     @Context
@@ -53,7 +56,9 @@ public class FolhaCalculadaResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
-    public CountResponse count() {
+    public CountResponse count(@Context SecurityContext securityContext) {
+        utilitarios.setSecutiryContext(securityContext);
+
         TableRequest request = TableRequest.build(info);
         MultivaluedMap<String, String> queryString = info.getQueryParameters();
         int mes = 0;
@@ -83,10 +88,8 @@ public class FolhaCalculadaResource {
             }
         } else {
             //Se não tem acesso a rh, só consulta os dele mesmo
-            funcionarios = new ArrayList<>();
-            FuncionarioCargo cargo = new FuncionarioCargo();
-            cargo.setId(utilitarios.usuario());
-            funcionarios.add(cargo);
+            funcionarios = funcionarioCargoService.findByFuncionario(utilitarios.usuario());
+
         }
         long c = folhaCalculadaService.count(request, empresa, mes, ano, funcionarios);
 
@@ -126,10 +129,7 @@ public class FolhaCalculadaResource {
             }
         } else {
             //Se não tem acesso a rh, só consulta os dele mesmo
-            funcionarios = new ArrayList<>();
-            FuncionarioCargo cargo = new FuncionarioCargo();
-            cargo.setId(utilitarios.usuario());
-            funcionarios.add(cargo);
+            funcionarios = funcionarioCargoService.findByFuncionario(utilitarios.usuario());
         }
         List<FolhaCalculada> m = folhaCalculadaService.findForTable(request, empresa, mes, ano, funcionarios);
         return Response.ok().entity(m).build();

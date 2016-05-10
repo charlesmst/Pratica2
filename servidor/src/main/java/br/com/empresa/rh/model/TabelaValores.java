@@ -7,9 +7,12 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +22,8 @@ import javax.persistence.Table;
 @Table(name="tabela_valores"
     ,schema="public"
 )
+@SequenceGenerator(name = "tabela_valores_seq", sequenceName = "tabela_valores_seq", initialValue = 1, allocationSize = 1)
+
 public class TabelaValores  implements java.io.Serializable {
 
 
@@ -50,7 +55,8 @@ public class TabelaValores  implements java.io.Serializable {
    
      @Id 
 
-    
+        @GeneratedValue(generator = "tabela_valores_seq", strategy = GenerationType.SEQUENCE)    
+
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;

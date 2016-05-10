@@ -1,11 +1,12 @@
 package br.com.empresa.rh.resources;
 
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.TabelaService;
 import br.com.empresa.rh.model.Tabela;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -28,17 +29,17 @@ import org.springframework.stereotype.Component;
 public class TabelaResource {
 
     @Autowired
-    private TabelaService TabelaService;
+    private TabelaService tabelaService;
 
     @Context
     protected UriInfo info;
 
     public TabelaService getTabelaService() {
-        return TabelaService;
+        return tabelaService;
     }
 
     public void setTabelaService(TabelaService marcaService) {
-        this.TabelaService = marcaService;
+        this.tabelaService = marcaService;
     }
 
     public TabelaResource() {
@@ -48,51 +49,51 @@ public class TabelaResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(TabelaService.count());
+        return new CountResponse(tabelaService.count());
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("tipos")
+    public List<String> tiposExistentes() {
+        return tabelaService.tipos();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<Tabela> m = TabelaService.findForTable(request);
+        List<Tabela> m = tabelaService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Tabela findById(@PathParam("id") long id) {
-        Tabela m = TabelaService.findById(id);
+    public Tabela findById(@PathParam("id") int id) {
+        Tabela m = tabelaService.findById(id);
         return m;
-    }
-
-    @GET
-    @Path("nivel/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Tabela> findByNivel(@PathParam("id") long id) {
-        return TabelaService.findAll();
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(Tabela m) {
-        TabelaService.insert(m);
+        tabelaService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, Tabela entity) {
-        TabelaService.update(entity);
-		
+    public void update(@PathParam("id") int id, Tabela entity) {
+        tabelaService.update(entity);
+
     }
 
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("id") long id) {
-        TabelaService.delete(id);
+    public void delete(@PathParam("id") int id) {
+        tabelaService.delete(id);
     }
 
 }

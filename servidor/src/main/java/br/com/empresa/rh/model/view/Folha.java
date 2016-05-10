@@ -35,6 +35,9 @@ public class Folha {
     public static class FuncionarioEvento extends EventoVisualizacao {
     }
 
+    public static class Tabela {
+    }
+
     public static class EmpresaVisualizacao {
     }
 }

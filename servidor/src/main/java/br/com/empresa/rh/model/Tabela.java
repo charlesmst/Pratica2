@@ -5,11 +5,15 @@ package br.com.empresa.rh.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +25,8 @@ import javax.persistence.TemporalType;
 @Table(name="tabela"
     ,schema="public"
 )
+@SequenceGenerator(name = "tabela_seq", sequenceName = "tabela_seq", initialValue = 1, allocationSize = 1)
+
 public class Tabela  implements java.io.Serializable {
 
 
@@ -45,8 +51,7 @@ public class Tabela  implements java.io.Serializable {
     }
    
      @Id 
-
-    
+    @GeneratedValue(generator = "tabela_seq", strategy = GenerationType.SEQUENCE)    
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;
@@ -76,7 +81,8 @@ public class Tabela  implements java.io.Serializable {
         this.tipo = tipo;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tabela")
+@OneToMany(fetch=FetchType.LAZY, mappedBy="tabela",cascade = CascadeType.ALL,orphanRemoval = true)
+
     public Set<TabelaValores> getTabelaValoreses() {
         return this.tabelaValoreses;
     }
