@@ -65,6 +65,7 @@ public class FuncionarioResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(Folha.FuncionarioFicha.class)
     public Funcionario findById(@PathParam("id") int id) {
         Funcionario m = funcionarioService.findById(id);
         return m;

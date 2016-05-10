@@ -38,7 +38,7 @@ public class Pessoa implements java.io.Serializable {
     
     @JsonView({Folha.Funcionario.class,Recrutamento.Curriculo.class})
     private int id;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class,Folha.FuncionarioFicha.class})
     private Cidade cidade;
     @JsonView({Recrutamento.Curriculo.class})
     private Cor cor;

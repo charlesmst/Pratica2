@@ -11,6 +11,9 @@ package br.com.empresa.rh.model.view;
  */
 public class Folha {
 
+    public static class FuncionarioFicha {
+    }
+
     public static class Funcionario {
     }
 
@@ -22,7 +25,10 @@ public class Folha {
 
     public static class CargosFuncionario extends Funcionario {
     }
-    public static class CargosFuncionarioComCargo extends CargosFuncionario{}
+
+    public static class CargosFuncionarioComCargo extends CargosFuncionario {
+    }
+
     public static class EventoVisualizacao {
     }
 

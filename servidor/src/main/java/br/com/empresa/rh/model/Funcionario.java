@@ -29,18 +29,25 @@ import org.hibernate.annotations.Parameter;
 )
 public class Funcionario implements java.io.Serializable {
 
-    
-    @JsonView({Folha.Funcionario.class})
+    @JsonView({Folha.Funcionario.class, Folha.FuncionarioFicha.class})
     private int pessoaId;
+    @JsonView({Folha.FuncionarioFicha.class})
     private Banco banco;
     @JsonManagedReference
-     
-    
-    @JsonView({Folha.Funcionario.class})
+
+    @JsonView({Folha.Funcionario.class, Folha.FuncionarioFicha.class})
     private Pessoa pessoa;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private VinculoEmpregaticio vinculoEmpregaticio;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private String conta;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private int agencia;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private TipoSanguineo tipoSanguineo;
 
     private Set<Dependente> dependentes = new HashSet<Dependente>(0);
@@ -145,8 +152,7 @@ public class Funcionario implements java.io.Serializable {
     public void setFuncionarioCargos(Set<FuncionarioCargo> funcionarioCargos) {
         this.funcionarioCargos = funcionarioCargos;
     }
-    
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_sanguineo_id", nullable = true)
     public TipoSanguineo getTipoSanguineo() {
