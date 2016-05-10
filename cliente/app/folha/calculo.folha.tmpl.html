@@ -4,34 +4,21 @@
             <h2>Cálculo de folha</h2>
             <md-content>
 
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Empresa</label>
-                    <md-select required name="empresa" ng-model="crudVm.entity.empresa" >
-                        <md-option ng-repeat="item in crudVm.empresas" ng-value="{{item}}" ng-selected="$first">
-                            {{item.nome}} - {{item.cnpj}}
-                        </md-option>
-                    </md-select>
-                    <div ng-messages="formCalculoFolha.empresa.$error">
+                <select-empresa model="crudVm.entity.empresa" required="true" auto-select-first="true">
+                    <div class="validation-messages" ng-messages="formCalculoFolha.empresa.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
-                </md-input-container>
-
-
+                </select-empresa>
                 <div layout-gt-sm="row">
-                    <md-input-container>
-                        <md-switch ng-model="crudVm.entity.todosEmpresa" ng-init="crudVm.entity.todosEmpresa = true" aria-label="Todos da empresa">
-                            Todos da empresa
-                        </md-switch>
-                    </md-input-container>
-                    <md-select name="funcionarios" ng-required="!crudVm.entity.todosEmpresa" ng-disabled="crudVm.entity.todosEmpresa" style="padding-left: 30px;width:100%" ng-model="crudVm.entity.funcionarios" placeholder="Funcionários" multiple="true">
-                        <md-optgroup label="{{group.nome}}" ng-repeat="group in crudVm.cargos">
-                            <md-option ng-value="item" ng-repeat="item in group.funcionarioCargos">{{item.funcionario.pessoa.nome}}</md-option>
-                        </md-optgroup>
-                    </md-select>
-
-                    <div ng-messages="formCalculoFolha.funcionarios.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
-                    </div>
+                    <md-switch ng-model="crudVm.entity.todosEmpresa" ng-init="crudVm.entity.todosEmpresa = true" aria-label="Todos da empresa">
+                        Todos da empresa
+                    </md-switch>
+                    <select-funcionarios model="crudVm.entity.funcionarios" multiple="true" required="!crudVm.entity.todosEmpresa" disabled="crudVm.entity.todosEmpresa"
+                        empresa="crudVm.entity.empresa">
+                        <div class="validation-messages" ng-messages="formCalculoFolha.funcionarios.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </select-funcionarios>
                 </div>
                 <md-input-container class="md-block" flex-gt-sm>
 

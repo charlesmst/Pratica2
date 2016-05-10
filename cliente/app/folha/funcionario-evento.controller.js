@@ -15,7 +15,6 @@
         vm.list = []
         vm.selectedItems = []
         Workspace.title = "Evento"
-        Workspace.enableSearch(onFilter)
         vm.funcionarioCargo = {}
         vm.funcionarioCargos = []
         vm.query = {

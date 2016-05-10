@@ -1,7 +1,7 @@
 <div layout-gt-sm="row">
     <md-input-container class="md-block" flex-gt-sm>
         <label>Mês</label>
-        <md-select ng-required="isRequired" md-name="mes" ng-model="mes">
+        <md-select ng-required="isRequired" name="mes" ng-model="mes">
             <md-option ng-repeat="item in meses" ng-value="{{item.numero}}">
                 {{item.nome}}
             </md-option>

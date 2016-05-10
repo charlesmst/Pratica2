@@ -1,21 +1,38 @@
 <div class="md-fab-bottom-right app-fixed-bottom-right fade">
-    <md-button class="md-fab flipInX flipOutX" ng-show="crudVm.selectedItems.length && crudVm.permissoes.excluir" aria-label="Delete" ng-click="crudVm.showDelete($event)" >
+    <md-button class="md-fab flipInX flipOutX" ng-show="crudVm.selectedItems.length && crudVm.permissoes.excluir" aria-label="Delete"
+        ng-click="crudVm.showDelete($event)">
         <ng-md-icon icon="delete"></ng-md-icon>
     </md-button>
-    <md-button class="md-fab flipInX flipOutX md-white-icon" ng-show="crudVm.selectedItems.length" aria-label="Imprimir" ng-click="crudVm.print($event)" >
+    <md-button class="md-fab flipInX flipOutX md-white-icon" ng-show="crudVm.selectedItems.length" aria-label="Imprimir" ng-click="crudVm.print($event)">
         <md-icon md-svg-icon="download"></md-icon>
     </md-button>
 </div>
 <md-card>
+    <div layout-gt-sm="row">
+
+        <select-empresa model="crudVm.entity.empresa" auto-select-first="true"></select-empresa>
+        <span flex></span>
+        <datepicker-mes ano="crudVm.query.ano" mes="crudVm.query.mes"></datepicker-mes>
+
+       
+        <select-funcionarios title="Funcionário" ng-if="crudVm.permissoes.outrosFuncionarios"
+            class="m-r-40" model="crudVm.entity.funcionarios" multiple="false" required="!crudVm.entity.todosEmpresa" multiple="false"
+            disabled="crudVm.entity.todosEmpresa" empresa="crudVm.entity.empresa">
+            <div class="validation-messages" ng-messages="formCalculoFolha.funcionarios.$error">
+                <div ng-message="required">Campo obrigatório.</div>
+            </div>
+        </select-funcionarios>
+
+    </div>
     <md-table-container>
-        <table md-table md-progress="promise"  md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise" >
+        <table md-table md-progress="promise" md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise">
             <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
                 <tr md-row>
-                    <th md-column md-numeric ></th>
-                    <th md-column md-order-by="nome"><span>Nome</span></th>       
-                    <th md-column md-numeric >Mês</th>
-                    <th md-column md-numeric >Ano</th>
-                    <th md-column md-numeric >Tipo</th>
+                    <th md-column md-numeric></th>
+                    <th md-column md-order-by="nome"><span>Nome</span></th>
+                    <th md-column md-numeric>Mês</th>
+                    <th md-column md-numeric>Ano</th>
+                    <th md-column md-numeric>Tipo</th>
 
                 </tr>
             </thead>
@@ -23,19 +40,19 @@
                 <tr md-row md-select="row" md-select-id="{{row}}" md-auto-select ng-repeat="row in crudVm.list">
                     <td md-cell width="15" class="button-column">
 
-                    <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.showFolha($event, row.id)">
-                        <md-icon  md-svg-icon="view" class="md-display-1">View</md-icon>
-                    </md-button>
+                        <md-button class="md-icon-button md-subhead" style="font-size:7px" aria-label="Edit" ng-click="crudVm.showFolha($event, row.id)">
+                            <md-icon md-svg-icon="view" class="md-display-1">View</md-icon>
+                        </md-button>
                     </td>
-            <td md-cell>{{row.funcionarioCargo.funcionario.pessoa.nome}}</td>   
-            <td md-cell md-numeric >{{row.mes}}</td>
-            <td md-cell md-numeric >{{row.ano}}</td>
-            <td md-cell md-numeric >{{crudVm.getNome(row.tipo)}}</td>
-            </tr>
+                    <td md-cell>{{row.funcionarioCargo.funcionario.pessoa.nome}}</td>
+                    <td md-cell md-numeric>{{row.mes}}</td>
+                    <td md-cell md-numeric>{{row.ano}}</td>
+                    <td md-cell md-numeric>{{crudVm.getNome(row.tipo)}}</td>
+                </tr>
             </tbody>
         </table>
 
-        <md-table-pagination md-label="{{appVm.labelPagination}}" md-limit="crudVm.query.limit" md-page="crudVm.query.page" md-total="{{crudVm.count}}" md-on-paginate="crudVm.onPaginate" md-page-select></md-table-pagination>
+        <md-table-pagination md-label="{{appVm.labelPagination}}" md-limit="crudVm.query.limit" md-page="crudVm.query.page" md-total="{{crudVm.count}}"
+            md-on-paginate="crudVm.onPaginate" md-page-select></md-table-pagination>
     </md-table-container>
 </md-card>
-

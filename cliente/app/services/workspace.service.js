@@ -111,8 +111,9 @@
         }
 
         function toDate(str) {
-            return new Date(str)
-
+            var d =  new Date(str)
+            d.setDate(d.getDate()+1)
+            return d;
         }
         function callbackOnEnterState(scope, $state, callback) {
             var curState = $state.current.name

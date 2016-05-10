@@ -1,10 +1,10 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FolhaCalculadaController', ['FolhaCalculada', '$state', 'Workspace', '$q', 'Permissoes', '$mdDialog', FolhaCalculadaController]);
+    angular.module('app').controller('FolhaCalculadaController', ['FolhaCalculada', '$state', 'Workspace', '$q', 'Permissoes', '$mdDialog', '$scope', FolhaCalculadaController]);
 
     var state = "folhacalculada"
 
-    function FolhaCalculadaController(FolhaCalculada, $state, Workspace, $q, Permissoes, $mdDialog) {
+    function FolhaCalculadaController(FolhaCalculada, $state, Workspace, $q, Permissoes, $mdDialog, $scope) {
         var vm = this;
 
         vm.showDelete = showDelete;
@@ -14,9 +14,10 @@
         vm.onReorder = onReorder;
         vm.permissoes = {};
         vm.list = [];
+        vm.entity = {};
         vm.selectedItems = [];
         Workspace.title = "Folha de Pagamento";
-//        Workspace.enableSearch(onFilter)
+        //        Workspace.enableSearch(onFilter)
 
         vm.tiposFolha = [
             "", "Mês", "Férias", "Complementar"
@@ -27,9 +28,12 @@
             limit: 15,
             page: 1
         };
+        $scope.$watchGroup(['crudVm.entity.empresa','crudVm.query.ano', 'crudVm.query.mes', 'crudVm.entity.funcionarios'], function () {
+            load(vm.query)
+        })
 
         loadPermissoes();
-        load(vm.query);
+
         function showDelete($event) {
             Workspace.showDeleteDialog($event).then(function () {
                 //Confirmou
@@ -47,7 +51,7 @@
         }
 
         function loadPermissoes() {
-            Permissoes.get({modulo: "folha"}).$promise.then(function (r) {
+            Permissoes.get({ modulo: "folha" }).$promise.then(function (r) {
                 vm.permissoes = r;
             });
         }
@@ -60,13 +64,24 @@
                 clickOutsideToClose: true,
                 resolve: {
                     Dados: function () {
-                        return {id: id};
+                        return { id: id };
                     }
                 }
             })
         }
 
         function load(query) {
+            if (!vm.permissoes.outrosFuncionarios) {
+                delete query.funcionarios;
+            } else {
+                query.funcionarios = [];
+                angular.forEach(vm.entity.funcionarios, function (v) {
+                    query.funcionarios.push(v.id);
+                })
+            }
+            if (!vm.entity.empresa)
+                return;
+            query.empresa = vm.entity.empresa.id;
             vm.promise = FolhaCalculada.query(query, success).$promise;
             loadCount()
 
@@ -77,15 +92,15 @@
         }
 
         function onPaginate(page, limit) {
-            load(angular.extend({}, vm.query, {page: page, limit: limit}));
+            load(angular.extend({}, vm.query, { page: page, limit: limit }));
         }
 
         function onReorder(order) {
-            load(angular.extend(vm.query, {order: order}));
+            load(angular.extend(vm.query, { order: order }));
         }
 
         function onFilter(filter) {
-            load(angular.extend(vm.query, {'filter': filter, page: 1}))
+            load(angular.extend(vm.query, { 'filter': filter, page: 1 }))
 
         }
         function loadCount() {

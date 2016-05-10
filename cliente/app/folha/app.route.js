@@ -64,6 +64,37 @@
                         }
                     }
                 })
+                
+                .state('tabela', {
+                    url: '/tabela',
+                    views: {
+                        "": {
+                            templateUrl: 'app/folha/tabela.tmpl.html',
+                            controller: "TabelaController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('tabelaadd', {
+                    url: '/tabela/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/folha/tabela.edit.tmpl.html',
+                            controller: "TabelaEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('tabelaedit', {
+                    url: '/tabela/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/folha/tabela.edit.tmpl.html',
+                            controller: "TabelaEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
 
     }
 })()

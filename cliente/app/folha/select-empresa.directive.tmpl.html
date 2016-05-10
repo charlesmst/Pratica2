@@ -1,0 +1,9 @@
+<md-input-container class="md-block" flex-gt-sm>
+    <label>Empresa</label>
+    <md-select ng-required="required" name="empresa" ng-model="model">
+        <md-option ng-repeat="item in empresas" ng-value="{{item}}" ng-selected="model.id == item.id">
+            {{item.nome}} - {{item.cnpj}}
+        </md-option>
+    </md-select>
+    <ng-transclude></ng-transclude>
+</md-input-container>

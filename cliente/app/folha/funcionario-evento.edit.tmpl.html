@@ -1,6 +1,6 @@
 <md-dialog aria-label="Folha de Pagamento" style="width:90%" ng-cloak>
 
-    <form name="formModal" novalidate ng-submit="modalVm.save($event, formModal.$valid)">
+    <form name="formModal" ng-submit="modalVm.save($event, formModal.$valid)">
 
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -11,20 +11,21 @@
         </md-toolbar>
         <md-card>
 
-
             <md-card-content>
 
                 <div layout-gt-xs="row">
                     <md-input-container class="md-block" flex-gt-xs>
                         <label>Evento</label>
-                        <md-select required name="empresa" ng-model="modalVm.entity.evento">
+                        <md-select name="evento" ng-required="true" ng-model="modalVm.entity.evento">
                             <md-option ng-selected="item.id === modalVm.entity.evento.id" ng-repeat="item in modalVm.eventos" ng-value="{{item}}" required>
                                 {{item.nome}} - {{item.tipo}}
                             </md-option>
                         </md-select>
 
+                        <div ng-messages="formModal.evento.$error" class="validation-messages">
+                            <div ng-message="required">Campo obrigatório</div>
+                        </div>
                     </md-input-container>
-
                     <md-input-container class="md-block" flex-gt-xs>
                         <label>Referência</label>
                         <input type="number" ng-model="modalVm.entity.referencia" placeholder="Referência" aria-label="Referência">
@@ -33,17 +34,17 @@
                 </div>
                 <md-checkbox flex-gt-xs ng-model="modalVm.entity.mensal" aria-label="Mensal">Mensal</md-checkbox>
 
-                <div layout="row">
+                <div>
+                    <span class="md-subheader md-block">Início de vigência</span>
                     <datepicker-mes flex mes="modalVm.mes" ano="modalVm.ano" required="true"></datepicker-mes>
 
-                    <md-divider></md-divider>
-                    <div flex>
-                        <datepicker-mes mes="modalVm.mesFim" ano="modalVm.anoFim" ng-show="!modalVm.entity.mensal" ></datepicker-mes>
-
-                    </div>
+                </div>
 
 
 
+                <div ng-show="!modalVm.entity.mensal">
+                    <span class="md-subheader md-block">Fim de vigência</span>
+                    <datepicker-mes mes="modalVm.mesFim" ano="modalVm.anoFim"></datepicker-mes>
                 </div>
 
 
