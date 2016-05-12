@@ -87,7 +87,7 @@ public class Utilitarios {
         return 1;
     }
 
-    public String formataDinheiro(double d) {
+    public static String formataDinheiro(double d) {
         return new DecimalFormat("'R$'###,##0.00").format(d);
     }
 

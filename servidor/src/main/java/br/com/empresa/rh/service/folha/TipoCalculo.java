@@ -12,7 +12,7 @@ import br.com.empresa.rh.util.ApiException;
  * @author charles
  */
 public enum TipoCalculo {
-    mes(1), ferias(2), complementar(3),decimo(4);
+    mes(1), ferias(2), complementar(3),decimo(4),demissao(5);
     private int numero;
 
     private TipoCalculo(int numero) {

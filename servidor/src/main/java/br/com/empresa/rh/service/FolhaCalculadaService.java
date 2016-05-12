@@ -14,7 +14,9 @@ import br.com.empresa.rh.service.folha.EventoTipo;
 import br.com.empresa.rh.service.folha.TipoCalculo;
 import br.com.empresa.rh.util.ApiException;
 import br.com.empresa.rh.util.Utilitarios;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +42,10 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
                 + " left outer join fetch f.folhaCalculadaEventos ff "
                 + " left outer join fetch ff.evento evento "
                 + " inner join fetch f.funcionarioCargo fc "
+                + " inner join fetch fc.unidade unidade "
+                + " inner join fetch unidade.empresa "
                 + " inner join fetch fc.cargo cargo "
+                + " inner join fetch cargo.cbo "
                 + " inner join fetch fc.funcionario funcionario"
                 + " inner join fetch funcionario.pessoa  fp "
                 + " where f.id = :id  and f.excluido is false ", FolhaCalculada.class).setParameter("id", id).getSingleResult();
@@ -177,7 +182,6 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         }
     }
 
-     
     public long count(TableRequest request, Empresa empresa, int mes, int ano, List<FuncionarioCargo> funcionarios) {
 
         String hql = "select count(*) from FolhaCalculada t ";
@@ -216,6 +220,7 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         }
         return (long) q.getSingleResult();
     }
+
     public List<FolhaCalculada> findForTable(TableRequest request, Empresa empresa, int mes, int ano, List<FuncionarioCargo> funcionarios) {
 
         String hql = "select t from FolhaCalculada t "
@@ -268,8 +273,12 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         //Dados do cabecalho
         fr.setNome(folhaCalculada.getFuncionarioCargo().getFuncionario().getPessoa().getNome());
         fr.setCargo(folhaCalculada.getFuncionarioCargo().getCargo().getNome());
-
-        //Eventos
+        fr.setCbo(folhaCalculada.getFuncionarioCargo().getCargo().getCbo().getId() + "");
+        fr.setEmpresa(folhaCalculada.getFuncionarioCargo().getUnidade().getEmpresa().getNome());
+        fr.setCompetencia(new SimpleDateFormat("MM/yyyy").format(folhaCalculada.getDataReferente()));
+        fr.setAdmissao(folhaCalculada.getFuncionarioCargo().getDataEntrada());
+        fr.setUnidade(folhaCalculada.getFuncionarioCargo().getUnidade().getNome());
+//Eventos
         for (FolhaCalculadaEvento eventoCalculado : folhaCalculada.getFolhaCalculadaEventos()) {
             EventoFolha evento = new EventoFolha();
             evento.setId(eventoCalculado.getEvento().getId());
@@ -281,10 +290,13 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
                 case EventoTipo.PROVENTO:
                 case EventoTipo.BENEFICIO:
                     evento.setValorVencimento(eventoCalculado.getValor());
+                    evento.setTipo(+1);
                     break;
                 case EventoTipo.DESCONTO:
                 case EventoTipo.FINALIZACAO:
                     evento.setValorDesconto(eventoCalculado.getValor());
+                    evento.setTipo(-1);
+
                     break;
             }
             if (eventoCalculado.isVisivel()) {
@@ -293,6 +305,42 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
                 fr.getEventosInvisiveis().add(evento);
             }
         }
+
+        TipoCalculo t = TipoCalculo.parse(folhaCalculada.getTipo());
+        switch (t) {
+            case demissao:
+                fr.setTitulo("Recibo de pagamento de demissão");
+                break;
+            case complementar:
+                fr.setTitulo("Recibo de pagamento complementar");
+                break;
+            case ferias:
+                fr.setTitulo("Recibo de pagamento de férias");
+                break;
+
+            case decimo:
+                fr.setTitulo("Recibo de pagamento de décimo");
+                break;
+            case mes:
+                fr.setTitulo("Recibo do pagamento de salário");
+                break;
+
+        }
+        
+        fr.getEventos().sort(new Comparator<EventoFolha>() {
+            @Override
+            public int compare(EventoFolha f1, EventoFolha f2) {
+                if((f1.getValorVencimento() > 0 && f2.getValorVencimento() > 0) || (f1.getValorDesconto() > 0 && f2.getValorDesconto() > 0))
+                    return 0;
+                else if(f1.getValorVencimento() > 0)
+                    return -1;
+                else 
+                    return 1;
+            }
+        });
+
+        
+
         return fr;
     }
 

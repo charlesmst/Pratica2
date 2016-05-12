@@ -5,6 +5,8 @@
  */
 package br.com.empresa.rh.model.response;
 
+import br.com.empresa.rh.util.Utilitarios;
+
 /**
  *
  * @author charles
@@ -16,6 +18,15 @@ public class EventoFolha {
     private double referencia;
     private double valorVencimento;
     private double valorDesconto;
+    private int tipo;
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
 
     public int getId() {
         return id;
@@ -51,6 +62,20 @@ public class EventoFolha {
 
     public double getValorDesconto() {
         return valorDesconto;
+    }
+
+    public String getValorDescontoFormatado() {
+        if (tipo > 0) {
+            return "";
+        }
+        return Utilitarios.formataDinheiro(getValorDesconto());
+    }
+
+    public String getValorVencimentoFormatado() {
+        if (tipo < 0) {
+            return "";
+        }
+        return Utilitarios.formataDinheiro(getValorVencimento());
     }
 
     public void setValorDesconto(double valorDesconto) {

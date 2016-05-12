@@ -11,12 +11,18 @@ import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
 import br.com.empresa.rh.service.FuncionarioCargoService;
 import br.com.empresa.rh.util.ApiException;
+import br.com.empresa.rh.util.Relatorios;
 import br.com.empresa.rh.util.SecurityApiException;
 import br.com.empresa.rh.util.Utilitarios;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
@@ -25,12 +31,16 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
+import net.sf.jasperreports.engine.JRException;
+import org.apache.cxf.jaxrs.ext.multipart.ContentDisposition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,6 +56,8 @@ public class FolhaCalculadaResource {
     private FuncionarioCargoService funcionarioCargoService;
     @Autowired
     private Utilitarios utilitarios;
+    @Autowired
+    private Relatorios relatorios;
 
     @Context
     protected UriInfo info;
@@ -160,6 +172,43 @@ public class FolhaCalculadaResource {
     @RolesAllowed(NivelAcesso.ADMIN)
     public void delete(@PathParam("id") int id) {
         folhaCalculadaService.delete(id);
+    }
+
+    @GET
+    @Path("relatorio/{id}")
+
+    public Response relatorio(@PathParam("id") int id, @Context SecurityContext securityContext) {
+        ContentDisposition contentDisposition = new ContentDisposition("attachment;filename=pdffile.pdf");
+        utilitarios.setSecutiryContext(securityContext);
+        FolhaCalculada m = folhaCalculadaService.findById(id);
+        if (!utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
+            if (m.getFuncionarioCargo().getFuncionario().getPessoaId() != utilitarios.usuario()) {
+                throw new SecurityApiException();
+            }
+        }
+        FolhaResponse r = folhaCalculadaService.fromFolhaCalculada(m);
+        if (!utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
+            r.setEventosInvisiveis(null);
+        }
+        List<FolhaResponse> l = Arrays.asList(r);
+        final byte[] bytesData;
+        try {
+            bytesData = relatorios.generateReport("C:\\Users\\charles\\JaspersoftWorkspace\\MyReports\\folha2.jrxml", l, new HashMap<>());
+        } catch (JRException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(FolhaCalculadaResource.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ApiException("Erro ao gerar o relatório: " + ex.getMessage());
+        }
+        return Response.ok(
+                new StreamingOutput() {
+                    @Override
+                    public void write(OutputStream outputStream) throws IOException, WebApplicationException {
+                        outputStream.write(bytesData);
+                    }
+                })
+                .header("Content-Disposition", contentDisposition.toString())
+                .header("Content-Type", "application/pdf")
+                .build();
     }
 
 }
