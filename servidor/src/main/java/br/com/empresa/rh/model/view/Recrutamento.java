@@ -33,4 +33,7 @@ public class Recrutamento {
         
     }
     
+    public static class Cidade {
+        
+    }
 }

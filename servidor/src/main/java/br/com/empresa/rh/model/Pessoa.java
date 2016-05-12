@@ -35,10 +35,9 @@ import org.hibernate.annotations.Type;
 )
 public class Pessoa implements java.io.Serializable {
 
-    
-    @JsonView({Folha.Funcionario.class,Recrutamento.Curriculo.class})
+    @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class})
     private int id;
-    @JsonView({Recrutamento.Curriculo.class,Folha.FuncionarioFicha.class})
+    @JsonView({Recrutamento.Curriculo.class,Folha.FuncionarioFicha.class, Recrutamento.Pessoa.class})
     private Cidade cidade;
     @JsonView({Recrutamento.Curriculo.class})
     private Cor cor;
@@ -48,19 +47,23 @@ public class Pessoa implements java.io.Serializable {
     private EstadoCivil estadoCivil;
     private Pessoa pessoaByPessoaId;
     private Pessoa pessoaByMaeId;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private String cpf;
     @JsonView({Folha.Funcionario.class, Recrutamento.Pessoa.class, Recrutamento.Curriculo.class})
     private String nome;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private Date dataNascimento;
-    @JsonView({Recrutamento.Curriculo.class})
-    private char sexo;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Pessoa.class})
+    private String telCelular;
+    @JsonView({Recrutamento.Pessoa.class})
+    private String telFixo;
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
+    private int sexo;
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private String endereco;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private String email;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private String rg;
     private Curriculo curriculo;
 
@@ -81,7 +84,7 @@ public class Pessoa implements java.io.Serializable {
     public Pessoa() {
     }
 
-    public Pessoa(int id, Cidade cidade, Escolaridade escolaridade, String nome, char sexo) {
+    public Pessoa(int id, Cidade cidade, Escolaridade escolaridade, String nome, int sexo) {
         this.id = id;
         this.cidade = cidade;
         this.escolaridade = escolaridade;
@@ -89,7 +92,7 @@ public class Pessoa implements java.io.Serializable {
         this.sexo = sexo;
     }
 
-    public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Date dataNascimento, char sexo, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, PessoaCarteira pessoaCarteira, Set<CurriculoExperiencia> curriculoExperiencias) {
+    public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Date dataNascimento, String telCelular, String telFixo, int sexo, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, PessoaCarteira pessoaCarteira, Set<CurriculoExperiencia> curriculoExperiencias) {
         this.id = id;
         this.cidade = cidade;
         this.cor = cor;
@@ -100,6 +103,8 @@ public class Pessoa implements java.io.Serializable {
         this.cpf = cpf;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
+        this.telCelular = telCelular;
+        this.telFixo = telFixo;
         this.sexo = sexo;
         this.endereco = endereco;
         this.email = email;
@@ -217,12 +222,30 @@ public class Pessoa implements java.io.Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    @Column(name = "sexo", nullable = false, length = 1)
-    public char getSexo() {
+    @Column(name = "tel_celular")
+    public String getTelCelular() {
+        return this.telCelular;
+    }
+
+    public void setTelCelular(String telCelular) {
+        this.telCelular = telCelular;
+    }
+
+    @Column(name = "tel_fixo")
+    public String getTelFixo() {
+        return this.telFixo;
+    }
+
+    public void setTelFixo(String telFixo) {
+        this.telFixo = telFixo;
+    }
+
+    @Column(name = "sexo", nullable = false)
+    public int getSexo() {
         return this.sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(int sexo) {
         this.sexo = sexo;
     }
 

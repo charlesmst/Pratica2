@@ -4,6 +4,8 @@ package br.com.empresa.rh.model;
 import br.com.empresa.rh.model.view.Folha;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -27,13 +29,11 @@ import javax.persistence.Table;
 )
 public class Cidade implements java.io.Serializable {
 
-    @JsonView({Folha.FuncionarioFicha.class})
-
+    @JsonView({Folha.FuncionarioFicha.class, Recrutamento.Usuario.class})
     private int id;
-
+    @JsonView({Recrutamento.Usuario.class})
     private Estado estado;
-    @JsonView({Folha.FuncionarioFicha.class})
-
+    @JsonView({Recrutamento.Usuario.class})
     private String nome;
     @JsonIgnore
     private Set<Empresa> empresas = new HashSet<Empresa>(0);

@@ -20,7 +20,6 @@ public class UsuarioService extends Service<Usuario> {
 
     public Usuario pessoaUsuario(String usuario) {
         List<Usuario> l = entityManager.createQuery("from Usuario u "
-                + " inner join fetch u.pessoa p "
                 + " where u.usuario like :usuario ")
                 .setParameter("usuario", usuario.toUpperCase())
                 .getResultList();
@@ -32,9 +31,12 @@ public class UsuarioService extends Service<Usuario> {
     @Transactional
     public List<Usuario> findForTable(TableRequest request) {
 
-        String hql = "select t from Usuario t ";
-        hql += request.applyFilter("id", "usuario");
-        hql += request.applyOrder("id", "usuario");
+        String hql = "select t from Usuario t "
+                + " inner join fetch t.pessoa p "
+                + " inner join fetch p.cidade c "
+                + " inner join fetch c.estado e";
+        hql += request.applyFilter("t.id", "usuario");
+        hql += request.applyOrder("t.id", "usuario");
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);

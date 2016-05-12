@@ -22,7 +22,8 @@ public class PessoaService extends Service<Pessoa>{
     public List<Pessoa> findForTable(TableRequest request) {
 
         
-        String hql = "select t from Pessoa t ";
+        String hql = "select t from Pessoa t "
+                + "left join fetch Cidade c";
         hql+= request.applyFilter("id","nome");     
         hql+= request.applyOrder("id","nome");        
         Query q = entityManager.createQuery(hql);

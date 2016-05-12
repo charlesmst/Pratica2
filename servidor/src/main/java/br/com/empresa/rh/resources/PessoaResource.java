@@ -62,7 +62,7 @@ public class PessoaResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Pessoa findById(@PathParam("id") long id) {
+    public Pessoa findById(@PathParam("id") int id) {
         Pessoa m = pessoaService.findById(id);
         return m;
     }
@@ -70,7 +70,7 @@ public class PessoaResource {
     @GET
     @Path("nivel/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Pessoa> findByNivel(@PathParam("id") long id) {
+    public List<Pessoa> findByNivel(@PathParam("id") int id) {
         return pessoaService.findAll();
     }
 
@@ -83,7 +83,7 @@ public class PessoaResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, Pessoa entity) {
+    public void update(@PathParam("id") int id, Pessoa entity) {
         pessoaService.update(entity);
 		
     }
@@ -91,7 +91,7 @@ public class PessoaResource {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("id") long id) {
+    public void delete(@PathParam("id") int id) {
         pessoaService.delete(id);
     }
 
