@@ -15,6 +15,7 @@ import br.com.empresa.rh.util.Relatorios;
 import br.com.empresa.rh.util.SecurityApiException;
 import br.com.empresa.rh.util.Utilitarios;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -177,8 +180,8 @@ public class FolhaCalculadaResource {
     @GET
     @Path("relatorio/{id}")
 
-    public Response relatorio(@PathParam("id") int id, @Context SecurityContext securityContext) {
-        ContentDisposition contentDisposition = new ContentDisposition("attachment;filename=pdffile.pdf");
+    public Response relatorio(@PathParam("id") int id, @Context SecurityContext securityContext, @Context ServletContext servletContext
+    ) {
         utilitarios.setSecutiryContext(securityContext);
         FolhaCalculada m = folhaCalculadaService.findById(id);
         if (!utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
@@ -193,12 +196,12 @@ public class FolhaCalculadaResource {
         List<FolhaResponse> l = Arrays.asList(r);
         final byte[] bytesData;
         try {
-            bytesData = relatorios.generateReport("C:\\Users\\charles\\JaspersoftWorkspace\\MyReports\\folha2.jrxml", l, new HashMap<>());
+            bytesData = relatorios.generateReport(servletContext.getRealPath("folha.jrxml"), l, new HashMap<>());
         } catch (JRException ex) {
-            ex.printStackTrace();
-            Logger.getLogger(FolhaCalculadaResource.class.getName()).log(Level.SEVERE, null, ex);
             throw new ApiException("Erro ao gerar o relatório: " + ex.getMessage());
         }
+        ContentDisposition contentDisposition = new ContentDisposition("attachment;filename=folha.pdf");
+
         return Response.ok(
                 new StreamingOutput() {
                     @Override

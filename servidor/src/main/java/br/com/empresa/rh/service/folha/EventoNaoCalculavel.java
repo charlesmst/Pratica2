@@ -41,7 +41,7 @@ public class EventoNaoCalculavel implements IEvento {
     }
 
     @Override
-    public void calcula(Parametros parametros, Consulta consultas, EventoCollection eventos, Console console, Utilitarios utilitarios, Stack<IEvento> stack) {
+    public void calcula(Folha folha,Parametros parametros, Consulta consultas, EventoCollection eventos, Console console, Utilitarios utilitarios, Stack<IEvento> stack) {
         throw new UnsupportedOperationException("Método não suportado.");
     }
 

@@ -79,7 +79,7 @@ public class EventoScript implements IEvento {
     }
 
     @Override
-    public void calcula(Parametros parametros, Consulta consulta, EventoCollection eventos, Console console, Utilitarios utilitarios, Stack<IEvento> stack) {
+    public void calcula(Folha folha,Parametros parametros, Consulta consulta, EventoCollection eventos, Console console, Utilitarios utilitarios, Stack<IEvento> stack) {
         if (stack.contains(this)) {
             throw new ApiException("Dependência mutua detectada em evento " + evento.getId(), null);
         }
@@ -92,7 +92,7 @@ public class EventoScript implements IEvento {
             for (IEvento e : eventos.getEventos()) {
                 if (e.getEvento().getId() == eventoDependencia.getEventoDependencia().getId()) {
                     if (!e.isCalculado()) {
-                        e.calcula(parametros, consulta, eventos, console, utilitarios, stack);
+                        e.calcula(folha,parametros, consulta, eventos, console, utilitarios, stack);
                     }
                     adicionado = true;
                     dependencia.add(eventoDependencia.getNomeVariavel(), e);
@@ -118,6 +118,7 @@ public class EventoScript implements IEvento {
         bindings.put("parametros", parametros);
         bindings.put("utilitarios", utilitarios);
         bindings.put("dependencia", dependencia);
+        bindings.put("folha", folha);
 
         nashornEngine.setBindings(bindings, ScriptContext.GLOBAL_SCOPE);
         try {

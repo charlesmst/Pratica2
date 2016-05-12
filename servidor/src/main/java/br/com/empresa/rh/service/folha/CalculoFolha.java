@@ -62,10 +62,10 @@ public class CalculoFolha {
     }
 
     public void calcula(FuncionarioCargo funcionario, Date data) {
-        calcula(funcionario, data, this.eventos, parametrosFuncionario(data, funcionario));
+        calcula(funcionario, data, this.eventos, parametrosFuncionario(data, funcionario), new Folha());
     }
 
-    public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos, Parametros parametros) {
+    public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos, Parametros parametros,Folha folha) {
 
         Consulta c = consultas(data, funcionario, parametros);
         Utilitarios u = new Utilitarios(parametros);
@@ -75,7 +75,7 @@ public class CalculoFolha {
         for (int ordem1 : ordem) {
             for (IEvento evento : eventos.getEventos()) {
                 if (ordem1 == evento.getEvento().getTipo() && !evento.isCalculado()) {
-                    evento.calcula(parametros, c, eventos, console, u, stack);
+                    evento.calcula(folha,parametros, c, eventos, console, u, stack);
                 }
             }
         }
@@ -107,17 +107,24 @@ public class CalculoFolha {
                     eventosFuncionario = eventoService.todosEventosFuncionario(funcionario, data);
                     break;
             }
-            calcula(funcionario, data, eventosFuncionario, parametros);
-            salvarEventos(funcionario, data, eventosFuncionario, mes, ano, tipo);
+            Folha folha = new Folha();
+            calcula(funcionario, data, eventosFuncionario, parametros,folha);
+            salvarEventos(funcionario, data, eventosFuncionario, mes, ano, tipo,folha);
         }
     }
 
-    private void salvarEventos(FuncionarioCargo funcionario, Date data, EventoCollection eventos, int mes, int ano, TipoCalculo tipo) {
+    private void salvarEventos(FuncionarioCargo funcionario, Date data, EventoCollection eventos, int mes, int ano, TipoCalculo tipo,Folha folhaDados) {
         FolhaCalculada folha = new FolhaCalculada(0, funcionario, data, new Date());
         folha.setMes(mes);
         folha.setAno(ano);
         folha.setTipo(tipo.getNumero());
 
+        folha.setSalario(folhaDados.getSalarioBase());
+        folha.setBaseFgts(folhaDados.getBaseFgts());
+        folha.setBaseInss(folhaDados.getBaseInss());
+        folha.setBaseIrrf(folhaDados.getBaseIrrf());
+        folha.setFgts(folhaDados.getFgts());
+        
         List<EventoFuncionario> eventosFuncionario = null;
         if (tipo == TipoCalculo.mes) {
             eventosFuncionario = eventoFuncionarioService.findForTable(null, funcionario, mes, ano);

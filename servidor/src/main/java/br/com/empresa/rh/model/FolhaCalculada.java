@@ -49,6 +49,12 @@ public class FolhaCalculada implements java.io.Serializable {
 
     private boolean excluido;
 
+    private double baseInss;
+    private double baseIrrf;
+    private double baseFgts;
+    private double fgts;
+    private double salario;
+
     public FolhaCalculada() {
     }
 
@@ -148,6 +154,49 @@ public class FolhaCalculada implements java.io.Serializable {
 
     public void setExcluido(boolean excluido) {
         this.excluido = excluido;
+    }
+    @Column(name = "base_inss")
+
+    public double getBaseInss() {
+        return baseInss;
+    }
+
+    public void setBaseInss(double baseInss) {
+        this.baseInss = baseInss;
+    }
+    @Column(name = "base_irrf")
+
+    public double getBaseIrrf() {
+        return baseIrrf;
+    }
+
+    public void setBaseIrrf(double baseIrrf) {
+        this.baseIrrf = baseIrrf;
+    }
+    @Column(name = "base_fgts")
+
+    public double getBaseFgts() {
+        return baseFgts;
+    }
+
+    public void setBaseFgts(double baseFgts) {
+        this.baseFgts = baseFgts;
+    }
+
+    public double getFgts() {
+        return fgts;
+    }
+
+    public void setFgts(double fgts) {
+        this.fgts = fgts;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
     }
 
 }

@@ -6,6 +6,7 @@ import br.com.empresa.rh.model.Evento;
 import br.com.empresa.rh.model.EventoFuncionario;
 import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.FolhaCalculadaEvento;
+import br.com.empresa.rh.model.Funcionario;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.response.EventoFolha;
@@ -46,7 +47,8 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
                 + " inner join fetch unidade.empresa "
                 + " inner join fetch fc.cargo cargo "
                 + " inner join fetch cargo.cbo "
-                + " inner join fetch fc.funcionario funcionario"
+                + " inner join fetch fc.funcionario funcionario "
+                + " left outer join fetch funcionario.banco "
                 + " inner join fetch funcionario.pessoa  fp "
                 + " where f.id = :id  and f.excluido is false ", FolhaCalculada.class).setParameter("id", id).getSingleResult();
         return f;
@@ -271,13 +273,40 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         fr.setEventos(new ArrayList<EventoFolha>());
         fr.setEventosInvisiveis(new ArrayList<EventoFolha>());
         //Dados do cabecalho
-        fr.setNome(folhaCalculada.getFuncionarioCargo().getFuncionario().getPessoa().getNome());
+        Funcionario f = folhaCalculada.getFuncionarioCargo().getFuncionario();
+        fr.setNome(f.getPessoa().getCpf() + " - " + f.getPessoa().getNome());
         fr.setCargo(folhaCalculada.getFuncionarioCargo().getCargo().getNome());
         fr.setCbo(folhaCalculada.getFuncionarioCargo().getCargo().getCbo().getId() + "");
-        fr.setEmpresa(folhaCalculada.getFuncionarioCargo().getUnidade().getEmpresa().getNome());
+        Empresa e = folhaCalculada.getFuncionarioCargo().getUnidade().getEmpresa();
+        fr.setEmpresa(e.getCnpj() + " - " + e.getNome());
         fr.setCompetencia(new SimpleDateFormat("MM/yyyy").format(folhaCalculada.getDataReferente()));
         fr.setAdmissao(folhaCalculada.getFuncionarioCargo().getDataEntrada());
         fr.setUnidade(folhaCalculada.getFuncionarioCargo().getUnidade().getNome());
+        if (f.getBanco() != null) {
+            fr.setConta(f.getConta());
+            fr.setAgencia(f.getAgencia()+"");
+        }
+        if (folhaCalculada.getSalario() <= 0) {
+            fr.setSalarioBase("");
+        } else {
+            fr.setSalarioBase(Utilitarios.formataDinheiro(folhaCalculada.getSalario()));
+        }
+        if (folhaCalculada.getBaseInss() <= 0) {
+            fr.setBaseInss("");
+        } else {
+            fr.setBaseInss(Utilitarios.formataDinheiro(folhaCalculada.getBaseInss()));
+        }
+        if (folhaCalculada.getBaseFgts() <= 0) {
+            fr.setBaseFgts("");
+        } else {
+            fr.setBaseFgts(Utilitarios.formataDinheiro(folhaCalculada.getBaseFgts()));
+        }
+        if (folhaCalculada.getBaseIrrf() <= 0) {
+            fr.setBaseIrrf("");
+        } else {
+            fr.setBaseIrrf(Utilitarios.formataDinheiro(folhaCalculada.getBaseIrrf()));
+        }
+        fr.setFgts(Utilitarios.formataDinheiro(folhaCalculada.getFgts()));
 //Eventos
         for (FolhaCalculadaEvento eventoCalculado : folhaCalculada.getFolhaCalculadaEventos()) {
             EventoFolha evento = new EventoFolha();
@@ -326,20 +355,19 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
                 break;
 
         }
-        
+
         fr.getEventos().sort(new Comparator<EventoFolha>() {
             @Override
             public int compare(EventoFolha f1, EventoFolha f2) {
-                if((f1.getValorVencimento() > 0 && f2.getValorVencimento() > 0) || (f1.getValorDesconto() > 0 && f2.getValorDesconto() > 0))
-                    return 0;
-                else if(f1.getValorVencimento() > 0)
+                if ((f1.getValorVencimento() > 0 && f2.getValorVencimento() > 0) || (f1.getValorDesconto() > 0 && f2.getValorDesconto() > 0)) {
+                    return Integer.compare(f1.getId(), f2.getId());
+                } else if (f1.getValorVencimento() > 0) {
                     return -1;
-                else 
+                } else {
                     return 1;
+                }
             }
         });
-
-        
 
         return fr;
     }

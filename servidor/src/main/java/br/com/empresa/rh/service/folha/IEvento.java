@@ -22,7 +22,7 @@ public interface IEvento {
 
     boolean isAplicavel();
     
-    void calcula(Parametros parametros,Consulta consultas,EventoCollection eventos,Console console,Utilitarios utilitarios,Stack<IEvento> stack);
+    void calcula(Folha folha,Parametros parametros,Consulta consultas,EventoCollection eventos,Console console,Utilitarios utilitarios,Stack<IEvento> stack);
     
     boolean isCalculado();
 }
