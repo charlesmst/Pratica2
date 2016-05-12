@@ -144,5 +144,36 @@
                         }
                     }
                 })
+                
+                .state('usuario', {
+                    url: '/usuario',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/usuario.tmpl.html',
+                            controller: "UsuarioController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('usuarioadd', {
+                    url: '/usuario/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/usuario.edit.tmpl.html',
+                            controller: "UsuarioEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('usuarioedit', {
+                    url: '/usuario/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/usuario.edit.tmpl.html',
+                            controller: "UsuarioEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
     }
 })()

@@ -13,6 +13,11 @@
                     "link": "login",
                     "title": "Login",
                     "icon": "dashboard"
+                },
+                {
+                    "link": "usuarioadd",
+                    "title": "Cadastre-se",
+                    "icon": "dashboard"
                 }
             ]
         }

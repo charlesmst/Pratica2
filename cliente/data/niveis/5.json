@@ -75,6 +75,11 @@
                     "link": "curriculo",
                     "title": "Currículo",
                     "icon": "dashboard"
+                },
+                {
+                    "link": "usuario",
+                    "title": "Cadastre-se",
+                    "icon": "dashboard"
                 }
             ]
         }
