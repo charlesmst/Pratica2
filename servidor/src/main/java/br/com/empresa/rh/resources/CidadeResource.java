@@ -67,13 +67,6 @@ public class CidadeResource {
         return m;
     }
 
-    @GET
-    @Path("nivel/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Cidade> findByNivel(@PathParam("id") long id) {
-        return cidadeService.findAll();
-    }
-
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(Cidade m) {

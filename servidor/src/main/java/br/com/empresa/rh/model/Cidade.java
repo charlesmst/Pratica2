@@ -29,11 +29,11 @@ import javax.persistence.Table;
 )
 public class Cidade implements java.io.Serializable {
 
-    @JsonView({Folha.FuncionarioFicha.class, Recrutamento.Usuario.class})
+    @JsonView({Folha.FuncionarioFicha.class, Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
     private int id;
-    @JsonView({Recrutamento.Usuario.class})
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
     private Estado estado;
-    @JsonView({Recrutamento.Usuario.class})
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
     private String nome;
     @JsonIgnore
     private Set<Empresa> empresas = new HashSet<Empresa>(0);

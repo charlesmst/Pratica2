@@ -77,9 +77,11 @@ public class UsuarioResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(Usuario m) {
-        usuarioService.insert(m);
         Pessoa p = new Pessoa();
-        
+        p = m.getPessoa();
+        pessoaService.insert(p);
+        m.setNivel(1);
+        usuarioService.insert(m);
     }
 
     @POST
@@ -95,6 +97,9 @@ public class UsuarioResource {
         p.setTelFixo(entity.getPessoa().getTelFixo());
         p.setSexo(entity.getPessoa().getSexo());
         p.setDataNascimento(entity.getPessoa().getDataNascimento());
+        p.setCidade(entity.getPessoa().getCidade());
+        p.setEndereco(entity.getPessoa().getEndereco());
+        p.setEscolaridade(entity.getPessoa().getEscolaridade());
         pessoaService.update(p);
         
         Usuario u = usuarioService.findById(id);

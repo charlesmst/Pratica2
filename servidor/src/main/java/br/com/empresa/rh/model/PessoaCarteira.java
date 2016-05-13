@@ -3,6 +3,8 @@ package br.com.empresa.rh.model;
 
 
 
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +29,9 @@ public class PessoaCarteira  implements java.io.Serializable {
 
      private int pessoaId;
      private Pessoa pessoa;
+     @JsonView({Recrutamento.Curriculo.class})
      private String cnh;
+     @JsonView({Recrutamento.Curriculo.class})
      private String categoria;
 
     public PessoaCarteira() {
@@ -61,8 +65,7 @@ public class PessoaCarteira  implements java.io.Serializable {
     }
 
     
-    @Column(name="cnh", nullable=false, length=11)
-    @Type(type = "char")
+    @Column(name="cnh", nullable=false, length = 11, columnDefinition = "bpchar(11)")
     public String getCnh() {
         return this.cnh;
     }

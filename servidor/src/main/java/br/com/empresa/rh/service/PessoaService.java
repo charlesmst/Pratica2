@@ -23,7 +23,8 @@ public class PessoaService extends Service<Pessoa>{
 
         
         String hql = "select t from Pessoa t "
-                + "left join fetch Cidade c";
+                + "left join fetch Cidade c "
+                + "left join fetch Escolaridade e";
         hql+= request.applyFilter("id","nome");     
         hql+= request.applyOrder("id","nome");        
         Query q = entityManager.createQuery(hql);

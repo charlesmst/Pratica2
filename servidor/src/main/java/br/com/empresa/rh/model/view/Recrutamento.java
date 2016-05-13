@@ -36,4 +36,16 @@ public class Recrutamento {
     public static class Cidade {
         
     }
+    
+    public static class EstadoCivil {
+        
+    }
+    
+    public static class Cor {
+        
+    }
+    
+    public static class PessoaCarteira{
+        
+    }
 }

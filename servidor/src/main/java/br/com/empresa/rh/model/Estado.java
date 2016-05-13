@@ -20,7 +20,7 @@ import javax.persistence.Table;
 )
 public class Estado implements java.io.Serializable {
 
-    @JsonView(Recrutamento.Usuario.class)
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
     private String uf;
     private String nome;
     private Set<Cidade> cidades = new HashSet<Cidade>(0);

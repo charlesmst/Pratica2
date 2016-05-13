@@ -22,7 +22,16 @@ public class CurriculoService extends Service<Curriculo>{
     public List<Curriculo> findForTable(TableRequest request) {
 
         
-        String hql = "select t from Curriculo t ";
+        String hql = "select t from Curriculo t "
+                + " inner join fetch t.pessoa p "
+                + " left join fetch p.cor "
+                + " inner join fetch p.escolaridade "
+                + " left join fetch p.estadoCivil "
+                + " left join fetch p.necessidadeEspecials "
+                + " left join fetch p.pessoaCarteira "
+                + " left join fetch p.curriculoExperiencias "
+                + " inner join fetch p.cidade c "
+                + " inner join fetch c.estado uf ";
         hql+= request.applyFilter("pessoaId");     
         hql+= request.applyOrder("pessoaId");        
         Query q = entityManager.createQuery(hql);

@@ -1,7 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
-
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -19,64 +20,58 @@ import javax.persistence.Table;
  */
 @Entity
 @SequenceGenerator(name = "escolaridade_seq", sequenceName = "escolaridade_seq", initialValue = 1, allocationSize = 1)
-@Table(name="escolaridade"
-    ,schema="public"
+@Table(name = "escolaridade", schema = "public"
 )
-public class Escolaridade  implements java.io.Serializable {
+public class Escolaridade implements java.io.Serializable {
 
-
-     private int id;
-     private String nome;
-     private Set<Pessoa> pessoas = new HashSet<Pessoa>(0);
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
+    private int id;
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
+    private String nome;
+    private Set<Pessoa> pessoas = new HashSet<Pessoa>(0);
 
     public Escolaridade() {
     }
 
-	
     public Escolaridade(int id, String nome) {
         this.id = id;
         this.nome = nome;
     }
+
     public Escolaridade(int id, String nome, Set<Pessoa> pessoas) {
-       this.id = id;
-       this.nome = nome;
-       this.pessoas = pessoas;
+        this.id = id;
+        this.nome = nome;
+        this.pessoas = pessoas;
     }
-   
-     @Id 
-     @GeneratedValue(generator = "escolaridade_seq", strategy = GenerationType.SEQUENCE)
-    
-    @Column(name="id", unique=true, nullable=false)
+
+    @Id
+    @GeneratedValue(generator = "escolaridade_seq", strategy = GenerationType.SEQUENCE)
+
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
 
-    
-    @Column(name="nome", nullable=false, length=100)
+    @Column(name = "nome", nullable = false, length = 100)
     public String getNome() {
         return this.nome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="escolaridade")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "escolaridade")
     public Set<Pessoa> getPessoas() {
         return this.pessoas;
     }
-    
+
     public void setPessoas(Set<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
 
-
-
-
 }
-
-

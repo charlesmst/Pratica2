@@ -37,11 +37,11 @@ public class Pessoa implements java.io.Serializable {
 
     @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class})
     private int id;
-    @JsonView({Recrutamento.Curriculo.class,Folha.FuncionarioFicha.class, Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Recrutamento.Pessoa.class})
     private Cidade cidade;
     @JsonView({Recrutamento.Curriculo.class})
     private Cor cor;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private Escolaridade escolaridade;
     @JsonView({Recrutamento.Curriculo.class})
     private EstadoCivil estadoCivil;
@@ -53,12 +53,16 @@ public class Pessoa implements java.io.Serializable {
     private String nome;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private Date dataNascimento;
-    @JsonView({Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Pessoa.class, Recrutamento.Curriculo.class})
     private String telCelular;
-    @JsonView({Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Pessoa.class, Recrutamento.Curriculo.class})
     private String telFixo;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private int sexo;
+    @JsonView({Recrutamento.Curriculo.class})
+    private String cep;
+    @JsonView({Recrutamento.Curriculo.class})
+    private String bairro;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
     private String endereco;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
@@ -71,6 +75,7 @@ public class Pessoa implements java.io.Serializable {
     private Funcionario funcionario;
     private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
     private Usuario usuario;
+    @JsonView({Recrutamento.Curriculo.class})
     private Set<NecessidadeEspecial> necessidadeEspecials = new HashSet<NecessidadeEspecial>(0);
     private Set<Candidato> candidatos = new HashSet<Candidato>(0);
     private Set<Pessoa> pessoasForPessoaId = new HashSet<Pessoa>(0);
@@ -92,7 +97,7 @@ public class Pessoa implements java.io.Serializable {
         this.sexo = sexo;
     }
 
-    public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Date dataNascimento, String telCelular, String telFixo, int sexo, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, PessoaCarteira pessoaCarteira, Set<CurriculoExperiencia> curriculoExperiencias) {
+    public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Date dataNascimento, String telCelular, String telFixo, int sexo, String cep, String bairro, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, PessoaCarteira pessoaCarteira, Set<CurriculoExperiencia> curriculoExperiencias) {
         this.id = id;
         this.cidade = cidade;
         this.cor = cor;
@@ -106,6 +111,8 @@ public class Pessoa implements java.io.Serializable {
         this.telCelular = telCelular;
         this.telFixo = telFixo;
         this.sexo = sexo;
+        this.bairro = bairro;
+        this.cep = cep;
         this.endereco = endereco;
         this.email = email;
         this.rg = rg;
@@ -249,7 +256,25 @@ public class Pessoa implements java.io.Serializable {
         this.sexo = sexo;
     }
 
-    @Column(name = "endereco", length = 100)
+    @Column(name = "cep", length = 10)
+    public String getCep() {
+        return this.cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    @Column(name = "bairro", length = 100)
+    public String getBairro() {
+        return this.bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    @Column(name = "endereco", length = 200)
     public String getEndereco() {
         return this.endereco;
     }

@@ -1,6 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,13 +26,20 @@ import javax.persistence.TemporalType;
 )
 public class CurriculoExperiencia implements java.io.Serializable {
 
+    @JsonView({Recrutamento.Curriculo.class})
     private int id;
     private Pessoa pessoa;
+    @JsonView({Recrutamento.Curriculo.class})
     private String atribuicao;
+    @JsonView({Recrutamento.Curriculo.class})
     private Date dataInicial;
+    @JsonView({Recrutamento.Curriculo.class})
     private Date dataFinal;
+    @JsonView({Recrutamento.Curriculo.class})
     private String pessoaReferencia;
+    @JsonView({Recrutamento.Curriculo.class})
     private String pessoaContato;
+    @JsonView({Recrutamento.Curriculo.class})
     private String empresa;
 
     public CurriculoExperiencia() {

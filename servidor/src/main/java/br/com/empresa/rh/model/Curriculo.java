@@ -28,7 +28,6 @@ public class Curriculo implements java.io.Serializable {
     @JsonView(Recrutamento.Curriculo.class)
     private Pessoa pessoa;
     @JsonView(Recrutamento.Curriculo.class)
-
     private String objetivo;
 
     public Curriculo() {
