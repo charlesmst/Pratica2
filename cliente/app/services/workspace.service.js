@@ -17,6 +17,7 @@
         vm.showConfirmDialog = showConfirmDialog;
         vm.showError = showError;
         vm.callbackOnEnterState = callbackOnEnterState;
+        vm.currentLoading = 0;
         $rootScope.$on('$stateChangeStart', setDefaults)
 
         init()
@@ -56,42 +57,45 @@
         }
         function showDeleteDialog($event) {
             var confirm = $mdDialog.confirm("Wa")
-                    .title('Gostaria de excluir?')
-                    .textContent('O registro será perdido.')
-                    .ok('Sim')
-                    .cancel('Não').openFrom($event.target).closeTo($event.target)
+                .title('Gostaria de excluir?')
+                .textContent('O registro será perdido.')
+                .ok('Sim')
+                .cancel('Não').openFrom($event.target).closeTo($event.target)
             return $mdDialog.show(confirm)
 
         }
         function showConfirmDialog($event, titulo, mensagem) {
             var confirm = $mdDialog.confirm("Wa")
-                    .title(titulo)
-                    .textContent(mensagem)
-                    .ok('Sim')
-                    .cancel('Não').openFrom($event.target).closeTo($event.target)
+                .title(titulo)
+                .textContent(mensagem)
+                .ok('Sim')
+                .cancel('Não').openFrom($event.target).closeTo($event.target)
             return $mdDialog.show(confirm)
 
         }
+        function stopLoading() {
+            vm.currentLoading--;
+            if (vm.currentLoading < 0)
+                vm.currentLoading = 0;
+        }
         function loading(message, p) {
-            var toast = $mdToast.simple()
-                    .textContent(message)
-                    .position("bottom left");
-            toast.hide = function () {
-                $mdToast.hide(toast)
-            }
-            $mdToast.show(toast)
+
+            vm.currentLoading++;
             if (p) {
-                return p.then(toast.hide, toast.hide)
+                return p.then(stopLoading, stopLoading)
             }
-            return toast;
+            vm.currentLoading--;
+            return {
+                hide: stopLoading
+            };
         }
         function showMessage(message) {
             $mdToast.show(
-                    $mdToast.simple()
+                $mdToast.simple()
                     .textContent(message)
                     .position("bottom left")
                     .hideDelay(3000)
-                    );
+            );
         }
         function showError(message) {
             $mdToast.show({
@@ -111,8 +115,8 @@
         }
 
         function toDate(str) {
-            var d =  new Date(str)
-            d.setDate(d.getDate()+1)
+            var d = new Date(str)
+            d.setDate(d.getDate() + 1)
             return d;
         }
         function callbackOnEnterState(scope, $state, callback) {

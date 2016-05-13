@@ -4,7 +4,8 @@
     function FolhaCalculada($resource,config) {
         return  $resource(config.apiUrl+'/folhacalculada/:id', {id: '@id'}, {
             
-            count: {method: "GET", isArray: false, url:config.apiUrl+"/folhacalculada/count"}
+            count: {method: "GET", isArray: false, url:config.apiUrl+"/folhacalculada/count"},
+            relatorio:{method:"GET",isArray:true}
 
         });
     }

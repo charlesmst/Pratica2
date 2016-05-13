@@ -14,6 +14,8 @@
 </head>
 
 <body layout="row" ng-cloak>
+   
+</div>
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
         <md-toolbar class="md-tall md-hue-2" ng-show="appVm.authorizationData.currentUser">
             <span flex></span>
@@ -68,6 +70,8 @@
             <div ui-view="top">
 
             </div>
+             <md-progress-linear md-mode="indeterminate" ng-show="appVm.workspace.currentLoading" ></md-progress-linear>
+ 
 
         </md-toolbar>
         <md-toolbar class="md-hue-1 md-whiteframe-2dp" ng-show="appVm.workspace.showSearch">
@@ -112,6 +116,8 @@
     <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-mask/dist/mask.js"></script>
     <script src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+    <script src="bower_components/FileSaver/FileSaver.min.js"></script>
+    
     <script src="app/app.module.js"></script>
     <script src="app/app.config.js"></script>
     <script src="app/app.route.js"></script>
@@ -122,6 +128,8 @@
     <script src="app/cargo/app.route.js"></script>
     <script src="app/ficha/app.route.js"></script>
     <script src="app/services/permissoes.service.js"></script>
+    <script src="app/services/download.service.js"></script>
+    
     <script src="app/folha/folha-modal.controller.js"></script>
 
     <!-- questao -->

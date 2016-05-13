@@ -1,10 +1,10 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FolhaCalculadaController', ['FolhaCalculada', '$state', 'Workspace', '$q', 'Permissoes', '$mdDialog', '$scope', FolhaCalculadaController]);
+    angular.module('app').controller('FolhaCalculadaController', ['FolhaCalculada', '$state', 'Workspace', '$q', 'Permissoes', '$mdDialog', '$scope','Download', FolhaCalculadaController]);
 
     var state = "folhacalculada"
 
-    function FolhaCalculadaController(FolhaCalculada, $state, Workspace, $q, Permissoes, $mdDialog, $scope) {
+    function FolhaCalculadaController(FolhaCalculada, $state, Workspace, $q, Permissoes, $mdDialog, $scope,Download) {
         var vm = this;
 
         vm.showDelete = showDelete;
@@ -12,11 +12,13 @@
         vm.showFolha = showFolha;
         vm.onPaginate = onPaginate;
         vm.onReorder = onReorder;
+        vm.printFiles = printFiles
         vm.permissoes = {};
         vm.list = [];
         vm.entity = {};
         vm.selectedItems = [];
         Workspace.title = "Folha de Pagamento";
+        
         //        Workspace.enableSearch(onFilter)
 
         vm.tiposFolha = [
@@ -112,7 +114,14 @@
         function getNome(tipo) {
             return vm.tiposFolha[parseInt(tipo)]
         }
-
+        function printFiles($event){
+            var files = vm.selectedItems.map(function(v){
+                return v.id;
+            })
+            console.log(files)
+            Workspace.loading("Baixando...",Download.downloadFile('/folhacalculada/relatorio',{"ids":files},'folha'));
+            
+        }
 
     }
 
