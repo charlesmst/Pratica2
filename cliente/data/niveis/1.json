@@ -2,11 +2,16 @@
     "inicial": "menu",
     "menus": [
         {
-            "title":"Candidato",
+            "title":"Recrutamento",
             "links": [
                 {
-                    "link": "menu",
-                    "title": "Menus",
+                    "link": "curriculoedit",
+                    "title": "Currículo",
+                    "icon": "dashboard"
+                },
+                {
+                    "link": "usuarioedit",
+                    "title": "Perfil",
                     "icon": "dashboard"
                 }
             ]
