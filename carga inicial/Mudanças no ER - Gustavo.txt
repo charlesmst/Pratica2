@@ -1,0 +1,13 @@
+tabela pessoa
+sexo mudei de char pra int NOT NULL,
+mudei o endereco de VARCHAR(100) pra VARCHAR(200)
+adicionei = 
+
+tel_celular VARCHAR(30) ,
+tel_fixo VARCHAR(30) ,
+bairro VARCHAR(100)  ,
+cep VARCHAR(10),
+
+
+-----//---------///-------------///
+
