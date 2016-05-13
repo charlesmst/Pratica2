@@ -50,7 +50,7 @@
             });
         }
         function showAdd() {
-            $state.go('fichafuncionarioevento.add').then(loadCargos)
+            $state.go('fichafuncionarioevento.add',{"idCargo": vm.funcionarioCargo.id}).then(loadCargos)
         }
 
         function showEdit(e, id) {

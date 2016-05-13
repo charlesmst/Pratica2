@@ -77,7 +77,7 @@
                     }
                 })
                 .state('fichafuncionarioevento.add', {
-                    url: "/add",
+                    url: "/:idCargo/add",
                     onEnter: onEnterModal('FuncionarioEventoEditController', 'app/folha/funcionario-evento.edit.tmpl.html', 'fichafuncionarioevento'),
                     onExit: function ($mdDialog) {
                         $mdDialog.hide();

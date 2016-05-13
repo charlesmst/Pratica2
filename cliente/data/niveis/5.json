@@ -54,6 +54,11 @@
                 "link": "unidade",
                         "title": "Unidades",
                         "icon": "dashboard"
+                },
+                {
+                "link": "ficha",
+                        "title": "Ficha",
+                        "icon": "dashboard"
                 }
             ]
         },

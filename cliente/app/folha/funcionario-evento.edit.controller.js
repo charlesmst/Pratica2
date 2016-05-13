@@ -29,7 +29,7 @@
             } else
                 vm.entity.dataFim = null;
             vm.entity.funcionarioCargo = {
-                id: $stateParams.id
+                id: $stateParams.idCargo
             }
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
         }
