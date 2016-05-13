@@ -75,7 +75,7 @@ INSERT INTO usuario (pessoa_id, usuario, senha, nivel) VALUES (1, 'FUNCIONARIO',
 
 INSERT INTO funcionario(pessoa_id,vinculo_empregaticio_id,banco_id,conta,agencia) VALUES (1,1,1,'123','123');
 
-INSERT INTO dependente values(1,2,1,'2016-01-01',null)
+INSERT INTO dependente values(1,2,1,'2016-01-01',null);
 
 
 
