@@ -34,6 +34,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -178,22 +179,27 @@ public class FolhaCalculadaResource {
     }
 
     @GET
-    @Path("relatorio/{id}")
+    @Path("relatorio")
 
-    public Response relatorio(@PathParam("id") int id, @Context SecurityContext securityContext, @Context ServletContext servletContext
+    public Response relatorio(@QueryParam("ids") List<Integer> ids, @Context SecurityContext securityContext, @Context ServletContext servletContext
     ) {
         utilitarios.setSecutiryContext(securityContext);
-        FolhaCalculada m = folhaCalculadaService.findById(id);
-        if (!utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
-            if (m.getFuncionarioCargo().getFuncionario().getPessoaId() != utilitarios.usuario()) {
-                throw new SecurityApiException();
+        List<FolhaResponse> l = new ArrayList<>();
+
+        for (Integer id : ids) {
+
+            FolhaCalculada m = folhaCalculadaService.findById(id);
+            if (!utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
+                if (m.getFuncionarioCargo().getFuncionario().getPessoaId() != utilitarios.usuario()) {
+                    throw new SecurityApiException();
+                }
             }
+            FolhaResponse r = folhaCalculadaService.fromFolhaCalculada(m);
+            if (!utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
+                r.setEventosInvisiveis(null);
+            }
+            l.add(r);
         }
-        FolhaResponse r = folhaCalculadaService.fromFolhaCalculada(m);
-        if (!utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
-            r.setEventosInvisiveis(null);
-        }
-        List<FolhaResponse> l = Arrays.asList(r);
         final byte[] bytesData;
         try {
             bytesData = relatorios.generateReport(servletContext.getRealPath("folha.jrxml"), l, new HashMap<>());

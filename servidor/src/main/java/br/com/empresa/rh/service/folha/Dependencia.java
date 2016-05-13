@@ -5,6 +5,9 @@
  */
 package br.com.empresa.rh.service.folha;
 
+import br.com.empresa.rh.model.Evento;
+import br.com.empresa.rh.model.FolhaCalculada;
+import br.com.empresa.rh.model.FolhaCalculadaEvento;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +18,7 @@ import org.joda.time.DateTime;
  * @author charles
  */
 public class Dependencia {
+
     private Consulta consulta;
     private HashMap<String, IEvento> eventos;
 
@@ -26,7 +30,7 @@ public class Dependencia {
     public void add(String nome, IEvento valor) {
         eventos.put(nome, valor);
     }
-    
+
     public IEvento get(String identificador) {
         if (eventos.containsKey(identificador) && eventos.get(identificador).isCalculado()) {
             return eventos.get(identificador);
@@ -42,16 +46,38 @@ public class Dependencia {
             return null;
         }
     }
-    public double getValorPeriodo(String identificador,int mesinicio,int anoinicio,int mesfim, int anofim){
-        if(eventos.containsKey(identificador)){
+
+    public double getValorPeriodo(String identificador, int mesinicio, int anoinicio, int mesfim, int anofim) {
+        if (eventos.containsKey(identificador)) {
             return consulta.getValorEventoPeriodo(eventos.get(identificador).getEvento(), mesinicio, anoinicio, mesfim, anofim);
-        }else{
+        } else {
             throw new FolhaException("Evento do identificador não encontrado");
         }
     }
-    public double getValorPeriodo(String identificador,Date dinicio,Date dfim){
+
+    public double getValorPeriodo(String identificador, Date dinicio, Date dfim) {
         DateTime dini = new DateTime(dinicio);
         DateTime df = new DateTime(dfim);
-        return getValorPeriodo(identificador, dini.getMonthOfYear(), dini.getYear(),df.getMonthOfYear(),df.getYear());
+        return getValorPeriodo(identificador, dini.getMonthOfYear(), dini.getYear(), df.getMonthOfYear(), df.getYear());
+    }
+
+    public double getProjecao(String identificador, int mesInicio, int anoInicio, int mesFim, int anoFim) {
+        if (eventos.containsKey(identificador)) {
+            Evento evento = eventos.get(identificador).getEvento();
+            List<FolhaCalculada> folhas = consulta.getProjecao(mesInicio, anoInicio, mesFim, anoFim);
+            double valorTotal = 0;
+            for (FolhaCalculada folha : folhas) {
+                for (FolhaCalculadaEvento folhaCalculadaEvento : folha.getFolhaCalculadaEventos()) {
+                    if (folhaCalculadaEvento.getEvento().getId() == evento.getId()) {
+                        valorTotal += folhaCalculadaEvento.getValor();
+                        break;
+                    }
+                }
+            }
+            return valorTotal;
+        } else {
+            throw new FolhaException("Evento do identificador não encontrado");
+        }
+
     }
 }

@@ -65,7 +65,7 @@ public class CalculoFolha {
         calcula(funcionario, data, this.eventos, parametrosFuncionario(data, funcionario), new Folha());
     }
 
-    public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos, Parametros parametros,Folha folha) {
+    public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos, Parametros parametros, Folha folha) {
 
         Consulta c = consultas(data, funcionario, parametros);
         Utilitarios u = new Utilitarios(parametros);
@@ -75,7 +75,7 @@ public class CalculoFolha {
         for (int ordem1 : ordem) {
             for (IEvento evento : eventos.getEventos()) {
                 if (ordem1 == evento.getEvento().getTipo() && !evento.isCalculado()) {
-                    evento.calcula(folha,parametros, c, eventos, console, u, stack);
+                    evento.calcula(folha, parametros, c, eventos, console, u, stack);
                 }
             }
         }
@@ -83,8 +83,12 @@ public class CalculoFolha {
     }
 
     public void calcularTodos(List<FuncionarioCargo> funcionarios, int mes, int ano, TipoCalculo tipo) {
-        Date data = utilitarios.dataPeriodo(mes, ano);
+        calcularTodos(funcionarios, mes, ano, tipo, true);
+    }
 
+    public List<FolhaCalculada> calcularTodos(List<FuncionarioCargo> funcionarios, int mes, int ano, TipoCalculo tipo, boolean salvar) {
+        Date data = utilitarios.dataPeriodo(mes, ano);
+        List<FolhaCalculada> folhas = new ArrayList<>();
         for (FuncionarioCargo funcionario : funcionarios) {
 
             Parametros parametros = parametrosFuncionario(data, funcionario);
@@ -108,12 +112,15 @@ public class CalculoFolha {
                     break;
             }
             Folha folha = new Folha();
-            calcula(funcionario, data, eventosFuncionario, parametros,folha);
-            salvarEventos(funcionario, data, eventosFuncionario, mes, ano, tipo,folha);
+            calcula(funcionario, data, eventosFuncionario, parametros, folha);
+
+            FolhaCalculada folhaCalculada = salvarEventos(funcionario, data, eventosFuncionario, mes, ano, tipo, folha, salvar);
+            folhas.add(folhaCalculada);
         }
+        return folhas;
     }
 
-    private void salvarEventos(FuncionarioCargo funcionario, Date data, EventoCollection eventos, int mes, int ano, TipoCalculo tipo,Folha folhaDados) {
+    private FolhaCalculada salvarEventos(FuncionarioCargo funcionario, Date data, EventoCollection eventos, int mes, int ano, TipoCalculo tipo, Folha folhaDados, boolean salvar) {
         FolhaCalculada folha = new FolhaCalculada(0, funcionario, data, new Date());
         folha.setMes(mes);
         folha.setAno(ano);
@@ -124,7 +131,7 @@ public class CalculoFolha {
         folha.setBaseInss(folhaDados.getBaseInss());
         folha.setBaseIrrf(folhaDados.getBaseIrrf());
         folha.setFgts(folhaDados.getFgts());
-        
+
         List<EventoFuncionario> eventosFuncionario = null;
         if (tipo == TipoCalculo.mes) {
             eventosFuncionario = eventoFuncionarioService.findForTable(null, funcionario, mes, ano);
@@ -151,7 +158,10 @@ public class CalculoFolha {
                 }
             }
         }
-        folhaCalculadaService.insert(folha);
+        if (salvar) {
+            folhaCalculadaService.insert(folha);
+        }
+        return folha;
     }
 
     private Parametros parametrosFuncionario(Date data, FuncionarioCargo func) {
@@ -161,7 +171,7 @@ public class CalculoFolha {
     }
 
     private Consulta consultas(Date data, FuncionarioCargo func, Parametros parametros) {
-        return new Consulta(tabelaService, data, func, faixaSalarialService, dependenteService, feriasService, parametros, eventoService);
+        return new Consulta(this, tabelaService, data, func, faixaSalarialService, dependenteService, feriasService, parametros, eventoService, folhaCalculadaService);
     }
 
     public HashMap<String, Object> getLog() {

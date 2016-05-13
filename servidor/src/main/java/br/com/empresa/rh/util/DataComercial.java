@@ -25,6 +25,7 @@ public class DataComercial {
         mes++;
         if (mes > 12) {
             ano++;
+            mes = 1;
         }
     }
 
@@ -54,6 +55,16 @@ public class DataComercial {
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    public int compareTo(DataComercial data) {
+        if (data.getAno() == getAno() && data.getMes() == getMes()) {
+            return 0;
+        } else if (getAno() < data.getAno() || (getAno() == data.getAno() && getMes() < data.getMes())) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
 }
