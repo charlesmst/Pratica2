@@ -31,9 +31,9 @@ public class Cidade implements java.io.Serializable {
 
     @JsonView({Folha.FuncionarioFicha.class, Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
     private int id;
-    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private Estado estado;
-    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private String nome;
     @JsonIgnore
     private Set<Empresa> empresas = new HashSet<Empresa>(0);

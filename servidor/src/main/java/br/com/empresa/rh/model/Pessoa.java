@@ -37,37 +37,41 @@ public class Pessoa implements java.io.Serializable {
 
     @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class})
     private int id;
+
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Recrutamento.Pessoa.class})
+
     private Cidade cidade;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private Cor cor;
-    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
+
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private Escolaridade escolaridade;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private EstadoCivil estadoCivil;
+  
     private Pessoa pessoaByPessoaId;
     private Pessoa pessoaByMaeId;
-    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String cpf;
-    @JsonView({Folha.Funcionario.class, Recrutamento.Pessoa.class, Recrutamento.Curriculo.class})
+    @JsonView({Folha.Funcionario.class, Recrutamento.Pessoa.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private String nome;
-    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private Date dataNascimento;
-    @JsonView({Recrutamento.Pessoa.class, Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Pessoa.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private String telCelular;
-    @JsonView({Recrutamento.Pessoa.class, Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Pessoa.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private String telFixo;
-    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private int sexo;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Folha.FuncionarioFicha.class})
     private String cep;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Folha.FuncionarioFicha.class})
     private String bairro;
-    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String endereco;
-    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String email;
-    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class})
+    @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String rg;
     private Curriculo curriculo;
 

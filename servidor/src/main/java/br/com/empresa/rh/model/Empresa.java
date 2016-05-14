@@ -31,11 +31,13 @@ import javax.persistence.TemporalType;
 
 
 public class Empresa implements java.io.Serializable {
-
-    @JsonView(Folha.EmpresaVisualizacao.class)
+    @JsonView({Folha.EmpresaVisualizacao.class, Folha.FuncionarioFicha.class})
     private int id;
+@JsonView({Folha.FuncionarioFicha.class})
+
     private Cidade cidade;
-    @JsonView(Folha.EmpresaVisualizacao.class)
+    @JsonView({Folha.EmpresaVisualizacao.class, Folha.FuncionarioFicha.class})
+
     private String nome;
     @JsonView(Folha.EmpresaVisualizacao.class)
     private String cnpj;

@@ -1,8 +1,12 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import br.com.empresa.rh.model.view.Recrutamento;
 import com.fasterxml.jackson.annotation.JsonView;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -24,9 +28,9 @@ import javax.persistence.Table;
 )
 public class EstadoCivil implements java.io.Serializable {
 
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class,Folha.FuncionarioFicha.class})
     private int id;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class,Folha.FuncionarioFicha.class})
     private String nome;
     private Set<Pessoa> pessoas = new HashSet<Pessoa>(0);
 

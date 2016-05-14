@@ -28,25 +28,48 @@ public class FuncionarioCargo implements java.io.Serializable {
 
     @JsonView(Folha.Funcionario.class)
     private int id;
-    @JsonView(Folha.CargosFuncionarioComCargo.class)
+    @JsonView({Folha.CargosFuncionarioComCargo.class, Folha.FuncionarioFicha.class})
 
     private Cargo cargo;
+    @JsonView({Folha.FuncionarioFicha.class})
     private DemissaoTipo demissaoTipo;
     @JsonView(Folha.Funcionario.class)
     private Funcionario funcionario;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Sindicato sindicato;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Unidade unidade;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Date dataEntrada;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Date dataSaida;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private boolean ativo;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Set<FuncionarioCargoHasAdvertenciaTipo> funcionarioCargoHasAdvertenciaTipos = new HashSet<FuncionarioCargoHasAdvertenciaTipo>(0);
 
     private Set<EventoFuncionario> eventoFuncionarios = new HashSet<EventoFuncionario>(0);
     private Set<FolhaCalculada> folhaCalculadas = new HashSet<FolhaCalculada>(0);
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Set<FuncionarioAcidente> funcionarioAcidentes = new HashSet<FuncionarioAcidente>(0);
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas = new HashSet<FuncionarioCargoHasMotivoFalta>(0);
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Set<FuncionarioFaixa> funcionarioFaixas = new HashSet<FuncionarioFaixa>(0);
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Set<FuncionarioQualificacao> funcionarioQualificacaos = new HashSet<FuncionarioQualificacao>(0);
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos = new HashSet<SindicatoHasFuncionarioCargo>(0);
     private Set<Ferias> feriases = new HashSet<Ferias>(0);
 
@@ -63,7 +86,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.ativo = ativo;
     }
 
-    public FuncionarioCargo(int id, Cargo cargo, DemissaoTipo demissaoTipo, Funcionario funcionario, Sindicato sindicato, Unidade unidade, Date dataEntrada, Date dataSaida, boolean ativo, Set<FuncionarioCargoHasAdvertenciaTipo> funcionarioCargoHasAdvertenciaTipos,  Set<EventoFuncionario> eventoFuncionarios, Set<FolhaCalculada> folhaCalculadas, Set<FuncionarioAcidente> funcionarioAcidentes, Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas, Set<FuncionarioFaixa> funcionarioFaixas, Set<FuncionarioQualificacao> funcionarioQualificacaos, Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos, Set<Ferias> feriases) {
+    public FuncionarioCargo(int id, Cargo cargo, DemissaoTipo demissaoTipo, Funcionario funcionario, Sindicato sindicato, Unidade unidade, Date dataEntrada, Date dataSaida, boolean ativo, Set<FuncionarioCargoHasAdvertenciaTipo> funcionarioCargoHasAdvertenciaTipos, Set<EventoFuncionario> eventoFuncionarios, Set<FolhaCalculada> folhaCalculadas, Set<FuncionarioAcidente> funcionarioAcidentes, Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas, Set<FuncionarioFaixa> funcionarioFaixas, Set<FuncionarioQualificacao> funcionarioQualificacaos, Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos, Set<Ferias> feriases) {
         this.id = id;
         this.cargo = cargo;
         this.demissaoTipo = demissaoTipo;
@@ -182,8 +205,6 @@ public class FuncionarioCargo implements java.io.Serializable {
     public void setFuncionarioCargoHasAdvertenciaTipos(Set<FuncionarioCargoHasAdvertenciaTipo> funcionarioCargoHasAdvertenciaTipos) {
         this.funcionarioCargoHasAdvertenciaTipos = funcionarioCargoHasAdvertenciaTipos;
     }
-
-    
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo")
     public Set<EventoFuncionario> getEventoFuncionarios() {

@@ -1,6 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -26,8 +28,11 @@ import javax.persistence.Table;
 
 public class Unidade implements java.io.Serializable {
 
+    @JsonView({Folha.FuncionarioFicha.class})
     private int id;
+    @JsonView({Folha.FuncionarioFicha.class})
     private Empresa empresa;
+    @JsonView({Folha.FuncionarioFicha.class})
     private String nome;
     private boolean ativo = true;
     private Set<FuncionarioCargo> funcionarioCargos = new HashSet<FuncionarioCargo>(0);
@@ -48,7 +53,7 @@ public class Unidade implements java.io.Serializable {
     }
 
     @Id
-    
+
     @GeneratedValue(generator = "unidade_seq", strategy = GenerationType.SEQUENCE)
 
     @Column(name = "id", unique = true, nullable = false)
