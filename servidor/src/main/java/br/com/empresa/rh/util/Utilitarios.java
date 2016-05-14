@@ -91,12 +91,13 @@ public class Utilitarios {
         return new DecimalFormat("'R$'###,##0.00").format(d);
     }
 
-    public Date dataPeriodo(int mes, int ano) {
+    public JavascriptDate dataPeriodo(int mes, int ano) {
         LocalDate d = new LocalDate();
         d = d.withDayOfMonth(1);
         d = d.withMonthOfYear(mes);
         d = d.withYear(ano);
-        return d.toDate();
+        Date date = d.toDate();
+        return JavascriptDate.fromDate(date);
 //        new org.joda.time.DateTime(new Date()).withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0)
 ////                .withDayOfMonth(1)
 //                .withMonthOfYear(mes)

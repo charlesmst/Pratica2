@@ -6,10 +6,12 @@
 package br.com.empresa.rh.service.folha;
 
 import br.com.empresa.rh.model.Pessoa;
+import br.com.empresa.rh.util.JavascriptDate;
 import java.util.Calendar;
 import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.MutableDateTime;
+import sun.print.resources.serviceui;
 
 /**
  *
@@ -18,9 +20,11 @@ import org.joda.time.MutableDateTime;
 public class Utilitarios {
 
     private Parametros parametros;
+    private br.com.empresa.rh.util.Utilitarios utilitarios;
 
-    public Utilitarios(Parametros parametros) {
+    public Utilitarios(Parametros parametros,br.com.empresa.rh.util.Utilitarios utilitarios) {
         this.parametros = parametros;
+        this.utilitarios = utilitarios;
     }
 
     public int idadePessoa(Pessoa p) {
@@ -43,5 +47,18 @@ public class Utilitarios {
     public double descontaDias(double valor, int dias) {
         return valor / dias * parametros.getDiasMes();
     }
-
+    
+    public Date dateMin(Date d1, Date d2){
+        if(d1.compareTo(d2) > 0)
+            return d2;
+        return d1;
+    }
+    public Date dateMax(Date d1, Date d2){
+        if(d1.compareTo(d2) < 0)
+            return d2;
+        return d1;
+    }
+    public JavascriptDate dataPeriodo(int mes, int ano){
+        return utilitarios.dataPeriodo(mes, ano);
+    }
 }

@@ -68,7 +68,7 @@ public class CalculoFolha {
     public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos, Parametros parametros, Folha folha) {
 
         Consulta c = consultas(data, funcionario, parametros);
-        Utilitarios u = new Utilitarios(parametros);
+        Utilitarios u = new Utilitarios(parametros,utilitarios);
         Console console = new Console();
         Stack<IEvento> stack = new Stack<>();//Para não acontecer loop infinito de dependencias
         int[] ordem = new int[]{EventoTipo.BASE, EventoTipo.PROVENTO, EventoTipo.DESCONTO, EventoTipo.BENEFICIO, EventoTipo.FINALIZACAO};

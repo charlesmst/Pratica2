@@ -50,8 +50,11 @@ public class SecurityFilter implements ContainerRequestFilter {
         if (a == null) {
             return;
         }
+        if (a.value().equals(NivelAcesso.NENHUM)) {
+            return;
+        }
         if (!m.containsKey(AUTHORIZATION_HEADER)) {
-            buildResponseUnauthorized(requestContext,false);
+            buildResponseUnauthorized(requestContext, false);
             return;
         }
 
@@ -69,10 +72,10 @@ public class SecurityFilter implements ContainerRequestFilter {
             String header = requestContext.getHeaderString(AUTHORIZATION_HEADER);
             //Transorma pro claim
             if (header == null) {
-                buildResponseUnauthorized(requestContext,false);
+                buildResponseUnauthorized(requestContext, false);
                 return;
             }
-            Authorizer auth = decodeAuthorize(header,originalContext.isSecure());
+            Authorizer auth = decodeAuthorize(header, originalContext.isSecure());
             int nivelPessoa = 0;
             for (String group : auth.getRoles()) {
                 int n = NivelAcesso.getNivel(group);
@@ -90,15 +93,16 @@ public class SecurityFilter implements ContainerRequestFilter {
             Logger.getLogger(SecurityFilter.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-        buildResponseUnauthorized(requestContext,true);
+        buildResponseUnauthorized(requestContext, true);
 
     }
 
-    private void buildResponseUnauthorized(ContainerRequestContext requestContext,boolean logado) {
+    private void buildResponseUnauthorized(ContainerRequestContext requestContext, boolean logado) {
         String mensagem = "Acesso não autorizado para o nível de acesso";
-        if(!logado)
+        if (!logado) {
             mensagem = "Acesso não autorizado para usuários não autenticados";
-        Response r = Response.status(Response.Status.UNAUTHORIZED).entity("{\"mensagem\":\""+mensagem+"\"}").build();
+        }
+        Response r = Response.status(Response.Status.UNAUTHORIZED).entity("{\"mensagem\":\"" + mensagem + "\"}").build();
         requestContext.abortWith(r);
     }
 
@@ -119,7 +123,6 @@ public class SecurityFilter implements ContainerRequestFilter {
             return roles;
         }
 
-        
         @Override
         public Principal getUserPrincipal() {
             return new User(username);
@@ -161,7 +164,7 @@ public class SecurityFilter implements ContainerRequestFilter {
         return Base64.getEncoder().encodeToString(s.getBytes());
     }
 
-    public static Authorizer decodeAuthorize(String data,boolean isSecure) {
+    public static Authorizer decodeAuthorize(String data, boolean isSecure) {
         String decode = new String(Base64.getDecoder().decode(data));
         String[] dec = decode.split(":");
         Set<String> roles = new HashSet<>();

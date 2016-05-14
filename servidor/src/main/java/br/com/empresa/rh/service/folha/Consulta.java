@@ -46,7 +46,7 @@ public class Consulta {
     private CalculoFolha folha;
     private FolhaCalculadaService folhaCalculadaService;
 
-    public Consulta(CalculoFolha folha, TabelaService tabelaService, Date data, FuncionarioCargo funcionarioCargo, FaixaSalarialService faixaSalarialService, DependenteService dependenteService, FeriasService feriasService, Parametros parametros, EventoService eventoServico, FolhaCalculadaService folhaCalculadaService) {
+    public Consulta(CalculoFolha folha, TabelaService tabelaService, Date data, FuncionarioCargo funcionarioCargo, FaixaSalarialService faixaSalarialService, DependenteService dependenteService, FeriasService feriasService, Parametros parametros, EventoService eventoService, FolhaCalculadaService folhaCalculadaService) {
         this.tabelaService = tabelaService;
         this.data = data;
         this.funcionarioCargo = funcionarioCargo;
@@ -101,8 +101,11 @@ public class Consulta {
     public double getValorEventoPeriodo(Evento evento, int mesinicio, int anoinicio, int mesfim, int anofim) {
         return eventoService.valorPeriodo(funcionarioCargo, evento, mesinicio, anoinicio, mesfim, anofim);
     }
+
     /**
-     * Faz a projeção da folha de pagamento do período, levando em consideração as folhas já existentes, e as ainda não existentes efetuando o cálculo
+     * Faz a projeção da folha de pagamento do período, levando em consideração
+     * as folhas já existentes, e as ainda não existentes efetuando o cálculo
+     *
      * @param mesinicio
      * @param anoinicio
      * @param mesfim
@@ -121,7 +124,7 @@ public class Consulta {
             FolhaCalculada f = folhaCalculadaService.folhaCalculadaMes(dataComercial.getMes(), dataComercial.getAno(), TipoCalculo.mes, funcionarioCargo);
             if (f == null) {
                 f = folha.calcularTodos(Arrays.asList(funcionarioCargo), mesfim, anofim, TipoCalculo.mes, false).get(0);
-            }else{
+            } else {
                 f = folhaCalculadaService.findById(f.getId());
             }
             l.add(f);
@@ -129,5 +132,13 @@ public class Consulta {
             dataComercial.nextMonth();
         }
         return l;
+    }
+
+    public Date getDataAdmissao() {
+        return funcionarioCargo.getDataEntrada();
+    }
+    
+    public Date getDataDemissao() {
+        return funcionarioCargo.getDataSaida();
     }
 }

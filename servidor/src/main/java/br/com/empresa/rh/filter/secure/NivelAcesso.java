@@ -16,7 +16,7 @@ public class NivelAcesso {
     public static final String GESTOR = "3";
     public static final String RH = "4";
     public static final String ADMIN = "5";
-    
+    public static final String NENHUM = "0";
     
     public static int getNivel(String nivel){
         return Integer.parseInt(nivel);
