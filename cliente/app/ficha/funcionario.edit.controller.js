@@ -1,20 +1,22 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Funcionario', '$state', '$stateParams', 'Workspace', FuncionarioEditController]);
+    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Funcionario', '$state', '$stateParams', 'Workspace', '$mdDialog', FuncionarioEditController]);
 
-	var state = "funcionario"
-    function FuncionarioEditController($mdToast, $http, Funcionario, $state, $stateParams, Workspace) {
+    var state = "ficha"
+    function FuncionarioEditController($mdToast, $http, Funcionario, $state, $stateParams, Workspace, $mdDialog) {
         var vm = this;
         vm.entity = {}
         Workspace.title = "Manutenção de Funcionario";
+        console.log($stateParams)
+        vm.mostraAddCargo = mostraAddCargo;
+        vm.mostraEditCargo = mostraEditCargo
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Funcionario.get({id: $stateParams.id}).$promise.then(function (data) {
-                
+
                 vm.entity = data
             }))
 
-        }
-        else
+        } else
             vm.entity = new Funcionario()
         vm.save = save;
         vm.cancel = cancel;
@@ -35,6 +37,46 @@
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
         }
 
+        function mostraAddCargo() {
+            $mdDialog.show({
+                controller: 'FuncionarioCargoEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-cargo.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosCargo: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
+
+                        if (!vm.entity.funcionarioCargos)
+                            vm.entity.funcionarioCargos = []
+                        vm.entity.funcionarioCargos.push(adicionado)
+                    });
+        }
+
+        function mostraEditCargo(cargo) {
+            $mdDialog.show({
+                controller: 'FuncionarioCargoEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-cargo.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosCargo: function () {
+                        return angular.copy(cargo);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(cargo, alterado)
+            })
+        }
     }
 
 })()
