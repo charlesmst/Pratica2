@@ -21,6 +21,7 @@ import br.com.empresa.rh.service.FeriasService;
 import br.com.empresa.rh.service.FolhaCalculadaService;
 import br.com.empresa.rh.service.TabelaService;
 import br.com.empresa.rh.util.DataComercial;
+import br.com.empresa.rh.util.JavascriptDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -113,7 +114,9 @@ public class Consulta {
      * @return Projeção de folhas do período
      */
     public List<FolhaCalculada> getProjecao(int mesinicio, int anoinicio, int mesfim, int anofim) {
-
+        if(Math.abs(anoinicio - anofim) > 2){
+            throw  new FolhaException("Projeção não pode ser feita em um intervalo de datas maior que 2 anos");
+        }
         DataComercial dataComercial = new DataComercial(1, mesinicio, anoinicio);
         DataComercial dataComercialFim = new DataComercial(1, mesfim, anofim);
         if (dataComercial.compareTo(dataComercialFim) >= 0) {
@@ -134,11 +137,11 @@ public class Consulta {
         return l;
     }
 
-    public Date getDataAdmissao() {
-        return funcionarioCargo.getDataEntrada();
+    public JavascriptDate getDataAdmissao() {
+        return JavascriptDate.fromDate(funcionarioCargo.getDataEntrada()) ;
     }
     
-    public Date getDataDemissao() {
-        return funcionarioCargo.getDataSaida();
+    public JavascriptDate getDataDemissao() {
+        return JavascriptDate.fromDate(funcionarioCargo.getDataSaida());
     }
 }

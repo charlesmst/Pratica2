@@ -23,8 +23,8 @@ public class MotivoFalta  implements java.io.Serializable {
 
      private int id;
      private String nome;
-     private char atestado;
-     private Character desconta;
+     private boolean atestado;
+     private boolean desconta;
      private boolean ativo = true;
 
      private Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas = new HashSet<FuncionarioCargoHasMotivoFalta>(0);
@@ -32,20 +32,6 @@ public class MotivoFalta  implements java.io.Serializable {
     public MotivoFalta() {
     }
 
-	
-    public MotivoFalta(int id, String nome, char atestado) {
-        this.id = id;
-        this.nome = nome;
-        this.atestado = atestado;
-    }
-    public MotivoFalta(int id, String nome, char atestado, Character desconta, Set<FuncionarioCargoHasMotivoFalta> funcionarioCargoHasMotivoFaltas) {
-       this.id = id;
-       this.nome = nome;
-       this.atestado = atestado;
-       this.desconta = desconta;
-       this.funcionarioCargoHasMotivoFaltas = funcionarioCargoHasMotivoFaltas;
-    }
-   
      @Id 
 
     
@@ -70,21 +56,21 @@ public class MotivoFalta  implements java.io.Serializable {
 
     
     @Column(name="atestado", nullable=false, length=1)
-    public char getAtestado() {
+    public boolean getAtestado() {
         return this.atestado;
     }
     
-    public void setAtestado(char atestado) {
+    public void setAtestado(boolean atestado) {
         this.atestado = atestado;
     }
 
     
     @Column(name="desconta", length=1)
-    public Character getDesconta() {
+    public boolean getDesconta() {
         return this.desconta;
     }
     
-    public void setDesconta(Character desconta) {
+    public void setDesconta(boolean desconta) {
         this.desconta = desconta;
     }
 

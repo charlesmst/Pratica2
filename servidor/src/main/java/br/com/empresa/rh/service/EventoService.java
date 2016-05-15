@@ -60,7 +60,26 @@ public class EventoService extends Service<Evento> {
     }
 
     public EventoCollection eventosFerias() {
-        String[] valores = parametroService.findById("eventos_folha").getValor().split(",");
+        String[] valores = parametroService.findById("eventos_ferias").getValor().split(",");
+        List<Integer> eventosId = new ArrayList<>();
+        for (String valore : valores) {
+            eventosId.add(Integer.parseInt(valore));
+        }
+        List<Evento> eventos = new ArrayList<>();
+        for (Integer eventoId : eventosId) {
+            eventos.add(findById(eventoId));
+        }
+        EventoCollection col = new EventoCollection(eventos);
+        return col;
+    }
+
+    public EventoCollection eventosDecimo(int mes) {
+        String[] valores;
+        if (mes == 12) {
+            valores = parametroService.findById("eventos_decimo").getValor().split(",");
+        } else {
+            valores = parametroService.findById("eventos_decimo_adiantamento").getValor().split(",");
+        }
         List<Integer> eventosId = new ArrayList<>();
         for (String valore : valores) {
             eventosId.add(Integer.parseInt(valore));
@@ -156,8 +175,8 @@ public class EventoService extends Service<Evento> {
                 + " left join fetch e.eventoDependencias ed"
                 + " where f.funcionarioCargo.id = :idCargo and "
                 + " f.dataInicio <= :data and (f.dataFim is null or f.dataFim >= :data) and f.excluido is false ";
-        
-         List<EventoFuncionario> eventos = entityManager.createQuery(query)
+
+        List<EventoFuncionario> eventos = entityManager.createQuery(query)
                 .setParameter("idCargo", cargoFuncionario.getId())
                 .setParameter("data", data)
                 .getResultList();
@@ -168,7 +187,7 @@ public class EventoService extends Service<Evento> {
             l.add(e);
         }
         return l;
-       
+
     }
 
     public List<Evento> eventosCargo(Cargo cargo, Date data) {

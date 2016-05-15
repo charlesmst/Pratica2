@@ -28,6 +28,7 @@ public class FolhaCalculadaEvento implements java.io.Serializable {
     private double valor;
     private boolean visivel;
     private int tipo;
+    private String nomeEvento;
     private double referencia;
     private EventoFuncionario eventoFuncionario;
 
@@ -120,6 +121,15 @@ public class FolhaCalculadaEvento implements java.io.Serializable {
 
     public void setEventoFuncionario(EventoFuncionario eventoFuncionario) {
         this.eventoFuncionario = eventoFuncionario;
+    }
+
+    @Column(nullable = true,name = "nome_evento")
+    public String getNomeEvento() {
+        return nomeEvento;
+    }
+
+    public void setNomeEvento(String nomeEvento) {
+        this.nomeEvento = nomeEvento;
     }
 
 }

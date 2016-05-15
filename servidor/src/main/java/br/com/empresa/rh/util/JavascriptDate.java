@@ -27,6 +27,8 @@ public class JavascriptDate extends java.util.Date {
     }
 
     public static JavascriptDate fromDate(Date d){
+        if(d == null)
+            return null;
         return new JavascriptDate(d.getTime());
     }
     public int getMes() {

@@ -126,12 +126,13 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
 
     public FolhaCalculada folhaCalculadaMes(int mes, int ano, TipoCalculo tipo, FuncionarioCargo funcionario) {
         String hql = "from FolhaCalculada f"
-                + " where f.mes = :mes and f.ano = :ano and f.excluido = :excluido and f.funcionarioCargo.id = :idCargo ";
+                + " where f.mes = :mes and f.ano = :ano and f.excluido = :excluido and f.funcionarioCargo.id = :idCargo and f.tipo = :tipo ";
         List<FolhaCalculada> l = entityManager.createQuery(hql)
                 .setParameter("mes", mes)
                 .setParameter("ano", ano)
                 .setParameter("excluido", false)
                 .setParameter("idCargo", funcionario.getId())
+                .setParameter("tipo", tipo.getNumero())
                 .getResultList();
         if (l.isEmpty()) {
             return null;
@@ -284,7 +285,7 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         fr.setUnidade(folhaCalculada.getFuncionarioCargo().getUnidade().getNome());
         if (f.getBanco() != null) {
             fr.setConta(f.getConta());
-            fr.setAgencia(f.getAgencia()+"");
+            fr.setAgencia(f.getAgencia() + "");
         }
         if (folhaCalculada.getSalario() <= 0) {
             fr.setSalarioBase("");
@@ -311,7 +312,12 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         for (FolhaCalculadaEvento eventoCalculado : folhaCalculada.getFolhaCalculadaEventos()) {
             EventoFolha evento = new EventoFolha();
             evento.setId(eventoCalculado.getEvento().getId());
-            evento.setNome(eventoCalculado.getEvento().getNome());
+
+            if (eventoCalculado.getNomeEvento() != null) {
+                evento.setNome(eventoCalculado.getNomeEvento());
+            }else{
+                evento.setNome(eventoCalculado.getEvento().getNome());
+            }
             evento.setReferencia(eventoCalculado.getReferencia());
 
             switch (eventoCalculado.getTipo()) {

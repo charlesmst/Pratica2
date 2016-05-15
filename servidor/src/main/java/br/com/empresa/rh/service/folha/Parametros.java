@@ -24,9 +24,10 @@ public class Parametros {
     private Date dataReferencia;
     private int mes;
     private int ano;
-    private int diasMes = 30;
+    private double diasMes = 30;
+    private boolean proporcional = false;
 
-    public void setDiasMes(int diasMes) {
+    public void setDiasMes(double diasMes) {
         this.diasMes = diasMes;
     }
     public Parametros(Date dataReferencia) {
@@ -50,11 +51,19 @@ public class Parametros {
         return mes;
     }
 
-    public int getDiasMes(){
+    public double getDiasMes(){
         return diasMes;
     }
     public int getAno() {
         return ano;
+    }
+
+    public boolean isProporcional() {
+        return proporcional;
+    }
+
+    public void setProporcional(boolean proporcional) {
+        this.proporcional = proporcional;
     }
 
 }

@@ -18,6 +18,7 @@ import br.com.empresa.rh.service.EventoService;
 import br.com.empresa.rh.service.FaixaSalarialService;
 import br.com.empresa.rh.service.FeriasService;
 import br.com.empresa.rh.service.FolhaCalculadaService;
+import br.com.empresa.rh.service.FuncionarioCargoService;
 import br.com.empresa.rh.service.TabelaService;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,8 @@ import java.util.List;
 import java.util.Stack;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +59,8 @@ public class CalculoFolha {
     private br.com.empresa.rh.util.Utilitarios utilitarios;
     @Autowired
     private FolhaCalculadaService folhaCalculadaService;
+    @Autowired
+    private FuncionarioCargoService funcionarioCargoService;
 
     public void setEventos(EventoCollection eventos) {
         this.eventos = eventos;
@@ -68,7 +73,7 @@ public class CalculoFolha {
     public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos, Parametros parametros, Folha folha) {
 
         Consulta c = consultas(data, funcionario, parametros);
-        Utilitarios u = new Utilitarios(parametros,utilitarios);
+        Utilitarios u = new Utilitarios(parametros, utilitarios);
         Console console = new Console();
         Stack<IEvento> stack = new Stack<>();//Para não acontecer loop infinito de dependencias
         int[] ordem = new int[]{EventoTipo.BASE, EventoTipo.PROVENTO, EventoTipo.DESCONTO, EventoTipo.BENEFICIO, EventoTipo.FINALIZACAO};
@@ -105,6 +110,9 @@ public class CalculoFolha {
                     break;
                 case complementar:
                     eventosFuncionario = this.eventos;
+                    break;
+                case decimo:
+                    eventosFuncionario = eventoService.eventosDecimo(mes);
                     break;
                 case mes:
                 default:
@@ -166,6 +174,39 @@ public class CalculoFolha {
 
     private Parametros parametrosFuncionario(Date data, FuncionarioCargo func) {
         Parametros p = new Parametros(data);
+        LocalDate lAdmissao = new LocalDate(func.getDataEntrada());
+        LocalDate latual = new LocalDate(data);
+        LocalDate lDemissao = null;
+        if (func.getDataSaida() != null) {
+            lDemissao = new LocalDate(func.getDataSaida());
+        }
+        //Se é mes de demissão ou admissão deve calcular os valores proporcionais http://www.labortime.com.br/index.php/noticias/280-salario-proporcional-calculos-nos-meses-de-28-29-ou-31-dias
+
+        double diasMes = 30;
+        boolean mesDemissao = false;
+        if (lDemissao != null && lDemissao.getMonthOfYear() == latual.getMonthOfYear()) {
+            p.setProporcional(true);
+            diasMes = lDemissao.getDayOfMonth();
+            mesDemissao = true;
+        }
+        if (lAdmissao.getMonthOfYear() == latual.getMonthOfYear()) {
+            p.setProporcional(true);
+            //Se é mes de admissão, os dias precisam ser proporcionais
+            if (!mesDemissao) {
+                diasMes = latual.withDayOfMonth(1).plusMonths(1).minusDays(1).getDayOfMonth();
+            }//Else ja calculou la onde verifica se é mes de demissao
+
+            diasMes -= lAdmissao.getDayOfMonth();
+        }
+        diasMes = funcionarioCargoService.descontaAtestados(diasMes,func, latual.getMonthOfYear(), latual.getYear());
+        if (diasMes < 0) {
+            diasMes = 0;
+        }
+        p.setDiasMes(diasMes);
+
+//        int diasAtestado = funcionarioCargoService.diasAtestadoMes(func, latual.getMonthOfYear(), latual.getYear());
+//        if(diasAtestado > 15)
+//            diasMes -= diasMes - (diasAtestado)
         return p;
 
     }

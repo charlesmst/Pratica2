@@ -10,6 +10,8 @@ import br.com.empresa.rh.util.JavascriptDate;
 import java.util.Calendar;
 import java.util.Date;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.joda.time.MutableDateTime;
 import sun.print.resources.serviceui;
 
@@ -22,7 +24,7 @@ public class Utilitarios {
     private Parametros parametros;
     private br.com.empresa.rh.util.Utilitarios utilitarios;
 
-    public Utilitarios(Parametros parametros,br.com.empresa.rh.util.Utilitarios utilitarios) {
+    public Utilitarios(Parametros parametros, br.com.empresa.rh.util.Utilitarios utilitarios) {
         this.parametros = parametros;
         this.utilitarios = utilitarios;
     }
@@ -44,21 +46,39 @@ public class Utilitarios {
         return cal;
     }
 
-    public double descontaDias(double valor, int dias) {
-        return valor / dias * parametros.getDiasMes();
+    public double descontaDias(double valor) {
+        return valor / 30 * parametros.getDiasMes();
     }
-    
-    public Date dateMin(Date d1, Date d2){
-        if(d1.compareTo(d2) > 0)
+
+    public double descontaDiasProporcional(double valor) {
+        return valor / diasMes(parametros.getDataReferencia()) * parametros.getDiasMes();
+    }
+
+    public double descontaConformeParametros(double valor){
+        if(parametros.isProporcional())
+            return descontaDiasProporcional(valor);
+        else
+            return descontaDias(valor);
+    }
+    public double diasMes(Date data) {
+        return new LocalDate(data).withDayOfMonth(1).plusMonths(1).minusDays(1).getDayOfMonth();
+    }
+
+    public Date dateMin(Date d1, Date d2) {
+        if (d1.compareTo(d2) > 0) {
             return d2;
+        }
         return d1;
     }
-    public Date dateMax(Date d1, Date d2){
-        if(d1.compareTo(d2) < 0)
+
+    public Date dateMax(Date d1, Date d2) {
+        if (d1.compareTo(d2) < 0) {
             return d2;
+        }
         return d1;
     }
-    public JavascriptDate dataPeriodo(int mes, int ano){
+
+    public JavascriptDate dataPeriodo(int mes, int ano) {
         return utilitarios.dataPeriodo(mes, ano);
     }
 }
