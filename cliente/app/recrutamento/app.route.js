@@ -175,5 +175,15 @@
                         }
                     }
                 })
+                .state('usuarionaocadastrado', {
+                    url: '/usuario/cadastro',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/usuario.edit.tmpl.html',
+                            controller: "UsuarioEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
     }
 })()

@@ -13,7 +13,7 @@
 
     <!--    {{crudVm.entity}}-->
     <md-card >
-
+        {{crudVm.permissoes}}
         <!--        {{crudVm.entity}}-->
         <md-card-content>
             <h2>Dados Pessoais</h2>
@@ -31,10 +31,10 @@
                     <md-datepicker ng-model="crudVm.entity.pessoa.dataNascimento" ng-required></md-datepicker>
                 </div>
             </div>
-            <div layout-gt-sm="row">
+            <div layout-gt-sm="row" ng-if="crudVm.permissoes.usuario">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>CPF</label>
-                    <input  name="cpf" ng-model="crudVm.entity.pessoa.cpf" ng-cpf ui-mask="999.999.999-99" required>
+                    <input  name="cpf" ng-model="crudVm.entity.pessoa.cpf" ui-br-cpf-mask required>
                     <div ng-messages="formEdit.cpf.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
@@ -73,14 +73,14 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Telefone Celular</label>
-                    <input  name="telCelular" ng-model="crudVm.entity.pessoa.telCelular" ui-mask="(99) 9999-9999">
+                    <input  name="telCelular" ng-model="crudVm.entity.pessoa.telCelular" ui-br-phone-number>
                     <!--                        <div ng-messages="formEdit.rg.$error">
                                                 <div ng-message="required">Campo obrigatório.</div>
                                             </div>-->
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Telefone Fixo</label>
-                    <input  name="telFixo" ng-model="crudVm.entity.pessoa.telFixo" ui-mask="(99) 9999-9999">
+                    <input  name="telFixo" ng-model="crudVm.entity.pessoa.telFixo" ui-br-phone-number>
                     <!--                        <div ng-messages="formEdit.rg.$error">
                                                 <div ng-message="required">Campo obrigatório.</div>
                                             </div>-->

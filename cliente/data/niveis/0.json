@@ -15,7 +15,7 @@
                     "icon": "dashboard"
                 },
                 {
-                    "link": "usuarioadd",
+                    "link": "usuarionaocadastrado",
                     "title": "Cadastre-se",
                     "icon": "dashboard"
                 }

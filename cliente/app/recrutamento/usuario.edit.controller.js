@@ -1,11 +1,12 @@
 (function () {
     'use strict';
-    angular.module('app').controller('UsuarioEditController', ['$mdToast', '$http', 'Usuario', '$state', '$stateParams', 'Workspace', 'Cidade', 'Escolaridade', UsuarioEditController]);
+    angular.module('app').controller('UsuarioEditController', ['$mdToast', '$http', 'Usuario', '$state', '$stateParams', 'Workspace', 'Cidade', 'Escolaridade','Permissoes', UsuarioEditController]);
 
     var state = "usuario"
-    function UsuarioEditController($mdToast, $http, Usuario, $state, $stateParams, Workspace, Cidade, Escolaridade) {
+    function UsuarioEditController($mdToast, $http, Usuario, $state, $stateParams, Workspace, Cidade, Escolaridade, Permissoes) {
         var vm = this;
         vm.entity = {}
+        vm.permissoes = {}
         vm.sexos = []
         vm.escolaridades = []
         vm.senhaConf
@@ -24,6 +25,7 @@
 
         loadSexos()
         loadEscolaridades()
+        loadPermissoes();
         vm.save = save;
         vm.cancel = cancel;
         function save($event, $valid) {
@@ -61,7 +63,11 @@
                 limit: 10
             }).$promise
         }
-
+        function loadPermissoes(){
+            Permissoes.get({modulo:"recrutamento"}).$promise.then(function(data){
+                vm.permissoes = data
+            })
+        }
     }
 
 })()

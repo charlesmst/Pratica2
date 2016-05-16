@@ -12,21 +12,234 @@
     </div>
 
 
-    <md-card >
+    <md-card>
+
         <md-card-content>
-            <h2>Curriculo</h2>
-            <md-content>
-                <md-input-container class="md-block" flex-gt-xs>
-                    <label>Nome</label>
-                    <input  name="nome" ng-model="crudVm.entity.pessoa.nome" md-maxlength="255" required>
-                    <div ng-messages="formEdit.nome.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
+            <md-card-title>
+                <md-card-title-text>
+                    <span> 
+                        <div layout-gt-sm="row">
+                            <md-input-container flex="30" class="md-block" flex-gt-xs>
+                                <label>Código</label>
+                                <input  name="codigo" ng-model="crudVm.entity.pessoaId" disabled>
+
+
+                            </md-input-container>
+                            <md-input-container flex="" class="md-block" flex-gt-xs>
+                                <label>Nome</label>
+                                <input  name="nome" ng-model="crudVm.entity.pessoa.nome" required>
+                                <div ng-messages="formEdit.nome.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+
+                            </md-input-container>
+                        </div>
+
+                    </span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-sm card-media"> 
+                        <img width="100" class="md-card-image" src="https://minhabolsacheia.files.wordpress.com/2011/02/3x41.jpg"/>
                     </div>
+                </md-card-title-media>
+            </md-card-title>
 
-                </md-input-container>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Dados pessoais">
 
-            </md-content>
+                    <div layout-gt-sm="row">
+                        <md-input-container flex="30" class="md-block" flex-gt-xs>
+                            <label>RG</label>
+                            <input  name="rg" ng-model="crudVm.entity.pessoa.rg" required>
+                            <div ng-messages="formEdit.rg.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>CPF</label>
+                            <input  name="cpf" ng-model="crudVm.entity.pessoa.cpf" ui-br-cpf-mask required>
+                            <div ng-messages="formEdit.cpf.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Sexo</label>
+                            <md-select ng-model="crudVm.entity.pessoa.sexo">
+                                <md-option ng-repeat="item in crudVm.sexos" ng-value="{{item.id}}">
+                                    {{item.nome}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="formEdit.sexo.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container flex="30" class="md-block" flex-gt-xs>
+                            <label>Categoria CNH</label>
+                            <md-select ng-model="crudVm.entity.pessoa.pessoaCarteira.categoria">
+                                <md-option ng-repeat="item in crudVm.categoriasDeCnh" ng-value="{{item}}" ng-selected="item.categoria === crudVm.entity.pessoa.pessoaCarteira.categoria">
+                                    {{item.categoria}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" md-max-length="11" flex-gt-xs>
+                            <label>CNH</label>
+                            <input  name="cnh" ng-model="crudVm.entity.pessoa.pessoaCarteira.cnh">
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Estado Civil</label>
+                            <md-select ng-model="crudVm.entity.pessoa.estadoCivil">
+                                <md-option ng-repeat="item in crudVm.estadosCivis" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.pessoa.estadoCivil.id">
+                                    {{item.nome}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="formEdit.sexo.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Escolaridade</label>
+                            <md-select ng-model="crudVm.entity.pessoa.escolaridade">
+                                <md-option ng-repeat="item in crudVm.escolaridades" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.pessoa.escolaridade.id" >
+                                    {{item.nome}}
+                                </md-option>
+                            </md-select>
 
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Data de Nascimento</label>
+                            <input  name="dataNascimento" ng-model="crudVm.entity.pessoa.dataNascimento">
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>E-mail</label>
+                            <input type="email" name="email" ng-model="crudVm.entity.pessoa.email" md-max-length="200">
+                            <div ng-messages="formEdit.email.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Tel. Celular</label>
+                            <input name="telCelular" ng-model="crudVm.entity.pessoa.telCelular" ui-br-phone-number>
+                            <div ng-messages="formEdit.telCelular.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Tel. Fixo</label>
+                            <input name="telCelular" ng-model="crudVm.entity.pessoa.telCelular" ui-br-phone-number>
+                            <div ng-messages="formEdit.telCelular.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container flex="20" class="md-block" flex-gt-xs>
+                            <label>CEP</label>
+                            <input name="cep" ng-model="crudVm.entity.pessoa.cep" ui-br-cep-mask>
+                            <div ng-messages="formEdit.cep.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Cidade</label>
+                            <md-autocomplete
+                                md-selected-item="crudVm.entity.pessoa.cidade"
+                                md-search-text="crudVm.searchText"
+                                md-items="item in crudVm.querySearchCidade(crudVm.searchText)"
+                                md-item-text="item.nome"
+                                md-min-length="2"
+                                md-float-label="Cidade"
+                                placeholder="Cidade">
+                                <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
+                            </md-autocomplete>
+                        </md-input-container>
+                    </div>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Bairro</label>
+                        <input name="bairro" ng-model="crudVm.entity.pessoa.bairro" md-max-length="100" required>
+                        <div ng-messages="formEdit.bairro.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Endereço</label>
+                        <input name="endereco" ng-model="crudVm.entity.pessoa.endereco" md-max-length="200" required>
+                        <div ng-messages="formEdit.endereco.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+                    </md-input-container>
+
+
+
+                </md-tab>
+
+                <md-tab label="Objetivo">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">Tab Three</h1>
+                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Formação">
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column md-numeric ></th>
+                                    <th md-column ><span>Cargo</span></th>             
+                                    <th md-column ><span>Unidade</span></th>             
+                                    <th md-column ><span>Empresa</span></th>             
+                                    <th md-column ><span>Admissão</span></th>             
+                                    <th md-column ><span>Demissão</span></th>             
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="row in crudVm.entity.funcionarioCargos">
+                                    <td md-cell width="15" class="button-column">
+
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCargo(row)">
+                                <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                            </md-button>
+                            </td>
+                            <td md-cell>{{row.cargo.nome}}</td>   
+                            <td md-cell>{{row.unidade.nome}}</td>   
+                            <td md-cell>{{row.unidade.empresa.nome}}</td>   
+                            <td md-cell>{{row.dataEntrada| date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataSaida| date:'dd/MM/yyyy'}}</td>   
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddCargo()">
+                            <ng-md-icon icon="add"></ng-md-icon>
+                        </button>
+                    </md-card-actions>
+                </md-tab>
+                <md-tab label="Qualificação">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">Tab Three</h1>
+                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Experiência">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">Tab Three</h1>
+                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Extra">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">Tab Three</h1>
+                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
         </md-card-content>
     </md-card>
 </form>
