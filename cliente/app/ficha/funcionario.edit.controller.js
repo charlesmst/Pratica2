@@ -1,12 +1,15 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Funcionario', '$state', '$stateParams', 'Workspace', '$mdDialog', FuncionarioEditController]);
+    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Funcionario', '$state', '$stateParams', 'Workspace', '$mdDialog','Cor', FuncionarioEditController]);
 
     var state = "ficha"
-    function FuncionarioEditController($mdToast, $http, Funcionario, $state, $stateParams, Workspace, $mdDialog) {
+    function FuncionarioEditController($mdToast, $http, Funcionario, $state, $stateParams, Workspace, $mdDialog, Cor) {
         var vm = this;
         vm.entity = {}
-        vm.id = $stateParams.id;
+
+        vm.cor = []
+
+        
         Workspace.title = "Manutenção de Funcionario";
         console.log($stateParams)
         vm.mostraAddCargo = mostraAddCargo;
@@ -19,11 +22,13 @@
 
         } else
             vm.entity = new Funcionario()
+        loadCor()
         vm.save = save;
         vm.cancel = cancel;
         function save($event, $valid) {
             if (!$valid)
                 return;
+           
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
         }
         function cancel() {
@@ -37,6 +42,8 @@
         function callbackError() {
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
         }
+        
+        
 
         function mostraAddCargo() {
             $mdDialog.show({
@@ -76,6 +83,12 @@
             }).then(function (alterado) {
                 console.log("Resposta da modal", alterado)
                 angular.extend(cargo, alterado)
+            })
+        }
+        
+        function loadCor(){
+            Cor.query().$promise.then(function (resposta) {
+                vm.cor = resposta;
             })
         }
     }
