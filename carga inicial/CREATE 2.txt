@@ -495,7 +495,8 @@ CREATE INDEX IFK_Rel_01 ON empresa (cidade_id);
 
 CREATE TABLE curriculo (
   pessoa_id INTEGER   NOT NULL ,
-  objetivo TEXT   NOT NULL   ,
+  objetivo TEXT   NOT NULL ,
+  inf_adicional TEXT      ,
 PRIMARY KEY(pessoa_id)  ,
   FOREIGN KEY(pessoa_id)
     REFERENCES pessoa(id));
@@ -505,6 +506,26 @@ CREATE INDEX curriculo_FKIndex1 ON curriculo (pessoa_id);
 
 
 CREATE INDEX IFK_Rel_60 ON curriculo (pessoa_id);
+
+
+CREATE TABLE curriculo_qualificacao (
+  id SERIAL  NOT NULL ,
+  pessoa_id INTEGER   NOT NULL ,
+  nome VARCHAR(200)   NOT NULL ,
+  carga_horaria INTEGER    ,
+  ano_inicio DATE    ,
+  ano_fim INTEGER    ,
+  descricao TEXT   NOT NULL   ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX curriculo_qualificacao_FKIndex1 ON curriculo_qualificacao (pessoa_id);
+
+
+CREATE INDEX IFK_Rel_QUALIFICACAO_PESSOA ON curriculo_qualificacao (pessoa_id);
+
 
 
 CREATE TABLE auditoria (
@@ -527,12 +548,13 @@ CREATE INDEX IFK_Rel_79 ON auditoria (usuario_id);
 CREATE TABLE curriculo_experiencia (
   id INTEGER   NOT NULL ,
   pessoa_id INTEGER   NOT NULL ,
-  atribuicao TEXT    ,
-  data_inicial DATE   NOT NULL ,
+  cargo VARCHAR(100)   NOT NULL ,
+  data_inicial DATE   ,
   data_final DATE    ,
   pessoa_referencia VARCHAR(100)    ,
   pessoa_contato VARCHAR(100)    ,
-  empresa VARCHAR(500)      ,
+  empresa VARCHAR(500)   NOT NULL ,
+  descricao TEXT   NOT NULL   ,
 PRIMARY KEY(id)  ,
   FOREIGN KEY(pessoa_id)
     REFERENCES pessoa(id));
@@ -543,6 +565,26 @@ CREATE INDEX curriculo_experiencia_FKIndex1 ON curriculo_experiencia (pessoa_id)
 
 CREATE INDEX IFK_Rel_62 ON curriculo_experiencia (pessoa_id);
 
+
+CREATE TABLE curriculo_formacao (
+  id SERIAL  NOT NULL ,
+  pessoa_id INTEGER   NOT NULL ,
+  titulacao VARCHAR(50)   NOT NULL ,
+  curso VARCHAR(100)   NOT NULL ,
+  instituicao VARCHAR(200)   NOT NULL ,
+  situacao INTEGER   NOT NULL ,
+  ano_conclusao DATE    ,
+  carga_horaria INTEGER    ,
+  descricao TEXT      ,
+PRIMARY KEY(id)  ,
+  FOREIGN KEY(pessoa_id)
+    REFERENCES pessoa(id));
+
+
+CREATE INDEX curriculo_formacao_FKIndex1 ON curriculo_formacao (pessoa_id);
+
+
+CREATE INDEX IFK_Rel_FORMACAO_PESSOA ON curriculo_formacao (pessoa_id);
 
 CREATE TABLE necessidade_pessoa (
   id INTEGER   NOT NULL ,
