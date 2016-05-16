@@ -50,25 +50,114 @@
                 <md-tab label="Dados pessoais">
 
                     <div flex layout="row">
-                        <md-input-container flex="30" class="md-block" flex-gt-xs>
-                            <label>RG</label>
-                            <input  name="rg" ng-model="crudVm.entity.pessoa.rg" required>
-                            <div ng-messages="formEdit.rg.$error">
+
+                        <div layout-gt-xs="row">
+
+                            <md-input-container  class="md-block" flex-gt-xs>
+                                <label>RG</label>
+                                <input  name="rg" ng-model="crudVm.entity.pessoa.rg" required>
+                                <div ng-messages="formEdit.rg.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>CPF</label>
+                                <input  name="cpf" ng-model="crudVm.entity.pessoa.cpf" ui-br-cpf-mask required>
+                                <div ng-messages="formEdit.cpf.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Sexo</label>
+                                <md-select ng-model="crudVm.entity.pessoa.sexo">
+                                    <md-option ng-repeat="item in crudVm.sexos" ng-value="{{item.id}}">
+                                        {{item.nome}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="formEdit.sexo.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+
+                            </md-input-container>
+
+                            <!--<md-input-container  class="md-block" flex-gt-xs>
+                                <label>Cor</label>
+                                <md-select ng-model="crudVm.entity.pessoa.cor">
+                                    <md-option ng-repeat="item in crudVm.entity.pessoa.cor" ng-value="{{item.id}}">
+                                        {{item.nome}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>-->
+
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>Cor</label>
+                                <md-select ng-model="crudVm.entity.pessoa.cor">
+                                    <md-option ng-repeat="item in crudVm.pessoa" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.pessoa.cor.id" >
+                                        {{item.nome}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-datepicker ng-model="crudVm.entity.pessoa.dataNascimento" md-placeholder="00/00/0000." ng-required></md-datepicker>
+                            <!--<label>Data de nascimento</label>-->
+                            <div ng-messages="formEdit.dataNascimento.$error">
                                 <div ng-message="required">Campo obrigatório.</div>
                             </div>
-                        </md-input-container>
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>CPF</label>
-                            <input  name="cpf" ng-model="crudVm.entity.pessoa.cpf" ui-br-cpf-mask required>
-                            <div ng-messages="formEdit.cpf.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
-                            </div>
-                        </md-input-container>
+
+
+                        </div>
+                    </div>
+
+
+                    <div flex layout="row">
+                        <div layout-gt-xs="row">
+                            <md-input-container  class="md-block" flex-gt-xs>
+                                <label>Endereço</label>
+                                <input  name="endereco" ng-model="crudVm.entity.pessoa.endereco" required>
+                                <div ng-messages="formEdit.endereco.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>Bairro</label>
+                                <input  name="bairo" ng-model="crudVm.entity.pessoa.bairro" required>
+                                <div ng-messages="formEdit.bairro.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>CEP</label>
+                                <input  name="cep" ng-model="crudVm.entity.pessoa.cep" ui-br-cep-mask required>
+                                <div ng-messages="formEdit.cep.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container  class="md-block" flex-gt-xs>
+                                <label>Telefone celular</label>
+                                <input  name="telCelular" ng-model="crudVm.entity.pessoa.telCelular" ui-br-phone-number required>
+                                <div ng-messages="formEdit.telCelular.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>Telefone fixo</label>
+                                <input  name="telFixo" ng-model="crudVm.entity.pessoa.telFixo" ui-br-phone-number required>
+                                <div ng-messages="formEdit.telFixo.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+                            </md-input-container>
+
+                        </div>
                     </div>
 
 
                 </md-tab>
-
 
                 <md-tab label="Cargos">
                     <md-table-container>
