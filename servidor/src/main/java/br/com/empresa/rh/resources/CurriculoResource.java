@@ -4,9 +4,14 @@ package br.com.empresa.rh.resources;
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.CurriculoService;
 import br.com.empresa.rh.model.Curriculo;
+import br.com.empresa.rh.model.Pessoa;
+import br.com.empresa.rh.model.PessoaCarteira;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import br.com.empresa.rh.service.CidadeService;
+import br.com.empresa.rh.service.PessoaCarteiraService;
+import br.com.empresa.rh.service.PessoaService;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -31,6 +36,12 @@ public class CurriculoResource {
 
     @Autowired
     private CurriculoService curriculoService;
+    
+    @Autowired
+    private PessoaService pessoaService;
+    
+    @Autowired
+    private PessoaCarteiraService pessoaCarteiraService;
 
     @Context
     protected UriInfo info;
@@ -81,8 +92,26 @@ public class CurriculoResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
     public void update(@PathParam("id") int id, Curriculo entity) {
+        Pessoa p = pessoaService.findById(entity.getPessoaId());
+        Pessoa e = entity.getPessoa();
+        p.setNome(e.getNome());
+        p.setDataNascimento(e.getDataNascimento());
+        p.setCpf(e.getCpf());
+        p.setRg(e.getRg());
+        p.setEmail(e.getEmail());
+        p.setTelCelular(e.getTelCelular());
+        p.setTelFixo(e.getTelFixo());
+        p.setCep(e.getCep());
+        p.setBairro(e.getBairro());
+        p.setEndereco(e.getEndereco());
+        p.setCidade(e.getCidade());
+        p.setEscolaridade(e.getEscolaridade());
+        p.setEstadoCivil(e.getEstadoCivil());
+        p.setSexo(e.getSexo());
+        p.setPessoaCarteira(e.getPessoaCarteira());
+        pessoaService.update(p);
+        
         curriculoService.update(entity);
-		
     }
 
     @DELETE

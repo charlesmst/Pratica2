@@ -73,6 +73,7 @@ public class Pessoa implements java.io.Serializable {
     private String email;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String rg;
+    @JsonView
     private Curriculo curriculo;
 
     @JsonBackReference
@@ -87,11 +88,8 @@ public class Pessoa implements java.io.Serializable {
     private Set<Dependente> dependentes = new HashSet<Dependente>(0);
     @JsonView({Recrutamento.Curriculo.class})
     private PessoaCarteira pessoaCarteira;
-    @JsonView({Recrutamento.Curriculo.class})
     private Set<CurriculoExperiencia> curriculoExperiencias = new HashSet<CurriculoExperiencia>(0);
-    @JsonView({Recrutamento.Curriculo.class})
     private Set<CurriculoFormacao> curriculoFormacoes = new HashSet<CurriculoFormacao>(0);
-    @JsonView({Recrutamento.Curriculo.class})
     private Set<CurriculoQualificacao> curriculoQualificacoes = new HashSet<CurriculoQualificacao>(0);
 
     public Pessoa() {

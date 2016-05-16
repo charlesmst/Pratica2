@@ -13,7 +13,7 @@ import br.com.empresa.rh.model.Curriculo;
  */
 public class Recrutamento {
 
-    public static class Pessoa{
+    public static class Pessoa {
 
     }
 
@@ -24,36 +24,40 @@ public class Recrutamento {
     public static class NecessidadePessoa extends Usuario {
 
     }
-    
+
     public static class Cargo {
-        
+
     }
-    
-    public static class Curriculo{
-        
+
+    public static class Curriculo {
+
     }
-    
+
     public static class Cidade {
-        
+
     }
-    
+
     public static class EstadoCivil {
-        
+
     }
-    
+
     public static class Cor {
-        
+
     }
-    
-    public static class PessoaCarteira{
-        
+
+    public static class PessoaCarteira {
+
     }
-    
-    public static class CurriculoFormacao{
-        
+
+    public static class CurriculoFormacao {
+
     }
-    
-    public static class CurriculoQualificacao{
-        
+
+    public static class CurriculoQualificacao {
+
+    }
+
+    public static class CurriculoExperiencia {
+
     }
 }

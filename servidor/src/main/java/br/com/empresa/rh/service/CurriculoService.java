@@ -63,5 +63,4 @@ public class CurriculoService extends Service<Curriculo>{
         return l;
     }
     
-
 }

@@ -26,21 +26,25 @@ import javax.persistence.TemporalType;
 )
 public class CurriculoExperiencia implements java.io.Serializable {
 
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
     private int id;
     private Pessoa pessoa;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
     private String atribuicao;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    private String cargo;
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
     private Date dataInicial;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
     private Date dataFinal;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
     private String pessoaReferencia;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
     private String pessoaContato;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
     private String empresa;
+    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    private String descricao;
 
     public CurriculoExperiencia() {
     }
@@ -51,15 +55,17 @@ public class CurriculoExperiencia implements java.io.Serializable {
         this.dataInicial = dataInicial;
     }
 
-    public CurriculoExperiencia(int id, Pessoa pessoa, String atribuicao, Date dataInicial, Date dataFinal, String pessoaReferencia, String pessoaContato, String empresa) {
+    public CurriculoExperiencia(int id, Pessoa pessoa, String atribuicao, String cargo, Date dataInicial, Date dataFinal, String pessoaReferencia, String pessoaContato, String empresa, String descricao) {
         this.id = id;
         this.pessoa = pessoa;
         this.atribuicao = atribuicao;
+        this.cargo = cargo;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.pessoaReferencia = pessoaReferencia;
         this.pessoaContato = pessoaContato;
         this.empresa = empresa;
+        this.descricao = descricao;
     }
 
     @Id
@@ -91,6 +97,15 @@ public class CurriculoExperiencia implements java.io.Serializable {
 
     public void setAtribuicao(String atribuicao) {
         this.atribuicao = atribuicao;
+    }
+    
+    @Column(name = "cargo")
+    public String getCargo() {
+        return this.cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     @Temporal(TemporalType.DATE)
@@ -138,6 +153,15 @@ public class CurriculoExperiencia implements java.io.Serializable {
 
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
+    }
+    
+    @Column(name = "descricao")
+    public String getDescricao() {
+        return this.descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
 }

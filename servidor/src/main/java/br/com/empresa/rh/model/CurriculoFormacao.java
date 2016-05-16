@@ -27,28 +27,28 @@ import javax.persistence.TemporalType;
 @Table(name = "curriculo_formacao", schema = "public"
 )
 public class CurriculoFormacao implements Serializable {
-    
-    @JsonView({Recrutamento.Curriculo.class})
+
+    @JsonView({Recrutamento.CurriculoFormacao.class})
     private int id;
     private Pessoa pessoa;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class})
     private String titulacao;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class})
     private String curso;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class})
     private String Instituicao;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class})
     private int situacao;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class})
     private Date anoConclusao;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class})
     private Integer cargaHoraria;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class})
     private String descricao;
 
     public CurriculoFormacao() {
     }
-    
+
     public CurriculoFormacao(int id, Pessoa pessoa, String titulacao, String curso, String Instituicao, int situacao) {
         this.id = id;
         this.pessoa = pessoa;
@@ -79,7 +79,7 @@ public class CurriculoFormacao implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pessoa_id", nullable = false)
     public Pessoa getPessoa() {
@@ -89,7 +89,7 @@ public class CurriculoFormacao implements Serializable {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-    
+
     @Column(name = "titulacao", nullable = false, length = 50)
     public String getTitulacao() {
         return titulacao;
@@ -107,7 +107,7 @@ public class CurriculoFormacao implements Serializable {
     public void setCurso(String curso) {
         this.curso = curso;
     }
-    
+
     @Column(name = "instituicao", nullable = false, length = 200)
     public String getInstituicao() {
         return Instituicao;
@@ -116,7 +116,7 @@ public class CurriculoFormacao implements Serializable {
     public void setInstituicao(String Instituicao) {
         this.Instituicao = Instituicao;
     }
-    
+
     @Column(name = "situacao", nullable = false)
     public int getSituacao() {
         return situacao;
@@ -153,7 +153,5 @@ public class CurriculoFormacao implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
-       
-    
+
 }

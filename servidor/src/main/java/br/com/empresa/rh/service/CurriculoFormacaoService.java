@@ -14,6 +14,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class CurriculoFormacaoService extends Service<CurriculoFormacao>{
 
+    @Override
+    public CurriculoFormacao findById(Object id) {
+        String hql = "select t from CurriculoFormacao t "
+                + " inner join fetch t.pessoa p "
+                + " where p.id = :id";
+        CurriculoFormacao cf = (CurriculoFormacao) entityManager.createQuery(hql)
+                .setParameter("id", id)
+                .getSingleResult();
+
+        return cf;
+    }
+    
+    public List<CurriculoFormacao> findForPessoa (int pessoaId) {
+        String hql = "from CurriculoFormacao t "
+                + " inner join fetch t.pessoa p "
+                + " where p.id = :id and p is not EMPTY";
+        return entityManager.createQuery(hql)
+                .setParameter("id", pessoaId)
+                .getResultList();
+    }
+    
     public CurriculoFormacaoService() {
         classRef = CurriculoFormacao.class;
     }
@@ -22,9 +43,10 @@ public class CurriculoFormacaoService extends Service<CurriculoFormacao>{
     public List<CurriculoFormacao> findForTable(TableRequest request) {
 
         
-        String hql = "select t from CurriculoFormacao t ";
-        hql+= request.applyFilter("id","nome");     
-        hql+= request.applyOrder("id","nome");        
+        String hql = "select t from CurriculoFormacao t "
+                + "inner join fetch t.pessoa p";
+        hql+= request.applyFilter("id","descricao");     
+        hql+= request.applyOrder("id","descricao");        
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);

@@ -28,18 +28,18 @@ import javax.persistence.TemporalType;
 )
 public class CurriculoQualificacao implements Serializable {
 
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class})
     private int id;
     private Pessoa pessoa;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class})
     private String nome;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class})
     private Integer cargaHoraria;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class})
     private Date anoInicio;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class})
     private Date anoFim;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class})
     private String descricao;
 
     public CurriculoQualificacao() {

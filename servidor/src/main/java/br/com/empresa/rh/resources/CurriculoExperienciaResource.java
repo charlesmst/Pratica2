@@ -1,11 +1,12 @@
 package br.com.empresa.rh.resources;
 
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.CurriculoExperienciaService;
 import br.com.empresa.rh.model.CurriculoExperiencia;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -68,11 +69,14 @@ public class CurriculoExperienciaResource {
     }
 
     @GET
-    @Path("nivel/{id}")
+    @Path("pessoa/{pessoaId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CurriculoExperiencia> findByNivel(@PathParam("id") long id) {
-        return curriculoExperienciaService.findAll();
+    //@RolesAllowed(NivelAcesso.RH)
+    @JsonView(Recrutamento.CurriculoExperiencia.class)
+    public List<CurriculoExperiencia> findForPessoa(@PathParam("pessoaId") int id) {
+        return curriculoExperienciaService.findForPessoa(id);
     }
+
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
@@ -85,7 +89,7 @@ public class CurriculoExperienciaResource {
     @Path("{id}")
     public void update(@PathParam("id") long id, CurriculoExperiencia entity) {
         curriculoExperienciaService.update(entity);
-		
+
     }
 
     @DELETE

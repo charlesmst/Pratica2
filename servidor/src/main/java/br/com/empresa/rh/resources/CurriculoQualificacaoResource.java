@@ -5,7 +5,9 @@ import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.CurriculoQualificacaoService;
 import br.com.empresa.rh.model.CurriculoQualificacao;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -28,17 +30,17 @@ import org.springframework.stereotype.Component;
 public class CurriculoQualificacaoResource {
 
     @Autowired
-    private CurriculoQualificacaoService CurriculoQualificacaoService;
+    private CurriculoQualificacaoService curriculoQualificacaoService;
 
     @Context
     protected UriInfo info;
 
     public CurriculoQualificacaoService getCurriculoQualificacaoService() {
-        return CurriculoQualificacaoService;
+        return curriculoQualificacaoService;
     }
 
     public void setCurriculoQualificacaoService(CurriculoQualificacaoService marcaService) {
-        this.CurriculoQualificacaoService = marcaService;
+        this.curriculoQualificacaoService = marcaService;
     }
 
     public CurriculoQualificacaoResource() {
@@ -48,14 +50,14 @@ public class CurriculoQualificacaoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(CurriculoQualificacaoService.count());
+        return new CountResponse(curriculoQualificacaoService.count());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<CurriculoQualificacao> m = CurriculoQualificacaoService.findForTable(request);
+        List<CurriculoQualificacao> m = curriculoQualificacaoService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
@@ -63,21 +65,31 @@ public class CurriculoQualificacaoResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public CurriculoQualificacao findById(@PathParam("id") int id) {
-        CurriculoQualificacao m = CurriculoQualificacaoService.findById(id);
+        CurriculoQualificacao m = curriculoQualificacaoService.findById(id);
         return m;
     }
+    
+    @GET
+    @Path("pessoa/{pessoaId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    //@RolesAllowed(NivelAcesso.RH)
+    @JsonView(Recrutamento.CurriculoQualificacao.class)
+    public List<CurriculoQualificacao> findForPessoa(@PathParam("pessoaId") int id) {
+        return curriculoQualificacaoService.findForPessoa(id);
+    }
+
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(CurriculoQualificacao m) {
-        CurriculoQualificacaoService.insert(m);
+        curriculoQualificacaoService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
     public void update(@PathParam("id") int id, CurriculoQualificacao entity) {
-        CurriculoQualificacaoService.update(entity);
+        curriculoQualificacaoService.update(entity);
 		
     }
 
@@ -85,7 +97,7 @@ public class CurriculoQualificacaoResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") int id) {
-        CurriculoQualificacaoService.delete(id);
+        curriculoQualificacaoService.delete(id);
     }
 
 }
