@@ -6,6 +6,7 @@
     function FuncionarioEditController($mdToast, $http, Funcionario, $state, $stateParams, Workspace, $mdDialog) {
         var vm = this;
         vm.entity = {}
+        vm.id = $stateParams.id;
         Workspace.title = "Manutenção de Funcionario";
         console.log($stateParams)
         vm.mostraAddCargo = mostraAddCargo;

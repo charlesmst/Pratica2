@@ -1,0 +1,35 @@
+<md-dialog aria-label="Cargo" style="width:90%" ng-cloak>
+
+    <form name="formModal" ng-submit="modalVm.save($event, formModal.$valid)">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Manutenção de Cargo do funcionário</h2>
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+        <md-card>
+
+            <md-card-content>
+
+                <md-datepicker ng-model="modalVm.entity.dataEntrada" required md-placeholder="Data entrada"></md-datepicker>
+
+
+
+            </md-card-content>
+        </md-card>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button type="submit" class="md-primary md-raised" style="margin-right:20px;">
+                Salvar
+            </md-button>
+            <md-button ng-click="modalVm.cancel($event)" style="margin-right:20px;">
+                Fechar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+
+</md-dialog>

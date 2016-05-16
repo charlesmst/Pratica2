@@ -10,10 +10,8 @@
             <ng-md-icon icon="cancel"></ng-md-icon>
         </md-button>
     </div>
-
-
     <md-card>
-
+<!--        {{crudVm.entity}}-->
         <md-card-content>
             <md-card-title>
                 <md-card-title-text>
@@ -78,7 +76,7 @@
                         <md-input-container flex="30" class="md-block" flex-gt-xs>
                             <label>Categoria CNH</label>
                             <md-select ng-model="crudVm.entity.pessoa.pessoaCarteira.categoria">
-                                <md-option ng-repeat="item in crudVm.categoriasDeCnh" ng-value="{{item}}" ng-selected="item.categoria === crudVm.entity.pessoa.pessoaCarteira.categoria">
+                                <md-option ng-repeat="item in crudVm.categoriasDeCnh" ng-value="{{item}}">
                                     {{item.categoria}}
                                 </md-option>
                             </md-select>
@@ -180,8 +178,13 @@
 
                 <md-tab label="Objetivo">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab Three</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Qual o seu objetivo?</label>
+                            <textarea name="objetivo" ng-model="crudVm.entity.objetivo" required></textarea>
+                            <div ng-messages="formEdit.objetivo.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
                     </md-content>
                 </md-tab>
                 <md-tab label="Formação">
@@ -190,27 +193,30 @@
                             <thead md-head>
                                 <tr md-row>
                                     <th md-column md-numeric ></th>
-                                    <th md-column ><span>Cargo</span></th>             
-                                    <th md-column ><span>Unidade</span></th>             
-                                    <th md-column ><span>Empresa</span></th>             
-                                    <th md-column ><span>Admissão</span></th>             
-                                    <th md-column ><span>Demissão</span></th>             
+                                    <th md-column ><span>Titulação</span></th>             
+                                    <th md-column ><span>Curso</span></th>             
+                                    <th md-column ><span>Instituição</span></th>             
+                                    <th md-column ><span>Situação</span></th>             
+                                    <th md-column ><span>Ano Conclusão</span></th>
+                                    <th md-column ><span>Carga Horária</span></th>
+                                    <th md-column ><span>Descrição</span></th> 
                                 </tr>
                             </thead>
                             <tbody md-body>
-                                <tr md-row ng-repeat="row in crudVm.entity.funcionarioCargos">
+                                <tr md-row ng-repeat="row in crudVm.curriculoFormacoes">
                                     <td md-cell width="15" class="button-column">
 
                             <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCargo(row)">
                                 <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
                             </md-button>
                             </td>
-                            <td md-cell>{{row.cargo.nome}}</td>   
-                            <td md-cell>{{row.unidade.nome}}</td>   
-                            <td md-cell>{{row.unidade.empresa.nome}}</td>   
-                            <td md-cell>{{row.dataEntrada| date:'dd/MM/yyyy'}}</td>   
-                            <td md-cell>{{row.dataSaida| date:'dd/MM/yyyy'}}</td>   
-
+                            <td md-cell>{{row.titulacao}}</td>   
+                            <td md-cell>{{row.curso}}</td>   
+                            <td md-cell>{{row.instituicao}}</td>   
+                            <td md-cell>{{row.situacao}}</td>   
+                            <td md-cell>{{row.anoConclusao| date:'yyyy'}}</td>
+                            <td md-cell>{{row.cargaHoraria}}</td>
+                            <td md-cell>{{row.descricao}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -222,21 +228,92 @@
                     </md-card-actions>
                 </md-tab>
                 <md-tab label="Qualificação">
-                    <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab Three</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-                    </md-content>
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column md-numeric ></th>
+                                    <th md-column ><span>Nome</span></th>             
+                                    <th md-column ><span>Carga Horária</span></th>             
+                                    <th md-column ><span>Data Início</span></th>             
+                                    <th md-column ><span>Data Fim</span></th>             
+                                    <th md-column ><span>Descrição</span></th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="row in crudVm.curriculoQualificacoes">
+                                    <td md-cell width="15" class="button-column">
+
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCargo(row)">
+                                <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                            </md-button>
+                            </td>
+                            <td md-cell>{{row.nome}}</td>   
+                            <td md-cell>{{row.cargaHoraria}}</td>   
+                            <td md-cell>{{row.anoInicio| date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.anoFim| date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.descricao}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddCargo()">
+                            <ng-md-icon icon="add"></ng-md-icon>
+                        </button>
+                    </md-card-actions>
                 </md-tab>
                 <md-tab label="Experiência">
-                    <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab Three</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-                    </md-content>
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column md-numeric ></th>
+                                    <th md-column ><span>Cargo</span></th>             
+                                    <th md-column ><span>Atribuição</span></th>             
+                                    <th md-column ><span>Empresa</span></th>             
+                                    <th md-column ><span>Data Inicial</span></th>             
+                                    <th md-column ><span>Data Final</span></th>
+                                    <th md-column ><span>Pessoa Referência</span></th>
+                                    <th md-column ><span>Contato Referência</span></th>
+                                    <th md-column ><span>Descrição</span></th> 
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="row in crudVm.curriculoExperiencias">
+                                    <td md-cell width="15" class="button-column">
+
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCargo(row)">
+                                <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                            </md-button>
+                            </td>
+                            <td md-cell>{{row.cargo}}</td>   
+                            <td md-cell>{{row.atribuicao}}</td>   
+                            <td md-cell>{{row.empresa}}</td>   
+                            <td md-cell>{{row.dataInicial| date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataFinal| date:'dd/MM/yyyy'}}</td>
+                            <td md-cell>{{row.pessoaReferencia}}</td>
+                            <td md-cell>{{row.pessoaContato}}</td>
+                            <td md-cell>{{row.descricao}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddCargo()">
+                            <ng-md-icon icon="add"></ng-md-icon>
+                        </button>
+                    </md-card-actions>
                 </md-tab>
                 <md-tab label="Extra">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab Three</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Informações Adicionais</label>
+                            <textarea name="infadicional" ng-model="crudVm.entity.infAdicional"></textarea>
+                            <div ng-messages="formEdit.infadicional.$error">
+                                <div ng-message="required">Campo obrigatório.</div>
+                            </div>
+                        </md-input-container>
                     </md-content>
                 </md-tab>
             </md-tabs>
