@@ -48,4 +48,12 @@ public class Recrutamento {
     public static class PessoaCarteira{
         
     }
+    
+    public static class CurriculoFormacao{
+        
+    }
+    
+    public static class CurriculoQualificacao{
+        
+    }
 }

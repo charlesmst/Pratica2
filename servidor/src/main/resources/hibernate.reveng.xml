@@ -60,6 +60,8 @@
   <table-filter match-name="vinculo_empregaticio"/>
   <table-filter match-name="evento_funcionario"/>
   <table-filter match-name="curriculo_experiencia"/>
+  <table-filter match-name="curriculo_qualificacao"/>
+  <table-filter match-name="curriculo_formacao"/>
   <table-filter match-name="entrevista"/>
   <table-filter match-name="resposta"/>
   <table-filter match-name="cargo_nivel_has_faixa_salarial"/>

@@ -39,4 +39,17 @@ public class PermissoesResource {
 
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("recrutamento")
+    public HashMap<String, Boolean> recrutamento() {
+        utilitarios.setSecutiryContext(secutiryContext);
+        
+        HashMap<String, Boolean> permissoes = new HashMap<>();
+        permissoes.put("usuario", utilitarios.usuarioTemPermissao(NivelAcesso.RH));
+        //permissoes.put("usuario", utilitarios.usuarioTemPermissao(NivelAcesso.RH) || utilitarios.usuarioIs(NivelAcesso.CANDIDATO));
+//        permissoes.put("outrosFuncionarios",  utilitarios.usuarioTemPermissao(NivelAcesso.RH));
+        return permissoes;
+
+    }
 }

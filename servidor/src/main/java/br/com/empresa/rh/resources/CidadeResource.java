@@ -53,6 +53,7 @@ public class CidadeResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(NivelAcesso.NENHUM)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
         List<Cidade> m = cidadeService.findForTable(request);

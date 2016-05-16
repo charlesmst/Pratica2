@@ -48,7 +48,7 @@ public class Pessoa implements java.io.Serializable {
     private Escolaridade escolaridade;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private EstadoCivil estadoCivil;
-  
+
     private Pessoa pessoaByPessoaId;
     private Pessoa pessoaByMaeId;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
@@ -89,6 +89,10 @@ public class Pessoa implements java.io.Serializable {
     private PessoaCarteira pessoaCarteira;
     @JsonView({Recrutamento.Curriculo.class})
     private Set<CurriculoExperiencia> curriculoExperiencias = new HashSet<CurriculoExperiencia>(0);
+    @JsonView({Recrutamento.Curriculo.class})
+    private Set<CurriculoFormacao> curriculoFormacoes = new HashSet<CurriculoFormacao>(0);
+    @JsonView({Recrutamento.Curriculo.class})
+    private Set<CurriculoQualificacao> curriculoQualificacoes = new HashSet<CurriculoQualificacao>(0);
 
     public Pessoa() {
     }
@@ -408,4 +412,21 @@ public class Pessoa implements java.io.Serializable {
         this.curriculoExperiencias = curriculoExperiencias;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    public Set<CurriculoQualificacao> getCurriculoQualificacoes() {
+        return this.curriculoQualificacoes;
+    }
+
+    public void setCurriculoQualificacoes(Set<CurriculoQualificacao> curriculoQualificacoes) {
+        this.curriculoQualificacoes = curriculoQualificacoes;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    public Set<CurriculoFormacao> getCurriculoFormacoes() {
+        return this.curriculoFormacoes;
+    }
+
+    public void setCurriculoFormacoes(Set<CurriculoFormacao> curriculoFormacoes) {
+        this.curriculoFormacoes = curriculoFormacoes;
+    }
 }

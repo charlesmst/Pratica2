@@ -14,6 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class UsuarioService extends Service<Usuario> {
 
+    @Override
+    public Usuario findById(Object id) {
+        String hql = "select t from Usuario t "
+                + " inner join fetch t.pessoa p "
+                + " inner join fetch p.escolaridade e"
+                + " inner join fetch p.cidade c "
+                + " inner join fetch c.estado uf"
+                + " where p.id = :id";
+        Usuario u = (Usuario) entityManager.createQuery(hql)
+                .setParameter("id", id)
+                .getSingleResult();
+        return u;
+    }
+
     public UsuarioService() {
         classRef = Usuario.class;
     }

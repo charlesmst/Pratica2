@@ -1,5 +1,4 @@
 package br.com.empresa.rh.resources;
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.model.Pessoa;
 import br.com.empresa.rh.service.UsuarioService;
@@ -8,6 +7,8 @@ import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
 import br.com.empresa.rh.service.PessoaService;
+import br.com.empresa.rh.util.SecurityApiException;
+import br.com.empresa.rh.util.Utilitarios;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -21,6 +22,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +37,8 @@ public class UsuarioResource {
     @Autowired
     private PessoaService pessoaService;
 
+    @Autowired
+    private Utilitarios utilitarios;
     @Context
     protected UriInfo info;
 
@@ -69,8 +73,15 @@ public class UsuarioResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(Recrutamento.Usuario.class)
-    public Usuario findById(@PathParam("id") int id) {
+    @RolesAllowed(NivelAcesso.CANDIDATO)
+    public Usuario findById(@PathParam("id") int id, @Context SecurityContext securityContext) {
+        utilitarios.setSecutiryContext(securityContext);
+
         Usuario m = usuarioService.findById(id);
+        if ((utilitarios.usuarioIs(NivelAcesso.CANDIDATO) && m.getPessoaId() != utilitarios.usuario()) || utilitarios.usuarioIs(NivelAcesso.FUNCIONARIO) || utilitarios.usuarioIs(NivelAcesso.GESTOR)) {
+            throw  new SecurityApiException();
+        }
+        
         return m;
     }
 
@@ -101,7 +112,7 @@ public class UsuarioResource {
         p.setEndereco(entity.getPessoa().getEndereco());
         p.setEscolaridade(entity.getPessoa().getEscolaridade());
         pessoaService.update(p);
-        
+
         Usuario u = usuarioService.findById(id);
         u.setUsuario(entity.getUsuario().toUpperCase());
         u.setSenha(entity.getSenha());

@@ -1,6 +1,5 @@
 package br.com.empresa.rh.resources;
 
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.EscolaridadeService;
 import br.com.empresa.rh.model.Escolaridade;
@@ -53,6 +52,8 @@ public class EscolaridadeResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(NivelAcesso.NENHUM)
+
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
         List<Escolaridade> m = escolaridadeService.findForTable(request);
@@ -85,7 +86,7 @@ public class EscolaridadeResource {
     @Path("{id}")
     public void update(@PathParam("id") long id, Escolaridade entity) {
         escolaridadeService.update(entity);
-		
+
     }
 
     @DELETE

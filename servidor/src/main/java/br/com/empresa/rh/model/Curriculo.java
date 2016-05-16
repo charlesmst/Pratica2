@@ -24,11 +24,14 @@ import org.hibernate.annotations.Parameter;
 )
 public class Curriculo implements java.io.Serializable {
 
+    @JsonView(Recrutamento.Curriculo.class)
     private int pessoaId;
     @JsonView(Recrutamento.Curriculo.class)
     private Pessoa pessoa;
     @JsonView(Recrutamento.Curriculo.class)
     private String objetivo;
+    @JsonView(Recrutamento.Curriculo.class)
+    private String infAdicional;
 
     public Curriculo() {
     }
@@ -70,4 +73,12 @@ public class Curriculo implements java.io.Serializable {
         this.objetivo = objetivo;
     }
 
+    @Column(name = "inf_adicional")
+    public String getInfAdicional() {
+        return this.infAdicional;
+    }
+
+    public void setInfAdicional(String infAdicional) {
+        this.infAdicional = infAdicional;
+    }
 }

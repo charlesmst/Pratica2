@@ -94,7 +94,7 @@ public class CurriculoExperiencia implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "data_inicial", nullable = false, length = 13)
+    @Column(name = "data_inicial")
     public Date getDataInicial() {
         return this.dataInicial;
     }
@@ -104,7 +104,7 @@ public class CurriculoExperiencia implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "data_final", length = 13)
+    @Column(name = "data_final")
     public Date getDataFinal() {
         return this.dataFinal;
     }

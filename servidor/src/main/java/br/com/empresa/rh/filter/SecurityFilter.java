@@ -50,7 +50,7 @@ public class SecurityFilter implements ContainerRequestFilter {
         if (a == null) {
             return;
         }
-        if (a.value().equals(NivelAcesso.NENHUM)) {
+        if (a.value()[0].equals(NivelAcesso.NENHUM)) {
             return;
         }
         if (!m.containsKey(AUTHORIZATION_HEADER)) {
