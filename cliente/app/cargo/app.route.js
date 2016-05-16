@@ -34,7 +34,37 @@
                         }
                     }
                 })
-                
+                .state('cargo', {
+                    url: '/cargo',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/cargo.tmpl.html',
+                            controller: "CargoController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('cargoadd', {
+                    url: '/cargo/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/cargo.edit.tmpl.html',
+                            controller: "CargoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('cargoedit', {
+                    url: '/cargo/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/cargo.edit.tmpl.html',
+                            controller: "CargoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })              
                 
     }
+    
 })()
