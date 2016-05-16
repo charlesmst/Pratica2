@@ -37,22 +37,16 @@ public class Funcionario implements java.io.Serializable {
     @JsonView({Folha.Funcionario.class, Folha.FuncionarioFicha.class})
     private Pessoa pessoa;
     @JsonView({Folha.FuncionarioFicha.class})
-
     private VinculoEmpregaticio vinculoEmpregaticio;
     @JsonView({Folha.FuncionarioFicha.class})
-
     private String conta;
     @JsonView({Folha.FuncionarioFicha.class})
-
     private int agencia;
     @JsonView({Folha.FuncionarioFicha.class})
-
     private TipoSanguineo tipoSanguineo;
     @JsonView({Folha.FuncionarioFicha.class})
-
     private Set<Dependente> dependentes = new HashSet<Dependente>(0);
     @JsonView({Folha.FuncionarioFicha.class})
-
     private Set<FuncionarioCargo> funcionarioCargos = new HashSet<FuncionarioCargo>(0);
 
     public Funcionario() {

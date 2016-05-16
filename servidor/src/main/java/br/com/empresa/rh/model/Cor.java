@@ -5,7 +5,6 @@ import br.com.empresa.rh.model.view.Folha;
 import com.fasterxml.jackson.annotation.JsonView;
 import br.com.empresa.rh.model.view.Recrutamento;
 import com.fasterxml.jackson.annotation.JsonView;
-
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -32,6 +31,7 @@ public class Cor implements java.io.Serializable {
     private int id;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private String nome;
+    //@JsonView(Folha.FuncionarioFicha.class)
     private Set<Pessoa> pessoas = new HashSet<Pessoa>(0);
 
     public Cor() {
@@ -76,5 +76,4 @@ public class Cor implements java.io.Serializable {
     public void setPessoas(Set<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
-
 }

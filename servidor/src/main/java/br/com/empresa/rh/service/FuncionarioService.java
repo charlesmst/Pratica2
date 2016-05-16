@@ -21,7 +21,7 @@ public class FuncionarioService extends Service<Funcionario> {
                 + " left outer join fetch f.banco b"
                 //apenas ligações - 
 
-                + " left outer join fetch p.cor cor"
+                + " left outer join fetch p.cor c"
                 + " left outer join fetch p.cidade cidade"
                 + " left outer join fetch p.estadoCivil ec"
                 + " left outer join fetch f.vinculoEmpregaticio ve"

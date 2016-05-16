@@ -23,8 +23,9 @@ public class CorService extends Service<Cor>{
 
         
         String hql = "select t from Cor t ";
-        hql+= request.applyFilter("id","nome");     
-        hql+= request.applyOrder("id","nome");        
+               
+        hql+= request.applyFilter("t.id","c.nome");     
+        hql+= request.applyOrder("t.id","c.nome");        
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);

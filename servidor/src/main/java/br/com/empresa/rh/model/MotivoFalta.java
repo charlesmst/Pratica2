@@ -33,8 +33,6 @@ public class MotivoFalta  implements java.io.Serializable {
     }
 
      @Id 
-
-    
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
         return this.id;

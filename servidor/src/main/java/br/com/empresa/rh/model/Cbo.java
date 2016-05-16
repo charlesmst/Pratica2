@@ -26,6 +26,7 @@ public class Cbo  implements java.io.Serializable {
      private int id;
 @JsonView({Folha.FuncionarioFicha.class})
      private String nome;
+@JsonView({Folha.FuncionarioFicha.class})
      private String descricaoSumarizada;
      private Set<Cargo> cargos = new HashSet<Cargo>(0);
 
