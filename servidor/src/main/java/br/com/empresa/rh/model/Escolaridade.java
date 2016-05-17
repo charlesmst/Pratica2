@@ -24,9 +24,9 @@ import javax.persistence.Table;
 )
 public class Escolaridade implements java.io.Serializable {
 
-    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class, Recrutamento.CurriculoFormacao.class})
     private int id;
-    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Usuario.class, Recrutamento.Curriculo.class, Recrutamento.CurriculoFormacao.class})
     private String nome;
     private Set<Pessoa> pessoas = new HashSet<Pessoa>(0);
 

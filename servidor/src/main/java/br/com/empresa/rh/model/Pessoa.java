@@ -64,6 +64,10 @@ public class Pessoa implements java.io.Serializable {
     private String cep;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Folha.FuncionarioFicha.class})
     private String bairro;
+    @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
+    private String cnh;
+    @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
+    private String cnhCategoria;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String endereco;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
@@ -82,8 +86,6 @@ public class Pessoa implements java.io.Serializable {
     private Set<Pessoa> pessoasForPessoaId = new HashSet<Pessoa>(0);
     private Set<Pessoa> pessoasForMaeId = new HashSet<Pessoa>(0);
     private Set<Dependente> dependentes = new HashSet<Dependente>(0);
-    @JsonView({Recrutamento.Curriculo.class})
-    private PessoaCarteira pessoaCarteira;
     private Set<CurriculoExperiencia> curriculoExperiencias = new HashSet<CurriculoExperiencia>(0);
     private Set<CurriculoFormacao> curriculoFormacoes = new HashSet<CurriculoFormacao>(0);
     private Set<CurriculoQualificacao> curriculoQualificacoes = new HashSet<CurriculoQualificacao>(0);
@@ -99,7 +101,7 @@ public class Pessoa implements java.io.Serializable {
         this.sexo = sexo;
     }
 
-    public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Date dataNascimento, String telCelular, String telFixo, int sexo, String cep, String bairro, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, PessoaCarteira pessoaCarteira, Set<CurriculoExperiencia> curriculoExperiencias) {
+    public Pessoa(int id, Cidade cidade, Cor cor, Escolaridade escolaridade, EstadoCivil estadoCivil, Pessoa pessoaByPessoaId, Pessoa pessoaByMaeId, String cpf, String nome, Date dataNascimento, String telCelular, String telFixo, int sexo, String cep, String bairro, String cnh, String cnhCategoria, String endereco, String email, String rg, Curriculo curriculo, Funcionario funcionario, Set<Entrevista> entrevistas, Usuario usuario, Set<NecessidadeEspecial> necessidadeEspecials, Set<Candidato> candidatos, Set<Pessoa> pessoasForPessoaId, Set<Pessoa> pessoasForMaeId, Set<Dependente> dependentes, Set<CurriculoExperiencia> curriculoExperiencias) {
         this.id = id;
         this.cidade = cidade;
         this.cor = cor;
@@ -114,6 +116,8 @@ public class Pessoa implements java.io.Serializable {
         this.telFixo = telFixo;
         this.sexo = sexo;
         this.bairro = bairro;
+        this.cnh = cnh;
+        this.cnhCategoria = cnhCategoria;
         this.cep = cep;
         this.endereco = endereco;
         this.email = email;
@@ -127,7 +131,6 @@ public class Pessoa implements java.io.Serializable {
         this.pessoasForPessoaId = pessoasForPessoaId;
         this.pessoasForMaeId = pessoasForMaeId;
         this.dependentes = dependentes;
-        this.pessoaCarteira = pessoaCarteira;
         this.curriculoExperiencias = curriculoExperiencias;
     }
 
@@ -275,6 +278,24 @@ public class Pessoa implements java.io.Serializable {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
+    
+    @Column(name = "cnh", length = 11)
+    public String getCnh() {
+        return this.cnh;
+    }
+
+    public void setCnh(String cnh) {
+        this.cnh = cnh;
+    }
+    
+    @Column(name = "cnh_categoria", length = 3)
+    public String getCnhCategoria() {
+        return this.cnhCategoria;
+    }
+
+    public void setCnhCategoria(String cnhCategoria) {
+        this.cnhCategoria = cnhCategoria;
+    }
 
     @Column(name = "endereco", length = 200)
     public String getEndereco() {
@@ -386,15 +407,6 @@ public class Pessoa implements java.io.Serializable {
 
     public void setDependentes(Set<Dependente> dependentes) {
         this.dependentes = dependentes;
-    }
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
-    public PessoaCarteira getPessoaCarteira() {
-        return this.pessoaCarteira;
-    }
-
-    public void setPessoaCarteira(PessoaCarteira pessoaCarteira) {
-        this.pessoaCarteira = pessoaCarteira;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
