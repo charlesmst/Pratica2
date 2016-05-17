@@ -63,7 +63,7 @@ INSERT INTO cor values (4,'PARDO');
 
 INSERT INTO sindicato(id,nome,desconto,valor_mensal) VALUES (1,'SINDICATO 1','0.5','0.5');
 
-INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (1, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'pessoa 1', NULL, 1, 'sdads', 'teste@gmail.com', '4115781892');
+INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg, bairro, cep, tel_celular, tel_fixo, cnh, cnh_categoria) VALUES (1, 1, 1, 1, NULL, NULL, 1, '21312321321', 'Jão da Silva', NULL, 1, 'Rua Sem Fim', 'teste@gmail.com', '4115781892', 'La-Salle', '98900000', '5599338855', '5535412000', '12546857421', 'B');
 INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (2, 1, 1, 1, NULL, NULL, NULL, '21312321321', 'filho 1', '2005-10-10', 2, 'sdads', 'teste@gmail.com', '4115781892');
 INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (3, 1, 1, 1, NULL, NULL, NULL, '1111111111 ', 'ADMIN', NULL, 1, NULL, 'admin@admin.com', '41241241241');
 INSERT INTO pessoa (id, cidade_id, escolaridade_id, estado_civil_id, mae_id, pessoa_id, cor_id, cpf, nome, data_nascimento, sexo, endereco, email, rg) VALUES (4, 1, 1, 1, NULL, NULL, NULL, '1111111111 ', 'RH', NULL, 1, NULL, 'rg@admin.com', '
@@ -77,7 +77,13 @@ INSERT INTO funcionario(pessoa_id,vinculo_empregaticio_id,banco_id,conta,agencia
 
 INSERT INTO dependente values(1,2,1,'2016-01-01',null);
 
+INSERT INTO curriculo (pessoa_id, objetivo, inf_adicional) VALUES (1, 'Teste de objetivo', 'Teste de informações adicionais');
 
+INSERT INTO curriculo_qualificacao values (1, 1, 'Curdo de Inglês', 400, '2009-10-05', '2011-05-03', 'Curso nivel intermediário');
+
+INSERT INTO curriculo_formacao values (1, 6, 1, 'Sistemas de Informação', 'Setrem', 2, '2010-08-07', '2014-02-10', 2200);
+
+INSERT INTO curriculo_experiencia values (1, 1, 'Técnico em informática', '2011-03-07', '2013-01-09', 'João Silvério De Almeida', '(55) 9966-4488', 'ABASE', 'teste');
 
 INSERT INTO empresa (id, cidade_id, nome, cnpj, nome_fantasia, razao_social, data_fundacao, endereco, bairro, telefone, logo, email,ativo) VALUES (1, 1, 'EMPRESA 1', '1111', 'EMPRESA ACB', '213123', '2000-10-10', 'ENDERECO 1', 'AAA', '(55) 5555-5555', NULL, 'empresa1@gmail.com',true);
 
