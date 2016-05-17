@@ -2,7 +2,7 @@
     'use strict';
     angular.module('app').controller('CargoEditController', ['$mdToast', '$http', 'Cargo', '$state', '$stateParams', 'Workspace', CargoEditController]);
 
-    var state = "Cargo"
+    var state = "cargo"
     function CargoEditController($mdToast, $http, Cargo, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
@@ -10,7 +10,8 @@
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Cargo.get({id: $stateParams.id}).$promise.then(function (data) {
 
-                vm.entity = data
+                vm.entity = data;
+                vm.entity.niveis = []
             }))
 
         } else

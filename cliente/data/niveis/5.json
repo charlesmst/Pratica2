@@ -24,7 +24,11 @@
         {
             "title":"Ficha funcional",
             "links": [
-                
+                 { "link": "cargo",
+                   "title": "Cargos",
+                   "icon": "dashboard"
+                 },
+          
                 {
                     "link": "cbo",
                     "title": "Cbos",
