@@ -75,7 +75,7 @@
                     <div layout-gt-sm="row">
                         <md-input-container flex="30" class="md-block" flex-gt-xs>
                             <label>Categoria CNH</label>
-                            <md-select ng-model="crudVm.entity.pessoa.pessoaCarteira.categoria" >
+                            <md-select ng-model="crudVm.entity.pessoa.cnhCategoria" >
                                 <md-option ng-repeat="item in crudVm.categoriasDeCnh" value="{{item}}">
                                     {{item}}
                                 </md-option>
@@ -83,7 +83,7 @@
                         </md-input-container>
                         <md-input-container flex="" class="md-block" md-max-length="11" flex-gt-xs>
                             <label>CNH</label>
-                            <input  name="cnh" ng-model="crudVm.entity.pessoa.pessoaCarteira.cnh">
+                            <input  name="cnh" ng-model="crudVm.entity.pessoa.cnh">
                         </md-input-container>
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>Estado Civil</label>
@@ -193,13 +193,13 @@
                             <thead md-head>
                                 <tr md-row>
                                     <th md-column md-numeric ></th>
-                                    <th md-column ><span>Titulação</span></th>             
+                                    <th md-column ><span>Formação</span></th>             
                                     <th md-column ><span>Curso</span></th>             
                                     <th md-column ><span>Instituição</span></th>             
                                     <th md-column ><span>Situação</span></th>             
-                                    <th md-column ><span>Ano Conclusão</span></th>
-                                    <th md-column ><span>Carga Horária</span></th>
-                                    <th md-column ><span>Descrição</span></th> 
+                                    <th md-column ><span>Data Inicial</span></th>
+                                    <th md-column ><span>Data Final</span></th>
+                                    <th md-column ><span>Carga Horária</span></th> 
                                 </tr>
                             </thead>
                             <tbody md-body>
@@ -210,13 +210,13 @@
                                 <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
                             </md-button>
                             </td>
-                            <td md-cell>{{row.titulacao}}</td>   
+                            <td md-cell>{{row.escolaridade.nome}}</td>   
                             <td md-cell>{{row.curso}}</td>   
                             <td md-cell>{{row.instituicao}}</td>   
                             <td md-cell>{{row.situacao}}</td>   
-                            <td md-cell>{{row.anoConclusao| date:'yyyy'}}</td>
+                            <td md-cell>{{row.dataInicial | date:'dd/MM/yyyy'}}</td>
+                            <td md-cell>{{row.dataFinal | date:'dd/MM/yyyy'}}</td>
                             <td md-cell>{{row.cargaHoraria}}</td>
-                            <td md-cell>{{row.descricao}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -250,8 +250,8 @@
                             </td>
                             <td md-cell>{{row.nome}}</td>   
                             <td md-cell>{{row.cargaHoraria}}</td>   
-                            <td md-cell>{{row.anoInicio| date:'dd/MM/yyyy'}}</td>   
-                            <td md-cell>{{row.anoFim| date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataInicio | date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataFim | date:'dd/MM/yyyy'}}</td>   
                             <td md-cell>{{row.descricao}}</td>
                             </tr>
                             </tbody>
@@ -269,8 +269,7 @@
                             <thead md-head>
                                 <tr md-row>
                                     <th md-column md-numeric ></th>
-                                    <th md-column ><span>Cargo</span></th>             
-                                    <th md-column ><span>Atribuição</span></th>             
+                                    <th md-column ><span>Cargo</span></th>                      
                                     <th md-column ><span>Empresa</span></th>             
                                     <th md-column ><span>Data Inicial</span></th>             
                                     <th md-column ><span>Data Final</span></th>
@@ -288,7 +287,6 @@
                             </md-button>
                             </td>
                             <td md-cell>{{row.cargo}}</td>   
-                            <td md-cell>{{row.atribuicao}}</td>   
                             <td md-cell>{{row.empresa}}</td>   
                             <td md-cell>{{row.dataInicial| date:'dd/MM/yyyy'}}</td>   
                             <td md-cell>{{row.dataFinal| date:'dd/MM/yyyy'}}</td>
