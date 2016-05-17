@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -24,7 +25,7 @@ import org.hibernate.annotations.Type;
 @Table(name="pessoa_carteira"
     ,schema="public"
 )
-public class PessoaCarteira  implements java.io.Serializable {
+public class PessoaCarteira implements java.io.Serializable {
 
 
      private int pessoaId;
@@ -55,7 +56,7 @@ public class PessoaCarteira  implements java.io.Serializable {
         this.pessoaId = pessoaId;
     }
 
-@OneToOne(fetch=FetchType.LAZY)@PrimaryKeyJoinColumn
+    @OneToOne(fetch=FetchType.LAZY)
     public Pessoa getPessoa() {
         return this.pessoa;
     }

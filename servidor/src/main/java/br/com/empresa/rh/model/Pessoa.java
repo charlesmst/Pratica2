@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,18 +38,14 @@ public class Pessoa implements java.io.Serializable {
 
     @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class})
     private int id;
-
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Recrutamento.Pessoa.class})
-
     private Cidade cidade;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private Cor cor;
-
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private Escolaridade escolaridade;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private EstadoCivil estadoCivil;
-
     private Pessoa pessoaByPessoaId;
     private Pessoa pessoaByMaeId;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
@@ -73,7 +70,6 @@ public class Pessoa implements java.io.Serializable {
     private String email;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String rg;
-    @JsonView
     private Curriculo curriculo;
 
     @JsonBackReference
@@ -419,7 +415,7 @@ public class Pessoa implements java.io.Serializable {
         this.curriculoQualificacoes = curriculoQualificacoes;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<CurriculoFormacao> getCurriculoFormacoes() {
         return this.curriculoFormacoes;
     }

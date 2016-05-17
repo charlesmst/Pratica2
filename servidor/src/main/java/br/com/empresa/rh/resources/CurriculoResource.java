@@ -108,7 +108,12 @@ public class CurriculoResource {
         p.setEscolaridade(e.getEscolaridade());
         p.setEstadoCivil(e.getEstadoCivil());
         p.setSexo(e.getSexo());
-        p.setPessoaCarteira(e.getPessoaCarteira());
+    
+        p.setPessoaCarteira(new PessoaCarteira());
+        p.getPessoaCarteira().setPessoa(p);
+        p.getPessoaCarteira().setCategoria(e.getPessoaCarteira().getCategoria());
+        p.getPessoaCarteira().setCnh(e.getPessoaCarteira().getCnh());
+        //pessoaCarteiraService.update(p.getPessoaCarteira());
         pessoaService.update(p);
         
         curriculoService.update(entity);
