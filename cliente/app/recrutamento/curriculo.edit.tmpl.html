@@ -75,9 +75,9 @@
                     <div layout-gt-sm="row">
                         <md-input-container flex="30" class="md-block" flex-gt-xs>
                             <label>Categoria CNH</label>
-                            <md-select ng-model="crudVm.entity.pessoa.pessoaCarteira.categoria">
-                                <md-option ng-repeat="item in crudVm.categoriasDeCnh" ng-value="{{item}}">
-                                    {{item.categoria}}
+                            <md-select ng-model="crudVm.entity.pessoa.pessoaCarteira.categoria" >
+                                <md-option ng-repeat="item in crudVm.categoriasDeCnh" value="{{item}}">
+                                    {{item}}
                                 </md-option>
                             </md-select>
                         </md-input-container>

@@ -1,16 +1,16 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioCargoEditController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'DadosCargo', '$mdDialog', FuncionarioCargoEditController]);
+    angular.module('app').controller('CurriculoQualificacaoEditController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'DadosFormacao', '$mdDialog', CurriculoQualificacaoEditController]);
 
-    var state = "funcionario-cargo"
-    function FuncionarioCargoEditController($mdToast, $http, $state, $stateParams, Workspace, DadosCargo, $mdDialog) {
+    var state = "curriculo-qualificacao"
+    function CurriculoQualificacaoEditController($mdToast, $http, $state, $stateParams, Workspace, DadosFormacao, $mdDialog) {
         var vm = this;
-        vm.entity = DadosCargo
-        if (vm.entity.dataEntrada)
-            vm.entity.dataEntrada = Workspace.toDate(vm.entity.dataEntrada)
-        
-        if (vm.entity.dataSaida)
-            vm.entity.dataSaida = Workspace.toDate(vm.entity.dataSaida)
+        vm.entity = DadosFormacao
+//        if (vm.entity.dataEntrada)
+//            vm.entity.dataEntrada = Workspace.toDate(vm.entity.dataEntrada)
+//        
+//        if (vm.entity.dataSaida)
+//            vm.entity.dataSaida = Workspace.toDate(vm.entity.dataSaida)
         vm.save = save;
         vm.cancel = cancel;
         function save($event, $valid) {
@@ -23,7 +23,6 @@
 
             $mdDialog.cancel()
         }
-
 
     }
 

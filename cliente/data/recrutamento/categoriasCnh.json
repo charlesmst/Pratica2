@@ -1,32 +1,20 @@
 [
-    {
-        "categoria": "ACC"
-    },
-    {
-        "categoria": "A"
-    },
-    {
-        "categoria": "B"
-    },
-    {
-        "categoria": "C"
-    },
-    {
-        "categoria": "D"
-    },
-    {
-        "categoria": "E"
-    },
-    {
-        "categoria": "AB"
-    },
-    {
-        "categoria": "AC"
-    },
-    {
-        "categoria": "AD"
-    },
-    {
-        "categoria": "AE"
-    }
+    "ACC"   ,
+    "A"
+            ,
+    "B"
+            ,
+    "C"
+            ,
+    "D"
+            ,
+    "E"
+            ,
+    "AB"
+            ,
+    "AC"
+            ,
+    "AD"
+            ,
+    "AE"
 ]
