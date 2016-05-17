@@ -62,6 +62,8 @@ public class CalculoFolha {
     @Autowired
     private FuncionarioCargoService funcionarioCargoService;
 
+    private ReportProgress reportProgress;
+
     public void setEventos(EventoCollection eventos) {
         this.eventos = eventos;
     }
@@ -93,37 +95,59 @@ public class CalculoFolha {
 
     public List<FolhaCalculada> calcularTodos(List<FuncionarioCargo> funcionarios, int mes, int ano, TipoCalculo tipo, boolean salvar) {
         Date data = utilitarios.dataPeriodo(mes, ano);
+        if (getReportProgress() != null) {
+            getReportProgress().setTotal(funcionarios.size());
+        }
         List<FolhaCalculada> folhas = new ArrayList<>();
-        for (FuncionarioCargo funcionario : funcionarios) {
+        try {
+            for (FuncionarioCargo funcionario : funcionarios) {
+                if (getReportProgress() != null) {
+                    getReportProgress().setCurrent(funcionario);
+                }
+                Parametros parametros = parametrosFuncionario(data, funcionario);
+                EventoCollection eventosFuncionario;
+                switch (tipo) {
+                    case ferias:
+                        List<Ferias> f = feriasService.feriasMes(funcionario, mes, ano);
+                        //Se não tem férias no mês, não precisa calcular
+                        if (f.isEmpty()) {
+                            continue;
+                        }
+                        parametros.setDiasMes(Days.daysBetween(new DateTime(f.get(0).getDataGozoInicio()), new DateTime(f.get(0).getDataGozoFim())).getDays());
+                        eventosFuncionario = eventoService.eventosFerias();
+                        break;
+                    case complementar:
+                        eventosFuncionario = this.eventos;
+                        break;
+                    case decimo:
+                        eventosFuncionario = eventoService.eventosDecimo(mes);
+                        break;
+                    case mes:
+                    default:
+                        eventosFuncionario = eventoService.todosEventosFuncionario(funcionario, data);
+                        break;
+                }
+                Folha folha = new Folha();
+                calcula(funcionario, data, eventosFuncionario, parametros, folha);
 
-            Parametros parametros = parametrosFuncionario(data, funcionario);
-            EventoCollection eventosFuncionario;
-            switch (tipo) {
-                case ferias:
-                    List<Ferias> f = feriasService.feriasMes(funcionario, mes, ano);
-                    //Se não tem férias no mês, não precisa calcular
-                    if (f.isEmpty()) {
-                        continue;
-                    }
-                    parametros.setDiasMes(Days.daysBetween(new DateTime(f.get(0).getDataGozoInicio()), new DateTime(f.get(0).getDataGozoFim())).getDays());
-                    eventosFuncionario = eventoService.eventosFerias();
-                    break;
-                case complementar:
-                    eventosFuncionario = this.eventos;
-                    break;
-                case decimo:
-                    eventosFuncionario = eventoService.eventosDecimo(mes);
-                    break;
-                case mes:
-                default:
-                    eventosFuncionario = eventoService.todosEventosFuncionario(funcionario, data);
-                    break;
+                FolhaCalculada folhaCalculada = salvarEventos(funcionario, data, eventosFuncionario, mes, ano, tipo, folha, false);
+                folhas.add(folhaCalculada);
+                if (getReportProgress() != null) {
+                    getReportProgress().increment();
+                }
             }
-            Folha folha = new Folha();
-            calcula(funcionario, data, eventosFuncionario, parametros, folha);
+            if (salvar) {
+                folhaCalculadaService.insertAll(folhas);
+                if (getReportProgress() != null) {
+                    getReportProgress().salvo(folhas);
+                }
+            }
 
-            FolhaCalculada folhaCalculada = salvarEventos(funcionario, data, eventosFuncionario, mes, ano, tipo, folha, salvar);
-            folhas.add(folhaCalculada);
+        } catch (RuntimeException e) {
+            if (getReportProgress() != null) {
+                getReportProgress().reportError(e);
+            }
+            throw e;
         }
         return folhas;
     }
@@ -198,7 +222,7 @@ public class CalculoFolha {
 
             diasMes -= lAdmissao.getDayOfMonth();
         }
-        diasMes = funcionarioCargoService.descontaAtestados(diasMes,func, latual.getMonthOfYear(), latual.getYear());
+        diasMes = funcionarioCargoService.descontaAtestados(diasMes, func, latual.getMonthOfYear(), latual.getYear());
         if (diasMes < 0) {
             diasMes = 0;
         }
@@ -217,6 +241,14 @@ public class CalculoFolha {
 
     public HashMap<String, Object> getLog() {
         return log;
+    }
+
+    public ReportProgress getReportProgress() {
+        return reportProgress;
+    }
+
+    public void setReportProgress(ReportProgress reportProgress) {
+        this.reportProgress = reportProgress;
     }
 
 }

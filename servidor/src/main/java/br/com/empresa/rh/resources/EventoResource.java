@@ -20,10 +20,16 @@ import br.com.empresa.rh.service.folha.EventoScript;
 import br.com.empresa.rh.service.folha.IEvento;
 import br.com.empresa.rh.service.folha.TipoCalculo;
 import br.com.empresa.rh.util.ApiException;
+import br.com.empresa.rh.websocket.FolhaHub;
+import br.com.empresa.rh.websocket.FolhaHubResolve;
+import br.com.empresa.rh.websocket.ReportProgressHub;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
@@ -128,7 +134,7 @@ public class EventoResource {
     @Consumes({MediaType.APPLICATION_JSON})
     public EventoTesteResponse testar(Evento m, @PathParam("funcionario") int funcionarioCargo, @PathParam("mes") int mes, @PathParam("ano") int ano, @PathParam("tipo") int tipo) {
 //        EventoCollection c = new EventoCollection(Arrays.asList(m));
-        Date data = utilitarios.dataPeriodo(mes,ano);
+        Date data = utilitarios.dataPeriodo(mes, ano);
 
         EventoCollection c = eventoService.todosEventosFuncionario(funcionarioCargo, data);
 
@@ -197,13 +203,39 @@ public class EventoResource {
         return funcionariosCalculo;
     }
 
+    @GET
+    @Path("asd")
+    public void asd() {
+        try {
+            //        new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                for (int i = 0; i < 100; i++) {
+//                    System.out.println("Requisição ainda andando com consulta" + i);
+//                    eventoService.eventosDecimo(12);
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(EventoResource.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//            }
+//        }).start();
+            FolhaHub.sendToAll("hu3");
+        } catch (IOException ex) {
+            Logger.getLogger(EventoResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @POST
     @Path("calcular/mes")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void calcular(CalculoFolhaRequest request, @Context SecurityContext securityContext) {
-        TipoCalculo t = TipoCalculo.parse(request.getTipo());
+    public void calcular(final CalculoFolhaRequest request, @Context final SecurityContext securityContext) {
 
-        List<FuncionarioCargo> funcionariosCalculo = funcionariosRequest(request);
+        final TipoCalculo t = TipoCalculo.parse(request.getTipo());
+
+        final List<FuncionarioCargo> funcionariosCalculo = funcionariosRequest(request);
         //Exclui os antigos e verifica se pode excluir
 
         if (t == TipoCalculo.complementar) {
@@ -218,7 +250,20 @@ public class EventoResource {
         } else {
             folhaCalculadaService.excluirFolhasAntigas(funcionariosCalculo, request.getMes(), request.getAno(), t, securityContext.isUserInRole(NivelAcesso.ADMIN));
         }
-        calculoFolha.calcularTodos(funcionariosCalculo, request.getMes(), request.getAno(), t);
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    ReportProgressHub hub = new ReportProgressHub("Folha " + t.toString() + " da competência " + request.getMes() + "/" + request.getAno());
+                    FolhaHub.folhaHub.add(hub);
+                    calculoFolha.setReportProgress(hub);
+                    calculoFolha.calcularTodos(funcionariosCalculo, request.getMes(), request.getAno(), t);
+                }catch(Exception ex){
+                    Logger.getLogger(EventoResource.class.getName()).log(Level.SEVERE, null,ex);
+                }
+            }
+        }).start();
 
 //        return new MensagemResponse(true, "Folha de pagamento calculada com sucesso");
     }

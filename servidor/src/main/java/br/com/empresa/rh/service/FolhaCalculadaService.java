@@ -37,6 +37,12 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
     @Autowired
     private Utilitarios utilitarios;
 
+    @Transactional
+    public void insertAll(List<FolhaCalculada> folhas){
+        for (FolhaCalculada folha : folhas) {
+            entityManager.persist(folha);
+        }
+    }
     @Override
     public FolhaCalculada findById(Object id) {
         FolhaCalculada f = entityManager.createQuery("from FolhaCalculada f "
