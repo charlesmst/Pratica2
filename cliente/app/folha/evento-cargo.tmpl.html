@@ -1,0 +1,33 @@
+<div class="md-fab-bottom-right app-fixed-bottom-right fade">
+    <md-button class="md-fab flipInX flipOutX" ng-show="crudVm.selectedItems.length && !appVm.isSubState" aria-label="Delete"
+        ng-click="crudVm.showDelete($event)">
+        <ng-md-icon icon="delete"></ng-md-icon>
+    </md-button>
+    <md-button class="md-fab " aria-label="Add" ng-show="!appVm.isSubState" ng-click="crudVm.showAdd($event)">
+        <ng-md-icon icon="add"></ng-md-icon>
+    </md-button>
+</div>
+<md-card>
+    <md-table-container>
+        <datepicker-mes ano="crudVm.ano" mes="crudVm.mes" required="true"></datepicker-mes>
+        <table md-table md-progress="promise" md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise">
+            <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
+                <tr md-row>
+                    <th md-column md-order-by="t.evento.nome"><span>Evento</span></th>
+                    <th md-column><span>Início vigência</span></th>
+                    <th md-column><span>Fim vigência</span></th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row md-select="row" md-select-id="{{row}}" md-auto-select ng-repeat="row in crudVm.list">
+
+                    <td md-cell>{{::row.evento.nome}}</td>
+                    <td md-cell>{{::row.dataInicio | date:'MM/yyyy'}}</td>
+                    <td md-cell>{{::(row.dataFim | date:'MM/yyyy')|| "Vigênte"}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </md-table-container>
+</md-card>

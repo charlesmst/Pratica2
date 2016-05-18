@@ -9,6 +9,7 @@
                     });
                 }])
         });
+
         $stateProvider
                 .state('start', {
                     url: '/',

@@ -40,7 +40,7 @@
         }
         function setDefaults($event, $curState, $stPar, $oldState) {
             var reloadState = true;
-            if ($curState && $oldState && $oldState.name && $curState.name) {
+            if ($curState && $oldState && $oldState.name && $curState.name && $curState.name.indexOf(".") !== -1) {
                 //Se são do mesmo pai
                 if ($curState.name.indexOf($oldState) === 0 || $oldState.name.indexOf($curState)) {
                     reloadState = false;

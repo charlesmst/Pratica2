@@ -1,15 +1,20 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CalculoFolhaController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'Empresa', 'Cargo', '$scope', '$parse', 'Evento', '$q', '$mdDialog', CalculoFolhaController]);
+    angular.module('app').controller('CalculoFolhaController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'Empresa', 'Cargo', '$scope', '$parse', 'Evento', '$q', '$mdDialog','FolhaHub','Download', CalculoFolhaController]);
 
-    function CalculoFolhaController($mdToast, $http, $state, $stateParams, Workspace, Empresa, Cargo, $scope, $parse, Evento, $q, $mdDialog) {
+    function CalculoFolhaController($mdToast, $http, $state, $stateParams, Workspace, Empresa, Cargo, $scope, $parse, Evento, $q, $mdDialog,FolhaHub,Download) {
         var vm = this;
         vm.empresas = []
         vm.cargos = []
         Workspace.title = "Cálculo de folha";
         vm.save = save;
         vm.loadFuncionarios = loadFuncionarios;
-
+        vm.downloadFolhas = downloadFolhas
+        FolhaHub.connect();
+        vm.folhaHub = FolhaHub
+        $scope.$on("$destroy",function(){
+            FolhaHub.disconnect()
+        })
         vm.entity = angular.extend(new Evento(), {
             ano: new Date().getFullYear(),
             empresa: undefined,
@@ -37,10 +42,23 @@
                 case 3:
                     calculaComplementar($event);
                     break;
+                    
+                case 4:
+                    calculaMes($event);
+                    break;
             }
         }
         function calculaFerias($event) {
             calculaMes($event)
+        }
+        function calculaMes($event) {
+            verificarCalculado($event).then(function () {
+                Workspace.loading("Cálculando...", vm.entity.$calcularMes(callbackSave, callbackError).$promise)
+
+            });
+        }
+        function mostraErro(r){
+            Workspace.showError(r.data.mensagem)
         }
         function calculaMes($event) {
             verificarCalculado($event).then(function () {
@@ -78,9 +96,10 @@
 
         }
         function callbackSave(r) {
-            Workspace.showMessage("Cálculo efetuado com sucesso");
+            // Workspace.showMessage("Cálculo efetuado com sucesso");
         }
         function callbackError(r) {
+            console.log(r)
             Workspace.showError(r.data.mensagem);
         }
 
@@ -103,6 +122,10 @@
                 })
                 vm.cargos = r;
             })
+        }
+        
+        function downloadFolhas(files){
+            Download.downloadFile('/folhacalculada/relatorio',{"ids":files},'folha')
         }
 
     }
