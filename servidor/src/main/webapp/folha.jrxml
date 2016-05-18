@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2016-05-12T22:38:58 -->
+<!-- 2016-05-17T00:35:28 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="folha" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="78419cf1-9ec1-46a2-915c-526b7235105f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
@@ -218,7 +218,7 @@
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="74" y="34" width="312" height="22" uuid="fe463845-d42c-4442-8faa-8b55975ea888"/>
+				<reportElement x="74" y="35" width="312" height="22" uuid="fe463845-d42c-4442-8faa-8b55975ea888"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -239,14 +239,14 @@
 				<text><![CDATA[Funcionário:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="74" y="53" width="312" height="22" uuid="b23cb47e-3f7f-4390-8d45-ef9a40a64585"/>
+				<reportElement x="74" y="54" width="312" height="22" uuid="b23cb47e-3f7f-4390-8d45-ef9a40a64585"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="443" y="34" width="106" height="22" uuid="76cbe9c4-cd7c-4e3b-a72d-caceae69e2bd"/>
+				<reportElement x="443" y="35" width="106" height="22" uuid="76cbe9c4-cd7c-4e3b-a72d-caceae69e2bd"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -267,7 +267,7 @@
 				<text><![CDATA[CBO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="443" y="54" width="106" height="22" uuid="2a95423a-b793-4d7c-b04e-5cea3759a5a6"/>
+				<reportElement x="443" y="55" width="106" height="22" uuid="2a95423a-b793-4d7c-b04e-5cea3759a5a6"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -524,10 +524,10 @@
 				<textFieldExpression><![CDATA[$F{totalVencimento}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement x="311" y="695" width="213" height="31" uuid="bfce4651-e143-4960-97de-3652e6c58798"/>
+				<reportElement x="364" y="697" width="184" height="30" uuid="bfce4651-e143-4960-97de-3652e6c58798"/>
 			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement x="310" y="709" width="214" height="18" uuid="cd1476c7-f434-4b1b-97e2-725a995523a5">
+				<reportElement x="365" y="710" width="185" height="17" uuid="cd1476c7-f434-4b1b-97e2-725a995523a5">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -536,7 +536,7 @@
 				<textFieldExpression><![CDATA[$F{valorLiquido}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="" x="310" y="695" width="214" height="18" uuid="c79be55b-dfea-4f2b-9d4b-8dc49a272177">
+				<reportElement key="" x="365" y="696" width="185" height="17" uuid="c79be55b-dfea-4f2b-9d4b-8dc49a272177">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -613,7 +613,7 @@
 				<text><![CDATA[Unidade:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="75" y="75" width="311" height="22" uuid="b8023060-2a44-42d9-964b-bbf84f924124"/>
+				<reportElement x="75" y="76" width="311" height="22" uuid="b8023060-2a44-42d9-964b-bbf84f924124"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -627,12 +627,15 @@
 				<text><![CDATA[Admissão:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="444" y="74" width="106" height="22" uuid="22652d03-30b9-4061-8731-7d2d2c188310"/>
+				<reportElement x="444" y="75" width="106" height="22" uuid="22652d03-30b9-4061-8731-7d2d2c188310"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{admissao}]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement x="2" y="727" width="544" height="1" uuid="2d02165e-6340-49a3-b276-d150dd52d47e"/>
+			</rectangle>
 		</band>
 	</detail>
 </jasperReport>

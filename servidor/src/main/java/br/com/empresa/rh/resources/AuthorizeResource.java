@@ -10,15 +10,20 @@ import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.model.Usuario;
 import br.com.empresa.rh.model.request.UsuarioSenha;
 import br.com.empresa.rh.model.response.LoginResponse;
+import br.com.empresa.rh.model.response.NivelResponse;
 import br.com.empresa.rh.model.response.RestResponseUser;
 import br.com.empresa.rh.service.UsuarioService;
 import br.com.empresa.rh.util.ApiException;
+import br.com.empresa.rh.util.Utilitarios;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
@@ -36,6 +41,8 @@ public class AuthorizeResource {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private Utilitarios utilitarios;
 
     public AuthorizeResource() {
     }
@@ -51,6 +58,40 @@ public class AuthorizeResource {
                 l.setNivel(i + "");
                 break;
             }
+        }
+        return l;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(NivelAcesso.CANDIDATO)
+    @Path("niveis")
+    public List<NivelResponse> niveis(@Context SecurityContext context) {
+        utilitarios.setSecutiryContext(context);
+        List<NivelResponse> l = new ArrayList<NivelResponse>();
+        Usuario u = usuarioService.findById(utilitarios.usuario());
+        for (int i = 1; i <= u.getNivel(); i++) {
+            NivelResponse n = new NivelResponse();
+            switch (i) {
+                case 1:
+                    n.setDescricao("Candidato");
+                    break;
+                case 2:
+                    n.setDescricao("Funcionário");
+                    break;
+                case 3:
+                    n.setDescricao("Gestor");
+                    break;
+                case 4:
+                    n.setDescricao("RH");
+                    break;
+                case 5:
+                    n.setDescricao("Administrador");
+                    break;
+            }
+            n.setToken(SecurityFilter.encodeAuthorize(String.valueOf(u.getPessoaId()), String.valueOf(i)));
+            l.add(n);
+
         }
         return l;
     }
