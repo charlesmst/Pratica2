@@ -1,6 +1,9 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Ficha;
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,8 +29,13 @@ public class FuncionarioQualificacao implements java.io.Serializable {
 
     private int id;
     private FuncionarioCargo funcionarioCargo;
+    @JsonView({Folha.FuncionarioFicha.class})
     private Qualificacao qualificacao;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private String certificado;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Date validade;
 
     public FuncionarioQualificacao() {
