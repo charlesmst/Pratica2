@@ -119,6 +119,13 @@ md-sidenav ng-md-icon {
 .p-b-10{
     padding-bottom: 10px;
 }
+.p-b-5{
+     padding-bottom: 5px; 
+}
+.p-b-0{
+     padding-bottom: 0; 
+    
+}
 .m-r-30{
     margin-right: 30px;
 }
@@ -128,6 +135,10 @@ md-sidenav ng-md-icon {
 .m-t-10{
     margin-top:10px;
 }
+.m-b-0{
+    margin-bottom:0;
+    /* line-height: 0; */
+}
  .validation-messages {
     font-size: 12px;
     color: #dd2c00;
@@ -136,4 +147,8 @@ md-sidenav ng-md-icon {
     .pull-right{
         float:right;
         display: block;
+    }
+    
+    .md-no-min-height{
+        min-height: 10px;
     }

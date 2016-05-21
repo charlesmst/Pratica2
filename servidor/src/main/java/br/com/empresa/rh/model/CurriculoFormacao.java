@@ -32,42 +32,41 @@ public class CurriculoFormacao implements Serializable {
     private int id;
     private Pessoa pessoa;
     @JsonView({Recrutamento.CurriculoFormacao.class})
-    private String titulacao;
+    private Escolaridade escolaridade;
     @JsonView({Recrutamento.CurriculoFormacao.class})
     private String curso;
     @JsonView({Recrutamento.CurriculoFormacao.class})
-    private String Instituicao;
+    private String instituicao;
     @JsonView({Recrutamento.CurriculoFormacao.class})
     private int situacao;
     @JsonView({Recrutamento.CurriculoFormacao.class})
-    private Date anoConclusao;
+    private Date dataInicial;
+    @JsonView({Recrutamento.CurriculoFormacao.class})
+    private Date dataFinal;
     @JsonView({Recrutamento.CurriculoFormacao.class})
     private Integer cargaHoraria;
-    @JsonView({Recrutamento.CurriculoFormacao.class})
-    private String descricao;
 
     public CurriculoFormacao() {
     }
 
-    public CurriculoFormacao(int id, Pessoa pessoa, String titulacao, String curso, String Instituicao, int situacao) {
+    public CurriculoFormacao(int id, Pessoa pessoa, Escolaridade escolaridade, String curso, String instituicao, int situacao) {
         this.id = id;
         this.pessoa = pessoa;
-        this.titulacao = titulacao;
+        this.escolaridade = escolaridade;
         this.curso = curso;
-        this.Instituicao = Instituicao;
+        this.instituicao = instituicao;
         this.situacao = situacao;
     }
 
-    public CurriculoFormacao(int id, Pessoa pessoa, String titulacao, String curso, String Instituicao, int situacao, Date anoConclusao, Integer cargaHoraria, String descricao) {
+    public CurriculoFormacao(int id, Pessoa pessoa, Escolaridade escolaridade, String curso, String instituicao, int situacao, Date dataInicial, Date dataFinal, Integer cargaHoraria) {
         this.id = id;
         this.pessoa = pessoa;
-        this.titulacao = titulacao;
+        this.escolaridade = escolaridade;
         this.curso = curso;
-        this.Instituicao = Instituicao;
+        this.instituicao = instituicao;
         this.situacao = situacao;
-        this.anoConclusao = anoConclusao;
+        this.dataInicial = dataInicial;
         this.cargaHoraria = cargaHoraria;
-        this.descricao = descricao;
     }
 
     @Id
@@ -90,13 +89,14 @@ public class CurriculoFormacao implements Serializable {
         this.pessoa = pessoa;
     }
 
-    @Column(name = "titulacao", nullable = false, length = 50)
-    public String getTitulacao() {
-        return titulacao;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "escolaridade_id", nullable = false)
+    public Escolaridade getEscolaridade() {
+        return escolaridade;
     }
 
-    public void setTitulacao(String titulacao) {
-        this.titulacao = titulacao;
+    public void setEscolaridade(Escolaridade escolaridade) {
+        this.escolaridade = escolaridade;
     }
 
     @Column(name = "curso", nullable = false, length = 100)
@@ -110,11 +110,11 @@ public class CurriculoFormacao implements Serializable {
 
     @Column(name = "instituicao", nullable = false, length = 200)
     public String getInstituicao() {
-        return Instituicao;
+        return instituicao;
     }
 
-    public void setInstituicao(String Instituicao) {
-        this.Instituicao = Instituicao;
+    public void setInstituicao(String instituicao) {
+        this.instituicao = instituicao;
     }
 
     @Column(name = "situacao", nullable = false)
@@ -127,13 +127,23 @@ public class CurriculoFormacao implements Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "ano_conclusao")
-    public Date getAnoConclusao() {
-        return anoConclusao;
+    @Column(name = "data_inicial", nullable = false)
+    public Date getDataInicial() {
+        return dataInicial;
     }
 
-    public void setAnoConclusao(Date anoConclusao) {
-        this.anoConclusao = anoConclusao;
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "data_final", nullable = false)
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
     }
 
     @Column(name = "carga_horaria")
@@ -143,15 +153,6 @@ public class CurriculoFormacao implements Serializable {
 
     public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
-    }
-
-    @Column(name = "descricao")
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
 }

@@ -1,0 +1,36 @@
+<md-dialog style="width:90%" ng-cloak>
+
+    <form name="formModal" ng-submit="modalVm.save($event, formModal.$valid)">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Alterar Nível</h2>
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+            <md-card-content>
+                <md-input-container md-no-float>
+                   
+                <md-radio-group ng-model="modalVm.selected" class="md-primary" required>
+                    <md-radio-button ng-repeat="d in modalVm.niveis" ng-value="d.token" >
+                        {{ d.descricao }}
+                    </md-radio-button>
+                </md-radio-group>
+                </md-input-container>
+            </md-card-content>
+      
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button type="submit" class="md-primary md-raised" style="margin-right:20px;">
+                Alterar
+            </md-button>
+            <md-button ng-click="modalVm.cancel($event)" style="margin-right:20px;">
+                Cancelar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+
+</md-dialog>

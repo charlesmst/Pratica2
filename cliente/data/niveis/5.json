@@ -2,7 +2,7 @@
     "inicial": "folhacalculada",
     "menus": [
         {
-            "title":"Administrador",
+            "title":"Folha de pagamento",
             "links": [
                 {
                     "link": "evento",
@@ -18,13 +18,22 @@
                     "link": "calculofolha",
                     "title": "Cálculo da folha",
                     "icon": "dashboard"
+                },
+                {
+                    "link": "tabela",
+                    "title": "Tabelas",
+                    "icon": "dashboard"
                 }
             ]
         },
         {
             "title":"Ficha funcional",
             "links": [
-                
+                 { "link": "cargo",
+                   "title": "Cargos",
+                   "icon": "dashboard"
+                 },
+          
                 {
                     "link": "cbo",
                     "title": "Cbos",

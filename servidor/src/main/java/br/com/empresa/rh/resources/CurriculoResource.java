@@ -5,12 +5,10 @@ import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.CurriculoService;
 import br.com.empresa.rh.model.Curriculo;
 import br.com.empresa.rh.model.Pessoa;
-import br.com.empresa.rh.model.PessoaCarteira;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
 import br.com.empresa.rh.service.CidadeService;
-import br.com.empresa.rh.service.PessoaCarteiraService;
 import br.com.empresa.rh.service.PessoaService;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
@@ -39,9 +37,6 @@ public class CurriculoResource {
     
     @Autowired
     private PessoaService pessoaService;
-    
-    @Autowired
-    private PessoaCarteiraService pessoaCarteiraService;
 
     @Context
     protected UriInfo info;
@@ -108,7 +103,9 @@ public class CurriculoResource {
         p.setEscolaridade(e.getEscolaridade());
         p.setEstadoCivil(e.getEstadoCivil());
         p.setSexo(e.getSexo());
-        p.setPessoaCarteira(e.getPessoaCarteira());
+        p.setCnh(e.getCnh());
+        p.setCnhCategoria(e.getCnhCategoria());
+   
         pessoaService.update(p);
         
         curriculoService.update(entity);

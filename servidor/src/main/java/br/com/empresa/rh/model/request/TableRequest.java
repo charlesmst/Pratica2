@@ -57,7 +57,7 @@ public class TableRequest {
             }
 
             for (String column : columns) {
-                hql += "str(" + column + ")" + " like :filter or ";
+                hql += "lower(str(" + column + "))" + " like lower(:filter) or ";
             }
             hql = hql.substring(0, hql.length() - 3);
             return hql;

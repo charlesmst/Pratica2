@@ -30,8 +30,6 @@ public class CurriculoExperiencia implements java.io.Serializable {
     private int id;
     private Pessoa pessoa;
     @JsonView({Recrutamento.CurriculoExperiencia.class})
-    private String atribuicao;
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
     private String cargo;
     @JsonView({Recrutamento.CurriculoExperiencia.class})
     private Date dataInicial;
@@ -55,10 +53,9 @@ public class CurriculoExperiencia implements java.io.Serializable {
         this.dataInicial = dataInicial;
     }
 
-    public CurriculoExperiencia(int id, Pessoa pessoa, String atribuicao, String cargo, Date dataInicial, Date dataFinal, String pessoaReferencia, String pessoaContato, String empresa, String descricao) {
+    public CurriculoExperiencia(int id, Pessoa pessoa, String cargo, Date dataInicial, Date dataFinal, String pessoaReferencia, String pessoaContato, String empresa, String descricao) {
         this.id = id;
         this.pessoa = pessoa;
-        this.atribuicao = atribuicao;
         this.cargo = cargo;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
@@ -90,16 +87,8 @@ public class CurriculoExperiencia implements java.io.Serializable {
         this.pessoa = pessoa;
     }
 
-    @Column(name = "atribuicao")
-    public String getAtribuicao() {
-        return this.atribuicao;
-    }
-
-    public void setAtribuicao(String atribuicao) {
-        this.atribuicao = atribuicao;
-    }
     
-    @Column(name = "cargo")
+    @Column(name = "cargo", nullable = false, length = 200)
     public String getCargo() {
         return this.cargo;
     }
@@ -109,7 +98,7 @@ public class CurriculoExperiencia implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "data_inicial")
+    @Column(name = "data_inicial", nullable = false)
     public Date getDataInicial() {
         return this.dataInicial;
     }
@@ -119,7 +108,7 @@ public class CurriculoExperiencia implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "data_final")
+    @Column(name = "data_final", nullable = false)
     public Date getDataFinal() {
         return this.dataFinal;
     }
@@ -128,7 +117,7 @@ public class CurriculoExperiencia implements java.io.Serializable {
         this.dataFinal = dataFinal;
     }
 
-    @Column(name = "pessoa_referencia", length = 100)
+    @Column(name = "pessoa_referencia", length = 200)
     public String getPessoaReferencia() {
         return this.pessoaReferencia;
     }
@@ -137,7 +126,7 @@ public class CurriculoExperiencia implements java.io.Serializable {
         this.pessoaReferencia = pessoaReferencia;
     }
 
-    @Column(name = "pessoa_contato", length = 100)
+    @Column(name = "pessoa_contato", length = 200)
     public String getPessoaContato() {
         return this.pessoaContato;
     }

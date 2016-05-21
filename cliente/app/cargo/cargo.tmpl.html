@@ -8,12 +8,13 @@
 </div>
 <md-card>
     <md-table-container>
-        <table md-table  md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise" >
+        <table md-table  md-row-select md-progress="promise"  ng-model="crudVm.selectedItems" md-progress="crudVm.promise" >
             <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
                 <tr md-row>
                     <th md-column md-numeric ></th>
                     <th md-column md-order-by="nome"><span>Nome</span></th>
-                    <th md-column md-order-by="nome"><span>Atribuições</span></th> 
+                    <th md-column md-order-by="atribuicoes"><span>Atribuições</span></th> 
+                    <th md-column md-order-by="cbo"><span>Cbo</span></th> 
                 </tr>
             </thead>
             <tbody md-body>
@@ -26,7 +27,8 @@
             </td>
             <td md-cell>{{row.nome}}</td>
             <td md-cell>{{row.atribuicoes}}</td>
-
+            <td md-cell>{{row.cbo}}</td>
+            
             </tr>
             </tbody>
         </table>

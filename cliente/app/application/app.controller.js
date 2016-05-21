@@ -1,15 +1,15 @@
 (function () {
     'use strict';
-    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog', 'Workspace', 'hotkeys', '$scope', '$state', 'Authorization', 'AuthorizationData','$rootScope', AppController]);
+    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog', 'Workspace', 'hotkeys', '$scope', '$state', 'Authorization', 'AuthorizationData', '$rootScope', AppController]);
 
 
-    function AppController($mdBottomSheet, $mdSidenav, $mdDialog, Workspace, hotkeys, $scope, $state, Authorization, AuthorizationData,$rootScope) {
+    function AppController($mdBottomSheet, $mdSidenav, $mdDialog, Workspace, hotkeys, $scope, $state, Authorization, AuthorizationData, $rootScope) {
         var vm = this;
         vm.alert = '';
         vm.isSubState = false;
-        
+
         // $rootScope.$on("api-error",handleError);
-        
+
         console.log($state.current)
         vm.workspace = Workspace;
         vm.showListBottomSheet = showListBottomSheet;
@@ -18,17 +18,17 @@
         vm.goTo = goTo;
         vm.authorization = Authorization;
         vm.authorizationData = AuthorizationData;
-        $rootScope.$on("unauthorized",handleUnauthorized);
+        $rootScope.$on("unauthorized", handleUnauthorized);
         vm.labelPagination = {
             of: "de",
             page: "Página",
             rowsPerPage: "Linhas por página:"
         }
-       
 
-        $rootScope.$on('$stateChangeStart', function($event,state){
-            vm.isSubState = state.name.indexOf('.') >0;
- 
+
+        $rootScope.$on('$stateChangeStart', function ($event, state) {
+            vm.isSubState = state.name.indexOf('.') > 0;
+
         })
 
         init()
@@ -43,13 +43,13 @@
                 clickedItem.action();
             });
         }
-        
-        function handleUnauthorized(event,args){
+
+        function handleUnauthorized(event, args) {
             $state.go(Authorization.defaultState);
             Workspace.showMessage(args.mensagem);
         }
-        
-        
+
+
         function goTo(r) {
             $state.go(r)
         }
@@ -72,23 +72,37 @@
                 }
             })
         }
-        function logout(){
-            Authorization.logout().then(function(){
+        function logout() {
+            Authorization.logout().then(function () {
                 $state.go(Authorization.defaultState)
                 Workspace.showMessage("Logout efetuado com sucesso")
             });
         }
-        function alterarNivel(){
-            
+        function alterarNivel() {
+
+            $mdDialog.show({
+                controller: 'AlterarNivelController',
+                controllerAs: "modalVm",
+                templateUrl: 'app/application/alterar-nivel.controller.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: true
+            }).then(function (item) {
+                Authorization.getCurrentUser().token = item
+                Authorization.loadNiveis().then(function () {
+                    $state.go(Authorization.defaultState)
+
+                });
+
+            })
         }
         function ListBottomController($scope) {
 
             $scope.listItems = [
-                {name: 'Alterar nível', icon: 'nivel', action: alterarNivel},
-                {name: 'Sair', icon: 'logout',action:logout}
+                { name: 'Alterar nível', icon: 'nivel', action: alterarNivel },
+                { name: 'Sair', icon: 'logout', action: logout }
             ];
             $scope.clickItem = clickItem;
-            function clickItem(item){
+            function clickItem(item) {
                 $mdBottomSheet.hide(item)
             }
         }

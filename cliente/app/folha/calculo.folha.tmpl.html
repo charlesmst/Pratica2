@@ -26,6 +26,7 @@
                         <md-radio-button value="1" class="md-primary">Folha do mês</md-radio-button>
                         <md-radio-button value="2"> Folha de férias </md-radio-button>
                         <md-radio-button value="3">Folha complementar</md-radio-button>
+                        <md-radio-button value="4">Folha de décimo</md-radio-button>
 
 
                     </md-radio-group>
@@ -39,6 +40,36 @@
             </md-content>
             <md-button class="md-raised md-warn" type="submit">Cálcular</md-button>
 
+            <md-divider></md-divider>
+
+
+            <md-subheader class="md-no-sticky">Operações em andamento</md-subheader>
+
+         
+            <md-list>
+                <md-list-item class="md-3-line md-no-min-height" ng-repeat="item in crudVm.folhaHub.items | orderBy:'-$index' ">
+
+                    <div flex layout="row">
+                        <div ng-if="!item.finalizado">
+                            <md-progress-circular class="md-warn" md-mode="{{item.progress ==0?'indeterminate':'determinate'}}" value="{{item.progress * 100}}"
+                            />
+                        </div>
+                        <div class="md-list-item-text">
+                            <h3>{{item.nomeFolha}}</h3>
+                            <p>{{item.statusText}}</p>
+
+                        </div>
+                        <md-button ng-click="crudVm.downloadFolhas(item.prontosDownload)" ng-disabled="!item.prontosDownload" class="md-secondary">Download</md-button>
+
+                    </div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+                <md-list-item ng-if="crudVm.folhaHub.items.length ===0"><p class="md-subheader">Nenhuma operação sendo  executada</p></md-list-item>
+            </md-list>
+
+
         </md-card-content>
     </md-card>
+
+
 </form>

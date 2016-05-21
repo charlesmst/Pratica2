@@ -102,6 +102,29 @@
                 limit: 10
             }).$promise
         }
+        
+        function mostraAddFormacao() {
+            $mdDialog.show({
+                controller: 'CurriculoQualificacaoEditController as modalVm',
+                templateUrl: 'app/recrutamento/curriculo-qualificacao.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosFormacao: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
+
+                        if (!vm.curriculoFormacoes)
+                            vm.curriculoFormacoes = []
+                        vm.curriculoFormacoes.push(adicionado)
+                    });
+        }
 
         function callbackSave(r) {
             Workspace.showMessage("Registro salvo")

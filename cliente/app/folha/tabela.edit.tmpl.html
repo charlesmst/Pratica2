@@ -45,7 +45,7 @@
             <h2>Valores da tabela</h2>
 
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="row in crudVm.entity.tabelaValoreses">
+                <md-list-item class="md-3-line" ng-repeat="row in crudVm.entity.tabelaValoreses | orderBy:'valorInicial'">
                     <div class="md-list-item-text">
                         <md-input-container>
                             <label>Valor Inicial</label>

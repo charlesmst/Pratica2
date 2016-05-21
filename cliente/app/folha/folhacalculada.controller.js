@@ -22,7 +22,7 @@
         //        Workspace.enableSearch(onFilter)
 
         vm.tiposFolha = [
-            "", "Mês", "Férias", "Complementar"
+            "", "Mês", "Férias", "Complementar","Décimo"
         ];
         vm.query = {
             filter: "",

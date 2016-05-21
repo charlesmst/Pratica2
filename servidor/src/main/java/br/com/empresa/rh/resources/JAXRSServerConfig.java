@@ -63,7 +63,20 @@ public class JAXRSServerConfig {
         factory.setResourceProviders(resourceProviders);
 
         JacksonJsonProvider jacksonJsonProvider = new JacksonJsonProvider();
-//        MappingJackson2HttpMessageConverter jacksonJsonProvider = new MappingJackson2HttpMessageConverter();
+
+        jacksonJsonProvider.setMapper(getObjectMapper());
+
+        factory.setProvider(jacksonJsonProvider);
+        factory.setProvider(new CORSFilter());
+        factory.setProvider(new SecurityFilter());
+        factory.setProvider(new ThrowableExceptionMapper());
+        Server s = null;
+        s = factory.create();
+
+        return s;
+    }
+
+    public static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
 
 //        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
@@ -77,17 +90,6 @@ public class JAXRSServerConfig {
         objectMapper.registerModule(new Hibernate4Module());
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-
-        jacksonJsonProvider.setMapper(objectMapper);
-
-        factory.setProvider(jacksonJsonProvider);
-        factory.setProvider(new CORSFilter());
-        factory.setProvider(new SecurityFilter());
-        factory.setProvider(new ThrowableExceptionMapper());
-        Server s = null;
-        s = factory.create();
-
-        return s;
+        return objectMapper;
     }
-
 }
