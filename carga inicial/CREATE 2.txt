@@ -401,6 +401,8 @@ CREATE TABLE pessoa (
   tel_fixo VARCHAR(30)     ,
   sexo INTEGER   NOT NULL ,
   bairro VARCHAR(100)    ,
+  cnh VARCHAR(11)   ,
+  cnh_categoria VARCHAR(3)   ,
   cep varchar(10)   ,
   endereco VARCHAR(200)    ,
   email VARCHAR(200)    ,
@@ -453,21 +455,6 @@ CREATE INDEX usuario_FKIndex1 ON usuario (pessoa_id);
 CREATE INDEX IFK_Rel_52 ON usuario (pessoa_id);
 
 
-CREATE TABLE pessoa_carteira (
-  pessoa_id INTEGER   NOT NULL ,
-  cnh CHAR(11)   NOT NULL ,
-  categoria VARCHAR(2)   NOT NULL   ,
-PRIMARY KEY(pessoa_id)  ,
-  FOREIGN KEY(pessoa_id)
-    REFERENCES pessoa(id));
-
-
-CREATE INDEX pessoa_carteira_FKIndex1 ON pessoa_carteira (pessoa_id);
-
-
-CREATE INDEX IFK_Rel_46 ON pessoa_carteira (pessoa_id);
-
-
 CREATE TABLE empresa (
   id INTEGER   NOT NULL ,
   cidade_id INTEGER   NOT NULL ,
@@ -513,9 +500,9 @@ CREATE TABLE curriculo_qualificacao (
   pessoa_id INTEGER   NOT NULL ,
   nome VARCHAR(200)   NOT NULL ,
   carga_horaria INTEGER    ,
-  ano_inicio DATE    ,
-  ano_fim INTEGER    ,
-  descricao TEXT   NOT NULL   ,
+  data_inicial DATE   NOT NULL ,
+  data_final DATE   NOT NULL ,
+  descricao TEXT   ,
 PRIMARY KEY(id)  ,
   FOREIGN KEY(pessoa_id)
     REFERENCES pessoa(id));
@@ -548,13 +535,13 @@ CREATE INDEX IFK_Rel_79 ON auditoria (usuario_id);
 CREATE TABLE curriculo_experiencia (
   id INTEGER   NOT NULL ,
   pessoa_id INTEGER   NOT NULL ,
-  cargo VARCHAR(100)   NOT NULL ,
-  data_inicial DATE   ,
-  data_final DATE    ,
-  pessoa_referencia VARCHAR(100)    ,
-  pessoa_contato VARCHAR(100)    ,
+  cargo VARCHAR(200)   NOT NULL ,
+  data_inicial DATE  NOT NULL ,
+  data_final DATE   NOT NULL ,
+  pessoa_referencia VARCHAR(200)    ,
+  pessoa_contato VARCHAR(200)    ,
   empresa VARCHAR(500)   NOT NULL ,
-  descricao TEXT   NOT NULL   ,
+  descricao TEXT  ,
 PRIMARY KEY(id)  ,
   FOREIGN KEY(pessoa_id)
     REFERENCES pessoa(id));
@@ -568,22 +555,24 @@ CREATE INDEX IFK_Rel_62 ON curriculo_experiencia (pessoa_id);
 
 CREATE TABLE curriculo_formacao (
   id SERIAL  NOT NULL ,
+  escolaridade_id INTEGER NOT NULL ,
   pessoa_id INTEGER   NOT NULL ,
-  titulacao VARCHAR(50)   NOT NULL ,
-  curso VARCHAR(100)   NOT NULL ,
+  curso VARCHAR(200)   NOT NULL ,
   instituicao VARCHAR(200)   NOT NULL ,
   situacao INTEGER   NOT NULL ,
-  ano_conclusao DATE    ,
+  data_inicial DATE  NOT NULL ,
+  data_final DATE  NOT NULL ,
   carga_horaria INTEGER    ,
-  descricao TEXT      ,
 PRIMARY KEY(id)  ,
   FOREIGN KEY(pessoa_id)
-    REFERENCES pessoa(id));
+    REFERENCES pessoa(id),
+  FOREIGN KEY(escolaridade_id)
+    REFERENCES escolaridade(id));
 
+CREATE INDEX pessoa_escolaridade_index ON pessoa (escolaridade_id);
+CREATE INDEX pessoa_ref_escolaridade ON pessoa (escolaridade_id);
 
 CREATE INDEX curriculo_formacao_FKIndex1 ON curriculo_formacao (pessoa_id);
-
-
 CREATE INDEX IFK_Rel_FORMACAO_PESSOA ON curriculo_formacao (pessoa_id);
 
 CREATE TABLE necessidade_pessoa (
