@@ -2,6 +2,24 @@
     angular.module('app').config(["$stateProvider", "$urlRouterProvider", config]);
     
     function config($stateProvider, $urlRouterProvider) {
+        
+        
+        function onEnterModal(controller, view, stateback) {
+            return function ($stateParams, $state, $mdDialog) {
+
+                $mdDialog.show({
+                    controller: controller,
+                    controllerAs:"modalVm",
+                    templateUrl: view,
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: true
+                }).then(function () {
+                    $state.transitionTo(stateback, angular.copy($stateParams), {reload: false, inherit: true, notify: true});
+                }, function () {
+                    $state.transitionTo(stateback, angular.copy($stateParams), {reload: false, inherit: true, notify: true});
+                })
+            }
+        }
         $stateProvider
 //                .state('start', {
 //                    url: '/',
