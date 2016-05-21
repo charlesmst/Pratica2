@@ -1,15 +1,19 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Funcionario', '$state', '$stateParams', 'Workspace', '$mdDialog','Cor', FuncionarioEditController]);
+    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Funcionario', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil','Escolaridade', FuncionarioEditController]);
 
     var state = "ficha"
-    function FuncionarioEditController($mdToast, $http, Funcionario, $state, $stateParams, Workspace, $mdDialog, Cor) {
+    function FuncionarioEditController($mdToast, $http, Funcionario, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil,Escolaridade) {
         var vm = this;
         vm.entity = {}
 
         vm.cor = []
 
-        
+
+        loadSexos()
+        loadEscolaridades()
+        loadEstadosCivis()
+        loadCategoriasCnh()
         Workspace.title = "Manutenção de Funcionario";
         console.log($stateParams)
         vm.mostraAddCargo = mostraAddCargo;
@@ -28,7 +32,7 @@
         function save($event, $valid) {
             if (!$valid)
                 return;
-           
+
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
         }
         function cancel() {
@@ -42,8 +46,8 @@
         function callbackError() {
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
         }
-        
-        
+
+
 
         function mostraAddCargo() {
             $mdDialog.show({
@@ -85,12 +89,38 @@
                 angular.extend(cargo, alterado)
             })
         }
-        
-        function loadCor(){
+
+        function loadCor() {
             Cor.query().$promise.then(function (resposta) {
                 vm.cor = resposta;
             })
+
+        }
+
+        function loadSexos() {
+            $http.get('data/recrutamento/sexo.json').then(function (resposta) {
+                vm.sexos = (resposta.data)
+            })
+        }
+
+        function loadCategoriasCnh() {
+            $http.get('data/recrutamento/categoriasCnh.json').then(function (resposta) {
+                vm.categoriasDeCnh = (resposta.data)
+            })
+        }
+
+        function loadEscolaridades() {
+            Escolaridade.query().$promise.then(function (resposta) {
+                vm.escolaridades = resposta;
+            })
+        }
+
+        function loadEstadosCivis() {
+            EstadoCivil.query().$promise.then(function (resposta) {
+                vm.estadosCivis = resposta;
+            })
         }
     }
+
 
 })()
