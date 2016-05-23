@@ -1,11 +1,11 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CurriculoQualificacaoEditController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'DadosFormacao', '$mdDialog', CurriculoQualificacaoEditController]);
+    angular.module('app').controller('CurriculoQualificacaoEditController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'DadosQualificacao', '$mdDialog', CurriculoQualificacaoEditController]);
 
     var state = "curriculo-qualificacao"
-    function CurriculoQualificacaoEditController($mdToast, $http, $state, $stateParams, Workspace, DadosFormacao, $mdDialog) {
+    function CurriculoQualificacaoEditController($mdToast, $http, $state, $stateParams, Workspace, DadosQualificacao, $mdDialog) {
         var vm = this;
-        vm.entity = DadosFormacao
+        vm.entity = DadosQualificacao
 //        if (vm.entity.dataEntrada)
 //            vm.entity.dataEntrada = Workspace.toDate(vm.entity.dataEntrada)
 //        

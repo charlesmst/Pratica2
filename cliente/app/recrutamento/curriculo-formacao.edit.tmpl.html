@@ -1,4 +1,4 @@
-<md-dialog aria-label="Cargo" style="width:90%" ng-cloak>
+<md-dialog aria-label="Formacao" style="width:90%" ng-cloak>
 
     <form name="formModal" ng-submit="modalVm.save($event, formModal.$valid)">
 
@@ -39,18 +39,38 @@
                     </div>
 
                 </md-input-container>
-                
+
                 <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>Situação</label>
-                            <md-select ng-model="modalVm.entity.situacao">
-                                <md-option ng-repeat="item in modalVm.situacoes" ng-value="{{item.id}}">
-                                    {{item.nome}}
-                                </md-option>
-                            </md-select>
-                            <div ng-messages="formEdit.situacao.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
-                            </div>
-                        </md-input-container>
+                    <label>Situação</label>
+                    <md-select ng-model="modalVm.entity.situacao">
+                        <md-option ng-repeat="item in modalVm.situacoes" ng-value="{{item.id}}">
+                            {{item.nome}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="formEdit.situacao.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+                </md-input-container>
+                <div layout-gt-sm="row">
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Data Inicial</label>
+                        <input  name="dataInicial" ng-model="modalVm.entity.dataInicial">
+                    </md-input-container>
+
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Data Final</label>
+                        <input  name="dataFinal" ng-model="modalVm.entity.dataFinal">
+                    </md-input-container>
+
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Carga Horária</label>
+                        <input  name="cargaHoraria" type="number" ng-model="modalVm.entity.cargaHoraria" required>
+                        <div ng-messages="formEdit.cargaHoraria.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+
+                    </md-input-container>
+                </div>
 
             </md-card-content>
         </md-card>

@@ -17,6 +17,10 @@
         vm.querySearchCidade = querySearchCidade
         vm.mostraAddFormacao = mostraAddFormacao
         vm.mostraEditFormacao = mostraEditFormacao
+        vm.mostraAddQualificacao = mostraAddQualificacao
+        vm.mostraEditQualificacao = mostraEditQualificacao
+        vm.mostraAddExperiencia = mostraAddExperiencia
+        vm.mostraEditExperiencia = mostraEditExperiencia
         vm.getNome = getNome
         Workspace.title = "Manutenção de Currículo";
 
@@ -85,9 +89,9 @@
         }
 
         function getNome(situacao) {
-            
-            console.log(situacao,vm.situacoes)
-            return vm.situacoes[parseInt(situacao)-1].nome
+
+            console.log(situacao, vm.situacoes)
+            return vm.situacoes[parseInt(situacao) - 1].nome
         }
 
         function loadCurriculoFormacoes() {
@@ -165,6 +169,91 @@
                 angular.extend(formacao, alterado)
             })
         }
+
+        function mostraAddQualificacao() {
+            $mdDialog.show({
+                controller: 'CurriculoQualificacaoEditController as modalVm',
+                templateUrl: 'app/recrutamento/curriculo-qualificacao.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosQualificacao: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
+
+                        if (!vm.curriculoQualificacoes)
+                            vm.curriculoQualificacoes = []
+                        vm.curriculoQualificacoes.push(adicionado)
+                    });
+        }
+
+
+        function mostraEditQualificacao(qualificacao) {
+            $mdDialog.show({
+                controller: 'CurriculoQualificacaoEditController as modalVm',
+                templateUrl: 'app/recrutamento/curriculo-qualificacao.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosQualificacao: function () {
+                        return angular.copy(qualificacao);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(qualificacao, alterado)
+            })
+        }
+
+        function mostraAddExperiencia() {
+            $mdDialog.show({
+                controller: 'CurriculoExperienciaEditController as modalVm',
+                templateUrl: 'app/recrutamento/curriculo-experiencia.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosExperiencia: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
+
+                        if (!vm.curriculoExperiencias)
+                            vm.curriculoExperiencias = []
+                        vm.curriculoExperiencias.push(adicionado)
+                    });
+        }
+
+
+        function mostraEditExperiencia(experiencia) {
+            $mdDialog.show({
+                controller: 'CurriculoExperienciaEditController as modalVm',
+                templateUrl: 'app/recrutamento/curriculo-experiencia.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosExperiencia: function () {
+                        return angular.copy(experiencia);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(experiencia, alterado)
+            })
+        }
+
 
 
         function callbackSave(r) {
