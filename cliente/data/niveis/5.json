@@ -92,7 +92,12 @@
                 },
                 {
                     "link": "usuario",
-                    "title": "Cadastre-se",
+                    "title": "Usuários",
+                    "icon": "dashboard"
+                },
+                {
+                    "link": "plano-avaliacao",
+                    "title": "Planos de Avaliações",
                     "icon": "dashboard"
                 }
             ]

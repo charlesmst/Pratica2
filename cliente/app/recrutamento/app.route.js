@@ -2,8 +2,7 @@
     angular.module('app').config(["$stateProvider", "$urlRouterProvider", config]);
     
     function config($stateProvider, $urlRouterProvider) {
-        
-        
+      
         function onEnterModal(controller, view, stateback) {
             return function ($stateParams, $state, $mdDialog) {
 
@@ -199,6 +198,37 @@
                         "": {
                             templateUrl: 'app/recrutamento/usuario.edit.tmpl.html',
                             controller: "UsuarioEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                
+                .state('plano-avaliacao', {
+                    url: '/plano-avaliacao',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/plano-avaliacao.tmpl.html',
+                            controller: "PlanoAvaliacaoController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('plano-avaliacaoadd', {
+                    url: '/plano-avaliacao/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/plano-avaliacao.edit.tmpl.html',
+                            controller: "PlanoAvaliacaoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('plano-avaliacaoedit', {
+                    url: '/plano-avaliacao/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/plano-avaliacao.edit.tmpl.html',
+                            controller: "PlanoAvaliacaoEditController",
                             controllerAs: "crudVm",
                         }
                     }
