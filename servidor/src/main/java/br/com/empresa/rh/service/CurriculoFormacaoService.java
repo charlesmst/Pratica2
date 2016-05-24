@@ -18,7 +18,7 @@ public class CurriculoFormacaoService extends Service<CurriculoFormacao>{
     public CurriculoFormacao findById(Object id) {
         String hql = "select t from CurriculoFormacao t "
                 + " inner join fetch t.pessoa p "
-                + " inner join fetch p.escolaridade "
+                + " inner join fetch t.escolaridade "
                 + " where p.id = :id";
         CurriculoFormacao cf = (CurriculoFormacao) entityManager.createQuery(hql)
                 .setParameter("id", id)
@@ -30,7 +30,7 @@ public class CurriculoFormacaoService extends Service<CurriculoFormacao>{
     public List<CurriculoFormacao> findForPessoa (int pessoaId) {
         String hql = "from CurriculoFormacao t "
                 + " inner join fetch t.pessoa p "
-                + " inner join fetch p.escolaridade "
+                + " inner join fetch t.escolaridade "
                 + " where p.id = :id and p is not EMPTY";
         return entityManager.createQuery(hql)
                 .setParameter("id", pessoaId)
@@ -47,7 +47,7 @@ public class CurriculoFormacaoService extends Service<CurriculoFormacao>{
         
         String hql = "select t from CurriculoFormacao t "
                 + " inner join fetch t.pessoa p "
-                + " inner join fetch p.escolaridade";
+                + " inner join fetch t.escolaridade";
         hql+= request.applyFilter("id");     
         hql+= request.applyOrder("id");        
         Query q = entityManager.createQuery(hql);

@@ -206,14 +206,14 @@
                                 <tr md-row ng-repeat="row in crudVm.curriculoFormacoes">
                                     <td md-cell width="15" class="button-column">
 
-                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCargo(row)">
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditFormacao(row)">
                                 <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
                             </md-button>
                             </td>
                             <td md-cell>{{row.escolaridade.nome}}</td>   
                             <td md-cell>{{row.curso}}</td>   
                             <td md-cell>{{row.instituicao}}</td>   
-                            <td md-cell>{{row.situacao}}</td>   
+                            <td md-cell>{{crudVm.getNome(row.situacao)}}</td>   
                             <td md-cell>{{row.dataInicial | date:'dd/MM/yyyy'}}</td>
                             <td md-cell>{{row.dataFinal | date:'dd/MM/yyyy'}}</td>
                             <td md-cell>{{row.cargaHoraria}}</td>
@@ -222,7 +222,7 @@
                         </table>
                     </md-table-container>
                     <md-card-actions layout="row" layout-align="end center">
-                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddCargo()">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddFormacao()">
                             <ng-md-icon icon="add"></ng-md-icon>
                         </button>
                     </md-card-actions>
@@ -244,7 +244,7 @@
                                 <tr md-row ng-repeat="row in crudVm.curriculoQualificacoes">
                                     <td md-cell width="15" class="button-column">
 
-                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCargo(row)">
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditQualificacao(row)">
                                 <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
                             </md-button>
                             </td>
@@ -258,7 +258,7 @@
                         </table>
                     </md-table-container>
                     <md-card-actions layout="row" layout-align="end center">
-                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddCargo()">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddQualificacao()">
                             <ng-md-icon icon="add"></ng-md-icon>
                         </button>
                     </md-card-actions>
@@ -282,7 +282,7 @@
                                 <tr md-row ng-repeat="row in crudVm.curriculoExperiencias">
                                     <td md-cell width="15" class="button-column">
 
-                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCargo(row)">
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditExperiencia(row)">
                                 <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
                             </md-button>
                             </td>
@@ -298,7 +298,7 @@
                         </table>
                     </md-table-container>
                     <md-card-actions layout="row" layout-align="end center">
-                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddCargo()">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddExperiencia()">
                             <ng-md-icon icon="add"></ng-md-icon>
                         </button>
                     </md-card-actions>

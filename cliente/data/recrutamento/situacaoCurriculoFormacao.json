@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "nome": "CONCLUÍDO"
+    },
+    {
+        "id": 2,
+        "nome": "CURSANDO"
+    },
+    {
+        "id": 3,
+        "nome": "INCOMPLETO"
+    }
+]

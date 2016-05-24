@@ -13,7 +13,58 @@
 
             <md-card-content>
 
-                <!--<md-datepicker ng-model="modalVm.entity.dataEntrada" required md-placeholder="Data entrada"></md-datepicker>-->
+                <md-input-container flex="" class="md-block" flex-gt-xs>
+                    <label>Cargo</label>
+                    <input  name="cargo" ng-model="modalVm.entity.cargo" required>
+                    <div ng-messages="formEdit.cargo.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+                <md-input-container flex="" class="md-block" flex-gt-xs>
+                    <label>Empresa</label>
+                    <input  name="empresa" ng-model="modalVm.entity.empresa" required>
+                    <div ng-messages="formEdit.empresa.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+                <md-input-container flex="" class="md-block" flex-gt-xs>
+                    <label>Descricao</label>
+                    <input  name="descricao" ng-model="modalVm.entity.descricao" required>
+                    <div ng-messages="formEdit.descricao.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+                <md-input-container flex="" class="md-block" flex-gt-xs>
+                    <label>Pessoa de Referência</label>
+                    <input  name="pessoaReferencia" ng-model="modalVm.entity.pessoaReferencia" required>
+                    <div ng-messages="formEdit.pessoaReferencia.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+
+                <div layout-gt-sm="row">
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Contato da Pessoa de Referência</label>
+                        <input  name="pessoaContato" ng-model="modalVm.entity.pessoaContato" required>
+                        <div ng-messages="formEdit.pessoaContato.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+
+                    </md-input-container>
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Data Inicial</label>
+                        <input  name="dataInicial" ng-model="modalVm.entity.dataInicial">
+                    </md-input-container>
+
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Data Final</label>
+                        <input  name="dataFinal" ng-model="modalVm.entity.dataFinal">
+                    </md-input-container>
+                </div>
 
 
 
