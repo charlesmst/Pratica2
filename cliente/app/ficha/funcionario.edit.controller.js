@@ -8,7 +8,7 @@
         vm.entity = {}
 
         vm.cor = []
-
+        vm.escolaridade = []
 
         loadSexos()
         loadEscolaridades()

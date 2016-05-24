@@ -111,11 +111,13 @@
                             </md-select>
 
                         </md-input-container>
+                        
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>Data de Nascimento</label>
                             <input  name="dataNascimento" ng-model="crudVm.entity.pessoa.dataNascimento">
                         </md-input-container>
                     </div>
+     
                     <div layout-gt-sm="row">
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>E-mail</label>
@@ -147,6 +149,7 @@
                                 <div ng-message="required">Campo obrigatório.</div>
                             </div>
                         </md-input-container>
+                        
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>Cidade</label>
                             <md-autocomplete
@@ -160,6 +163,21 @@
                                 <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
                             </md-autocomplete>
                         </md-input-container>
+                        
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Estado</label>
+                            <md-autocomplete
+                                md-selected-item="crudVm.entity.pessoa.cidade"
+                                md-search-text="crudVm.searchText"
+                                md-items="item in crudVm.querySearchCidade(crudVm.searchText)"
+                                md-item-text="item.nome"
+                                md-min-length="2"
+                                md-float-label="Cidade"
+                                placeholder="Cidade">
+                                <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
+                            </md-autocomplete>
+                        </md-input-container>
+                        
                     </div>
                     <md-input-container class="md-block" flex-gt-xs>
                         <label>Bairro</label>

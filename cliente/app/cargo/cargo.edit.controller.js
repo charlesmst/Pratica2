@@ -6,7 +6,7 @@
     function CargoEditController($mdToast, $http, Cargo, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
-        Workspace.title = "Manuten��o de Cargo";
+        Workspace.title = "Manutenção de Cargo";
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Cargo.get({id: $stateParams.id}).$promise.then(function (data) {
 
