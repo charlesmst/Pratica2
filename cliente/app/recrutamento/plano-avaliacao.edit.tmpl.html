@@ -16,7 +16,7 @@
 
 
         <md-card-content>
-            <h2>PlanoAvaliacao</h2>
+            <h2>Plano de Avaliacão</h2>
             <md-content>
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Nome</label>
@@ -26,6 +26,47 @@
                     </div>
 
                 </md-input-container>
+
+            </md-content>
+
+        </md-card-content>
+    </md-card>
+    <md-card >
+
+
+        <md-card-content>
+            <h2>Questões</h2>
+            <md-content>
+                <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column md-numeric ></th>
+                                    <th md-column ><span>Descricao</span></th>             
+                                    <th md-column ><span>Tipo</span></th>             
+                                    <th md-column ><span>Visível ao Candidato?</span></th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="row in crudVm.curriculoQualificacoes">
+                                    <td md-cell width="15" class="button-column">
+
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditQualificacao(row)">
+                                <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                            </md-button>
+                            </td>
+                            <td md-cell>{{row.descricao}}</td>   
+                            <td md-cell>{{row.tipo}}</td>   
+                            <td md-cell>{{row.visivel_candidato}}</td>   
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddQualificacao()">
+                            <ng-md-icon icon="add"></ng-md-icon>
+                        </button>
+                    </md-card-actions>
 
             </md-content>
 
