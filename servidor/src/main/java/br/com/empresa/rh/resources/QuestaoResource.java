@@ -61,16 +61,9 @@ public class QuestaoResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Questao findById(@PathParam("id") long id) {
+    public Questao findById(@PathParam("id") int id) {
         Questao m = questaoService.findById(id);
         return m;
-    }
-
-    @GET
-    @Path("nivel/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Questao> findByNivel(@PathParam("id") long id) {
-        return questaoService.findAll();
     }
 
     @POST
@@ -82,7 +75,7 @@ public class QuestaoResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, Questao entity) {
+    public void update(@PathParam("id") int id, Questao entity) {
         questaoService.update(entity);
 		
     }
@@ -90,7 +83,7 @@ public class QuestaoResource {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("id") long id) {
+    public void delete(@PathParam("id") int id) {
         questaoService.delete(id);
     }
 

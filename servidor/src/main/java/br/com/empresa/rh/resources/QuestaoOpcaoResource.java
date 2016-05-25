@@ -2,8 +2,8 @@ package br.com.empresa.rh.resources;
 
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
-import br.com.empresa.rh.service.EntrevistaService;
-import br.com.empresa.rh.model.Entrevista;
+import br.com.empresa.rh.service.QuestaoOpcaoService;
+import br.com.empresa.rh.model.QuestaoOpcao;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.response.CountResponse;
 import java.util.List;
@@ -23,62 +23,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Path("/entrevista")
-@RolesAllowed(NivelAcesso.RH)
-public class EntrevistaResource {
+@Path("/questao-opcao")
+@RolesAllowed(NivelAcesso.FUNCIONARIO)
+public class QuestaoOpcaoResource {
 
     @Autowired
-    private EntrevistaService entrevistaService;
+    private QuestaoOpcaoService questaoOpcaoService;
 
     @Context
     protected UriInfo info;
 
-    public EntrevistaService getEntrevistaService() {
-        return entrevistaService;
+    public QuestaoOpcaoService getQuestaoOpcaoService() {
+        return questaoOpcaoService;
     }
 
-    public void setEntrevistaService(EntrevistaService marcaService) {
-        this.entrevistaService = marcaService;
+    public void setQuestaoOpcaoService(QuestaoOpcaoService marcaService) {
+        this.questaoOpcaoService = marcaService;
     }
 
-    public EntrevistaResource() {
+    public QuestaoOpcaoResource() {
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(entrevistaService.count());
+        return new CountResponse(questaoOpcaoService.count());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<Entrevista> m = entrevistaService.findForTable(request);
+        List<QuestaoOpcao> m = questaoOpcaoService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Entrevista findById(@PathParam("id") int id) {
-        Entrevista m = entrevistaService.findById(id);
+    public QuestaoOpcao findById(@PathParam("id") int id) {
+        QuestaoOpcao m = questaoOpcaoService.findById(id);
         return m;
     }
 
-
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public void insert(Entrevista m) {
-        entrevistaService.insert(m);
+    public void insert(QuestaoOpcao m) {
+        questaoOpcaoService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") int id, Entrevista entity) {
-        entrevistaService.update(entity);
+    public void update(@PathParam("id") int id, QuestaoOpcao entity) {
+        questaoOpcaoService.update(entity);
 		
     }
 
@@ -86,7 +85,7 @@ public class EntrevistaResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") int id) {
-        entrevistaService.delete(id);
+        questaoOpcaoService.delete(id);
     }
 
 }
