@@ -2,6 +2,8 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -28,9 +30,13 @@ import javax.persistence.Table;
 public class Questao  implements java.io.Serializable {
 
 
-     private long id;
+     @JsonView({Recrutamento.Avaliacao.class})
+     private int id;
+     @JsonView({Recrutamento.Avaliacao.class})
      private String descricao;
+     @JsonView({Recrutamento.Avaliacao.class})
      private Character tipo;
+     @JsonView({Recrutamento.Avaliacao.class})
      private boolean visivelCandidato;
      private Set<Resposta> respostas = new HashSet<Resposta>(0);
      private Set<QuestaoOpcao> questaoOpcaos = new HashSet<QuestaoOpcao>(0);
@@ -40,12 +46,12 @@ public class Questao  implements java.io.Serializable {
     }
 
 	
-    public Questao(long id, String descricao, boolean visivelCandidato) {
+    public Questao(int id, String descricao, boolean visivelCandidato) {
         this.id = id;
         this.descricao = descricao;
         this.visivelCandidato = visivelCandidato;
     }
-    public Questao(long id, String descricao, Character tipo, boolean visivelCandidato, Set<Resposta> respostas, Set<QuestaoOpcao> questaoOpcaos, Set<PlanoAvaliacao> planoAvaliacaos) {
+    public Questao(int id, String descricao, Character tipo, boolean visivelCandidato, Set<Resposta> respostas, Set<QuestaoOpcao> questaoOpcaos, Set<PlanoAvaliacao> planoAvaliacaos) {
        this.id = id;
        this.descricao = descricao;
        this.tipo = tipo;
@@ -59,11 +65,11 @@ public class Questao  implements java.io.Serializable {
      @GeneratedValue(generator = "questao_seq", strategy = GenerationType.SEQUENCE)
     
     @Column(name="id", unique=true, nullable=false)
-    public long getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

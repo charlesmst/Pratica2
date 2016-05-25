@@ -60,4 +60,8 @@ public class Recrutamento {
     public static class CurriculoExperiencia {
 
     }
+    
+    public static class Avaliacao {
+        
+    }
 }

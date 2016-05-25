@@ -1,11 +1,11 @@
 package br.com.empresa.rh.resources;
+
+
 import br.com.empresa.rh.filter.secure.NivelAcesso;
-import br.com.empresa.rh.service.PlanoAvaliacaoService;
-import br.com.empresa.rh.model.PlanoAvaliacao;
+import br.com.empresa.rh.service.CompetenciaService;
+import br.com.empresa.rh.model.Competencia;
 import br.com.empresa.rh.model.request.TableRequest;
-import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
-import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -23,63 +23,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Path("/plano-avaliacao")
+@Path("/competencia")
 @RolesAllowed(NivelAcesso.FUNCIONARIO)
-public class PlanoAvaliacaoResource {
+public class CompetenciaResource {
 
     @Autowired
-    private PlanoAvaliacaoService planoAvaliacaoService;
+    private CompetenciaService competenciaService;
 
     @Context
     protected UriInfo info;
 
-    public PlanoAvaliacaoService getPlanoAvaliacaoService() {
-        return planoAvaliacaoService;
+    public CompetenciaService getCompetenciaService() {
+        return competenciaService;
     }
 
-    public void setPlanoAvaliacaoService(PlanoAvaliacaoService marcaService) {
-        this.planoAvaliacaoService = marcaService;
+    public void setCompetenciaService(CompetenciaService marcaService) {
+        this.competenciaService = marcaService;
     }
 
-    public PlanoAvaliacaoResource() {
+    public CompetenciaResource() {
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(planoAvaliacaoService.count());
+        return new CountResponse(competenciaService.count());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @JsonView(Recrutamento.Avaliacao.class)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<PlanoAvaliacao> m = planoAvaliacaoService.findForTable(request);
+        List<Competencia> m = competenciaService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @JsonView(Recrutamento.Avaliacao.class)
-    public PlanoAvaliacao findById(@PathParam("id") int id) {
-        PlanoAvaliacao m = planoAvaliacaoService.findById(id);
+    public Competencia findById(@PathParam("id") int id) {
+        Competencia m = competenciaService.findById(id);
         return m;
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public void insert(PlanoAvaliacao m) {
-        planoAvaliacaoService.insert(m);
+    public void insert(Competencia m) {
+        competenciaService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") int id, PlanoAvaliacao entity) {
-        planoAvaliacaoService.update(entity);
+    public void update(@PathParam("id") int id, Competencia entity) {
+        competenciaService.update(entity);
 		
     }
 
@@ -87,7 +85,7 @@ public class PlanoAvaliacaoResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") int id) {
-        planoAvaliacaoService.delete(id);
+        competenciaService.delete(id);
     }
 
 }
