@@ -72,7 +72,10 @@ public class FeriasService extends Service<Ferias> {
             DataComercial d = new DataComercial(dataInicioMes.getDayOfMonth(), dataInicioMes.getMonthOfYear(), dataInicioMes.getYear());
 
             int restantes = totalDias;
-            while (d.getMes() != mes && restantes > 0) {
+            if (d.getMes() == mes) {
+                restantes -= dataInicioMes.getDayOfMonth();
+            }
+            while ((d.getMes() != mes || d.getAno() != ano) && restantes > 0) {
                 restantes -= 30 - d.getDia();
                 d.setDia(0);
                 d.nextMonth();

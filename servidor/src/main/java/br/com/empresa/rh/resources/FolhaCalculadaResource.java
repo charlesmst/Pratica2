@@ -7,6 +7,7 @@ import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.response.FolhaResponse;
+import br.com.empresa.rh.model.response.ResumoFolhaResponse;
 import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
 import br.com.empresa.rh.service.FuncionarioCargoService;
@@ -69,6 +70,14 @@ public class FolhaCalculadaResource {
     public FolhaCalculadaResource() {
     }
 
+    @GET
+    @Path("resumofolhapagamento/{empresa}/{ano}/{mes}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResumoFolhaResponse resumoFolha(@PathParam("empresa") int empresa, @PathParam("ano") int ano, @PathParam("mes") int mes){
+        Empresa e = new Empresa();
+        e.setId(empresa);
+        return folhaCalculadaService.resumoFolha(e, ano, mes);
+    }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
@@ -219,5 +228,6 @@ public class FolhaCalculadaResource {
                 .header("Content-Type", "application/pdf")
                 .build();
     }
+    
 
 }

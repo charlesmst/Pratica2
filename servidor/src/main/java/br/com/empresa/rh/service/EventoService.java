@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -90,6 +91,37 @@ public class EventoService extends Service<Evento> {
         }
         EventoCollection col = new EventoCollection(eventos);
         return col;
+    }
+
+    public EventoCollection eventosDemissao(FuncionarioCargo funcionario, Date data) {
+        String[] valores;
+        valores = parametroService.findById("eventos_demissao").getValor().split(",");
+
+        List<Integer> eventosId = new ArrayList<>();
+        for (String valore : valores) {
+            eventosId.add(Integer.parseInt(valore));
+        }
+        List<Evento> eventos = new ArrayList<>();
+
+        for (Integer eventoId : eventosId) {
+            eventos.add(findById(eventoId));
+        }
+
+        EventoCollection collection = new EventoCollection();
+        collection.getEventos().addAll(eventosFuncionario(funcionario, data));
+        collection.addAll(eventosCargo(funcionario.getCargo(), data));
+        for (final Evento evento : eventos) {
+            if (!collection.getEventos().stream().anyMatch(new Predicate<IEvento>() {
+
+                @Override
+                public boolean test(IEvento t) {
+                    return t.getEvento().getId() == evento.getId();
+                }
+            })) {
+                collection.add(evento);
+            }
+        }
+        return collection;
     }
 
     @Override
@@ -192,7 +224,7 @@ public class EventoService extends Service<Evento> {
 
     public List<Evento> eventosCargo(Cargo cargo, Date data) {
         String query = "from Evento e "
-                + " inner join e.cargoHasEventos f"
+                + " inner join fetch e.cargoHasEventos f"
                 + " left join fetch e.eventoDependencias ed"
                 + " where f.cargo.id = :idCargo and "
                 + " f.dataInicio <= :data and (f.dataFim is null or f.dataFim >= :data) ";

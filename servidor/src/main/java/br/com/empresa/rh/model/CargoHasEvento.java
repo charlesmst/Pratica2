@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,10 +27,12 @@ public class CargoHasEvento  implements java.io.Serializable {
 
 
      private CargoHasEventoId id;
+     private int referencia;
      private Cargo cargo;
      private Evento evento;
      private Date dataInicio;
      private Date dataFim;
+     private boolean excluido;
 
     public CargoHasEvento() {
     }
@@ -101,6 +104,22 @@ public class CargoHasEvento  implements java.io.Serializable {
     
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
+    }
+
+    public int getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(int referencia) {
+        this.referencia = referencia;
+    }
+
+    public boolean isExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(boolean excluido) {
+        this.excluido = excluido;
     }
 
 

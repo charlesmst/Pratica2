@@ -1,6 +1,7 @@
 package br.com.empresa.rh.service;
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.Cargo;
 import br.com.empresa.rh.model.Empresa;
 import br.com.empresa.rh.model.Evento;
 import br.com.empresa.rh.model.EventoFuncionario;
@@ -10,7 +11,9 @@ import br.com.empresa.rh.model.Funcionario;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.response.EventoFolha;
+import br.com.empresa.rh.model.response.EventosSomados;
 import br.com.empresa.rh.model.response.FolhaResponse;
+import br.com.empresa.rh.model.response.ResumoFolhaResponse;
 import br.com.empresa.rh.service.folha.EventoTipo;
 import br.com.empresa.rh.service.folha.TipoCalculo;
 import br.com.empresa.rh.util.ApiException;
@@ -38,11 +41,12 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
     private Utilitarios utilitarios;
 
     @Transactional
-    public void insertAll(List<FolhaCalculada> folhas){
+    public void insertAll(List<FolhaCalculada> folhas) {
         for (FolhaCalculada folha : folhas) {
             entityManager.persist(folha);
         }
     }
+
     @Override
     public FolhaCalculada findById(Object id) {
         FolhaCalculada f = entityManager.createQuery("from FolhaCalculada f "
@@ -91,10 +95,37 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         return o != null && ((long) o) > 0;
     }
 
+    public boolean possuiFolhaCalculadaPeriodo(Cargo cargo, Date inicio, Date fim) {
+        Query q = entityManager.createQuery("select count(*) from FolhaCalculada f "
+                + " where f.funcionarioCargo.cargo.id = :idFuncionario and f.dataReferente >= :inicio and f.excluido is false "
+                + (fim != null ? "and f.dataReferente <= :fim " : ""))
+                .setParameter("idFuncionario", cargo.getId())
+                .setParameter("inicio", inicio);
+        if (fim != null) {
+            q.setParameter("fim", fim);
+        }
+        Object o = q.getSingleResult();
+
+        return o != null && ((long) o) > 0;
+    }
+
     public boolean possuiFolhaCalculadaComEvento(Evento evento, FuncionarioCargo cargo, Date dataInicio, Date dataFim) {
         Object o = entityManager.createQuery("select count(*) from FolhaCalculada f "
                 + " inner join f.folhaCalculadaEventos fce "
                 + " where f.funcionarioCargo.id = :idFuncionario and fce.evento.id = :idEvento and f.dataReferente between :dataInicio and :dataFim")
+                .setParameter("idFuncionario", cargo.getId())
+                .setParameter("idEvento", evento.getId())
+                .setParameter("dataInicio", dataInicio)
+                .setParameter("dataFim", dataFim)
+                .getSingleResult();
+
+        return o != null && ((long) o) > 0;
+    }
+
+    public boolean possuiFolhaCalculadaComEvento(Evento evento, Cargo cargo, Date dataInicio, Date dataFim) {
+        Object o = entityManager.createQuery("select count(*) from FolhaCalculada f "
+                + " inner join f.folhaCalculadaEventos fce "
+                + " where f.funcionarioCargo.cargo.id = :idFuncionario and fce.evento.id = :idEvento and f.dataReferente between :dataInicio and :dataFim")
                 .setParameter("idFuncionario", cargo.getId())
                 .setParameter("idEvento", evento.getId())
                 .setParameter("dataInicio", dataInicio)
@@ -176,6 +207,20 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         return d.get(0);
     }
 
+    public Date ultimaDataFolhaCalculadaEvento(Cargo ev) {
+        String hql = "select max(f.dataReferente) from FolhaCalculada f"
+                + " inner join f.folhaCalculadaEventos fe"
+                + " where f.excluido = :excluido and f.funcionarioCargo.cargo.id = :id";
+        List<Date> d = entityManager.createQuery(hql)
+                .setParameter("excluido", false)
+                .setParameter("id", ev.getId())
+                .getResultList();
+        if (d.isEmpty()) {
+            return null;
+        }
+        return d.get(0);
+    }
+
     @Transactional
     public void excluirFolhasAntigas(List<FuncionarioCargo> funcionariosCalculo, int mes, int ano, TipoCalculo tipo, boolean isAdm) {
         for (FuncionarioCargo funcionariosCalculo1 : funcionariosCalculo) {
@@ -228,6 +273,33 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
             q.setParameter(key, value);
         }
         return (long) q.getSingleResult();
+    }
+
+    public ResumoFolhaResponse resumoFolha(Empresa empresa, int ano, int mes) {
+        ResumoFolhaResponse response = new ResumoFolhaResponse();
+        List<EventosSomados> eventosVisiveis = entityManager.createQuery("select new br.com.empresa.rh.model.response.EventosSomados(e.evento.id, e.evento.nome, sum(e.valor)) from FolhaCalculadaEvento e "
+                + " where e.folhaCalculada.funcionarioCargo.unidade.empresa.id = :id "
+                + " and e.folhaCalculada.mes = :mes and e.folhaCalculada.ano = :ano  and e.folhaCalculada.excluido is false and e.evento.visivelFolha is true"
+                + " group by e.evento.id, e.evento.nome"
+                + " order by sum(e.valor) desc")
+                .setParameter("id", empresa.getId())
+                .setParameter("mes", mes)
+                .setParameter("ano", ano)
+                .getResultList();
+        response.setEventosVisiveis(eventosVisiveis);
+
+        List<EventosSomados> eventosInvisiveis = entityManager.createQuery("select new br.com.empresa.rh.model.response.EventosSomados(e.evento.id, e.evento.nome, sum(e.valor)) from FolhaCalculadaEvento e "
+                + " where e.folhaCalculada.funcionarioCargo.unidade.empresa.id = :id "
+                + " and e.folhaCalculada.mes = :mes and e.folhaCalculada.ano = :ano  and e.folhaCalculada.excluido is false and e.evento.visivelFolha is false"
+                + " group by e.evento.id, e.evento.nome" 
+                + " order by sum(e.valor) desc")
+                .setParameter("id", empresa.getId())
+                .setParameter("mes", mes)
+                .setParameter("ano", ano)
+                .getResultList();
+        response.setEventosInvisiveis(eventosInvisiveis);
+        return response;
+
     }
 
     public List<FolhaCalculada> findForTable(TableRequest request, Empresa empresa, int mes, int ano, List<FuncionarioCargo> funcionarios) {
@@ -321,7 +393,7 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
 
             if (eventoCalculado.getNomeEvento() != null) {
                 evento.setNome(eventoCalculado.getNomeEvento());
-            }else{
+            } else {
                 evento.setNome(eventoCalculado.getEvento().getNome());
             }
             evento.setReferencia(eventoCalculado.getReferencia());

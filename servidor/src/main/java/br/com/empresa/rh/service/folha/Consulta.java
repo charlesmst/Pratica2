@@ -119,7 +119,7 @@ public class Consulta {
         }
         DataComercial dataComercial = new DataComercial(1, mesinicio, anoinicio);
         DataComercial dataComercialFim = new DataComercial(1, mesfim, anofim);
-        if (dataComercial.compareTo(dataComercialFim) >= 0) {
+        if (dataComercial.compareTo(dataComercialFim) > 0) {
             throw new FolhaException("Datas inválidas");
         }
         List<FolhaCalculada> l = new ArrayList<>();
@@ -144,4 +144,5 @@ public class Consulta {
     public JavascriptDate getDataDemissao() {
         return JavascriptDate.fromDate(funcionarioCargo.getDataSaida());
     }
+    
 }

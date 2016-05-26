@@ -6,8 +6,10 @@
 package br.com.empresa.rh.service.folha;
 
 import br.com.empresa.rh.model.Evento;
+import br.com.empresa.rh.model.response.EventoFolha;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -35,6 +37,9 @@ public class EventoCollection implements Serializable {
         for (Evento evento : eventos) {
             this.eventos.add(new EventoScript(evento));
         }
+    }
+    public void add(Evento evento){
+        this.eventos.add(new EventoScript(evento));
     }
     public EventoCollection() {
             this.eventos = new ArrayList<>();
@@ -82,5 +87,24 @@ public class EventoCollection implements Serializable {
             }
         }
         return valor;
+    }
+    public void removerDuplicados(){
+        //Ordena corretamente
+        
+        eventos.sort(new Comparator<IEvento>() {
+            @Override
+            public int compare(IEvento f1, IEvento f2) {
+                return Integer.compare(f1.getEvento().getId(),f2.getEvento().getId());
+            }
+        });
+
+        int lastId = -1;
+        for (int i = eventos.size() - 1; i >=0; i--) {
+            if(eventos.get(i).getEvento().getId() != lastId){
+                lastId = eventos.get(i).getEvento().getId();
+            }else{
+                eventos.remove(i);
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@ import javax.persistence.Query;
 import org.hibernate.Hibernate;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,17 @@ public class FuncionarioCargoService extends Service<FuncionarioCargo> {
         classRef = FuncionarioCargo.class;
     }
 
+    @Override
+    public FuncionarioCargo findById(Object id) {
+        
+        return (FuncionarioCargo)entityManager.createQuery("from FuncionarioCargo fc"
+                + " left outer join fetch fc.demissaoTipo dt"
+                + " where fc.id = :id ")
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    
     public List<FuncionarioCargo> findByFuncionario(int idFuncionario) {
         return entityManager.createQuery("select t from FuncionarioCargo t "
                 + "left join fetch t.funcionario f "
@@ -96,4 +109,23 @@ public class FuncionarioCargoService extends Service<FuncionarioCargo> {
         return l;
     }
 
+    public int diasTotaisDemissao(FuncionarioCargo funcionario) {
+        FuncionarioCargo cargo = findById(funcionario.getId());
+        if (cargo.getDataSaida() == null) {
+            return 0;
+        }
+        //Pega o começo do mês como inicio
+        LocalDate inicio = new LocalDate(cargo.getDataSaida()).withDayOfMonth(1);
+        LocalDate diaFim = new LocalDate(cargo.getDataSaida()) ;
+
+        int diasMes = Days.daysBetween(inicio, diaFim).getDays() + 1;//Último dia cheio;
+        
+        if(cargo.getDemissaoTipo().isAdicional()){
+            diasMes += 30;//30 dias a mais sempre
+            int anos = Years.yearsBetween(new LocalDate(cargo.getDataEntrada()),diaFim).getYears();
+            diasMes += anos * 3;//3 dias por ano de serviço
+        }
+        return diasMes;
+        
+    }
 }

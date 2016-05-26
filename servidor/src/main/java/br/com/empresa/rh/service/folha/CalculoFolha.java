@@ -30,6 +30,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +74,7 @@ public class CalculoFolha {
     }
 
     public void calcula(FuncionarioCargo funcionario, Date data, EventoCollection eventos, Parametros parametros, Folha folha) {
-
+        eventos.removerDuplicados();
         Consulta c = consultas(data, funcionario, parametros);
         Utilitarios u = new Utilitarios(parametros, utilitarios);
         Console console = new Console();
@@ -121,6 +122,12 @@ public class CalculoFolha {
                         break;
                     case decimo:
                         eventosFuncionario = eventoService.eventosDecimo(mes);
+                        break;
+                    case demissao:
+                        eventosFuncionario = eventoService.eventosDemissao(funcionario, data);
+                        int diasMes = funcionarioCargoService.diasTotaisDemissao(funcionario);
+                        parametros.setDiasMes(diasMes);
+
                         break;
                     case mes:
                     default:
