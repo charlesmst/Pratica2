@@ -1,0 +1,58 @@
+<md-dialog aria-label="Folha de Pagamento" style="width:90%" ng-cloak>
+
+    <form name="formModal" ng-submit="modalVm.save($event, formModal.$valid)">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Manutenção de Evento do cargo</h2>
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+        <md-card>
+
+            <md-card-content>
+
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Evento</label>
+                        <md-select name="evento" ng-required="true" ng-model="modalVm.entity.evento">
+                            <md-option ng-selected="item.id === modalVm.entity.evento.id" ng-repeat="item in modalVm.eventos" ng-value="{{item}}" required>
+                                {{item.nome}} - {{item.tipo}}
+                            </md-option>
+                        </md-select>
+
+                        <div ng-messages="formModal.evento.$error" class="validation-messages">
+                            <div ng-message="required">Campo obrigatório</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Referência</label>
+                        <input type="number" ng-model="modalVm.entity.referencia" placeholder="Referência" aria-label="Referência">
+
+                    </md-input-container>
+                </div>
+
+                    <span class="md-subheader md-block">Início de vigência</span>
+                    <datepicker-mes flex mes="modalVm.mes" ano="modalVm.ano" required="true"></datepicker-mes>
+
+                    <span class="md-subheader md-block">Fim de vigência</span>
+                    <datepicker-mes mes="modalVm.mesFim" ano="modalVm.anoFim"></datepicker-mes>
+
+
+            </md-card-content>
+        </md-card>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button type="submit" class="md-primary md-raised" style="margin-right:20px;">
+                Salvar
+            </md-button>
+            <md-button ng-click="modalVm.cancel($event)" style="margin-right:20px;">
+                Fechar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+
+</md-dialog>

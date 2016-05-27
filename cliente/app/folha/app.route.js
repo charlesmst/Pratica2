@@ -129,9 +129,20 @@
             })
             .state('cargoevento.add', {
                 url: "/add",
-                onEnter: onEnterModal('FuncionarioEventoEditController', 'app/folha/funcionario-evento.edit.tmpl.html', 'fichafuncionarioevento'),
+                onEnter: onEnterModal('EventoCargoEditController', 'app/folha/evento-cargo.edit.tmpl.html', 'fichafuncionarioevento'),
                 onExit: function ($mdDialog) {
                     $mdDialog.hide();
+                }
+            })
+            
+            .state('resumofolha', {
+                url: '/resumofolha',
+                views: {
+                    "": {
+                        templateUrl: 'app/folha/resumofolha.controller.tmpl.html',
+                        controller: "ResumoFolhaController",
+                        controllerAs: "crudVm",
+                    }
                 }
             })
     }

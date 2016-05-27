@@ -5,8 +5,9 @@
         return  $resource(config.apiUrl+'/folhacalculada/:id', {id: '@id'}, {
             
             count: {method: "GET", isArray: false, url:config.apiUrl+"/folhacalculada/count"},
-            relatorio:{method:"GET",isArray:true}
-
+            relatorio:{method:"GET",isArray:true},
+            resumoFolha: {method: "GET", isArray: false, url:config.apiUrl+"/folhacalculada/resumofolhapagamento/:empresa/:ano/:mes"},
+            
         });
     }
 })()

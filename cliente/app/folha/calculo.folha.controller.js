@@ -33,6 +33,9 @@
             if (!$valid)
                 return;
             switch (parseInt(vm.entity.tipo)) {
+                case 4:
+                case 5:
+
                 case 1:
                     calculaMes($event);
                     break;
@@ -43,10 +46,7 @@
                     calculaComplementar($event);
                     break;
                     
-                case 4:
-                    calculaMes($event);
-                    break;
-            }
+                }
         }
         function calculaFerias($event) {
             calculaMes($event)

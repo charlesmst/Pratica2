@@ -5,16 +5,17 @@
         .module('app')
         .controller('EventoCargoController', EventoCargoController);
 
-    EventoCargoController.$inject = ['CargoHasEvento','$stateParams','$scope'];
-    function EventoCargoController(CargoHasEvento,$stateParams,$scope) {
+    EventoCargoController.$inject = ['CargoHasEvento','$stateParams','$scope','Workspace','$state'];
+    function EventoCargoController(CargoHasEvento,$stateParams,$scope,Workspace,$state) {
         var vm = this;
         vm.ano = new Date().getFullYear();
         vm.mes = new Date().getMonth() + 1;
         vm.list = []
         vm.selectedItems = []
-
+        vm.showAdd = showAdd
         $scope.$watchGroup(['crudVm.ano','crudVm.mes'],reload)
         reload();
+        Workspace.callbackOnEnterState($scope,$state,reload)
 
         ////////////////
 
@@ -28,6 +29,9 @@
                 vm.list = data
             })
             
+        }
+         function showAdd() {
+            $state.go('cargoevento.add',{"id": $stateParams.id})
         }
     }
 })();

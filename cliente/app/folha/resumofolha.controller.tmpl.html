@@ -1,0 +1,60 @@
+<form name="formCalculoFolha" novalidate ng-submit="crudVm.exibir(formCalculoFolha.$valid)">
+    <md-card>
+        <md-card-content>
+            <h2>Resumo da Folha</h2>
+            <md-content>
+
+                <select-empresa model="crudVm.entity.empresa" required="true" auto-select-first="true">
+                    <div class="validation-messages" ng-messages="formCalculoFolha.empresa.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+                </select-empresa>
+
+                <datepicker-mes ano="crudVm.entity.ano" mes="crudVm.entity.mes" required="true"></datepicker-mes>
+
+            </md-content>
+            <md-button class="md-raised md-warn" type="submit">Consultar</md-button>
+
+            <div ng-show="crudVm.data">
+                <h4>Eventos da folha</h4>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column colspan='2'><span>Evento</span></th>
+                            <th md-column><span>Valor</span></th>
+
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr ng-repeat="row in (crudVm.data.eventosVisiveis)">
+
+                            <td md-cell md-numeric>{{row.id}}</td>
+                            <td md-cell>{{row.nome}}</td>
+                            <td md-cell>{{row.valor | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Eventos da Empresa</h4>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column colspan='2'><span>Evento</span></th>
+                            <th md-column><span>Valor</span></th>
+
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr ng-repeat="row in (crudVm.data.eventosInvisiveis)">
+
+                            <td md-cell md-numeric>{{row.id}}</td>
+                            <td md-cell>{{row.nome}}</td>
+                            <td md-cell>{{row.valor | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-card-content>
+    </md-card>
+
+
+</form>
