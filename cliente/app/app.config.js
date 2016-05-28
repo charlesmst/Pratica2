@@ -23,7 +23,7 @@
 
 
         $mdIconProvider
-                .icon('edit', 'assets/icon/edit.svg', 24)
+                .icon('edit', 'assets/icon/edit.svg', 24)                
                 .icon('logout', 'assets/icon/ic_exit_to_app.svg', 48)
                 .icon('nivel', 'assets/icon/alterar_nivel.svg', 48)
                 .icon('download', 'assets/icon/pdf.svg', 48)
@@ -32,7 +32,10 @@
                 .icon('message', 'img/icons/message.svg', 24)
                 .icon('copy2', 'img/icons/copy2.svg', 24)
                 .icon('facebook', 'img/icons/facebook.svg', 24)
-                .icon('twitter', 'img/icons/twitter.svg', 24);
+                .icon('twitter', 'img/icons/twitter.svg', 24)
+                
+                .icon('user', 'assets/icon/ic_people_black_24px.svg', 24);
+                
 //         $httpProvider.interceptors.push('ApiInterceptor')
 
     }

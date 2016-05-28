@@ -93,7 +93,7 @@
                 {
                     "link": "usuario",
                     "title": "Usuários",
-                    "icon": "dashboard"
+                    "icon": "user"
                 },
                 {
                     "link": "plano-avaliacao",
