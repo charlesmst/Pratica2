@@ -33,8 +33,15 @@
                 .icon('copy2', 'img/icons/copy2.svg', 24)
                 .icon('facebook', 'img/icons/facebook.svg', 24)
                 .icon('twitter', 'img/icons/twitter.svg', 24)
-                
-                .icon('user', 'assets/icon/ic_people_outline_black_48px.svg', 48);
+        
+                .icon('eventos', 'assets/icon/signing-receipt.svg', 48)
+                .icon('folha', 'assets/icon/bill.svg', 48)
+                .icon('tabela', 'assets/icon/spreadsheet.svg', 48)        
+                .icon('calculator', 'assets/icon/calculator.svg', 48)
+        
+                .icon('acidente', 'assets/icon/car-first-aid-kit.svg', 48)
+                .icon('faixa', 'assets/icon/stock-earnings.svg', 48)
+                .icon('user', 'assets/icon/users.svg', 48);
                 
 //         $httpProvider.interceptors.push('ApiInterceptor')
 

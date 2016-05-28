@@ -7,22 +7,22 @@
                 {
                     "link": "evento",
                     "title": "Eventos da folha",
-                    "icon": "dashboard"
+                    "icon": "eventos"
                 },
                 {
                     "link": "folhacalculada",
                     "title": "Folhas de pagamento",
-                    "icon": "dashboard"
+                    "icon": "folha"
                 },
                 {
                     "link": "calculofolha",
                     "title": "Cálculo da folha",
-                    "icon": "dashboard"
+                    "icon": "calculator"
                 },
                 {
                     "link": "tabela",
                     "title": "Tabelas",
-                    "icon": "dashboard"
+                    "icon": "tabela"
                 }
             ]
         },
@@ -47,7 +47,7 @@
                 {
                 "link": "funcionario-acidente",
                         "title": "Acidentes de trabalho",
-                        "icon": "dashboard"
+                        "icon": "acidente"
                 },
                 {
                 "link": "sindicato",
@@ -109,7 +109,7 @@
                 {
                     "link": "faixasalarial",
                     "title": "Faixas salariais",
-                    "icon": "dashboard"
+                    "icon": "faixa"
                 }
             ]
         }
