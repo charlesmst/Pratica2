@@ -1,0 +1,72 @@
+<form name="formEdit" novalidate ng-submit="crudVm.save($event,formEdit.$valid)">
+
+    <div class="md-fab-bottom-right app-fixed-bottom-right">
+
+        <button type="submit" class="md-button md-fab" aria-label="save">
+        <ng-md-icon icon="save"></ng-md-icon>
+    </button>
+
+        <md-button class="md-fab " aria-label="Delete" ng-click="crudVm.cancel($event)">
+            <ng-md-icon icon="cancel"></ng-md-icon>
+        </md-button>
+    </div>
+
+
+    <md-card>
+
+
+        <md-card-content>
+            <h2>Faixa Salarial</h2>
+            <md-content>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Nome</label>
+                    <input name="nome" ng-model="crudVm.entity.nome" md-maxlength="255" required>
+                    <div ng-messages="formEdit.nome.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
+
+                </md-input-container>
+
+
+
+            </md-content>
+
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+
+        <md-card-content>
+            <h2>Valores da tabela</h2>
+
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="row in crudVm.entity.faixaSalarialValors ">
+                    <div class="md-list-item-text">
+
+                        <md-datepicker ng-model="row.id.dataInicio" class="md-datepicker-allign" md-placeholder="Data de início"></md-datepicker>
+
+                        <md-input-container >
+                            <label>Valor</label>
+                            <input type="text" required ui-money-mask ng-model="row.valor" />
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Carga horária</label>
+                            <input type="number" ng-model="row.cargaHoraria" />
+                        </md-input-container>
+                    </div>
+                    <md-button aria-label="Delete" ng-click="crudVm.entity.faixaSalarialValors.splice(crudVm.entity.faixaSalarialValors.indexOf(row), 1)">
+                        <ng-md-icon icon="delete"></ng-md-icon>
+                    </md-button>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.entity.faixaSalarialValors.push({})">
+                        <ng-md-icon icon="add"></ng-md-icon>
+                    </button>
+        </md-card-actions>
+    </md-card>
+</form>

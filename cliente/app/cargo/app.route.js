@@ -64,7 +64,37 @@
                         }
                     }
                 })              
-                
+
+                .state('faixasalarial', {
+                    url: '/faixasalarial',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/faixasalarial.controller.tmpl.html',
+                            controller: "FaixaSalarialController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('faixasalarialadd', {
+                    url: '/faixasalarial/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/faixasalarial.edit.tmpl.html',
+                            controller: "FaixaSalarialEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('faixasalarialedit', {
+                    url: '/faixasalarial/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/faixasalarial.edit.tmpl.html',
+                            controller: "FaixaSalarialEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
     }
     
 })()
