@@ -40,6 +40,9 @@
                 .icon('calculator', 'assets/icon/calculator.svg', 48)
         
                 .icon('acidente', 'assets/icon/car-first-aid-kit.svg', 48)
+                .icon('sindicato', 'assets/icon/workers-team.svg', 48)
+                .icon('curriculo', 'assets/icon/curriculos.svg', 48)
+                .icon('qualificacao', 'assets/icon/3-star-hotel.svg', 48)
                 .icon('faixa', 'assets/icon/stock-earnings.svg', 48)
                 .icon('user', 'assets/icon/users.svg', 48);
                 

@@ -42,7 +42,7 @@
                 {
                 "link": "qualificacao",
                         "title": "Qualificações",
-                        "icon": "dashboard"
+                        "icon": "qualificacao"
                 },
                 {
                 "link": "funcionario-acidente",
@@ -52,7 +52,7 @@
                 {
                 "link": "sindicato",
                         "title": "Sindicatos",
-                        "icon": "dashboard"
+                        "icon": "sindicato"
                 },
                 {
                 "link": "empresa",
@@ -88,7 +88,7 @@
                 {
                     "link": "curriculo",
                     "title": "Currículo",
-                    "icon": "dashboard"
+                    "icon": "curriculo"
                 },
                 {
                     "link": "usuario",
