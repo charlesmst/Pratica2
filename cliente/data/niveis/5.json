@@ -101,6 +101,17 @@
                     "icon": "dashboard"
                 }
             ]
+        },
+        {
+            "title":"Cargos",
+            "links": [
+                
+                {
+                    "link": "faixasalarial",
+                    "title": "Faixas salariais",
+                    "icon": "dashboard"
+                }
+            ]
         }
     ]
 }
