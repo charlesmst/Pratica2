@@ -34,7 +34,7 @@
                 .icon('facebook', 'img/icons/facebook.svg', 24)
                 .icon('twitter', 'img/icons/twitter.svg', 24)
                 
-                .icon('user', 'assets/icon/ic_people_black_24px.svg', 24);
+                .icon('user', 'assets/icon/ic_people_outline_black_48px.svg', 48);
                 
 //         $httpProvider.interceptors.push('ApiInterceptor')
 

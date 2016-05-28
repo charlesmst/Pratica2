@@ -5,11 +5,12 @@
         .module('app')
         .controller('ResumoFolhaController', ResumoFolhaController);
 
-    ResumoFolhaController.$inject = ['Workspace','FolhaCalculada'];
-    function ResumoFolhaController(Workspace,FolhaCalculada) {
+    ResumoFolhaController.$inject = ['Workspace','FolhaCalculada','Download'];
+    function ResumoFolhaController(Workspace,FolhaCalculada,Download) {
         var vm = this;
         
         vm.exibir = exibir;
+        vm.download  = download
         vm.entity = {   
             mes:new Date().getMonth()+1,
             ano:new Date().getFullYear()
@@ -30,6 +31,10 @@
                 console.log(r)
             })
             
+        }
+        function download($valid){
+             if(!$valid)return;
+             Workspace.loading("Baixando...",Download.downloadFile('/folhacalculada/resumofolhapagamento/'+vm.entity.empresa.id+'/'+vm.entity.ano+'/'+vm.entity.mes+'/pdf',{},'ResumoFolha'));
         }
     }
 })();

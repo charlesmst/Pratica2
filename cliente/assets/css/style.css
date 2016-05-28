@@ -152,3 +152,16 @@ md-sidenav ng-md-icon {
     .md-no-min-height{
         min-height: 10px;
     }
+    
+    .md-datepicker-allign{
+        position: relative;
+    left: -16px;
+
+   
+    }
+     .md-datepicker-allign.md-datepicker-input-container{
+      margin-left: 0;
+    }
+    .md-datepicker-allign.md-datepicker-button.md-icon-button {
+      margin-right: 0;
+    }
