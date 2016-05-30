@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CargoEditController', ['$mdToast', '$http', 'Cargo', '$state', '$stateParams', 'Workspace', CargoEditController]);
+    angular.module('app').controller('CargoEditController', ['$mdToast', '$http', 'Cargo', '$state', '$stateParams', 'Workspace','Nivel', CargoEditController]);
 
     var state = "cargo"
-    function CargoEditController($mdToast, $http, Cargo, $state, $stateParams, Workspace) {
+    function CargoEditController($mdToast, $http, Cargo, $state, $stateParams, Workspace, Nivel) {
         var vm = this;
         vm.entity = {}
         Workspace.title = "Manutenção de Cargo";
@@ -11,11 +11,14 @@
             Workspace.loading("Carregando...", Cargo.get({id: $stateParams.id}).$promise.then(function (data) {
 
                 vm.entity = data;
-                vm.entity.niveis = []
+                vm.entity.cbo = []
             }))
 
-        } else
+        } else {
             vm.entity = new Cargo()
+            loadCargos()
+            vm.entity.cbo = []
+        }
         vm.save = save;
         vm.cancel = cancel;
         function save($event, $valid) {
@@ -35,15 +38,14 @@
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
         }
         
-        loadCbos()
-
-        function DialogController($scope, $mdDialog, Cbo) {
-            var modalVm = $scope;
-            modalVm.loadCbos = loadCbos;
+        function querySearch(textoBusca) {
+            return Cbo.query({
+                filter: textoBusca
+            }).$promise
         }
-        function loadCbos() {
+        function loadCargos() {
             Cbo.query().$promise.then(function (resposta) {
-                vm.cbo = resposta.data
+                vm.cbo = resposta;
             })
         }
     }

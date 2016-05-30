@@ -24,18 +24,18 @@
                     <div ng-messages="formEdit.nome.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
-
                 </md-input-container>
+                
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Descrição sumarizada</label>
-                    <input  name="decricaoSumarizada" ng-model="crudVm.entity.decricaoSumarizada" required />
-                    <div ng-messages="formEdit.decricaoSumarizada.$error">
+                    <input  name="descricaoSumarizada" ng-model="crudVm.entity.descricaoSumarizada" required />
+                    <div ng-messages="formEdit.descricaoSumarizada.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
 
                 </md-input-container>
                 
-                 <md-chips ng-model="crudVm.entity.niveis"
+<!--                <md-chips ng-model="crudVm.entity.niveis"
                           md-require-match="true">
                     <md-autocomplete
                         md-selected-item="crudVm.selectedItem"
@@ -51,7 +51,7 @@
                             {{$chip.nome}}
                         </span>
                     </md-chip-template>
-                </md-chips>
+                </md-chips>-->
             </md-content>
 
         </md-card-content>
