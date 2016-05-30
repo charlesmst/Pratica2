@@ -22,7 +22,7 @@
                     <label>Nome</label>
                     <input  name="nome" ng-model="crudVm.entity.nome" md-maxlength="255" required>
                     <div ng-messages="formEdit.nome.$error">
-                        <div ng-message="required">Campo obrigat�rio.</div>
+                        <div ng-message="required">Campo obrigatório.</div>
                     </div>
 
                 </md-input-container>
@@ -48,7 +48,7 @@
                                 </tr>
                             </thead>
                             <tbody md-body>
-                                <tr md-row ng-repeat="row in crudVm.curriculoQualificacoes">
+                                <tr md-row ng-repeat="row in crudVm.entity.questaos">
                                     <td md-cell width="15" class="button-column">
 
                             <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditQualificacao(row)">
@@ -57,7 +57,7 @@
                             </td>
                             <td md-cell>{{row.descricao}}</td>   
                             <td md-cell>{{row.tipo}}</td>   
-                            <td md-cell>{{row.visivel_candidato}}</td>   
+                            <td md-cell>{{row.visivelCandidato}}</td>   
                             </tr>
                             </tbody>
                         </table>
