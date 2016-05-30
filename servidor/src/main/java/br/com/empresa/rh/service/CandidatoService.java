@@ -21,8 +21,8 @@ public class CandidatoService extends Service<Candidato>{
     @Transactional
     public List<Candidato> findForTable(TableRequest request) {
 
-        
-        String hql = "select t from Candidato t ";
+        String hql = "select t from Candidato t "
+                + " left join fetch t.competencias c ";
         hql+= request.applyFilter("id","t.pessoa.nome");     
         hql+= request.applyOrder("id","t.pessoa.nome");        
         Query q = entityManager.createQuery(hql);

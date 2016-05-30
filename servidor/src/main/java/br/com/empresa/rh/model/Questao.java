@@ -38,7 +38,9 @@ public class Questao  implements java.io.Serializable {
      private Character tipo;
      @JsonView({Recrutamento.Avaliacao.class})
      private boolean visivelCandidato;
+     @JsonView({Recrutamento.Avaliacao.class})
      private Set<Resposta> respostas = new HashSet<Resposta>(0);
+     @JsonView({Recrutamento.Avaliacao.class})
      private Set<QuestaoOpcao> questaoOpcaos = new HashSet<QuestaoOpcao>(0);
      private Set<PlanoAvaliacao> planoAvaliacaos = new HashSet<PlanoAvaliacao>(0);
 

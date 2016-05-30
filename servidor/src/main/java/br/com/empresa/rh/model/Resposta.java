@@ -2,6 +2,8 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,10 +26,13 @@ import javax.persistence.Table;
 public class Resposta  implements java.io.Serializable {
 
 
+     @JsonView({Recrutamento.Avaliacao.class})
      private int id;
+     @JsonView({Recrutamento.Avaliacao.class})
      private Candidato candidato;
      private Questao questao;
      private QuestaoOpcao questaoOpcao;
+     @JsonView({Recrutamento.Avaliacao.class})
      private String descricao;
 
     public Resposta() {

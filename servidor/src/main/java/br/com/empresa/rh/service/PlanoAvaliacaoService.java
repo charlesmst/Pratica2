@@ -18,6 +18,8 @@ public class PlanoAvaliacaoService extends Service<PlanoAvaliacao>{
     public PlanoAvaliacao findById(Object id) {
         String hql = "select t from PlanoAvaliacao t "
                 + " left join fetch t.questaos q "
+                + " left join fetch q.questaoOpcaos o "
+                + " left join fetch q.respostas r "
                 //+ " left join fetch t.vagases v "
                 + " where t.id = :id";
         PlanoAvaliacao p = (PlanoAvaliacao) entityManager.createQuery(hql)
@@ -36,10 +38,12 @@ public class PlanoAvaliacaoService extends Service<PlanoAvaliacao>{
 
         
         String hql = "select t from PlanoAvaliacao t "
-                + " left join fetch t.questaos q ";
+                + " left join fetch t.questaos q "
+                + " left join fetch q.questaoOpcaos o "
+                + " left join fetch q.respostas r ";
 //                + " left join fetch t.vagases v";
-        hql+= request.applyFilter("id","nome");     
-        hql+= request.applyOrder("id","nome");        
+        hql+= request.applyFilter("t.id","nome");     
+        hql+= request.applyOrder("t.id","nome");        
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);
