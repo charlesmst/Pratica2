@@ -2,7 +2,7 @@
     "inicial": "menu",
     "menus": [
         {
-            "title":"Funcionário",
+            "title":"Colaborador",
             "links": [
                 {
                     "link": "menu",

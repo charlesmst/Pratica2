@@ -5,19 +5,19 @@
             "title":"Site",
             "links": [
                 {
-                    "link": "vagas",
-                    "title": "Vagas em aberto",
-                    "icon": "dashboard"
-                },
-                {
                     "link": "login",
                     "title": "Login",
-                    "icon": "dashboard"
+                    "icon": "login"
                 },
                 {
                     "link": "usuarionaocadastrado",
                     "title": "Cadastre-se",
-                    "icon": "dashboard"
+                    "icon": "cadastre"
+                },
+                {
+                    "link": "vagas",
+                    "title": "Vagas em Aberto",
+                    "icon": "vagas"
                 }
             ]
         }

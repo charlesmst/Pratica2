@@ -46,7 +46,7 @@
                     promises.push(value.$delete());
                 });
                 Workspace.loading("Excluindo...", $q.all(promises).then(function () {
-                    Workspace.showMessage("Registros excluidos");
+                    Workspace.showMessage("Registros Excluidos!");
                     load(vm.query);
                 }));
             });

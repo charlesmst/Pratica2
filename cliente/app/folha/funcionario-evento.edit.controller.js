@@ -37,7 +37,7 @@
             $state.go('^')
         }
         function callbackSave(r) {
-            Workspace.showMessage("Registro salvo")
+            Workspace.showMessage("Registro Salvo!")
             $state.go('^')
 
         }

@@ -1,6 +1,6 @@
 <md-input-container>
     <label ng-show="title"> {{title}} </label>
-    <md-select md-on-open="loadFuncionarios()" placeholder="Funcionários" name="funcionarios" ng-required="required" ng-disabled="disabled"
+    <md-select md-on-open="loadFuncionarios()" placeholder="Colaboradores" name="funcionarios" ng-required="required" ng-disabled="disabled"
         style="padding-left: 30px;width:100%" ng-model="model" multiple="multiple" ng-model-options="{trackBy: '$value.id'}">
         <md-optgroup label="{{group.nome}}" ng-repeat="group in cargos">
             <md-option ng-value="item" ng-repeat="item in group.funcionarioCargos">{{item.funcionario.pessoa.nome}}</md-option>

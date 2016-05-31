@@ -12,7 +12,7 @@
         vm.newTipo = newTipo;
         vm.ano = new Date().getFullYear();
         vm.mes = new Date().getMonth();
-        Workspace.title = "Manutenção de Tabela";
+        Workspace.title = "Manutenção de Tabelas";
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Tabela.get({ id: $stateParams.id }).$promise.then(function (data) {
 
@@ -50,12 +50,12 @@
             $state.go(state)
         }
         function callbackSave(r) {
-            Workspace.showMessage("Registro salvo")
+            Workspace.showMessage("Registro Salvo!")
             $state.go(state)
 
         }
         function callbackError() {
-            Workspace.showMessage("Ocorreu um erro ao salvar o registro")
+            Workspace.showMessage("Ocorreu um erro ao salvar o registro!")
         }
         function loadGuesses() {
             return $q(function (resolve, reject) {

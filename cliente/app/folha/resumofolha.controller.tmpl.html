@@ -6,7 +6,7 @@
 
                 <select-empresa model="crudVm.entity.empresa" required="true" auto-select-first="true">
                     <div class="validation-messages" ng-messages="formCalculoFolha.empresa.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
+                        <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </select-empresa>
 
@@ -17,7 +17,7 @@
             <md-button class="md-raised md-warn" type="button" ng-click="crudVm.download(formCalculoFolha.$valid)">Download</md-button>
 
             <div ng-show="crudVm.data">
-                <h4>Eventos da folha</h4>
+                <h4>Eventos da Folha</h4>
                 <table md-table>
                     <thead md-head>
                         <tr md-row>

@@ -11,7 +11,7 @@
         vm.entity = {}
         vm.sharedData = SharedData;
         vm.sharedData.selectedIndex = 0;
-        Workspace.title = "Manutenção de Evento";
+        Workspace.title = "Manutenção de Eventos";
         vm.test = test;
         vm.save = save;
         vm.cancel = cancel;
@@ -34,12 +34,12 @@
             $state.go(state)
         }
         function callbackSave(r) {
-            Workspace.showMessage("Registro salvo")
+            Workspace.showMessage("Registro Salvo!")
             $state.go(state)
 
         }
         function callbackError() {
-            Workspace.showMessage("Ocorreu um erro ao salvar o registro")
+            Workspace.showMessage("Ocorreu um erro ao salvar o registro!")
         }
         function test(ev) {
 

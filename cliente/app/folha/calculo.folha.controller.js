@@ -6,7 +6,7 @@
         var vm = this;
         vm.empresas = []
         vm.cargos = []
-        Workspace.title = "Cálculo de folha";
+        Workspace.title = "Cálculo da Folha de Pagamento";
         vm.save = save;
         vm.loadFuncionarios = loadFuncionarios;
         vm.downloadFolhas = downloadFolhas
