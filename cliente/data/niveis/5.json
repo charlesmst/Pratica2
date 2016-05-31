@@ -3,16 +3,16 @@
     "menus": [
         {
             "title":"Folha de pagamento",
-            "links": [
+            "links": [                
+                {
+                    "link": "tabela",
+                    "title": "Tabelas",
+                    "icon": "tabela"
+                },
                 {
                     "link": "evento",
                     "title": "Eventos da folha",
                     "icon": "eventos"
-                },
-                {
-                    "link": "folhacalculada",
-                    "title": "Folhas de pagamento",
-                    "icon": "folha"
                 },
                 {
                     "link": "calculofolha",
@@ -20,24 +20,38 @@
                     "icon": "calculator"
                 },
                 {
-                    "link": "tabela",
-                    "title": "Tabelas",
-                    "icon": "tabela"
-                }
+                    "link": "folhacalculada",
+                    "title": "Folhas de pagamento",
+                    "icon": "folha"
+                }                              
             ]
         },
         {
             "title":"Ficha funcional",
             "links": [
-                 { "link": "cargo",
-                   "title": "Cargos",
-                   "icon": "dashboard"
-                 },
-          
+                {
+                "link": "ficha",
+                        "title": "Ficha Funcional",
+                        "icon": "ficha"
+                },
+                {
+                "link": "empresa",
+                        "title": "Empresas",
+                        "icon": "empresa"
+                },
+                {
+                "link": "unidade",
+                        "title": "Unidades",
+                        "icon": "unidade"
+                },
                 {
                     "link": "cbo",
                     "title": "Cbos",
-                    "icon": "dashboard"
+                    "icon": "cbo"
+                },
+                { "link": "cargo",
+                   "title": "Cargos",
+                   "icon": "cargos"
                 },
                 {
                 "link": "qualificacao",
@@ -53,22 +67,7 @@
                 "link": "sindicato",
                         "title": "Sindicatos",
                         "icon": "sindicato"
-                },
-                {
-                "link": "empresa",
-                        "title": "Empresas",
-                        "icon": "dashboard"
-                },
-                {
-                "link": "unidade",
-                        "title": "Unidades",
-                        "icon": "dashboard"
-                },
-                {
-                "link": "ficha",
-                        "title": "Ficha",
-                        "icon": "dashboard"
-                }
+                }                           
             ]
         },
         {
@@ -78,12 +77,12 @@
                 {
                     "link": "necessidade-pessoa",
                     "title": "Necessidade de Pessoa",
-                    "icon": "dashboard"
+                    "icon": "necessidade"
                 },
                 {
                     "link": "vagas",
                     "title": "Vagas",
-                    "icon": "dashboard"
+                    "icon": "vagas"
                 },
                 {
                     "link": "curriculo",
@@ -98,7 +97,7 @@
                 {
                     "link": "plano-avaliacao",
                     "title": "Planos de Avaliações",
-                    "icon": "dashboard"
+                    "icon": "avaliacao"
                 }
             ]
         },
