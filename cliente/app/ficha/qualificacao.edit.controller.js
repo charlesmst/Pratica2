@@ -6,7 +6,7 @@
     function QualificacaoEditController($mdToast, $http, Qualificacao, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
-        Workspace.title = "Manutenção de qualificações";
+        Workspace.title = "Manutenção de Qualificações";
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Qualificacao.get({id: $stateParams.id}).$promise.then(function (data) {
 
@@ -26,12 +26,12 @@
             $state.go(state)
         }
         function callbackSave(r) {
-            Workspace.showMessage("Registro salvo")
+            Workspace.showMessage("Registro Salvo!")
             $state.go(state)
 
         }
         function callbackError() {
-            Workspace.showMessage("Ocorreu um erro ao salvar o registro")
+            Workspace.showMessage("Ocorreu um erro ao salvar o registro!")
         }
     }
 })()

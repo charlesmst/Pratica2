@@ -22,7 +22,7 @@
                     <label>Nome</label>
                     <input  name="nome" ng-model="crudVm.entity.nome">
                     <div ng-messages="formEdit.nome.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
+                        <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
 
@@ -35,16 +35,16 @@
                     <label>Carga Horária</label>
                     <textarea  name="cargaHoraria" ng-model="crudVm.entity.cargaHoraria"></textarea>
                     <div ng-messages="formEdit.cargaHoraria.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
+                        <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
 
                 <md-checkbox ng-model="crudVm.entity.validade" aria-label="validade">
-                  Possui validade {{ data.validade }}
+                  Possui Validade {{ data.validade }}
                 </md-checkbox>
                  
                  <md-checkbox ng-model="crudVm.entity.certificado" aria-label="certificado">
-                  Possui certificação {{ data.certificado }}
+                  Possui Certificação {{ data.certificado }}
                 </md-checkbox>
 
             </md-content>
