@@ -35,10 +35,11 @@ public class FuncionarioService extends Service<Funcionario> {
                 + " left outer join fetch fc.unidade un"
                 + " left outer join fetch un.empresa emp"
                 + " left outer join fetch fc.funcionarioCargoHasAdvertenciaTipos fcat"
+                + " left outer join fetch fc.feriases ferias"
                 + " left outer join fetch fc.funcionarioAcidentes fa"
                 + " left outer join fetch fc.funcionarioQualificacaos funcionarioQualificacaos"
                 + " left outer join fetch funcionarioQualificacaos.qualificacao qualificacao"
-                + " left outer join fetch f.escolaridade es"
+                + " left outer join fetch p.escolaridade es"
                 + " where f.pessoaId = :id ").setParameter("id", id).getSingleResult();
     }
 

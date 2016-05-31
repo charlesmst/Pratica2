@@ -18,6 +18,8 @@
         console.log($stateParams)
         vm.mostraAddCargo = mostraAddCargo;
         vm.mostraEditCargo = mostraEditCargo
+        vm.mostraAddQualificacao = mostraAddQualificacao;
+        vm.mostraEditQualificacao = mostraEditQualificacao
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Funcionario.get({id: $stateParams.id}).$promise.then(function (data) {
 
@@ -80,6 +82,49 @@
                 clickOutsideToClose: false,
                 resolve: {
                     DadosCargo: function () {
+                        return angular.copy(cargo);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(cargo, alterado)
+            })
+        }
+        
+        
+
+        function mostraAddQualificacao() {
+            $mdDialog.show({
+                controller: 'FuncionarioQualificacaoEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-qualificacao.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosQualificacao: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
+
+                        if (!vm.entity.funcionarioQualificacaos)
+                            vm.entity.funcionarioQualificacaos = []
+                        vm.entity.funcionarioQualificacaos.push(adicionado)
+                    });
+        }
+
+        function mostraEditQualificacao(cargo) {
+            $mdDialog.show({
+                controller: 'FuncionarioQualificacaoEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-qualificacao.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosQualificacao: function () {
                         return angular.copy(cargo);
                     }
                 }

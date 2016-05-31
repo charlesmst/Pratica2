@@ -11,10 +11,7 @@
         </md-button>
     </div>
 
-
-
     <md-card>
-
 
         <md-card-content>
             <md-card-title>
@@ -24,7 +21,6 @@
                             <md-input-container flex="33" class="md-block" flex-gt-xs>
                                 <label>Código</label>
                                 <input  name="codigo" ng-model="crudVm.entity.pessoaId">
-
 
                             </md-input-container>
                             <md-input-container flex="33" class="md-block" flex-gt-xs>
@@ -111,13 +107,13 @@
                             </md-select>
 
                         </md-input-container>
-                        
+
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>Data de Nascimento</label>
                             <input  name="dataNascimento" ng-model="crudVm.entity.pessoa.dataNascimento">
                         </md-input-container>
                     </div>
-     
+
                     <div layout-gt-sm="row">
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>E-mail</label>
@@ -149,7 +145,7 @@
                                 <div ng-message="required">Campo obrigatório.</div>
                             </div>
                         </md-input-container>
-                        
+
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>Cidade</label>
                             <md-autocomplete
@@ -163,7 +159,7 @@
                                 <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
                             </md-autocomplete>
                         </md-input-container>
-                        
+
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>Estado</label>
                             <md-autocomplete
@@ -177,7 +173,7 @@
                                 <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
                             </md-autocomplete>
                         </md-input-container>
-                        
+
                     </div>
                     <md-input-container class="md-block" flex-gt-xs>
                         <label>Bairro</label>
@@ -258,7 +254,7 @@
                                 <tr md-row ng-repeat="row in crudVm.funcionarioAtivo.funcionarioQualificacaos">
                                     <td md-cell width="15" class="button-column">
 
-                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCargo(row)">
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditQualificacao(row)">
                                 <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
                             </md-button>
                             </td>
@@ -270,16 +266,51 @@
                         </table>
                     </md-table-container>
                     <md-card-actions layout="row" layout-align="end center">
-                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddCargo()">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddQualificacao()">
                             <ng-md-icon icon="add"></ng-md-icon>
                         </button>
                     </md-card-actions>
                 </md-tab>
-                <md-tab label="three">
-                    <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab Three</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-                    </md-content>
+                <md-tab label="Férias">
+
+                    <section layout="row">
+                        <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo">
+                            <md-option ng-value="item"  ng-repeat="item in crudVm.entity.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
+                        </md-select>
+                    </section>
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column md-numeric ></th>
+                                    <th md-column ><span>Data Gozo Início</span></th>             
+                                    <th md-column ><span>Data Gozo Fim</span></th>             
+                                    <th md-column ><span>Período Aquisitivo Início</span></th>             
+                                    <th md-column ><span>Período Aquisitivo Fim</span></th>   
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="row in crudVm.funcionarioAtivo.feriases">
+                                    <td md-cell width="15" class="button-column">
+
+                            <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditQualificacao(row)">
+                                <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                            </md-button>
+                            </td>
+                            <td md-cell>{{row.dataGozoInicio| date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataGozoFim| date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataAquisitivoInicio| date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataAquisitivoFim| date:'dd/MM/yyyy'}}</td>   
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddQualificacao()">
+                            <ng-md-icon icon="add"></ng-md-icon>
+                        </button>
+                    </md-card-actions>
                 </md-tab>
             </md-tabs>
         </md-card-content>

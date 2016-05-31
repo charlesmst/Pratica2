@@ -71,6 +71,8 @@ public class FuncionarioCargo implements java.io.Serializable {
     @JsonView({Folha.FuncionarioFicha.class})
 
     private Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos = new HashSet<SindicatoHasFuncionarioCargo>(0);
+        @JsonView({Folha.FuncionarioFicha.class})
+
     private Set<Ferias> feriases = new HashSet<Ferias>(0);
 
     public FuncionarioCargo() {
