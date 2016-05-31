@@ -412,7 +412,7 @@ public class Pessoa implements java.io.Serializable {
         this.dependentes = dependentes;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<CurriculoExperiencia> getCurriculoExperiencias() {
         return this.curriculoExperiencias;
     }
@@ -421,7 +421,7 @@ public class Pessoa implements java.io.Serializable {
         this.curriculoExperiencias = curriculoExperiencias;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<CurriculoQualificacao> getCurriculoQualificacoes() {
         return this.curriculoQualificacoes;
     }
