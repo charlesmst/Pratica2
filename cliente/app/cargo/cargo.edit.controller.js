@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CargoEditController', ['$mdToast', '$http', 'Cargo', '$state', '$stateParams', 'Workspace','Nivel', CargoEditController]);
+    angular.module('app').controller('CargoEditController', ['$mdToast', '$http', 'Cargo', '$state', '$stateParams', 'Workspace','Cbo', CargoEditController]);
 
     var state = "cargo"
-    function CargoEditController($mdToast, $http, Cargo, $state, $stateParams, Workspace, Nivel) {
+    function CargoEditController($mdToast, $http, Cargo, $state, $stateParams, Workspace, Cbo) {
         var vm = this;
         vm.entity = {}
         Workspace.title = "Manutenção de Cargo";
@@ -11,16 +11,15 @@
             Workspace.loading("Carregando...", Cargo.get({id: $stateParams.id}).$promise.then(function (data) {
 
                 vm.entity = data;
-                vm.entity.cbo = []
             }))
 
         } else {
             vm.entity = new Cargo()
             loadCargos()
-            vm.entity.cbo = []
         }
         vm.save = save;
         vm.cancel = cancel;
+        vm.querySearch = querySearch;
         function save($event, $valid) {
             if (!$valid)
                 return;
@@ -44,8 +43,8 @@
             }).$promise
         }
         function loadCargos() {
-            Cbo.query().$promise.then(function (resposta) {
-                vm.cbo = resposta;
+            Cargo.query().$promise.then(function (resposta) {
+                vm.cargo = resposta;
             })
         }
     }

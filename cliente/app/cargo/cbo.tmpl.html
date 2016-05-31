@@ -5,6 +5,8 @@
     <md-button class="md-fab "  aria-label="Add" ng-click="crudVm.showAdd($event)">
         <ng-md-icon icon="add"></ng-md-icon>
     </md-button>
+    
+            
 </div>
 <md-card>
     <md-table-container>
@@ -29,6 +31,7 @@
             <td md-cell>{{row.descricaoSumarizada}}</td>   
             </tr>
             </tbody>
+           
         </table>
 
         <md-table-pagination md-label="{{appVm.labelPagination}}" md-limit="crudVm.query.limit" md-page="crudVm.query.page" md-total="{{crudVm.count}}" md-on-paginate="crudVm.onPaginate" md-page-select></md-table-pagination>

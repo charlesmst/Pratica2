@@ -36,43 +36,20 @@
 
             </md-content>
             
-            <md-chips ng-model="crudVm.entity.cargo"
-                          md-require-match="true">
+            
+                        
                     <md-autocomplete
-                        md-selected-item="crudVm.selectedItem"
+                        md-selected-item="crudVm.entity.cbo"
                         md-search-text="crudVm.searchText"
                         md-items="item in crudVm.querySearch(crudVm.searchText)"
-                        md-item-text="item.cbo"
-                        md-min-length="0"
+                        md-item-text="item.nome"
+                        md-min-length="2"
                         placeholder="Cbo">
-                        <span md-highlight-text="crudVm.searchText">{{item.cbo}}</span>
+                        <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
+                        <div ng-messages="formEdit.cbo.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                        </div>  
                     </md-autocomplete>
-                    <md-chip-template>
-                        <span>
-                            {{$chip.nome}}
-                        </span>
-                    </md-chip-template>
-                </md-chips>
-
-            <md-input-container class="md-block" flex-gt-sm>
-                    <label>Cbo</label>
-                    <md-select ng-model="crudVm.entity.cbo">
-                        <md-option ng-repeat="item in crudVm.cbo" value="{{item.cbo}}">
-                            {{item.cbo}}
-                        </md-option>
-                    </md-select>
-                <div ng-messages="formEdit.cbo.$error">
-                    <div ng-message="required">Campo obrigatório.</div>
-                </div>
-               </md-input-container>
-            
-            <md-input-container class="md-block" flex-gt-xs>
-                    <label>Cbo</label>
-                    <md-select ng-model="crudVm.entity.cbo.id">
-                        <md-option ng-repeat="item in crudVm.cbo" ng-value="{{item}}" ng-selected="item.id===crudVm.entity.cbo.id" >
-                            {{item.nome}}
-                        </md-option>
-                    </md-select>
 
                 </md-input-container>
             
