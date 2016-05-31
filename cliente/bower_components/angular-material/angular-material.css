@@ -1,4 +1,4 @@
-/*!
+.inset/*!
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
@@ -6,7 +6,7 @@
  */
 html, body {
   height: 100%;
-  color: rgba(0, 0, 0, 0.87);
+  color: #000;
   background: white;
   position: relative; }
 
@@ -18,8 +18,10 @@ body {
   outline: none; }
 
 .inset {
-  padding: 10px; }
-
+  padding: 3px; }
+.insets{
+ padding: 10px;   
+}
 button.md-no-style {
   font-weight: normal;
   background-color: inherit;
@@ -1678,7 +1680,7 @@ md-divider {
   display: block;
   border-top-width: 1px;
   border-top-style: solid;
-  margin: 0; }
+  margin: 10px 0 0 0; }
   md-divider[md-inset] {
     margin-left: 80px; }
 
@@ -4072,8 +4074,8 @@ md-sidenav {
       -ms-flex-direction: column;
           flex-direction: column;
   z-index: 60;
-  width: 320px;
-  max-width: 320px;
+  width: 380px;
+  max-width: 380px;
   bottom: 0;
   overflow: auto;
   -webkit-overflow-scrolling: touch; }
@@ -4425,14 +4427,14 @@ md-slider {
 
 .md-subheader {
   display: block;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1em;
   margin: 0 0 0 0;
   position: relative; }
   .md-subheader .md-subheader-inner {
     display: block;
-    padding: 16px; }
+    padding: 20px 16px 10px 16px; }
   .md-subheader .md-subheader-content {
     display: block;
     z-index: 1;

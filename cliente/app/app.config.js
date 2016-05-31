@@ -33,30 +33,30 @@
                 .icon('facebook', 'img/icons/facebook.svg', 24)
                 .icon('twitter', 'img/icons/twitter.svg', 24)
 
-                .icon('login', 'assets/icon/user-in-front-of-computer.svg', 48)
-                .icon('cadastre', 'assets/icon/add-contact.svg', 48)
+                .icon('login', 'assets/icon/user-in-front-of-computer.svg', 38)
+                .icon('cadastre', 'assets/icon/add-contact.svg', 38)
 
-                .icon('tabela', 'assets/icon/spreadsheet.svg', 48)
-                .icon('eventos', 'assets/icon/signing-receipt.svg', 48)
-                .icon('calculator', 'assets/icon/calculator.svg', 48)
-                .icon('folha', 'assets/icon/file-black-text-paper-sheet-symbol-with-one-folded-corner.svg', 48)
+                .icon('tabela', 'assets/icon/spreadsheet.svg', 38)
+                .icon('eventos', 'assets/icon/signing-receipt.svg', 38)
+                .icon('calculator', 'assets/icon/calculator.svg', 38)
+                .icon('folha', 'assets/icon/file-black-text-paper-sheet-symbol-with-one-folded-corner.svg', 38)
 
-                .icon('ficha', 'assets/icon/ficha-funcional.svg', 48)
-                .icon('cargos', 'assets/icon/stationery-product.svg', 48)
-                .icon('cbo', 'assets/icon/bar-code.svg', 48)
-                .icon('qualificacao', 'assets/icon/3-star-hotel.svg', 48)
-                .icon('acidente', 'assets/icon/car-first-aid-kit.svg', 48)
-                .icon('sindicato', 'assets/icon/workers-team.svg', 48)
-                .icon('empresa', 'assets/icon/buildings.svg', 48)
-                .icon('unidade', 'assets/icon/buildings-unidades.svg', 48)
-                .icon('curriculo', 'assets/icon/curriculos.svg', 48)
+                .icon('ficha', 'assets/icon/ficha-funcional.svg', 38)
+                .icon('cargos', 'assets/icon/stationery-product.svg', 38)
+                .icon('cbo', 'assets/icon/bar-code.svg', 38)
+                .icon('qualificacao', 'assets/icon/3-star-hotel.svg', 38)
+                .icon('acidente', 'assets/icon/car-first-aid-kit.svg', 38)
+                .icon('sindicato', 'assets/icon/workers-team.svg', 38)
+                .icon('empresa', 'assets/icon/buildings.svg', 38)
+                .icon('unidade', 'assets/icon/buildings-unidades.svg', 38)
+                .icon('curriculo', 'assets/icon/curriculos.svg', 38)
 
-                .icon('necessidade', 'assets/icon/business-man.svg', 48)
-                .icon('vagas', 'assets/icon/jobs-open.svg', 48)
-                .icon('avaliacao', 'assets/icon/favorites-list.svg', 48)
+                .icon('necessidade', 'assets/icon/business-man.svg', 38)
+                .icon('vagas', 'assets/icon/jobs-open.svg', 38)
+                .icon('avaliacao', 'assets/icon/favorites-list.svg', 38)
 
-                .icon('faixa', 'assets/icon/stock-earnings.svg', 48)
-                .icon('user', 'assets/icon/users.svg', 48);
+                .icon('faixa', 'assets/icon/stock-earnings.svg', 38)
+                .icon('user', 'assets/icon/users.svg', 38);
 
             //  $httpProvider.interceptors.push('ApiInterceptor')
     }
