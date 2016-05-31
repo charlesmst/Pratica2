@@ -73,7 +73,7 @@ public class UsuarioResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(Recrutamento.Usuario.class)
-    @RolesAllowed(NivelAcesso.CANDIDATO)
+    @RolesAllowed(NivelAcesso.NENHUM)
     public Usuario findById(@PathParam("id") int id, @Context SecurityContext securityContext) {
         utilitarios.setSecutiryContext(securityContext);
 
@@ -87,6 +87,7 @@ public class UsuarioResource {
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
+    @RolesAllowed(NivelAcesso.NENHUM)
     public void insert(Usuario m) {
         Pessoa p = new Pessoa();
         p = m.getPessoa();

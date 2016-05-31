@@ -23,7 +23,8 @@ public class CurriculoService extends Service<Curriculo>{
                 + " left join fetch p.estadoCivil "
                 + " left join fetch p.necessidadeEspecials "
                 + " left join fetch p.curriculoExperiencias "
-                + " left join fetch p.curriculoFormacoes "
+                + " left join fetch p.curriculoFormacoes cf "
+                + " left join fetch cf.escolaridade " 
                 + " left join fetch p.curriculoQualificacoes "
                 + " inner join fetch p.cidade c "
                 + " inner join fetch c.estado uf "
@@ -48,7 +49,8 @@ public class CurriculoService extends Service<Curriculo>{
                 + " left join fetch p.estadoCivil "
                 + " left join fetch p.necessidadeEspecials "
                 + " left join fetch p.curriculoExperiencias "
-                + " left join fetch p.curriculoFormacoes "
+                + " left join fetch p.curriculoFormacoes cf "
+                + " left join fetch cf.escolaridade "
                 + " left join fetch p.curriculoQualificacoes "
                 + " inner join fetch p.cidade c "
                 + " inner join fetch c.estado uf ";
@@ -59,6 +61,5 @@ public class CurriculoService extends Service<Curriculo>{
         request.applyParameters(q);
         List<Curriculo> l = q.getResultList();
         return l;
-    }
-    
+    }   
 }

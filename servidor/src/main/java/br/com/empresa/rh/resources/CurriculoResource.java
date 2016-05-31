@@ -1,14 +1,19 @@
 package br.com.empresa.rh.resources;
 
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.CurriculoService;
 import br.com.empresa.rh.model.Curriculo;
+import br.com.empresa.rh.model.CurriculoExperiencia;
+import br.com.empresa.rh.model.CurriculoFormacao;
+import br.com.empresa.rh.model.CurriculoQualificacao;
 import br.com.empresa.rh.model.Pessoa;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
 import br.com.empresa.rh.service.CidadeService;
+import br.com.empresa.rh.service.CurriculoExperienciaService;
+import br.com.empresa.rh.service.CurriculoFormacaoService;
+import br.com.empresa.rh.service.CurriculoQualificacaoService;
 import br.com.empresa.rh.service.PessoaService;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
@@ -34,9 +39,18 @@ public class CurriculoResource {
 
     @Autowired
     private CurriculoService curriculoService;
-    
+
     @Autowired
     private PessoaService pessoaService;
+
+    @Autowired
+    private CurriculoExperienciaService curriculoExperienciaService;
+
+    @Autowired
+    private CurriculoQualificacaoService curriculoQualificacaoService;
+
+    @Autowired
+    private CurriculoFormacaoService curriculoFormacaoService;
 
     @Context
     protected UriInfo info;
@@ -105,9 +119,36 @@ public class CurriculoResource {
         p.setSexo(e.getSexo());
         p.setCnh(e.getCnh());
         p.setCnhCategoria(e.getCnhCategoria());
-   
-        pessoaService.update(p);
+
+        for (CurriculoFormacao cf : e.getCurriculoFormacoes()) {
+            cf.setPessoa(e);
+            if (cf.getId() == 0) {
+                curriculoFormacaoService.insert(cf);
+            } else {
+                curriculoFormacaoService.update(cf);
+            }
+        }
+
+        for (CurriculoQualificacao cq : e.getCurriculoQualificacoes()) {
+            cq.setPessoa(e);
+            if (cq.getId() == 0) {
+                curriculoQualificacaoService.insert(cq);
+            } else {
+                curriculoQualificacaoService.update(cq);
+            }
+        }
+
+        for (CurriculoExperiencia ce : e.getCurriculoExperiencias()) {
+            ce.setPessoa(e);
+            if (ce.getId() == 0) {
+                curriculoExperienciaService.insert(ce);
+            } else {
+                curriculoExperienciaService.update(ce);
+            }
+        }
         
+        pessoaService.update(p);
+
         curriculoService.update(entity);
     }
 

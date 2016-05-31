@@ -12,9 +12,12 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,22 +27,23 @@ import javax.persistence.TemporalType;
  * @author gustavo.michels
  */
 @Entity
+@SequenceGenerator(name = "curriculo_qualificacao_id_seq", sequenceName = "curriculo_qualificacao_id_seq", initialValue = 1, allocationSize = 1)
 @Table(name = "curriculo_qualificacao", schema = "public"
 )
 public class CurriculoQualificacao implements Serializable {
 
-    @JsonView({Recrutamento.CurriculoQualificacao.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class, Recrutamento.Curriculo.class})
     private int id;
     private Pessoa pessoa;
-    @JsonView({Recrutamento.CurriculoQualificacao.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class, Recrutamento.Curriculo.class})
     private String nome;
-    @JsonView({Recrutamento.CurriculoQualificacao.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class, Recrutamento.Curriculo.class})
     private Integer cargaHoraria;
-    @JsonView({Recrutamento.CurriculoQualificacao.class})
-    private Date anoInicio;
-    @JsonView({Recrutamento.CurriculoQualificacao.class})
-    private Date anoFim;
-    @JsonView({Recrutamento.CurriculoQualificacao.class})
+    @JsonView({Recrutamento.CurriculoQualificacao.class, Recrutamento.Curriculo.class})
+    private Date dataInicial;
+    @JsonView({Recrutamento.CurriculoQualificacao.class, Recrutamento.Curriculo.class})
+    private Date dataFinal;
+    @JsonView({Recrutamento.CurriculoQualificacao.class, Recrutamento.Curriculo.class})
     private String descricao;
 
     public CurriculoQualificacao() {
@@ -52,17 +56,19 @@ public class CurriculoQualificacao implements Serializable {
         this.descricao = descricao;
     }
 
-    public CurriculoQualificacao(int id, Pessoa pessoa, String nome, Integer cargaHoraria, Date anoInicio, Date anoFim, String descricao) {
+    public CurriculoQualificacao(int id, Pessoa pessoa, String nome, Integer cargaHoraria, Date dataInicial, Date dataFinal, String descricao) {
         this.id = id;
         this.pessoa = pessoa;
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
-        this.anoInicio = anoInicio;
-        this.anoFim = anoFim;
+        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
         this.descricao = descricao;
     }
 
     @Id
+    @GeneratedValue(generator = "curriculo_qualificacao_id_seq", strategy = GenerationType.SEQUENCE)
+    
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return id;
@@ -101,23 +107,23 @@ public class CurriculoQualificacao implements Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "ano_inicio")
-    public Date getAnoInicio() {
-        return anoInicio;
+    @Column(name = "data_inicial")
+    public Date getDataInicial() {
+        return dataInicial;
     }
 
-    public void setAnoInicio(Date anoInicio) {
-        this.anoInicio = anoInicio;
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "ano_fim")
-    public Date getAnoFim() {
-        return anoFim;
+    @Column(name = "data_final")
+    public Date getDataFinal() {
+        return dataFinal;
     }
 
-    public void setAnoFim(Date anoFim) {
-        this.anoFim = anoFim;
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
     }
 
     @Column(name = "descricao")

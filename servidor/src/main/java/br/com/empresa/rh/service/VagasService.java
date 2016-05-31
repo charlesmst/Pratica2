@@ -20,7 +20,6 @@ public class VagasService extends Service<Vagas> {
 
     @Transactional
     public List<Vagas> findForTable(TableRequest request) {
-
         String hql = "select t from Vagas t "
                 + " left join fetch t.necessidadePessoa n "
                 + " left join fetch t.competencias c";

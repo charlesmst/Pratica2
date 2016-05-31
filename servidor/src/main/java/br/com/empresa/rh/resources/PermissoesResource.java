@@ -42,6 +42,8 @@ public class PermissoesResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("recrutamento")
+    @RolesAllowed(NivelAcesso.NENHUM)
+
     public HashMap<String, Boolean> recrutamento() {
         utilitarios.setSecutiryContext(secutiryContext);
         

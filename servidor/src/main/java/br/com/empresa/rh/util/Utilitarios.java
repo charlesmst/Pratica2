@@ -67,6 +67,8 @@ public class Utilitarios {
     }
 
     public int nivelUsuario() {
+        if(secutiryContext == null)
+            return 0;
         for (int i = 5; i >= 1; i--) {
             if (secutiryContext.isUserInRole(i + "")) {
                 return i;

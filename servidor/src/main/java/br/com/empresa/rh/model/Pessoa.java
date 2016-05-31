@@ -86,8 +86,11 @@ public class Pessoa implements java.io.Serializable {
     private Set<Pessoa> pessoasForPessoaId = new HashSet<Pessoa>(0);
     private Set<Pessoa> pessoasForMaeId = new HashSet<Pessoa>(0);
     private Set<Dependente> dependentes = new HashSet<Dependente>(0);
+    @JsonView({Recrutamento.Curriculo.class})
     private Set<CurriculoExperiencia> curriculoExperiencias = new HashSet<CurriculoExperiencia>(0);
+    @JsonView({Recrutamento.Curriculo.class})
     private Set<CurriculoFormacao> curriculoFormacoes = new HashSet<CurriculoFormacao>(0);
+    @JsonView({Recrutamento.Curriculo.class})
     private Set<CurriculoQualificacao> curriculoQualificacoes = new HashSet<CurriculoQualificacao>(0);
 
     public Pessoa() {
@@ -278,7 +281,7 @@ public class Pessoa implements java.io.Serializable {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-    
+
     @Column(name = "cnh", length = 11)
     public String getCnh() {
         return this.cnh;
@@ -287,7 +290,7 @@ public class Pessoa implements java.io.Serializable {
     public void setCnh(String cnh) {
         this.cnh = cnh;
     }
-    
+
     @Column(name = "cnh_categoria", length = 3)
     public String getCnhCategoria() {
         return this.cnhCategoria;

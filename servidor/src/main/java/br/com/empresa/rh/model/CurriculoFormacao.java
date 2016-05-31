@@ -12,9 +12,12 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,26 +27,27 @@ import javax.persistence.TemporalType;
  * @author gustavo.michels
  */
 @Entity
+@SequenceGenerator(name = "curriculo_formacao_id_seq", sequenceName = "curriculo_formacao_id_seq", initialValue = 1, allocationSize = 1)
 @Table(name = "curriculo_formacao", schema = "public"
 )
 public class CurriculoFormacao implements Serializable {
 
-    @JsonView({Recrutamento.CurriculoFormacao.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class, Recrutamento.Curriculo.class})
     private int id;
     private Pessoa pessoa;
-    @JsonView({Recrutamento.CurriculoFormacao.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class, Recrutamento.Curriculo.class})
     private Escolaridade escolaridade;
-    @JsonView({Recrutamento.CurriculoFormacao.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class, Recrutamento.Curriculo.class})
     private String curso;
-    @JsonView({Recrutamento.CurriculoFormacao.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class, Recrutamento.Curriculo.class})
     private String instituicao;
-    @JsonView({Recrutamento.CurriculoFormacao.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class, Recrutamento.Curriculo.class})
     private int situacao;
-    @JsonView({Recrutamento.CurriculoFormacao.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class, Recrutamento.Curriculo.class})
     private Date dataInicial;
-    @JsonView({Recrutamento.CurriculoFormacao.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class, Recrutamento.Curriculo.class})
     private Date dataFinal;
-    @JsonView({Recrutamento.CurriculoFormacao.class})
+    @JsonView({Recrutamento.CurriculoFormacao.class, Recrutamento.Curriculo.class})
     private Integer cargaHoraria;
 
     public CurriculoFormacao() {
@@ -70,6 +74,8 @@ public class CurriculoFormacao implements Serializable {
     }
 
     @Id
+    @GeneratedValue(generator = "curriculo_formacao_id_seq", strategy = GenerationType.SEQUENCE)
+    
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return id;

@@ -26,22 +26,22 @@ import javax.persistence.TemporalType;
 )
 public class CurriculoExperiencia implements java.io.Serializable {
 
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class, Recrutamento.Curriculo.class})
     private int id;
     private Pessoa pessoa;
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class, Recrutamento.Curriculo.class})
     private String cargo;
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class, Recrutamento.Curriculo.class})
     private Date dataInicial;
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class, Recrutamento.Curriculo.class})
     private Date dataFinal;
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class, Recrutamento.Curriculo.class})
     private String pessoaReferencia;
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class, Recrutamento.Curriculo.class})
     private String pessoaContato;
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class, Recrutamento.Curriculo.class})
     private String empresa;
-    @JsonView({Recrutamento.CurriculoExperiencia.class})
+    @JsonView({Recrutamento.CurriculoExperiencia.class, Recrutamento.Curriculo.class})
     private String descricao;
 
     public CurriculoExperiencia() {
