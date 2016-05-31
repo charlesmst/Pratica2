@@ -107,9 +107,11 @@ public class EventoService extends Service<Evento> {
             eventos.add(findById(eventoId));
         }
 
-        EventoCollection collection = new EventoCollection();
-        collection.getEventos().addAll(eventosFuncionario(funcionario, data));
-        collection.addAll(eventosCargo(funcionario.getCargo(), data));
+//        EventoCollection collection = new EventoCollection();
+//        collection.getEventos().addAll(eventosFuncionario(funcionario, data));
+//        collection.addAll(eventosCargo(funcionario.getCargo(), data));
+        EventoCollection collection = todosEventosFuncionario(funcionario, data);
+
         for (final Evento evento : eventos) {
             if (!collection.getEventos().stream().anyMatch(new Predicate<IEvento>() {
 

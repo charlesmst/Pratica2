@@ -2,7 +2,7 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -24,14 +24,15 @@ public class FaixaSalarialValor  implements java.io.Serializable {
 
 
      private FaixaSalarialValorId id;
+     @JsonIgnore
      private FaixaSalarial faixaSalarial;
-     private BigDecimal valor;
+     private double valor;
      private int cargaHoraria;
 
     public FaixaSalarialValor() {
     }
 
-    public FaixaSalarialValor(FaixaSalarialValorId id, FaixaSalarial faixaSalarial, BigDecimal valor, int cargaHoraria) {
+    public FaixaSalarialValor(FaixaSalarialValorId id, FaixaSalarial faixaSalarial, double valor, int cargaHoraria) {
        this.id = id;
        this.faixaSalarial = faixaSalarial;
        this.valor = valor;
@@ -64,11 +65,11 @@ public class FaixaSalarialValor  implements java.io.Serializable {
 
     
     @Column(name="valor", nullable=false, precision=10)
-    public BigDecimal getValor() {
+    public double getValor() {
         return this.valor;
     }
     
-    public void setValor(BigDecimal valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 

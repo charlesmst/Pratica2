@@ -16,6 +16,7 @@ public class ResumoFolhaResponse {
     private List<EventosSomados> eventosVisiveis;
     private List<EventosSomados> eventosInvisiveis;
 
+    
     public List<EventosSomados> getEventosVisiveis() {
         return eventosVisiveis;
     }

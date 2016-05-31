@@ -7,7 +7,9 @@ import br.com.empresa.rh.model.FuncionarioFaixa;
 import br.com.empresa.rh.model.request.TableRequest;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,26 +25,59 @@ public class FaixaSalarialService extends Service<FaixaSalarial> {
         classRef = FaixaSalarial.class;
     }
 
-    public FaixaSalarialValor valorDoCargo(FuncionarioCargo cargo,Date data) {
+    @Override
+    @Transactional
+    public void update(FaixaSalarial m) {
+        for (FaixaSalarialValor faixaSalarialValor : m.getFaixaSalarialValors()) {
+            faixaSalarialValor.getId().setFaixaSalarialId(m.getId());
+        }
+        super.update(m);
+    }
 
-        String hql = "select t from FuncionarioFaixa t "+
-                        " left join fetch t.faixaSalarial f "+
-                        " where t.funcionarioCargo.id = :idCargo and t.dataInicio <= :data order by t.dataInicio desc";
+    @Override
+    @Transactional
+    public void insert(FaixaSalarial m) {
+        Set<FaixaSalarialValor> s = m.getFaixaSalarialValors();
+        m.setFaixaSalarialValors(null);
+
+        entityManager.persist(m);
+
+        m.setFaixaSalarialValors(s);
+        for (FaixaSalarialValor faixaSalarialValor : m.getFaixaSalarialValors()) {
+            faixaSalarialValor.getId().setFaixaSalarialId(m.getId());
+        }
+        entityManager.merge(m);
+
+    }
+
+    @Override
+    public FaixaSalarial findById(Object id) {
+
+        return (FaixaSalarial) entityManager.createQuery("from FaixaSalarial faixaSalarial "
+                + " left outer join fetch faixaSalarial.faixaSalarialValors  "
+                + " where faixaSalarial.id = :id")
+                .setParameter("id", id).getSingleResult();
+    }
+
+    public FaixaSalarialValor valorDoCargo(FuncionarioCargo cargo, Date data) {
+
+        String hql = "select t from FuncionarioFaixa t "
+                + " left join fetch t.faixaSalarial f "
+                + " where t.funcionarioCargo.id = :idCargo and t.dataInicio <= :data order by t.dataInicio desc";
         Query q = entityManager.createQuery(hql);
         q.setParameter("idCargo", cargo.getId());
         q.setParameter("data", data);
         FuncionarioFaixa faixa = (FuncionarioFaixa) q.getSingleResult();
-        
-        hql =  "select t from FaixaSalarialValor t "+
-                    " where id.dataInicio <= :data and faixaSalarial.id = :id order by id.dataInicio desc";
-        
-        FaixaSalarialValor fsv = (FaixaSalarialValor)entityManager.createQuery(hql)
+
+        hql = "select t from FaixaSalarialValor t "
+                + " where id.dataInicio <= :data and faixaSalarial.id = :id order by id.dataInicio desc";
+
+        FaixaSalarialValor fsv = (FaixaSalarialValor) entityManager.createQuery(hql)
                 .setParameter("data", data)
                 .setParameter("id", faixa.getFaixaSalarial().getId())
                 .getSingleResult();
         return fsv;
-        
-        
+
     }
 
     @Transactional

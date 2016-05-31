@@ -7,6 +7,7 @@ import br.com.empresa.rh.model.FolhaCalculada;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.response.FolhaResponse;
+import br.com.empresa.rh.model.response.ResumoFolhaItem;
 import br.com.empresa.rh.model.response.ResumoFolhaResponse;
 import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
@@ -73,11 +74,48 @@ public class FolhaCalculadaResource {
     @GET
     @Path("resumofolhapagamento/{empresa}/{ano}/{mes}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ResumoFolhaResponse resumoFolha(@PathParam("empresa") int empresa, @PathParam("ano") int ano, @PathParam("mes") int mes){
+    @RolesAllowed(NivelAcesso.RH)
+    public ResumoFolhaResponse resumoFolha(@PathParam("empresa") int empresa, @PathParam("ano") int ano, @PathParam("mes") int mes) {
         Empresa e = new Empresa();
         e.setId(empresa);
         return folhaCalculadaService.resumoFolha(e, ano, mes);
     }
+
+    @GET
+    @Path("resumofolhapagamento/{empresa}/{ano}/{mes}/pdf")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed(NivelAcesso.RH)
+    public Response resumoFolhaPdf(@PathParam("empresa") int empresa, @PathParam("ano") int ano, @PathParam("mes") int mes, @Context SecurityContext securityContext, @Context ServletContext servletContext) {
+        Empresa e = new Empresa();
+        e.setId(empresa);
+
+        utilitarios.setSecutiryContext(securityContext);
+
+        ResumoFolhaResponse dados = folhaCalculadaService.resumoFolha(e, ano, mes);
+        List<ResumoFolhaItem> dadosRelatorio = new ArrayList<>();
+        dadosRelatorio.add(new ResumoFolhaItem("Eventos da Folha", dados.getEventosVisiveis()));
+        dadosRelatorio.add(new ResumoFolhaItem("Eventos da Empresa", dados.getEventosInvisiveis()));
+
+        final byte[] bytesData;
+        try {
+            bytesData = relatorios.generateReport(servletContext.getRealPath("resumo_folha.jrxml"), dadosRelatorio, new HashMap<>());
+        } catch (JRException ex) {
+            throw new ApiException("Erro ao gerar o relatório: " + ex.getMessage());
+        }
+        ContentDisposition contentDisposition = new ContentDisposition("attachment;filename=ResumoFolha.pdf");
+
+        return Response.ok(
+                new StreamingOutput() {
+                    @Override
+                    public void write(OutputStream outputStream) throws IOException, WebApplicationException {
+                        outputStream.write(bytesData);
+                    }
+                })
+                .header("Content-Disposition", contentDisposition.toString())
+                .header("Content-Type", "application/pdf")
+                .build();
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
@@ -228,6 +266,5 @@ public class FolhaCalculadaResource {
                 .header("Content-Type", "application/pdf")
                 .build();
     }
-    
 
 }

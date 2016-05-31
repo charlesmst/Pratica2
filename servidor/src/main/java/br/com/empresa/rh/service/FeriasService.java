@@ -117,5 +117,14 @@ public class FeriasService extends Service<Ferias> {
         List<Ferias> l = q.getResultList();
         return l;
     }
+    
+    public Ferias findUltimaFerias(FuncionarioCargo funcionario){
+        List<Ferias> ferias =  entityManager.createQuery("from Ferias f where f.funcionarioCargo.id = :id order by f.dataAquisitivoFim desc")
+                .setParameter("id", funcionario.getId())
+                .getResultList();
+        if(ferias.isEmpty() )
+            return null;
+        return ferias.get(0);
+    }
 
 }

@@ -144,5 +144,7 @@ public class Consulta {
     public JavascriptDate getDataDemissao() {
         return JavascriptDate.fromDate(funcionarioCargo.getDataSaida());
     }
-    
+    public Ferias getUltimasFerias(){
+        return feriasService.findUltimaFerias(funcionarioCargo);
+    }
 }

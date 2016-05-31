@@ -4,14 +4,18 @@ package br.com.empresa.rh.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -21,13 +25,15 @@ import javax.persistence.Table;
 @Table(name="faixa_salarial"
     ,schema="public"
 )
+@SequenceGenerator(name = "faixasalarial_seq", sequenceName = "faixasalarial_seq", initialValue = 1, allocationSize = 1)
+
 public class FaixaSalarial  implements java.io.Serializable {
 
 
      private int id;
      private String nome;
      private boolean ativo = true;
-     private Set<FaixaSalarialValor> faixaSalarialValors = new HashSet<FaixaSalarialValor>(0);
+     private Set<FaixaSalarialValor> faixaSalarialValors ;
      private Set<CargoNivel> cargoNivels = new HashSet<CargoNivel>(0);
      private Set<FuncionarioFaixa> funcionarioFaixas = new HashSet<FuncionarioFaixa>(0);
 
@@ -48,6 +54,7 @@ public class FaixaSalarial  implements java.io.Serializable {
     }
    
      @Id 
+    @GeneratedValue(generator = "faixasalarial_seq", strategy = GenerationType.SEQUENCE)
 
     
     @Column(name="id", unique=true, nullable=false)
@@ -69,7 +76,7 @@ public class FaixaSalarial  implements java.io.Serializable {
         this.nome = nome;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="faixaSalarial")
+@OneToMany(fetch=FetchType.LAZY, mappedBy="faixaSalarial",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<FaixaSalarialValor> getFaixaSalarialValors() {
         return this.faixaSalarialValors;
     }

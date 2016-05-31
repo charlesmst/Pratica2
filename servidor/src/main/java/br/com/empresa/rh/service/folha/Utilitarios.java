@@ -54,12 +54,14 @@ public class Utilitarios {
         return valor / diasMes(parametros.getDataReferencia()) * parametros.getDiasMes();
     }
 
-    public double descontaConformeParametros(double valor){
-        if(parametros.isProporcional())
+    public double descontaConformeParametros(double valor) {
+        if (parametros.isProporcional()) {
             return descontaDiasProporcional(valor);
-        else
+        } else {
             return descontaDias(valor);
+        }
     }
+
     public double diasMes(Date data) {
         return new LocalDate(data).withDayOfMonth(1).plusMonths(1).minusDays(1).getDayOfMonth();
     }
@@ -69,6 +71,28 @@ public class Utilitarios {
             return d2;
         }
         return d1;
+    }
+
+    public JavascriptDate getMesPassado() {
+        int mes = parametros.getMes();
+        int ano = parametros.getAno();
+        mes--;
+        if (mes <= 0) {
+            mes = 12;
+            ano--;
+        }
+        return utilitarios.dataPeriodo(mes, ano);
+    }
+
+    public JavascriptDate getMesPassado(JavascriptDate data) {
+        int mes = data.getMes();
+        int ano = data.getAno();
+        mes--;
+        if (mes <= 0) {
+            mes = 12;
+            ano--;
+        }
+        return utilitarios.dataPeriodo(mes, ano);
     }
 
     public Date dateMax(Date d1, Date d2) {

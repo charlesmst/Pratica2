@@ -5,11 +5,14 @@
  */
 package br.com.empresa.rh.model.response;
 
+import br.com.empresa.rh.util.Utilitarios;
+
 /**
  *
  * @author charles
  */
 public class EventosSomados {
+
     private int id;
     private String nome;
     private double valor;
@@ -31,6 +34,9 @@ public class EventosSomados {
     public double getValor() {
         return valor;
     }
-    
-    
+
+    public String getValorFormatado() {
+        return Utilitarios.formataDinheiro(valor);
+    }
+
 }
