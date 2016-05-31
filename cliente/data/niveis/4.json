@@ -1,0 +1,30 @@
+{
+"inicial": "menu",
+        "menus": [
+        {
+        "title":"RH",
+                "links": [
+                {
+                "link": "menu",
+                        "title": "Menus",
+                        "icon": "dashboard"
+                },
+                {
+                "link": "qualificacao",
+                        "title": "Qualificações",
+                        "icon": "dashboard"
+                },
+                {
+                "link": "funcionario-acidente",
+                        "title": "Acidentes de trabalho",
+                        "icon": "dashboard"
+                },
+                {
+                "link": "empresa",
+                        "title": "Empresa",
+                        "icon": "dashboard"
+                }
+                ]
+        }
+        ]
+        }

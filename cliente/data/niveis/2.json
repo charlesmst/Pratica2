@@ -1,0 +1,15 @@
+{
+    "inicial": "menu",
+    "menus": [
+        {
+            "title":"Funcionário",
+            "links": [
+                {
+                    "link": "menu",
+                    "title": "Menus",
+                    "icon": "dashboard"
+                }
+            ]
+        }
+    ]
+}
