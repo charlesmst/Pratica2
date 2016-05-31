@@ -11,9 +11,9 @@
         vm.escolaridades = []
         vm.categoriasDeCnh = []
         vm.estadosCivis = []
-        vm.curriculoFormacoes = []
-        vm.curriculoQualificacoes = []
-        vm.curriculoExperiencias = []
+//        vm.curriculoFormacoes = []
+//        vm.curriculoQualificacoes = []
+//        vm.curriculoExperiencias = []
         vm.querySearchCidade = querySearchCidade
         vm.mostraAddFormacao = mostraAddFormacao
         vm.mostraEditFormacao = mostraEditFormacao
@@ -29,9 +29,9 @@
         loadEscolaridades()
         loadEstadosCivis()
         loadCategoriasCnh()
-        loadCurriculoExperiencias()
-        loadCurriculoFormacoes()
-        loadCurriculoQualificacoes()
+//        loadCurriculoExperiencias()
+//        loadCurriculoFormacoes()
+//        loadCurriculoQualificacoes()
 
         vm.save = save;
         vm.cancel = cancel;
@@ -52,6 +52,9 @@
         function save($event, $valid) {
             if (!$valid)
                 return;
+//            vm.entity.curriculoExperiencias = vm.curriculoExperiencias;
+//            vm.entity.curriculoFormacoes = vm.curriculoFormacoes;
+//            vm.entity.curriculoQualificacoes = vm.curriculoQualificacoes;
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
         }
         function cancel() {
@@ -90,36 +93,35 @@
 
         function getNome(situacao) {
 
-            console.log(situacao, vm.situacoes)
+            // console.log(situacao, vm.situacoes)
             return vm.situacoes[parseInt(situacao) - 1].nome
         }
 
-        function loadCurriculoFormacoes() {
-            CurriculoFormacao.curriculoformacao({pessoaId: vm.id}).$promise.then(function (r) {
-
-                vm.curriculoFormacoes = r;
-
-            })
-
-        }
-
-        function loadCurriculoQualificacoes() {
-            CurriculoQualificacao.curriculoqualificacao({pessoaId: vm.id}).$promise.then(function (r) {
-
-                vm.curriculoQualificacoes = r;
-
-            })
-
-        }
-
-        function loadCurriculoExperiencias() {
-            CurriculoExperiencia.curriculoexperiencia({pessoaId: vm.id}).$promise.then(function (r) {
-
-                vm.curriculoExperiencias = r;
-
-            })
-
-        }
+//        function loadCurriculoFormacoes() {
+//            CurriculoFormacao.curriculoformacao({pessoaId: vm.id}).$promise.then(function (r) {
+//
+//                vm.curriculoFormacoes = r;
+//
+//            })
+//        }
+//
+//        function loadCurriculoQualificacoes() {
+//            CurriculoQualificacao.curriculoqualificacao({pessoaId: vm.id}).$promise.then(function (r) {
+//
+//                vm.curriculoQualificacoes = r;
+//
+//            })
+//
+//        }
+//
+//        function loadCurriculoExperiencias() {
+//            CurriculoExperiencia.curriculoexperiencia({pessoaId: vm.id}).$promise.then(function (r) {
+//
+//                vm.curriculoExperiencias = r;
+//
+//            })
+//
+//        }
 
         function querySearchCidade(texto) {
             return Cidade.query({
@@ -145,9 +147,9 @@
                     .then(function (adicionado) {
                         console.log("Resposta da modal", adicionado)
 
-                        if (!vm.curriculoFormacoes)
-                            vm.curriculoFormacoes = []
-                        vm.curriculoFormacoes.push(adicionado)
+                        if (!vm.entity.pessoa.curriculoFormacoes)
+                            vm.entity.pessoa.curriculoFormacoes = []
+                        vm.entity.pessoa.curriculoFormacoes.push(adicionado)
                     });
         }
 
@@ -187,9 +189,9 @@
                     .then(function (adicionado) {
                         console.log("Resposta da modal", adicionado)
 
-                        if (!vm.curriculoQualificacoes)
-                            vm.curriculoQualificacoes = []
-                        vm.curriculoQualificacoes.push(adicionado)
+                        if (!vm.entity.pessoa.curriculoQualificacoes)
+                            vm.entity.pessoa.curriculoQualificacoes = []
+                        vm.entity.pessoa.curriculoQualificacoes.push(adicionado)
                     });
         }
 
@@ -229,9 +231,9 @@
                     .then(function (adicionado) {
                         console.log("Resposta da modal", adicionado)
 
-                        if (!vm.curriculoExperiencias)
-                            vm.curriculoExperiencias = []
-                        vm.curriculoExperiencias.push(adicionado)
+                        if (!vm.entity.pessoa.curriculoExperiencias)
+                            vm.entity.pessoa.curriculoExperiencias = []
+                        vm.entity.pessoa.curriculoExperiencias.push(adicionado)
                     });
         }
 

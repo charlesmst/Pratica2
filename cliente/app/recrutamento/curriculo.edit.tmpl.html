@@ -203,7 +203,7 @@
                                 </tr>
                             </thead>
                             <tbody md-body>
-                                <tr md-row ng-repeat="row in crudVm.curriculoFormacoes">
+                                <tr md-row ng-repeat="row in crudVm.entity.pessoa.curriculoFormacoes">
                                     <td md-cell width="15" class="button-column">
 
                             <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditFormacao(row)">
@@ -241,7 +241,7 @@
                                 </tr>
                             </thead>
                             <tbody md-body>
-                                <tr md-row ng-repeat="row in crudVm.curriculoQualificacoes">
+                                <tr md-row ng-repeat="row in crudVm.entity.pessoa.curriculoQualificacoes">
                                     <td md-cell width="15" class="button-column">
 
                             <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditQualificacao(row)">
@@ -250,8 +250,8 @@
                             </td>
                             <td md-cell>{{row.nome}}</td>   
                             <td md-cell>{{row.cargaHoraria}}</td>   
-                            <td md-cell>{{row.dataInicio | date:'dd/MM/yyyy'}}</td>   
-                            <td md-cell>{{row.dataFim | date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataInicial | date:'dd/MM/yyyy'}}</td>   
+                            <td md-cell>{{row.dataFinal | date:'dd/MM/yyyy'}}</td>   
                             <td md-cell>{{row.descricao}}</td>
                             </tr>
                             </tbody>
@@ -279,7 +279,7 @@
                                 </tr>
                             </thead>
                             <tbody md-body>
-                                <tr md-row ng-repeat="row in crudVm.curriculoExperiencias">
+                                <tr md-row ng-repeat="row in crudVm.entity.pessoa.curriculoExperiencias">
                                     <td md-cell width="15" class="button-column">
 
                             <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditExperiencia(row)">

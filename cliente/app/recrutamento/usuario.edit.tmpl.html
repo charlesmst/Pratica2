@@ -31,7 +31,7 @@
                     <md-datepicker ng-model="crudVm.entity.pessoa.dataNascimento" ng-required></md-datepicker>
                 </div>
             </div>
-            <div layout-gt-sm="row" ng-if="crudVm.permissoes.usuario">
+            <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>CPF</label>
                     <input  name="cpf" ng-model="crudVm.entity.pessoa.cpf" ui-br-cpf-mask required>
