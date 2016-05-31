@@ -1,0 +1,14 @@
+[
+    {
+        "id":1,
+        "nome": "MISTO"
+    },
+    {
+        "id":2,
+        "nome": "INTERNO"
+    },
+    {
+        "id":3,
+        "nome": "EXTERNO"
+    }
+]
