@@ -6,29 +6,58 @@
             <div class="md-toolbar-tools">
                 <h2>Manutenção de Cargo do funcionário</h2>
                 <span flex></span>
-
             </div>
         </md-toolbar>
         <md-card>
 
             <md-card-content>
-                <md-datepicker ng-model="modalVm.entity.dataEntrada" required md-placeholder="Data entrada"></md-datepicker>
+                <md-datepicker  ng-model="modalVm.entity.dataEntrada" required md-placeholder="Data entrada"></md-datepicker>
             </md-card-content>
-            
-            <md-input-container class="md-block" flex-gt-xs>
-                    <label>Cargo</label>
-                    <md-select ng-model="modalVm.entity.cargo">
-                        <md-option ng-repeat="item in modal.cargos" ng-value="{{item}}" ng-selected="item.id===modalVm.entity.cargoFuncionario.id" >
-                            {{item.nome}}
-                            
-                            
-                        </md-option>
-                        
-                    </md-select>
 
-                </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Cargo</label>
+                <md-select ng-model="modalVm.entity.cargo">
+                    <md-option ng-repeat="item in modalVm.cargos" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.cargo.id" >
+                        {{item.nome}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-checkbox ng-model="modalVm.entity.ativo" aria-label="ativo">
+                Ativo {{ data.ativo}}
+            </md-checkbox>
+
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Unidade</label>
+                <md-select ng-model="modalVm.entity.unidade">
+                    <md-option ng-repeat="item in modalVm.unidades" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.unidade.id" >
+                        {{item.nome}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Empresa</label>
+                <md-select ng-model="modalVm.entity.unidade.empresa">
+                    <md-option ng-repeat="item in modalVm.empresas" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.empresa.id" >
+                        {{item.nome}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Sindicato</label>
+                <md-select ng-model="modalVm.entity.sindicato.empresa">
+                    <md-option ng-repeat="item in modalVm.sindicatos" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.sindicato.id" >
+                        {{item.nome}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
             
-            
+            <md-card-content>
+                <md-datepicker  ng-model="modalVm.entity.dataSaida" required md-placeholder="Data de demissão"></md-datepicker>
+            </md-card-content>
+
         </md-card>
         <md-dialog-actions layout="row">
 

@@ -202,8 +202,10 @@
                                 <tr md-row>
                                     <th md-column md-numeric ></th>
                                     <th md-column ><span>Cargo</span></th>             
+                                    <th md-column ><span>Status</span></th>             
                                     <th md-column ><span>Unidade</span></th>             
-                                    <th md-column ><span>Empresa</span></th>             
+                                    <th md-column ><span>Empresa</span></th>   
+                                    <th md-column ><span>Associação sindical</span></th>   
                                     <th md-column ><span>Admissão</span></th>             
                                     <th md-column ><span>Demissão</span></th>             
                                 </tr>
@@ -217,8 +219,10 @@
                             </md-button>
                             </td>
                             <td md-cell>{{row.cargo.nome}}</td>   
+                            <td md-cell>{{row.cargo.ativo}}</td>   
                             <td md-cell>{{row.unidade.nome}}</td>   
                             <td md-cell>{{row.unidade.empresa.nome}}</td>   
+                            <td md-cell>{{row.sindicato.nome}}</td>   
                             <td md-cell>{{row.dataEntrada| date:'dd/MM/yyyy'}}</td>   
                             <td md-cell>{{row.dataSaida| date:'dd/MM/yyyy'}}</td>   
 

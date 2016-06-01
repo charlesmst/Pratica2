@@ -110,7 +110,7 @@
             })
                     .then(function (adicionado) {
                         console.log("Resposta da modal", adicionado)
-
+                
                         if (!vm.entity.funcionarioQualificacaos)
                             vm.entity.funcionarioQualificacaos = []
                         vm.entity.funcionarioQualificacaos.push(adicionado)

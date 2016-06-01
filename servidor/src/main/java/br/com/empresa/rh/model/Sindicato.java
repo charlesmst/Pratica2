@@ -2,6 +2,8 @@ package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
 
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -30,9 +32,10 @@ import javax.persistence.TemporalType;
 
 public class Sindicato  implements java.io.Serializable {
 
-
+@JsonView({Folha.FuncionarioFicha.class})
      private int id;
-     private String nome;
+@JsonView({Folha.FuncionarioFicha.class})     
+private String nome;
      private BigDecimal desconto;
      private BigDecimal valorMensal;
      private Set<FuncionarioCargo> funcionarioCargos = new HashSet<FuncionarioCargo>(0);

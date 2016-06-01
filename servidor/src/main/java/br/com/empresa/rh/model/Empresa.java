@@ -29,11 +29,11 @@ import javax.persistence.TemporalType;
 
 @SequenceGenerator(name = "empresa_seq", sequenceName = "empresa_seq", initialValue = 1, allocationSize = 1)
 
-
 public class Empresa implements java.io.Serializable {
+
     @JsonView({Folha.EmpresaVisualizacao.class, Folha.FuncionarioFicha.class})
     private int id;
-@JsonView({Folha.FuncionarioFicha.class})
+    @JsonView({Folha.FuncionarioFicha.class})
 
     private Cidade cidade;
     @JsonView({Folha.EmpresaVisualizacao.class, Folha.FuncionarioFicha.class})
@@ -86,7 +86,7 @@ public class Empresa implements java.io.Serializable {
     }
 
     @Id
-    
+
     @GeneratedValue(generator = "empresa_seq", strategy = GenerationType.SEQUENCE)
 
     @Column(name = "id", unique = true, nullable = false)
