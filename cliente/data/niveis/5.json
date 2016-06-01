@@ -3,72 +3,71 @@
     "menus": [
         {
             "title":"Folha de pagamento",
-            "links": [
+            "links": [                
+                {
+                    "link": "tabela",
+                    "title": "Tabelas",
+                    "icon": "tabela"
+                },
                 {
                     "link": "evento",
                     "title": "Eventos da folha",
-                    "icon": "dashboard"
-                },
-                {
-                    "link": "folhacalculada",
-                    "title": "Folhas de pagamento",
-                    "icon": "dashboard"
+                    "icon": "eventos"
                 },
                 {
                     "link": "calculofolha",
                     "title": "Cálculo da folha",
-                    "icon": "dashboard"
+                    "icon": "calculator"
                 },
                 {
-                    "link": "tabela",
-                    "title": "Tabelas",
-                    "icon": "dashboard"
-                }
+                    "link": "folhacalculada",
+                    "title": "Folhas de pagamento",
+                    "icon": "folha"
+                }                              
             ]
         },
         {
             "title":"Ficha funcional",
             "links": [
-                 { "link": "cargo",
-                   "title": "Cargos",
-                   "icon": "dashboard"
-                 },
-          
                 {
-                    "link": "cbo",
-                    "title": "Cbos",
-                    "icon": "dashboard"
-                },
-                {
-                "link": "qualificacao",
-                        "title": "Qualificações",
-                        "icon": "dashboard"
-                },
-                {
-                "link": "funcionario-acidente",
-                        "title": "Acidentes de trabalho",
-                        "icon": "dashboard"
-                },
-                {
-                "link": "sindicato",
-                        "title": "Sindicatos",
-                        "icon": "dashboard"
+                "link": "ficha",
+                        "title": "Ficha Funcional",
+                        "icon": "ficha"
                 },
                 {
                 "link": "empresa",
                         "title": "Empresas",
-                        "icon": "dashboard"
+                        "icon": "empresa"
                 },
                 {
                 "link": "unidade",
                         "title": "Unidades",
-                        "icon": "dashboard"
+                        "icon": "unidade"
                 },
                 {
-                "link": "ficha",
-                        "title": "Ficha",
-                        "icon": "dashboard"
-                }
+                    "link": "cbo",
+                    "title": "Cbos",
+                    "icon": "cbo"
+                },
+                { "link": "cargo",
+                   "title": "Cargos",
+                   "icon": "cargos"
+                },
+                {
+                "link": "qualificacao",
+                        "title": "Qualificações",
+                        "icon": "qualificacao"
+                },
+                {
+                "link": "funcionario-acidente",
+                        "title": "Acidentes de trabalho",
+                        "icon": "acidente"
+                },
+                {
+                "link": "sindicato",
+                        "title": "Sindicatos",
+                        "icon": "sindicato"
+                }                           
             ]
         },
         {
@@ -78,17 +77,17 @@
                 {
                     "link": "necessidade-pessoa",
                     "title": "Necessidade de Pessoa",
-                    "icon": "dashboard"
+                    "icon": "necessidade"
                 },
                 {
                     "link": "vagas",
                     "title": "Vagas",
-                    "icon": "dashboard"
+                    "icon": "vagas"
                 },
                 {
                     "link": "curriculo",
                     "title": "Currículo",
-                    "icon": "dashboard"
+                    "icon": "curriculo"
                 },
                 {
                     "link": "usuario",
@@ -98,7 +97,7 @@
                 {
                     "link": "plano-avaliacao",
                     "title": "Planos de Avaliações",
-                    "icon": "dashboard"
+                    "icon": "avaliacao"
                 }
             ]
         },
@@ -109,7 +108,7 @@
                 {
                     "link": "faixasalarial",
                     "title": "Faixas salariais",
-                    "icon": "dashboard"
+                    "icon": "faixa"
                 }
             ]
         }
