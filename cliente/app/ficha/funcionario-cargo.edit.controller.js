@@ -19,15 +19,6 @@
             vm.entity.dataSaida = Workspace.toDate(vm.entity.dataSaida)
         vm.save = save;
         vm.cancel = cancel;
-        
-        //data saida 
-        if (vm.entity.dataSaida)
-            vm.entity.dataSaida = Workspace.toDate(vm.entity.dataSaida)
-
-        if (vm.entity.dataSaida)
-            vm.entity.dataSaida = Workspace.toDate(vm.entity.dataSaida)
-        vm.save = save;
-        vm.cancel = cancel;
 
         function loadCargos() {
             Cargo.query().$promise.then(function (resposta) {

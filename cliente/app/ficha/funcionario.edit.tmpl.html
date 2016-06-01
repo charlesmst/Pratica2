@@ -240,8 +240,8 @@
                 <md-tab label="Qualificações">
 
                     <section layout="row">
-                        <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo">
-                            <md-option ng-value="item"  ng-repeat="item in crudVm.entity.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
+                        <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Qualificacao">
+                            <md-option ng-value="item"  ng-repeat="item in crudVm.entity.funcionarioQualificacaos">{{item.qualificacao.id}} - {{item.qualificacao.nome}}</md-option>
                         </md-select>
                     </section>
                     <md-table-container>
@@ -250,6 +250,7 @@
                                 <tr md-row>
                                     <th md-column md-numeric ></th>
                                     <th md-column ><span>Qualificação</span></th>             
+                                    <th md-column ><span>Cargo</span></th>             
                                     <th md-column ><span>Certificado</span></th>             
                                     <th md-column ><span>Validade</span></th>             
                                 </tr>
@@ -263,6 +264,7 @@
                             </md-button>
                             </td>
                             <td md-cell>{{row.qualificacao.nome}}</td>   
+                            <td md-cell>{{row.cargo.nome}}</td>   
                             <td md-cell>{{row.certificado}}</td>   
                             <td md-cell>{{row.dataValidade| date:'dd/MM/yyyy'}}</td>   
                             </tr>
