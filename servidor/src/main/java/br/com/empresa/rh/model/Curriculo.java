@@ -4,6 +4,7 @@ package br.com.empresa.rh.model;
 import br.com.empresa.rh.model.view.Recrutamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -54,7 +55,7 @@ public class Curriculo implements java.io.Serializable {
         this.pessoaId = pessoaId;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn
     public Pessoa getPessoa() {
         return this.pessoa;

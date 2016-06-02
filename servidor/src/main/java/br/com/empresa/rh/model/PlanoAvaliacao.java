@@ -5,6 +5,7 @@ import br.com.empresa.rh.model.view.Recrutamento;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

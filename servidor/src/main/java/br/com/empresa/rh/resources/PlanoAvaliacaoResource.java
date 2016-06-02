@@ -2,9 +2,11 @@ package br.com.empresa.rh.resources;
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.PlanoAvaliacaoService;
 import br.com.empresa.rh.model.PlanoAvaliacao;
+import br.com.empresa.rh.model.Questao;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import br.com.empresa.rh.service.QuestaoService;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -29,6 +31,9 @@ public class PlanoAvaliacaoResource {
 
     @Autowired
     private PlanoAvaliacaoService planoAvaliacaoService;
+    
+    @Autowired
+    private QuestaoService questaoService;
 
     @Context
     protected UriInfo info;
@@ -79,8 +84,14 @@ public class PlanoAvaliacaoResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
     public void update(@PathParam("id") int id, PlanoAvaliacao entity) {
-        planoAvaliacaoService.update(entity);
-		
+        for(Questao q : entity.getQuestaos()){
+            if(q.getId() == 0){
+                questaoService.insert(q);
+            } else {
+                questaoService.update(q);
+            }
+        }
+        planoAvaliacaoService.update(entity);	
     }
 
     @DELETE

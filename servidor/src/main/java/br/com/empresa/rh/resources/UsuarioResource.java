@@ -1,5 +1,6 @@
 package br.com.empresa.rh.resources;
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.Curriculo;
 import br.com.empresa.rh.model.Pessoa;
 import br.com.empresa.rh.service.UsuarioService;
 import br.com.empresa.rh.model.Usuario;
@@ -81,7 +82,6 @@ public class UsuarioResource {
         if ((utilitarios.usuarioIs(NivelAcesso.CANDIDATO) && m.getPessoaId() != utilitarios.usuario()) || utilitarios.usuarioIs(NivelAcesso.FUNCIONARIO) || utilitarios.usuarioIs(NivelAcesso.GESTOR)) {
             throw  new SecurityApiException();
         }
-        
         return m;
     }
 
@@ -91,8 +91,14 @@ public class UsuarioResource {
     public void insert(Usuario m) {
         Pessoa p = new Pessoa();
         p = m.getPessoa();
+        Curriculo c = new Curriculo();
+        c.setPessoa(p);
+        p.setCurriculo(c);
         pessoaService.insert(p);
         m.setNivel(1);
+        
+        String user = m.getUsuario().toUpperCase();
+        m.setUsuario(user);
         usuarioService.insert(m);
     }
 
@@ -101,17 +107,23 @@ public class UsuarioResource {
     @Path("{id}")
     public void update(@PathParam("id") int id, Usuario entity) {
         Pessoa p = pessoaService.findById(entity.getPessoaId());
-        p.setNome(entity.getPessoa().getNome());
-        p.setCpf(entity.getPessoa().getCpf());
-        p.setEmail(entity.getPessoa().getEmail());
-        p.setRg(entity.getPessoa().getRg());
-        p.setTelCelular(entity.getPessoa().getTelCelular());
-        p.setTelFixo(entity.getPessoa().getTelFixo());
-        p.setSexo(entity.getPessoa().getSexo());
-        p.setDataNascimento(entity.getPessoa().getDataNascimento());
-        p.setCidade(entity.getPessoa().getCidade());
-        p.setEndereco(entity.getPessoa().getEndereco());
-        p.setEscolaridade(entity.getPessoa().getEscolaridade());
+        Pessoa e = entity.getPessoa();
+        p.setNome(e.getNome());
+        p.setDataNascimento(e.getDataNascimento());
+        p.setCpf(e.getCpf());
+        p.setRg(e.getRg());
+        p.setEmail(e.getEmail());
+        p.setTelCelular(e.getTelCelular());
+        p.setTelFixo(e.getTelFixo());
+        p.setCep(e.getCep());
+        p.setBairro(e.getBairro());
+        p.setEndereco(e.getEndereco());
+        p.setCidade(e.getCidade());
+        p.setEscolaridade(e.getEscolaridade());
+        p.setEstadoCivil(e.getEstadoCivil());
+        p.setSexo(e.getSexo());
+        p.setCnh(e.getCnh());
+        p.setCnhCategoria(e.getCnhCategoria());
         pessoaService.update(p);
 
         Usuario u = usuarioService.findById(id);
