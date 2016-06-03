@@ -6,7 +6,8 @@
     function FuncionarioCargoEditController($mdToast, $http, $state, $stateParams, Workspace, DadosCargo, $mdDialog, Cargo, Unidade, Empresa, Sindicato) {
         var vm = this;
         vm.entity = DadosCargo
-
+        
+        console.log(vm.entity)
         loadCargos()
         loadUnidades()
         loadEmpresas()
@@ -47,7 +48,7 @@
         function save($event, $valid) {
             if (!$valid)
                 return;
-            
+            console.log("Saving", vm.entity)
             $mdDialog.hide(vm.entity)
         }
         function cancel() {

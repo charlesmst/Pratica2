@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Funcionario', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil','Escolaridade', FuncionarioEditController]);
+    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Pessoa', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil', 'Escolaridade', 'Cidade', 'Banco','TipoSanguineo','VinculoEmpregaticio', FuncionarioEditController]);
 
     var state = "ficha"
-    function FuncionarioEditController($mdToast, $http, Funcionario, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil,Escolaridade) {
+    function FuncionarioEditController($mdToast, $http, Pessoa, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil, Escolaridade, Cidade, Banco,TipoSanguineo,VinculoEmpregaticio) {
         var vm = this;
         vm.entity = {}
 
@@ -14,20 +14,27 @@
         loadEscolaridades()
         loadEstadosCivis()
         loadCategoriasCnh()
-        Workspace.title = "Manutenção de Funcionario";
+        loadBancos()
+        loadTipoSanguineo()
+        loadVinculos()
+        
+        Workspace.title = "Ficha Funcional";
         console.log($stateParams)
         vm.mostraAddCargo = mostraAddCargo;
         vm.mostraEditCargo = mostraEditCargo
         vm.mostraAddQualificacao = mostraAddQualificacao;
+        vm.querySearchCidade = querySearchCidade
         vm.mostraEditQualificacao = mostraEditQualificacao
         if ($stateParams.id) {
-            Workspace.loading("Carregando...", Funcionario.get({id: $stateParams.id}).$promise.then(function (data) {
+            Workspace.loading("Carregando...", Pessoa.get({ id: $stateParams.id }).$promise.then(function (data) {
 
                 vm.entity = data
+                if (vm.entity.funcionario && vm.entity.funcionario.funcionarioCargos.length > 0)
+                    vm.funcionarioAtivo = vm.entity.funcionario.funcionarioCargos[0]
             }))
 
         } else
-            vm.entity = new Funcionario()
+            vm.entity = new Pessoa()
         loadCor()
         vm.save = save;
         vm.cancel = cancel;
@@ -65,13 +72,13 @@
                 }
 
             })
-                    .then(function (adicionado) {
-                        console.log("Resposta da modal", adicionado)
+                .then(function (adicionado) {
+                    console.log("Resposta da modal", adicionado)
 
-                        if (!vm.entity.funcionarioCargos)
-                            vm.entity.funcionarioCargos = []
-                        vm.entity.funcionarioCargos.push(adicionado)
-                    });
+                    if (!vm.entity.funcionario.funcionarioCargos)
+                        vm.entity.funcionario.funcionarioCargos = []
+                    vm.entity.funcionario.funcionarioCargos.push(adicionado)
+                });
         }
 
         function mostraEditCargo(cargo) {
@@ -91,8 +98,14 @@
                 angular.extend(cargo, alterado)
             })
         }
-        
-        
+
+
+        function querySearchCidade(texto) {
+            return Cidade.query({
+                filter: texto,
+                limit: 10
+            }).$promise
+        }
 
         function mostraAddQualificacao() {
             $mdDialog.show({
@@ -108,13 +121,13 @@
                 }
 
             })
-                    .then(function (adicionado) {
-                        console.log("Resposta da modal", adicionado)
-                
-                        if (!vm.entity.funcionarioQualificacaos)
-                            vm.entity.funcionarioQualificacaos = []
-                        vm.entity.funcionarioQualificacaos.push(adicionado)
-                    });
+                .then(function (adicionado) {
+                    console.log("Resposta da modal", adicionado)
+
+                    if (!vm.entity.funcionario.funcionarioQualificacaos)
+                        vm.entity.funcionario.funcionarioQualificacaos = []
+                    vm.entity.funcionario.funcionarioQualificacaos.push(adicionado)
+                });
         }
 
         function mostraEditQualificacao(cargo) {
@@ -142,10 +155,34 @@
 
         }
 
-        function loadSexos() {
-            $http.get('data/recrutamento/sexo.json').then(function (resposta) {
-                vm.sexos = (resposta.data)
+        function loadVinculos() {
+            VinculoEmpregaticio.query().$promise.then(function (resposta) {
+                vm.vinculosEmpregaticios = resposta;
             })
+        }
+
+        function loadBancos() {
+            Banco.query().$promise.then(function (resposta) {
+                vm.bancos = resposta;
+            })
+
+        }
+        function loadTipoSanguineo() {
+            TipoSanguineo.query().$promise.then(function (resposta) {
+                vm.tiposanguineos = resposta;
+            })
+
+        }
+        function loadSexos() {
+            vm.sexos = [
+                {
+                    id: 0,
+                    nome: "Feminino"
+                }, {
+                    id: 1,
+                    nome: "Masculino"
+                }
+            ]
         }
 
         function loadCategoriasCnh() {
