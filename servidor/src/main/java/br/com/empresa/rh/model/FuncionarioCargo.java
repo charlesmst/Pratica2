@@ -7,13 +7,17 @@ import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,9 +28,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "funcionario_cargo", schema = "public"
 )
+@SequenceGenerator(name = "funcionario_cargo_seq", sequenceName = "funcionario_cargo_seq", initialValue = 1, allocationSize = 1)
+
 public class FuncionarioCargo implements java.io.Serializable {
 
-    @JsonView(Folha.Funcionario.class)
+    @JsonView({Folha.Funcionario.class,Folha.FuncionarioFicha.class})
     private int id;
     @JsonView({Folha.CargosFuncionarioComCargo.class, Folha.FuncionarioFicha.class})
 
@@ -36,7 +42,6 @@ public class FuncionarioCargo implements java.io.Serializable {
     @JsonView(Folha.Funcionario.class)
     private Funcionario funcionario;
     @JsonView({Folha.FuncionarioFicha.class})
-
     private Sindicato sindicato;
     @JsonView({Folha.FuncionarioFicha.class})
 
@@ -110,6 +115,7 @@ public class FuncionarioCargo implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(generator = "funcionario_cargo_seq", strategy = GenerationType.SEQUENCE)
 
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {
@@ -151,7 +157,7 @@ public class FuncionarioCargo implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sindicato_id", nullable = false)
+    @JoinColumn(name = "sindicato_id", nullable = true)
     public Sindicato getSindicato() {
         return this.sindicato;
     }
@@ -199,7 +205,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.ativo = ativo;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<FuncionarioCargoHasAdvertenciaTipo> getFuncionarioCargoHasAdvertenciaTipos() {
         return this.funcionarioCargoHasAdvertenciaTipos;
     }
@@ -226,7 +232,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.folhaCalculadas = folhaCalculadas;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<FuncionarioAcidente> getFuncionarioAcidentes() {
         return this.funcionarioAcidentes;
     }
@@ -235,7 +241,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.funcionarioAcidentes = funcionarioAcidentes;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<FuncionarioCargoHasMotivoFalta> getFuncionarioCargoHasMotivoFaltas() {
         return this.funcionarioCargoHasMotivoFaltas;
     }
@@ -244,7 +250,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.funcionarioCargoHasMotivoFaltas = funcionarioCargoHasMotivoFaltas;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<FuncionarioFaixa> getFuncionarioFaixas() {
         return this.funcionarioFaixas;
     }
@@ -271,7 +277,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.sindicatoHasFuncionarioCargos = sindicatoHasFuncionarioCargos;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<Ferias> getFeriases() {
         return this.feriases;
     }

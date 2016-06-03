@@ -36,7 +36,7 @@ import org.hibernate.annotations.Type;
 )
 public class Pessoa implements java.io.Serializable {
 
-    @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class})
+    @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, })
     private int id;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Recrutamento.Pessoa.class})
     private Cidade cidade;
@@ -76,7 +76,8 @@ public class Pessoa implements java.io.Serializable {
     private String rg;
     private Curriculo curriculo;
 
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonView({Folha.FuncionarioFicha.class})
     private Funcionario funcionario;
     private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
     private Usuario usuario;
@@ -336,7 +337,7 @@ public class Pessoa implements java.io.Serializable {
         this.curriculo = curriculo;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL)
 
     public Funcionario getFuncionario() {
         return this.funcionario;

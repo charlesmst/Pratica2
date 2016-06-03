@@ -22,13 +22,17 @@ public class UnidadeService extends Service<Unidade>{
     public List<Unidade> findForTable(TableRequest request) {
 
         
-        String hql = "select t from Unidade t ";
+        String hql = "select t from Unidade t "
+                + " inner join fetch t.empresa ";
         hql+= request.applyFilter("id","nome");     
         hql+= request.applyOrder("id","nome");        
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);
         List<Unidade> l = q.getResultList();
+        for (Unidade l1 : l) {
+            l1.getEmpresa().setUnidades(null);
+        }
         return l;
     }
     

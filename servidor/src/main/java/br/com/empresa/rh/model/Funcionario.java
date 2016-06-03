@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,8 +34,7 @@ public class Funcionario implements java.io.Serializable {
     private int pessoaId;
     @JsonView({Folha.FuncionarioFicha.class})
     private Banco banco;
-    @JsonManagedReference
-    @JsonView({Folha.Funcionario.class, Folha.FuncionarioFicha.class})
+    @JsonView({Folha.Funcionario.class})
     private Pessoa pessoa;
     @JsonView({Folha.FuncionarioFicha.class})
     private VinculoEmpregaticio vinculoEmpregaticio;
@@ -140,7 +140,7 @@ public class Funcionario implements java.io.Serializable {
         this.dependentes = dependentes;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionario")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionario",cascade = CascadeType.ALL)
     public Set<FuncionarioCargo> getFuncionarioCargos() {
         return this.funcionarioCargos;
     }

@@ -1,11 +1,12 @@
 package br.com.empresa.rh.resources;
 
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.PessoaService;
 import br.com.empresa.rh.model.Pessoa;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -61,6 +62,8 @@ public class PessoaResource {
 
     @GET
     @Path("{id}")
+    @JsonView(Folha.FuncionarioFicha.class)
+
     @Produces(MediaType.APPLICATION_JSON)
     public Pessoa findById(@PathParam("id") int id) {
         Pessoa m = pessoaService.findById(id);
@@ -85,7 +88,7 @@ public class PessoaResource {
     @Path("{id}")
     public void update(@PathParam("id") int id, Pessoa entity) {
         pessoaService.update(entity);
-		
+
     }
 
     @DELETE
