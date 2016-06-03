@@ -7,13 +7,16 @@ import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.FuncionarioFaixa;
 import br.com.empresa.rh.model.request.TableRequest;
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -93,9 +96,16 @@ public class FaixaSalarialService extends Service<FaixaSalarial> {
         List<FaixaSalarial> l = q.getResultList();
         return l;
     }
-    
-    public List<FaixaSalarial> findByCargoNivel(CargoNivel cargo){
-        List<FaixaSalari
+
+    public List<FaixaSalarial> findByCargoNivel(CargoNivel cargo) {
+        List<FaixaSalarial> faixas = entityManager.createQuery("from FaixaSalarial f  "
+                + " left outer join fetch f.cargoNivels cargoNiveis"
+//                + " left outer join fetch f.faixaSalarialValors faixaSalarialValors "
+                + " where cargoNiveis.id = :id ").setParameter("id", cargo.getId()).getResultList();
+        for (FaixaSalarial faixa : faixas) {
+            faixa.setCargoNivels(null);
+        }
+        return faixas;
     }
 
 }
