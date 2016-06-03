@@ -1,12 +1,20 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Pessoa', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil', 'Escolaridade', 'Cidade', 'Banco','TipoSanguineo','VinculoEmpregaticio', FuncionarioEditController]);
+    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Pessoa', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil', 'Escolaridade', 'Cidade', 'Banco', 'TipoSanguineo', 'VinculoEmpregaticio', FuncionarioEditController]);
 
     var state = "ficha"
-    function FuncionarioEditController($mdToast, $http, Pessoa, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil, Escolaridade, Cidade, Banco,TipoSanguineo,VinculoEmpregaticio) {
+    function FuncionarioEditController($mdToast, $http, Pessoa, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil, Escolaridade, Cidade, Banco, TipoSanguineo, VinculoEmpregaticio) {
         var vm = this;
         vm.entity = {}
-
+        vm.mostraAddCargo = mostraAddCargo;
+        vm.mostraEditCargo = mostraEditCargo
+        vm.mostraAddQualificacao = mostraAddQualificacao;
+        vm.querySearchCidade = querySearchCidade
+        vm.mostraEditQualificacao = mostraEditQualificacao
+        vm.mostraEditFerias = mostraEditFerias
+        vm.mostraAddFerias = mostraAddFerias
+        vm.mostraEditFaixa = mostraEditFaixa
+        vm.mostraAddFaixa = mostraAddFaixa
         vm.cor = []
         vm.escolaridade = []
 
@@ -17,14 +25,10 @@
         loadBancos()
         loadTipoSanguineo()
         loadVinculos()
-        
+
         Workspace.title = "Ficha Funcional";
         console.log($stateParams)
-        vm.mostraAddCargo = mostraAddCargo;
-        vm.mostraEditCargo = mostraEditCargo
-        vm.mostraAddQualificacao = mostraAddQualificacao;
-        vm.querySearchCidade = querySearchCidade
-        vm.mostraEditQualificacao = mostraEditQualificacao
+        
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Pessoa.get({ id: $stateParams.id }).$promise.then(function (data) {
 
@@ -124,9 +128,9 @@
                 .then(function (adicionado) {
                     console.log("Resposta da modal", adicionado)
 
-                    if (!vm.entity.funcionario.funcionarioQualificacaos)
-                        vm.entity.funcionario.funcionarioQualificacaos = []
-                    vm.entity.funcionario.funcionarioQualificacaos.push(adicionado)
+                    if (!vm.funcionarioAtivo.funcionarioQualificacaos)
+                        vm.funcionarioAtivo.funcionarioQualificacaos = []
+                    vm.funcionarioAtivo.funcionarioQualificacaos.push(adicionado)
                 });
         }
 
@@ -148,6 +152,90 @@
             })
         }
 
+        function mostraAddFerias() {
+            $mdDialog.show({
+                controller: 'FuncionarioFeriasEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-ferias.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosFerias: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                .then(function (adicionado) {
+                    console.log("Resposta da modal", adicionado)
+
+                    if (!vm.funcionarioAtivo.feriases)
+                        vm.funcionarioAtivo.feriases = []
+                    vm.funcionarioAtivo.feriases.push(adicionado)
+                });
+        }
+
+        function mostraEditFerias(ferias) {
+            console.log ("mostraEditFerias",ferias)
+            $mdDialog.show({
+                controller: 'FuncionarioFeriasEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-ferias.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosFerias: function () {
+                        return angular.copy(ferias);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(ferias, alterado)
+            })
+        }
+        
+        
+        function mostraAddFaixa() {
+            $mdDialog.show({
+                controller: 'FuncionarioFaixaEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-faixa.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosFaixa: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                .then(function (adicionado) {
+                    console.log("Resposta da modal", adicionado)
+
+                    if (!vm.funcionarioAtivo.funcionarioFaixas)
+                        vm.funcionarioAtivo.funcionarioFaixas = []
+                    vm.funcionarioAtivo.funcionarioFaixas.push(adicionado)
+                });
+        }
+
+        function mostraEditFaixa(Faixa) {
+            console.log ("mostraEditFaixa",Faixa)
+            $mdDialog.show({
+                controller: 'FuncionarioFaixaEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-faixa.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosFaixa: function () {
+                        return angular.copy(Faixa);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(Faixa, alterado)
+            })
+        }
         function loadCor() {
             Cor.query().$promise.then(function (resposta) {
                 vm.cor = resposta;
@@ -169,7 +257,7 @@
         }
         function loadTipoSanguineo() {
             TipoSanguineo.query().$promise.then(function (resposta) {
-                vm.tiposanguineos = resposta;
+                vm.tiposSanguineos = resposta;
             })
 
         }

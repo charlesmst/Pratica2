@@ -115,6 +115,8 @@
         }
 
         function toDate(str) {
+            if (typeof str === "object")
+                return str;
             var d = new Date(str)
             d.setDate(d.getDate() + 1)
             return d;

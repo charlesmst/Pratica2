@@ -134,22 +134,14 @@
                             </div>
                         </md-input-container>
                     </div>
-                    <div layout-gt-sm="row">
-                        <md-input-container flex="20" class="md-block" flex-gt-xs>
-                            <label>CEP</label>
-                            <input name="cep" ng-model="crudVm.entity.cep" ui-br-cep-mask>
-                            <div ng-messages="formEdit.cep.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>Cidade</label>
-                            <md-autocomplete md-selected-item="crudVm.entity.cidade" md-search-text="crudVm.searchText" md-items="item in crudVm.querySearchCidade(crudVm.searchText)"
-                                md-item-text="item.nome" md-min-length="2" md-float-label="Cidade" placeholder="Cidade">
-                                <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
-                            </md-autocomplete>
-                        </md-input-container>
-                    </div>
+
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Cidade</label>
+                        <md-autocomplete md-selected-item="crudVm.entity.cidade" md-search-text="crudVm.searchText" md-items="item in crudVm.querySearchCidade(crudVm.searchText)"
+                            md-item-text="item.nome" md-min-length="2" md-float-label="Cidade" placeholder="Cidade">
+                            <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
+                        </md-autocomplete>
+                    </md-input-container>
                     <md-input-container class="md-block" flex-gt-xs>
                         <label>Bairro</label>
                         <input name="bairro" ng-model="crudVm.entity.bairro" md-max-length="100" required>
@@ -168,7 +160,6 @@
 
                 </md-tab>
                 <md-tab label="Dados do Funcionário" ng-disabled="!crudVm.entity.funcionario">
-                    banco vinculoEmpregaticio conta agencia tiposanguineo
                     <div layout-gt-sm="row">
                         <md-input-container flex="30" class="md-block" flex-gt-xs>
                             <label>Banco</label>
@@ -202,9 +193,6 @@
                                 </md-option>
                             </md-select>
                         </md-input-container>
-                    </div>
-                    
-                    <div layout-gt-sm="row">
                         <md-input-container flex="30" class="md-block" flex-gt-xs>
                             <label>Tipo sanguineo</label>
                             <md-select ng-model="crudVm.entity.funcionario.tipoSanguineo" ng-required="crudVm.entity.funcionario" ng-model-options="{trackBy: '$value.id'}">
@@ -215,7 +203,7 @@
                         </md-input-container>
                     </div>
                 </md-tab>
-                <md-tab label="Cargos">
+                <md-tab label="Cargos" ng-disabled="!crudVm.entity.funcionario">
                     <md-table-container>
                         <table md-table>
                             <thead md-head>
@@ -250,14 +238,14 @@
                             </tbody>
                         </table>
                     </md-table-container>
-                    <md-card-actions layout="row" layout-align="end center">
+                    <md-card-actions layout="row" layout-align="begin center">
                         <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddCargo()">
                             <ng-md-icon icon="add"></ng-md-icon>
                         </button>
                     </md-card-actions>
                 </md-tab>
 
-                <md-tab label="Qualificações">
+                <md-tab label="Qualificações" ng-disabled="!crudVm.entity.funcionario">
                     <section layout="row">
                         <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" ng-model-options="{trackBy: '$value.id'}"
                             plrudVm.funcionaraceholder="Cargo">
@@ -291,13 +279,13 @@
                             </tbody>
                         </table>
                     </md-table-container>
-                    <md-card-actions layout="row" layout-align="end center">
+                    <md-card-actions layout="row" layout-align="begin center">
                         <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddQualificacao()">
                             <ng-md-icon icon="add"></ng-md-icon>
                         </button>
                     </md-card-actions>
                 </md-tab>
-                <md-tab label="Férias">
+                <md-tab label="Férias" ng-disabled="!crudVm.entity.funcionario">
 
                     <section layout="row">
                         <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo" ng-model-options="{trackBy: '$value.id'}">
@@ -313,13 +301,15 @@
                                     <th md-column><span>Data Gozo Fim</span></th>
                                     <th md-column><span>Período Aquisitivo Início</span></th>
                                     <th md-column><span>Período Aquisitivo Fim</span></th>
+                                    <th md-column md-numeric></th>
+
                                 </tr>
                             </thead>
                             <tbody md-body>
                                 <tr md-row ng-repeat="row in crudVm.funcionarioAtivo.feriases">
                                     <td md-cell width="15" class="button-column">
 
-                                        <md-button class="md-icon-button md-subhead" style="font-size:7px" aria-label="Edit" ng-click="crudVm.mostraEditQualificacao(row)">
+                                        <md-button class="md-icon-button md-subhead" style="font-size:7px" aria-label="Edit" ng-click="crudVm.mostraEditFerias(row)">
                                             <md-icon md-svg-icon="edit" class="md-display-1">edit</md-icon>
                                         </md-button>
                                     </td>
@@ -327,13 +317,63 @@
                                     <td md-cell>{{row.dataGozoFim| date:'dd/MM/yyyy'}}</td>
                                     <td md-cell>{{row.dataAquisitivoInicio| date:'dd/MM/yyyy'}}</td>
                                     <td md-cell>{{row.dataAquisitivoFim| date:'dd/MM/yyyy'}}</td>
+                                    <td md-cell md-numeric>
+                                        <md-button aria-label="Delete" ng-click="crudVm.funcionarioAtivo.feriases.splice(crudVm.funcionarioAtivo.feriases.indexOf(row), 1)">
+                                            <ng-md-icon icon="delete"></ng-md-icon>
+                                        </md-button>
 
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </md-table-container>
-                    <md-card-actions layout="row" layout-align="end center">
-                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddQualificacao()">
+                    <md-card-actions layout="row" layout-align="begin center">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddFerias()">
+                            <ng-md-icon icon="add"></ng-md-icon>
+                        </button>
+                    </md-card-actions>
+                </md-tab>
+                <md-tab label="Salário e nível" ng-disabled="!crudVm.entity.funcionario">
+
+                    <section layout="row">
+                        <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo" ng-model-options="{trackBy: '$value.id'}">
+                            <md-option ng-value="item" ng-repeat="item in crudVm.entity.funcionario.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
+                        </md-select>
+                    </section>
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column md-numeric></th>
+                                    <th md-column><span>Data de início</span></th>
+                                    <th md-column><span>Nível</span></th>
+                                    <th md-column><span>Faixa</span></th>
+                                    <th md-column md-numeric></th>
+
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="row in crudVm.funcionarioAtivo.funcionarioFaixas | orderBy:'-dataInicio'">
+                                    <td md-cell width="15" class="button-column">
+
+                                        <md-button class="md-icon-button md-subhead" style="font-size:7px" aria-label="Edit" ng-click="crudVm.mostraEditFaixa(row)">
+                                            <md-icon md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                                        </md-button>
+                                    </td>
+                                    <td md-cell>{{row.dataInicio| date:'dd/MM/yyyy'}}</td>
+                                    <td md-cell>{{row.cargoNivel.nome}}</td>
+                                    <td md-cell>{{row.faixaSalarial.nome}}</td>
+                                    <td md-cell md-numeric>
+                                        <md-button aria-label="Delete" ng-click="crudVm.funcionarioAtivo.funcionarioFaixas.splice(crudVm.funcionarioAtivo.funcionarioFaixas.indexOf(row), 1)">
+                                            <ng-md-icon icon="delete"></ng-md-icon>
+                                        </md-button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-card-actions layout="row" layout-align="begin center">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddFaixas()">
                             <ng-md-icon icon="add"></ng-md-icon>
                         </button>
                     </md-card-actions>
