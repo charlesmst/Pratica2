@@ -151,6 +151,9 @@ public class PessoaService extends Service<Pessoa> {
                 + " left outer join fetch fc.funcionarioAcidentes fa"
                 + " left outer join fetch fc.funcionarioQualificacaos funcionarioQualificacaos"
                 + " left outer join fetch funcionarioQualificacaos.qualificacao qualificacao"
+                + " left outer join fetch fc.funcionarioFaixas funcionarioFaixas"
+                + " left outer join fetch funcionarioFaixas.cargoNivel cargoNivel"
+                + " left outer join fetch funcionarioFaixas.faixaSalarial faixaSalarial"
                 + " where p.id = :id ").setParameter("id", id).getSingleResult();
     }
 

@@ -2,6 +2,7 @@ package br.com.empresa.rh.resources;
 
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.CargoNivel;
 import br.com.empresa.rh.service.FaixaSalarialService;
 import br.com.empresa.rh.model.FaixaSalarial;
 import br.com.empresa.rh.model.request.TableRequest;
@@ -28,17 +29,17 @@ import org.springframework.stereotype.Component;
 public class FaixaSalarialResource {
 
     @Autowired
-    private FaixaSalarialService FaixaSalarialService;
+    private FaixaSalarialService faixaSalarialService;
 
     @Context
     protected UriInfo info;
 
     public FaixaSalarialService getFaixaSalarialService() {
-        return FaixaSalarialService;
+        return faixaSalarialService;
     }
 
     public void setFaixaSalarialService(FaixaSalarialService marcaService) {
-        this.FaixaSalarialService = marcaService;
+        this.faixaSalarialService = marcaService;
     }
 
     public FaixaSalarialResource() {
@@ -48,14 +49,14 @@ public class FaixaSalarialResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
     public CountResponse count() {
-        return new CountResponse(FaixaSalarialService.count());
+        return new CountResponse(faixaSalarialService.count());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
-        List<FaixaSalarial> m = FaixaSalarialService.findForTable(request);
+        List<FaixaSalarial> m = faixaSalarialService.findForTable(request);
         return Response.ok().entity(m).build();
     }
 
@@ -63,21 +64,30 @@ public class FaixaSalarialResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public FaixaSalarial findById(@PathParam("id") int id) {
-        FaixaSalarial m = FaixaSalarialService.findById(id);
+        FaixaSalarial m = faixaSalarialService.findById(id);
+        return m;
+    }
+ @GET
+    @Path("cargonivel/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<FaixaSalarial> findByCargoNivel(@PathParam("id") int id) {
+        CargoNivel nivel = new CargoNivel();
+        nivel.setId(id);
+        List<FaixaSalarial> m = faixaSalarialService.findByCargoNivel(nivel);
         return m;
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(FaixaSalarial m) {
-        FaixaSalarialService.insert(m);
+        faixaSalarialService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
     public void update(@PathParam("id") int id, FaixaSalarial entity) {
-        FaixaSalarialService.update(entity);
+        faixaSalarialService.update(entity);
 		
     }
 
@@ -85,7 +95,7 @@ public class FaixaSalarialResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") int id) {
-        FaixaSalarialService.delete(id);
+        faixaSalarialService.delete(id);
     }
 
 }

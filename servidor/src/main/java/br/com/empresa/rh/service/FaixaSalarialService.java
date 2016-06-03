@@ -1,5 +1,6 @@
 package br.com.empresa.rh.service;
 
+import br.com.empresa.rh.model.CargoNivel;
 import br.com.empresa.rh.model.FaixaSalarial;
 import br.com.empresa.rh.model.FaixaSalarialValor;
 import br.com.empresa.rh.model.FuncionarioCargo;
@@ -91,6 +92,10 @@ public class FaixaSalarialService extends Service<FaixaSalarial> {
         request.applyParameters(q);
         List<FaixaSalarial> l = q.getResultList();
         return l;
+    }
+    
+    public List<FaixaSalarial> findByCargoNivel(CargoNivel cargo){
+        List<FaixaSalari
     }
 
 }
