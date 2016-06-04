@@ -1,73 +1,44 @@
 (function () {
     'use strict';
-    angular.module('app').controller('UsuarioEditController', ['$mdToast', '$http', 'Usuario', '$state', '$stateParams', 'Workspace', 'Cidade', 'Escolaridade','Permissoes', UsuarioEditController]);
+    angular.module('app').controller('UsuarioEditController', ['$mdToast', '$http', 'Usuario', '$state', '$stateParams', 'Workspace','Authorization', UsuarioEditController]);
 
     var state = "usuario"
-    function UsuarioEditController($mdToast, $http, Usuario, $state, $stateParams, Workspace, Cidade, Escolaridade, Permissoes) {
+    function UsuarioEditController($mdToast, $http, Usuario, $state, $stateParams, Workspace,Authorization) {
         var vm = this;
-        vm.entity = {}
-        vm.permissoes = {}
         vm.sexos = []
-        vm.escolaridades = []
-        vm.senhaConf
-        vm.querySearchCidade = querySearchCidade
-
+        vm.entity = {}
         Workspace.title = "Manutenção de Usuário";
-        if ($stateParams.id) {
-            Workspace.loading("Carregando...", Usuario.get({id: $stateParams.id}).$promise.then(function (data) {
 
-                vm.entity = data
-                vm.entity.pessoa.dataNascimento = Workspace.toDate(vm.entity.pessoa.dataNascimento)
-            }))
+        vm.entity = new Usuario();
 
-        } else
-            vm.entity = new Usuario()
-
-        loadSexos()
-        loadEscolaridades()
-        loadPermissoes();
         vm.save = save;
         vm.cancel = cancel;
+
+        loadSexos()
+        function loadSexos() {
+            $http.get('data/recrutamento/sexo.json').then(function (resposta) {
+                vm.sexos = (resposta.data)
+            })
+        }
+
         function save($event, $valid) {
             if (!$valid)
                 return;
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
         }
-        function loadSexos() {
-            $http.get('data/recrutamento/sexo.json').then(function (resposta) {
-                vm.sexos = (resposta.data)
-
-            })
-        }
         function cancel() {
             $state.go(state)
         }
         function callbackSave(r) {
-            Workspace.showMessage("Registro salvo")
-            $state.go(state)
+            Workspace.showMessage("Usuário cadastrado com sucesso")
+            Authorization.setCurrentUser(r);
+            $state.go("curriculocandidato")
 
         }
         function callbackError() {
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
         }
-        
-        function loadEscolaridades() {
-            Escolaridade.query().$promise.then(function (resposta) {
-                vm.escolaridades = resposta;
-            })
-        }
 
-        function querySearchCidade(texto) {
-            return Cidade.query({
-                filter: texto,
-                limit: 10
-            }).$promise
-        }
-        function loadPermissoes(){
-            Permissoes.get({modulo:"recrutamento"}).$promise.then(function(data){
-                vm.permissoes = data
-            })
-        }
     }
 
 })()

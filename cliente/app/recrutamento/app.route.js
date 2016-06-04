@@ -161,39 +161,20 @@
                         }
                     }
                 })
+                .state('curriculocandidato', {
+                    url: '/candidato',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/curriculo.edit.tmpl.html',
+                            controller: "CurriculoEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
                 
-                .state('usuario', {
-                    url: '/usuario',
-                    views: {
-                        "": {
-                            templateUrl: 'app/recrutamento/usuario.tmpl.html',
-                            controller: "UsuarioController",
-                            controllerAs: "crudVm",
-                        }
-                    }
-                })
+                
                 .state('usuarioadd', {
-                    url: '/usuario/add',
-                    views: {
-                        "": {
-                            templateUrl: 'app/recrutamento/usuario.edit.tmpl.html',
-                            controller: "UsuarioEditController",
-                            controllerAs: "crudVm",
-                        }
-                    }
-                })
-                .state('usuarioedit', {
-                    url: '/usuario/edit/:id',
-                    views: {
-                        "": {
-                            templateUrl: 'app/recrutamento/usuario.edit.tmpl.html',
-                            controller: "UsuarioEditController",
-                            controllerAs: "crudVm",
-                        }
-                    }
-                })
-                .state('usuarionaocadastrado', {
-                    url: '/usuario/cadastro',
+                    url: '/registro',
                     views: {
                         "": {
                             templateUrl: 'app/recrutamento/usuario.edit.tmpl.html',

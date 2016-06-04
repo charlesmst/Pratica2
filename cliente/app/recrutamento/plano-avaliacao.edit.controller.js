@@ -2,7 +2,7 @@
     'use strict';
     angular.module('app').controller('PlanoAvaliacaoEditController', ['$mdToast', '$http', 'PlanoAvaliacao', '$state', '$stateParams', 'Workspace', PlanoAvaliacaoEditController]);
 
-    var state = "PlanoAvaliacao"
+    var state = "plano-avaliacao"
     function PlanoAvaliacaoEditController($mdToast, $http, PlanoAvaliacao, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}

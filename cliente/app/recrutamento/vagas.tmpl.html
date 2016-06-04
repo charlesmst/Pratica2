@@ -7,7 +7,9 @@
     </md-button>
 </div>
 <md-card>
+
     <md-table-container>
+
         <table md-table md-progress="promise"  md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise" >
             <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
                 <tr md-row>

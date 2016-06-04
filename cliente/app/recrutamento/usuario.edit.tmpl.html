@@ -11,44 +11,23 @@
         </md-button>
     </div>
 
-    <!--    {{crudVm.entity}}-->
+
     <md-card >
-        {{crudVm.permissoes}}
-        <!--        {{crudVm.entity}}-->
+
+
         <md-card-content>
-            <h2>Dados Pessoais</h2>
-            <div layout-gt-sm="row">
+            <h2>Usuario</h2>
+            <md-content>
                 <md-input-container class="md-block" flex-gt-xs>
-                    <label>Nome Completo</label>
-                    <input  name="nome" ng-model="crudVm.entity.pessoa.nome" md-maxlength="500" required>
+                    <label>Nome</label>
+                    <input  name="nome" ng-model="crudVm.entity.pessoa.nome" md-maxlength="255" required>
                     <div ng-messages="formEdit.nome.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
 
                 </md-input-container>
-                <div id="data">
-                    <span class="md-subheader md-block">Data de nascimento</span>
-                    <md-datepicker ng-model="crudVm.entity.pessoa.dataNascimento" ng-required></md-datepicker>
-                </div>
-            </div>
-            <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>CPF</label>
-                    <input  name="cpf" ng-model="crudVm.entity.pessoa.cpf" ui-br-cpf-mask required>
-                    <div ng-messages="formEdit.cpf.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
-                    </div>
 
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>RG</label>
-                    <input  name="rg" ng-model="crudVm.entity.pessoa.rg" md-maxlength="20" required>
-                    <div ng-messages="formEdit.rg.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
-                    </div>
-
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
+                <md-input-container flex="" class="md-block" flex-gt-xs>
                     <label>Sexo</label>
                     <md-select ng-model="crudVm.entity.pessoa.sexo">
                         <md-option ng-repeat="item in crudVm.sexos" ng-value="{{item.id}}">
@@ -58,104 +37,24 @@
                     <div ng-messages="formEdit.sexo.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
-
                 </md-input-container>
-            </div>
-            <div layout-gt-sm="row">
-
-                <md-input-container class="md-block" flex-gt-sm>
+                <md-input-container flex="" class="md-block" flex-gt-xs>
                     <label>E-mail</label>
-                    <input  name="email" type="email" ng-model="crudVm.entity.pessoa.email" md-maxlength="200" required>
+                    <input type="email" name="email" ng-model="crudVm.entity.pessoa.email" md-max-length="100">
                     <div ng-messages="formEdit.email.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
-
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Telefone Celular</label>
-                    <input  name="telCelular" ng-model="crudVm.entity.pessoa.telCelular" ui-br-phone-number>
-                    <!--                        <div ng-messages="formEdit.rg.$error">
-                                                <div ng-message="required">Campo obrigatório.</div>
-                                            </div>-->
+                <md-input-container flex="" class="md-block" flex-gt-xs>
+                    <label>Senha</label>
+                    <input type="password" name="senha" ng-model="crudVm.entity.senha" md-max-length="100">
+                    <div ng-messages="formEdit.email.$error">
+                        <div ng-message="required">Campo obrigatório.</div>
+                    </div>
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Telefone Fixo</label>
-                    <input  name="telFixo" ng-model="crudVm.entity.pessoa.telFixo" ui-br-phone-number>
-                    <!--                        <div ng-messages="formEdit.rg.$error">
-                                                <div ng-message="required">Campo obrigatório.</div>
-                                            </div>-->
-                </md-input-container>
-            </div>
 
-            <md-input-container class="md-block" flex-gt-xs>
-                <label>Escolaridade</label>
-                <md-select ng-model="crudVm.entity.pessoa.escolaridade">
-                    <md-option ng-repeat="item in crudVm.escolaridades" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.pessoa.escolaridade.id" >
-                        {{item.nome}}
-                    </md-option>
-                </md-select>
-
-            </md-input-container>
-
-            <!-- <md-input-container class="md-block" flex-gt-xs> -->
-            <md-input-container class="md-block" flex-gt-xs>
-                <label>Cidade</label>
-                <md-autocomplete
-                    md-selected-item="crudVm.entity.pessoa.cidade"
-                    md-search-text="crudVm.searchText"
-                    md-items="item in crudVm.querySearchCidade(crudVm.searchText)"
-                    md-item-text="item.nome"
-                    md-min-length="2"
-                    md-float-label="Cidade"
-                    placeholder="Cidade">
-                    <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
-                </md-autocomplete>
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Endereço</label>
-                <input name="endereco" ng-model="crudVm.entity.pessoa.endereco" md-maxlength="100" required>
-                <div ng-messages="formEdit.endereco.$error">
-                    <div ng-message="required">Campo obrigatório.</div>
-                </div>
-
-            </md-input-container>
+            </md-content>
 
         </md-card-content>
     </md-card>
-    <md-card >
-
-        <!--        {{crudVm.entity}}-->
-        <md-card-content>
-            <h2>Dados de Usuário</h2>
-            <md-content>
-                <div layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Nome de Usuário</label>
-                        <input name="usuario" ng-model="crudVm.entity.usuario" md-maxlength="100" required>
-                        <div ng-messages="formEdit.usuario.$error">
-                            <div ng-message="required">Campo obrigatório.</div>
-                        </div>
-
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Senha</label>
-                        <input  type="password" name="senha" ng-model="crudVm.entity.senha" md-maxlength="100" required>
-                        <div ng-messages="formEdit.senha.$error">
-                            <div ng-message="required">Campo obrigatório.</div>
-                        </div>
-
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Confirmação de Senha</label>
-                        <input  type="password" name="senhaConf" ng-model="vm.senhaConf" md-maxlength="100" required>
-                        <div ng-messages="formEdit.senhaConf.$error">
-                            <div ng-message="required">Campo obrigatório.</div>
-                        </div>
-
-                    </md-input-container>
-                </div>
-            </md-content>
-    </md-card>
-
 </form>

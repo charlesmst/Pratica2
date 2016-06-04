@@ -37,17 +37,11 @@
         vm.cancel = cancel;
         loadEdit()
         function loadEdit() {
-            if ($stateParams.id) {
-                Workspace.loading("Carregando...", Curriculo.get({id: $stateParams.id}).$promise.then(function (data) {
+            Workspace.loading("Carregando...", Curriculo.get({id: $stateParams.id || 0}).$promise.then(function (data) {
 
-                    vm.entity = data
+                vm.entity = data
 
-                }))
-
-            } else
-                vm.entity = new Curriculo()
-
-
+            }))
         }
         function save($event, $valid) {
             if (!$valid)
@@ -58,7 +52,7 @@
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
         }
         function cancel() {
-            $state.go(state)
+            //$state.go(state)
         }
 
         function loadSexos() {
@@ -260,7 +254,7 @@
 
         function callbackSave(r) {
             Workspace.showMessage("Registro salvo")
-            $state.go(state)
+           // $state.go(state)
 
         }
         function callbackError() {
