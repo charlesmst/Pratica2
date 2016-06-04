@@ -1,8 +1,8 @@
 (function () {
     angular.module('app').config(["$mdThemingProvider", '$httpProvider', '$mdIconProvider', config]);
     function config($mdThemingProvider, $httpProvider, $mdIconProvider) {
-        var customBlueMap = $mdThemingProvider.extendPalette('teal', {
-            'contrastDefaultColor': 'teal',
+        var customBlueMap = $mdThemingProvider.extendPalette('light-blue', {
+            'contrastDefaultColor': 'light',
             'contrastDarkColors': ['50'],
             '50': 'ffffff'
         });
@@ -14,11 +14,15 @@
                     'hue-2': '700'
                 })
                  .accentPalette('teal', {
-                    'default': '800'
+                    'default': '800',
                 })
 
         $mdThemingProvider.theme('input', 'default')
-                .primaryPalette('teal');
+                .primaryPalette('teal', {
+                    'default': '600',
+                    'hue-1': '800',
+                    'hue-2': '700'
+                });
 
         $httpProvider.interceptors.push('ApiInterceptor');
 

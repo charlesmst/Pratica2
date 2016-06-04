@@ -167,27 +167,31 @@ md-sidenav ng-md-icon {
     }
     
     
-    
+    /**** CSS Novo ****/
     .foto{
         float: left;
-        width: 120px;
         display: block;
         overflow: hidden;
         position: relative;   
         border: 1px solid #000;
+        width: 120px !important;
+        height: auto !important;
+    }
+    .foto img{
+        max-width: 100%;
     }
     .alterar_foto{
-        position: absolute; 
         width: 100%;
-        padding: 10px 0; 
-        background: #000;
-        font-size: 14px; 
-        display: block; 
-        bottom: -40px; 
         float: left; 
         opacity: 0.5; 
+        bottom: -40px; 
+        display: block;
+         padding: 5px 0;         
         cursor: pointer;
+         font-size: 12px; 
         text-align: center;
+        position: absolute; 
+        background-color: #000;
         transition: all 0.5s ease 0s; 
     }
     .alterar_foto span{
@@ -197,5 +201,5 @@ md-sidenav ng-md-icon {
         display: block; 
     }
     .foto:hover .alterar_foto{
-        bottom:0; 
+        bottom: 0; 
     }
