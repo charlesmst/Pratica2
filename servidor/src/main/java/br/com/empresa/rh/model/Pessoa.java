@@ -97,10 +97,8 @@ public class Pessoa implements java.io.Serializable {
     public Pessoa() {
     }
 
-    public Pessoa(int id, Cidade cidade, Escolaridade escolaridade, String nome, int sexo) {
+    public Pessoa(int id, String nome, int sexo) {
         this.id = id;
-        this.cidade = cidade;
-        this.escolaridade = escolaridade;
         this.nome = nome;
         this.sexo = sexo;
     }
@@ -151,7 +149,7 @@ public class Pessoa implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cidade_id", nullable = false)
+    @JoinColumn(name = "cidade_id", nullable = true)
     public Cidade getCidade() {
         return this.cidade;
     }
@@ -171,7 +169,7 @@ public class Pessoa implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "escolaridade_id", nullable = false)
+    @JoinColumn(name = "escolaridade_id", nullable = true)
     public Escolaridade getEscolaridade() {
         return this.escolaridade;
     }

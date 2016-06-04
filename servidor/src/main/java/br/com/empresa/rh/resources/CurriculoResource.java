@@ -15,6 +15,7 @@ import br.com.empresa.rh.service.CurriculoExperienciaService;
 import br.com.empresa.rh.service.CurriculoFormacaoService;
 import br.com.empresa.rh.service.CurriculoQualificacaoService;
 import br.com.empresa.rh.service.PessoaService;
+import br.com.empresa.rh.util.Utilitarios;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -28,6 +29,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,6 +41,9 @@ public class CurriculoResource {
 
     @Autowired
     private CurriculoService curriculoService;
+
+    @Autowired
+    private Utilitarios utilitarios;
 
     @Autowired
     private PessoaService pessoaService;
@@ -86,15 +91,23 @@ public class CurriculoResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(Recrutamento.Curriculo.class)
-    public Curriculo findById(@PathParam("id") int id) {
-        Curriculo m = curriculoService.findById(id);
-        return m;
+    public Curriculo findById(@PathParam("id") int id, @Context SecurityContext securityContext) {
+        utilitarios.setSecutiryContext(securityContext);
+        if (utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
+            Curriculo m = curriculoService.findById(id);
+            return m;
+        } else {
+            int cod = utilitarios.usuario();
+            Curriculo m = curriculoService.findById(cod);
+            return m;
+        }
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(Curriculo m) {
         curriculoService.insert(m);
+       
     }
 
     @POST
@@ -146,7 +159,7 @@ public class CurriculoResource {
                 curriculoExperienciaService.update(ce);
             }
         }
-        
+
         pessoaService.update(p);
 
         curriculoService.update(entity);

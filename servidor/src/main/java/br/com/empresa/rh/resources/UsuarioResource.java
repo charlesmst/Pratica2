@@ -1,4 +1,5 @@
 package br.com.empresa.rh.resources;
+
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.model.Curriculo;
 import br.com.empresa.rh.model.Pessoa;
@@ -7,6 +8,7 @@ import br.com.empresa.rh.model.Usuario;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import br.com.empresa.rh.service.CurriculoService;
 import br.com.empresa.rh.service.PessoaService;
 import br.com.empresa.rh.util.SecurityApiException;
 import br.com.empresa.rh.util.Utilitarios;
@@ -37,6 +39,8 @@ public class UsuarioResource {
     private UsuarioService usuarioService;
     @Autowired
     private PessoaService pessoaService;
+    @Autowired
+    private CurriculoService curriculoService;
 
     @Autowired
     private Utilitarios utilitarios;
@@ -80,7 +84,7 @@ public class UsuarioResource {
 
         Usuario m = usuarioService.findById(id);
         if ((utilitarios.usuarioIs(NivelAcesso.CANDIDATO) && m.getPessoaId() != utilitarios.usuario()) || utilitarios.usuarioIs(NivelAcesso.FUNCIONARIO) || utilitarios.usuarioIs(NivelAcesso.GESTOR)) {
-            throw  new SecurityApiException();
+            throw new SecurityApiException();
         }
         return m;
     }
@@ -88,50 +92,56 @@ public class UsuarioResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @RolesAllowed(NivelAcesso.NENHUM)
-    public void insert(Usuario m) {
+    public Response insert(Usuario m, @Context SecurityContext securityContext) {
+        utilitarios.setSecutiryContext(securityContext);
+
         Pessoa p = new Pessoa();
         p = m.getPessoa();
+        pessoaService.insert(p);
         Curriculo c = new Curriculo();
         c.setPessoa(p);
-        p.setCurriculo(c);
-        pessoaService.insert(p);
+        curriculoService.insert(c);
+
         m.setNivel(1);
-        
-        String user = m.getUsuario().toUpperCase();
+
+        String user = m.getPessoa().getEmail().toUpperCase();
         m.setUsuario(user);
         usuarioService.insert(m);
+
+        return Response.ok(utilitarios.loginResponseFor(m)).build();
+
     }
 
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Path("{id}")
-    public void update(@PathParam("id") int id, Usuario entity) {
-        Pessoa p = pessoaService.findById(entity.getPessoaId());
-        Pessoa e = entity.getPessoa();
-        p.setNome(e.getNome());
-        p.setDataNascimento(e.getDataNascimento());
-        p.setCpf(e.getCpf());
-        p.setRg(e.getRg());
-        p.setEmail(e.getEmail());
-        p.setTelCelular(e.getTelCelular());
-        p.setTelFixo(e.getTelFixo());
-        p.setCep(e.getCep());
-        p.setBairro(e.getBairro());
-        p.setEndereco(e.getEndereco());
-        p.setCidade(e.getCidade());
-        p.setEscolaridade(e.getEscolaridade());
-        p.setEstadoCivil(e.getEstadoCivil());
-        p.setSexo(e.getSexo());
-        p.setCnh(e.getCnh());
-        p.setCnhCategoria(e.getCnhCategoria());
-        pessoaService.update(p);
-
-        Usuario u = usuarioService.findById(id);
-        u.setUsuario(entity.getUsuario().toUpperCase());
-        u.setSenha(entity.getSenha());
-        usuarioService.update(u);
-    }
-
+//    @POST
+//    @Consumes({MediaType.APPLICATION_JSON})
+//    @Path("{id}")
+//    public void update(@PathParam("id") int id, Usuario entity) {
+//        Pessoa p = pessoaService.findById(entity.getPessoaId());
+//        Pessoa e = entity.getPessoa();
+//        p.setNome(e.getNome());
+//        p.setDataNascimento(e.getDataNascimento());
+//        p.setCpf(e.getCpf());
+//        p.setRg(e.getRg());
+//        p.setEmail(e.getEmail());
+//        p.setTelCelular(e.getTelCelular());
+//        p.setTelFixo(e.getTelFixo());
+//        p.setCep(e.getCep());
+//        p.setBairro(e.getBairro());
+//        p.setEndereco(e.getEndereco());
+//        p.setCidade(e.getCidade());
+//        p.setEscolaridade(e.getEscolaridade());
+//        p.setEstadoCivil(e.getEstadoCivil());
+//        p.setSexo(e.getSexo());
+//        p.setCnh(e.getCnh());
+//        p.setCnhCategoria(e.getCnhCategoria());
+//        pessoaService.update(p);
+//
+//        Usuario u = usuarioService.findById(id);
+//        u.setUsuario(entity.getUsuario().toUpperCase());
+//        u.setSenha(entity.getSenha());
+//        u.setPessoa(p);
+//        usuarioService.update(u);
+//    }
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)

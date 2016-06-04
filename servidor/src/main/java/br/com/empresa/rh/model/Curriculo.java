@@ -37,9 +37,8 @@ public class Curriculo implements java.io.Serializable {
     public Curriculo() {
     }
 
-    public Curriculo(Pessoa pessoa, String objetivo) {
+    public Curriculo(Pessoa pessoa) {
         this.pessoa = pessoa;
-        this.objetivo = objetivo;
     }
 
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "pessoa"))
@@ -65,7 +64,7 @@ public class Curriculo implements java.io.Serializable {
         this.pessoa = pessoa;
     }
 
-    @Column(name = "objetivo", nullable = false)
+    @Column(name = "objetivo", nullable = true)
     public String getObjetivo() {
         return this.objetivo;
     }

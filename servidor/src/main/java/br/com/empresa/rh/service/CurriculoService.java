@@ -18,16 +18,16 @@ public class CurriculoService extends Service<Curriculo>{
     public Curriculo findById(Object id) {
         String hql = "select t from Curriculo t "
                 + " inner join fetch t.pessoa p "
-                + " left join fetch p.cor "
-                + " inner join fetch p.escolaridade "
-                + " left join fetch p.estadoCivil "
-                + " left join fetch p.necessidadeEspecials "
-                + " left join fetch p.curriculoExperiencias "
-                + " left join fetch p.curriculoFormacoes cf "
-                + " left join fetch cf.escolaridade " 
-                + " left join fetch p.curriculoQualificacoes "
-                + " inner join fetch p.cidade c "
-                + " inner join fetch c.estado uf "
+                + " left outer join fetch p.cor "
+                + " left outer join fetch p.escolaridade "
+                + " left outer join fetch p.estadoCivil "
+                + " left outer join fetch p.necessidadeEspecials "
+                + " left outer join fetch p.curriculoExperiencias "
+                + " left outer join fetch p.curriculoFormacoes cf "
+                + " left outer join fetch cf.escolaridade " 
+                + " left outer join fetch p.curriculoQualificacoes "
+                + " left outer join fetch p.cidade c "
+                + " left outer join fetch c.estado uf "
                 + " where p.id = :id";
         Curriculo c = (Curriculo) entityManager.createQuery(hql)
                 .setParameter("id", id)
@@ -44,16 +44,16 @@ public class CurriculoService extends Service<Curriculo>{
     public List<Curriculo> findForTable(TableRequest request) {
         String hql = "select t from Curriculo t "
                 + " inner join fetch t.pessoa p "
-                + " left join fetch p.cor "
-                + " inner join fetch p.escolaridade "
-                + " left join fetch p.estadoCivil "
-                + " left join fetch p.necessidadeEspecials "
-                + " left join fetch p.curriculoExperiencias "
-                + " left join fetch p.curriculoFormacoes cf "
-                + " left join fetch cf.escolaridade "
-                + " left join fetch p.curriculoQualificacoes "
-                + " inner join fetch p.cidade c "
-                + " inner join fetch c.estado uf ";
+                + " left outer join fetch p.cor "
+                + " left outer join fetch p.escolaridade "
+                + " left outer join fetch p.estadoCivil "
+                + " left outer join fetch p.necessidadeEspecials "
+                + " left outer join fetch p.curriculoExperiencias "
+                + " left outer join fetch p.curriculoFormacoes cf "
+                + " left outer join fetch cf.escolaridade "
+                + " left outer join fetch p.curriculoQualificacoes "
+                + " left outer join fetch p.cidade c "
+                + " left outer join fetch c.estado uf ";
         hql+= request.applyFilter("pessoaId");     
         hql+= request.applyOrder("pessoaId");        
         Query q = entityManager.createQuery(hql);
