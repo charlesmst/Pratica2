@@ -2,8 +2,8 @@
     "inicial": "folhacalculada",
     "menus": [
         {
-            "title":"Folha de pagamento",
-            "links": [                
+            "title": "Folha de pagamento",
+            "links": [
                 {
                     "link": "tabela",
                     "title": "Tabelas",
@@ -23,57 +23,57 @@
                     "link": "folhacalculada",
                     "title": "Folhas de pagamento",
                     "icon": "folha"
-                }                              
+                }
             ]
         },
         {
-            "title":"Ficha funcional",
+            "title": "Ficha funcional",
             "links": [
                 {
-                "link": "ficha",
-                        "title": "Ficha Funcional",
-                        "icon": "ficha"
+                    "link": "ficha",
+                    "title": "Ficha Funcional",
+                    "icon": "ficha"
                 },
                 {
-                "link": "empresa",
-                        "title": "Empresas",
-                        "icon": "empresa"
+                    "link": "empresa",
+                    "title": "Empresas",
+                    "icon": "empresa"
                 },
                 {
-                "link": "unidade",
-                        "title": "Unidades",
-                        "icon": "unidade"
+                    "link": "unidade",
+                    "title": "Unidades",
+                    "icon": "unidade"
                 },
                 {
                     "link": "cbo",
-                    "title": "Cbos",
+                    "title": "CBOS",
                     "icon": "cbo"
                 },
-                { "link": "cargo",
-                   "title": "Cargos",
-                   "icon": "cargos"
+                {
+                    "link": "cargo",
+                    "title": "Cargos",
+                    "icon": "cargos"
                 },
                 {
-                "link": "qualificacao",
-                        "title": "Qualificações",
-                        "icon": "qualificacao"
+                    "link": "qualificacao",
+                    "title": "Qualificações",
+                    "icon": "qualificacao"
                 },
                 {
-                "link": "funcionario-acidente",
-                        "title": "Acidentes de trabalho",
-                        "icon": "acidente"
+                    "link": "funcionario-acidente",
+                    "title": "Acidentes de Trabalho",
+                    "icon": "acidente"
                 },
                 {
-                "link": "sindicato",
-                        "title": "Sindicatos",
-                        "icon": "sindicato"
-                }                           
+                    "link": "sindicato",
+                    "title": "Sindicatos",
+                    "icon": "sindicato"
+                }
             ]
         },
         {
-            "title":"Recrutamento",
+            "title": "Recrutamento",
             "links": [
-                
                 {
                     "link": "necessidade-pessoa",
                     "title": "Necessidade de Pessoa",
@@ -102,17 +102,14 @@
             ]
         },
         {
-            "title":"Cargos",
+            "title": "Cargos",
             "links": [
-                
                 {
                     "link": "faixasalarial",
-                    "title": "Faixas salariais",
+                    "title": "Faixas Salariais",
                     "icon": "faixa"
                 }
             ]
         }
     ]
 }
-
-

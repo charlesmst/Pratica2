@@ -2,22 +2,22 @@
     "inicial": "login",
     "menus": [
         {
-            "title":"Site",
+            "title": "Site",
             "links": [
                 {
                     "link": "vagas",
-                    "title": "Vagas em aberto",
-                    "icon": "dashboard"
+                    "title": "Vagas em Aberto",
+                    "icon": "vagas"
                 },
                 {
                     "link": "login",
                     "title": "Login",
-                    "icon": "dashboard"
+                    "icon": "login"
                 },
                 {
                     "link": "usuarioadd",
                     "title": "Cadastre-se",
-                    "icon": "dashboard"
+                    "icon": "user"
                 }
             ]
         }

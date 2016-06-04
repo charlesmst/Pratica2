@@ -2,7 +2,7 @@
     "inicial": "menu",
     "menus": [
         {
-            "title":"Gestor",
+            "title": "Gestor",
             "links": [
                 {
                     "link": "menu",
