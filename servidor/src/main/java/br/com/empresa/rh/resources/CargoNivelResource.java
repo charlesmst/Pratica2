@@ -2,6 +2,7 @@ package br.com.empresa.rh.resources;
 
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.Cargo;
 import br.com.empresa.rh.service.CargoNivelService;
 import br.com.empresa.rh.model.CargoNivel;
 import br.com.empresa.rh.model.request.TableRequest;
@@ -67,6 +68,15 @@ public class CargoNivelResource {
         return m;
     }
 
+      @GET
+    @Path("cargo/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CargoNivel> findByCargo(@PathParam("id") int id) {
+        Cargo c = new Cargo();
+        c.setId(id);
+        List<CargoNivel> m = CargoNivelService.findByCargo(c);
+        return m;
+    }
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     public void insert(CargoNivel m) {

@@ -101,12 +101,10 @@ public class AuthorizeResource {
     public Response generateToken(UsuarioSenha user) {
 
         Usuario u = usuarioService.pessoaUsuario(user.getUsuario());
+        
         if (u != null && u.getSenha().equals(user.getSenha())) {
-            String key = SecurityFilter.encodeAuthorize(u.getPessoaId() + "", u.getNivel() + "");
-            LoginResponse r = new LoginResponse(key, u.getPessoa().getNome());
-            r.setEmail(u.getPessoa().getEmail());
-            r.setFoto("");
-            return Response.ok(r).build();
+
+            return Response.ok(utilitarios.loginResponseFor(u)).build();
         }
         throw new ApiException("Usuário ou senha incorreto");
 

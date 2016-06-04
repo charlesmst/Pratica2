@@ -5,7 +5,10 @@
  */
 package br.com.empresa.rh.util;
 
+import br.com.empresa.rh.filter.SecurityFilter;
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.Usuario;
+import br.com.empresa.rh.model.response.LoginResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,6 +61,14 @@ public class Utilitarios {
     }
     private SecurityContext secutiryContext;
 
+    public LoginResponse loginResponseFor(Usuario u) {
+        String key = SecurityFilter.encodeAuthorize(u.getPessoaId() + "", u.getNivel() + "");
+        LoginResponse r = new LoginResponse(key, u.getPessoa().getNome());
+        r.setEmail(u.getPessoa().getEmail());
+        r.setFoto("");
+        return r;
+    }
+
     public void setSecutiryContext(SecurityContext secutiryContext) {
         this.secutiryContext = secutiryContext;
     }
@@ -67,8 +78,9 @@ public class Utilitarios {
     }
 
     public int nivelUsuario() {
-        if(secutiryContext == null)
+        if (secutiryContext == null) {
             return 0;
+        }
         for (int i = 5; i >= 1; i--) {
             if (secutiryContext.isUserInRole(i + "")) {
                 return i;
@@ -112,7 +124,8 @@ public class Utilitarios {
         d = d.withDayOfMonth(1);
         return d.toDate();
     }
-     public Date dataPeriodoFim(Date data) {
+
+    public Date dataPeriodoFim(Date data) {
         LocalDate d = new LocalDate(data);
         d = d.withDayOfMonth(1).plusMonths(1).minusDays(1);
         return d.toDate();
