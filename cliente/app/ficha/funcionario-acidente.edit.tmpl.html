@@ -16,7 +16,7 @@
 
 
         <md-card-content>
-            <h2>FuncionarioAcidente</h2>
+            <h2>Acidentes dos Colaboradores</h2>
             <md-content>
                                               
                 <md-input-container class="md-block" flex-gt-xs>
@@ -30,7 +30,7 @@
                 </md-input-container>
                 
                  <md-input-container class="md-block" flex-gt-xs>
-                    <label>Perda de capacidade</label>
+                    <label>Perda de Capacidade</label>
                     <input  name="perdaPorcentagem" ng-model="crudVm.entity.perdaPorcentagem" >
                 </md-input-container>
                 
@@ -38,9 +38,10 @@
                     <label>Descrição</label>
                     <input  name="descricao" ng-model="crudVm.entity.descricao" md-maxlength="2000" required >
                 </md-input-container>
-                
+                <label>Grau da Lesão</label>
+                <md-content>
                 <md-input-container class="md-input-has-value">
-                                    <label>Grau da lesão</label>
+                                    
                                     <md-radio-group ng-model="crudVm.entity.nivelLesao">
                                         <md-radio-button value="1">Leve</md-radio-button>
                                         <md-radio-button value="2">Médio</md-radio-button>
@@ -48,19 +49,19 @@
                                        
                                     </md-radio-group>
                                     <div ng-messages="formEdit.nome.$error">
-                                        <div ng-message="required">Campo obrigatório.</div>
+                                        <div ng-message="required">Campo Obrigatório.</div>
                                     </div>
 
                                 </md-input-container>
-                
+                </md-content>
                 <div layout-gt-xs="row">
                 
-                    <md-datepicker ng-model="crudVm.entity.dataIniciodataOcorrencia" md-placeholder="Data do ocorrido.">
+                    <md-datepicker ng-model="crudVm.entity.dataIniciodataOcorrencia" md-placeholder="Data do Ocorrido.">
                        
                     </md-datepicker>
                 </div>
                 
-                </erjhgorhgoh
+                </erjhgorhgoh>
 
             </md-content>
 

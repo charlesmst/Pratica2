@@ -13,7 +13,7 @@
     vm.onReorder = onReorder;
     vm.list = []
     vm.selectedItems = []
-    Workspace.title = "FuncionarioAcidente"
+    Workspace.title = "Acidentes dos Colaboradores"
     Workspace.enableSearch(onFilter)
 
     vm.query = {
