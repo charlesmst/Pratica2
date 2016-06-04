@@ -204,7 +204,9 @@
                 resolve: {
                     DadosFaixa: function () {
                         return {};
-
+                    },
+                    funcionarioAtivo:function(){
+                        vm.funcionarioAtivo
                     }
                 }
 
@@ -228,6 +230,9 @@
                 resolve: {
                     DadosFaixa: function () {
                         return angular.copy(Faixa);
+                    },
+                    funcionarioAtivo:function(){
+                        vm.funcionarioAtivo
                     }
                 }
 

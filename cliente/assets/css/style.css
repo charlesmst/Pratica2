@@ -165,3 +165,37 @@ md-sidenav ng-md-icon {
     .md-datepicker-allign.md-datepicker-button.md-icon-button {
       margin-right: 0;
     }
+    
+    
+    
+    .foto{
+        float: left;
+        width: 120px;
+        display: block;
+        overflow: hidden;
+        position: relative;   
+        border: 1px solid #000;
+    }
+    .alterar_foto{
+        position: absolute; 
+        width: 100%;
+        padding: 10px 0; 
+        background: #000;
+        font-size: 14px; 
+        display: block; 
+        bottom: -40px; 
+        float: left; 
+        opacity: 0.5; 
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.5s ease 0s; 
+    }
+    .alterar_foto span{
+        width: 100%;
+        float: left; 
+        color: #fff;
+        display: block; 
+    }
+    .foto:hover .alterar_foto{
+        bottom:0; 
+    }
