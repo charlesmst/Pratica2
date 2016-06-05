@@ -1,0 +1,54 @@
+<md-dialog aria-label="Cargo" style="width:90%" ng-cloak>
+
+    <form name="formModal" ng-submit="modalVm.save($event, formModal.$valid)">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Manutenção de Atestados e Faltas</h2>
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+        <md-card>
+
+            <md-card-content>
+                <md-datepicker ng-model="modalVm.entity.dataInicio" required md-placeholder="Data Inicial"></md-datepicker>
+                <md-datepicker ng-model="modalVm.entity.dataFinal" required md-placeholder="Data Final"></md-datepicker>
+                <md-datepicker ng-model="modalVm.entity.dataRecebimento" required md-placeholder="Data de Recebimento"></md-datepicker>
+
+            </md-card-content>
+
+            <div layout="row">
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Motivo</label>
+                    <md-select ng-model="modalVm.entity.motivoFalta">
+                        <md-option ng-repeat="item in modalVm.motivosFalta" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.motivoFalta.id">
+                            {{item.nome}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <md-input-container ng-show="modalVm.entity.motivoFalta.atestado">
+                <label>Atestado</label>
+                <input type="text" ng-required="modalVm.entity.motivoFalta.atestado" ng-model="modalVm.entity.atestado" />
+            </md-input-container>
+
+            <md-input-container ng-show="modalVm.entity.motivoFalta.atestado">
+                <label>Documento</label>
+                <input type="text"  ng-required="modalVm.entity.motivoFalta.atestado" ng-model="modalVm.entity.documentoCid" />
+            </md-input-container>
+        </md-card>
+        <md-dialog-actions layout="row">
+
+            <span flex></span>
+            <md-button type="submit" class="md-primary md-raised" style="margin-right:20px;">
+                Salvar
+            </md-button>
+            <md-button ng-click="modalVm.cancel($event)" style="margin-right:20px;">
+                Fechar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+
+</md-dialog>

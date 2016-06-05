@@ -1,70 +1,49 @@
-<form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
+<md-dialog aria-label="Cargo" style="width:90%" ng-cloak>
 
-    <div class="md-fab-bottom-right app-fixed-bottom-right">
+    <form name="formModal" ng-submit="modalVm.save($event, formModal.$valid)" novalidate>
 
-        <button type="submit" class="md-button md-fab"  aria-label="save" >
-            <ng-md-icon icon="save"></ng-md-icon>
-        </button>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Manutenção de Acidentes de trabalho</h2>
+                <span flex></span>
 
-        <md-button class="md-fab "  aria-label="Delete" ng-click="crudVm.cancel($event)" >
-            <ng-md-icon icon="cancel"></ng-md-icon>
-        </md-button>
-    </div>
+            </div>
+        </md-toolbar>
+        <md-card>
 
+            <md-card-content>
+                <md-datepicker ng-model="modalVm.entity.dataOcorrencia" required md-placeholder="Data da ocorrencia"></md-datepicker>
+            </md-card-content>
 
-    <md-card >
-
-
-        <md-card-content>
-            <h2>Acidentes dos Colaboradores</h2>
-            <md-content>
-                                              
+            <div layout="row">
                 <md-input-container class="md-block" flex-gt-xs>
-                    <label>Cargo</label>
-                    <md-select ng-model="crudVm.entity.cargo">
-                        <md-option ng-repeat="item in crudVm.cargos" ng-value="{{item}}" ng-selected="item.id===crudVm.entity.cargoFuncionario.id" >
-                            {{item.nome}}
-                        </md-option>
-                    </md-select>
-
+                    <label>Nível de lesão</label>
+                    <input name="nivel" type="number" ng-model="modalVm.entity.nivelLesao" ng-required="true" min="1" max="3">
                 </md-input-container>
-                
-                 <md-input-container class="md-block" flex-gt-xs>
-                    <label>Perda de Capacidade</label>
-                    <input  name="perdaPorcentagem" ng-model="crudVm.entity.perdaPorcentagem" >
-                </md-input-container>
-                
                 <md-input-container class="md-block" flex-gt-xs>
-                    <label>Descrição</label>
-                    <input  name="descricao" ng-model="crudVm.entity.descricao" md-maxlength="2000" required >
+                    <label>Perda</label>
+                    <input name="perda" type="text" ng-model="modalVm.entity.perdaPorcentagem" ng-required="true" minlength="0" maxlength="100"
+                        ui-percentage-mask>
                 </md-input-container>
-                <label>Grau da Lesão</label>
-                <md-content>
-                <md-input-container class="md-input-has-value">
-                                    
-                                    <md-radio-group ng-model="crudVm.entity.nivelLesao">
-                                        <md-radio-button value="1">Leve</md-radio-button>
-                                        <md-radio-button value="2">Médio</md-radio-button>
-                                        <md-radio-button value="3">Grave</md-radio-button>
-                                       
-                                    </md-radio-group>
-                                    <div ng-messages="formEdit.nome.$error">
-                                        <div ng-message="required">Campo Obrigatório.</div>
-                                    </div>
 
-                                </md-input-container>
-                </md-content>
-                <div layout-gt-xs="row">
-                
-                    <md-datepicker ng-model="crudVm.entity.dataIniciodataOcorrencia" md-placeholder="Data do Ocorrido.">
-                       
-                    </md-datepicker>
-                </div>
-                
-                </erjhgorhgoh>
+            </div>
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Descrição</label>
+                <input name="descricao" type="textnumber" ng-model="modalVm.entity.descricao" ng-required="true"/>
+            </md-input-container>
 
-            </md-content>
+        </md-card>
+        <md-dialog-actions layout="row">
 
-        </md-card-content>
-    </md-card>
-</form>
+            <span flex></span>
+            <md-button type="submit" class="md-primary md-raised" style="margin-right:20px;">
+                Salvar
+            </md-button>
+            <md-button ng-click="modalVm.cancel($event)" style="margin-right:20px;">
+                Fechar
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+
+</md-dialog>

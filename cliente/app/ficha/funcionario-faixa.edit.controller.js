@@ -11,7 +11,7 @@
             vm.entity.dataInicio = Workspace.toDate(vm.entity.dataInicio)
         vm.save = save;
         vm.cancel = cancel;
-        
+
         console.log(funcionarioAtivo)
         loadCargoNivel()
 
@@ -21,9 +21,17 @@
             console.log("Saving", vm.entity)
             $mdDialog.hide(vm.entity)
         }
-        function loadCargoNivel(){
-            CargoNivel.doCargo({"cargoid":funcionarioAtivo.cargo.id}).$promise.then(function(r){
+        function loadCargoNivel() {
+            CargoNivel.doCargo({ "cargoid": funcionarioAtivo.cargo.id }).$promise.then(function (r) {
                 vm.cargosNiveis = r
+                console.log(vm.entity)
+                if (vm.entity.hasOwnProperty("cargoNivel"))
+                    angular.forEach(vm.cargosNiveis, function (value) {
+                        if (value.id == vm.entity.cargoNivel.id) {
+                            vm.entity.cargoNivel = value;
+                            console.log("Alterou")
+                        }
+                    })
             })
         }
         function cancel() {

@@ -4,7 +4,7 @@
 
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Manutenção de Nível e Salário</h2>
+                <h2>Manutenção de Advertência</h2>
                 <span flex></span>
 
             </div>
@@ -12,28 +12,26 @@
         <md-card>
 
             <md-card-content>
-                <md-datepicker ng-model="modalVm.entity.dataInicio" required md-placeholder="Início de Vigência"></md-datepicker>
+                <md-datepicker ng-model="modalVm.entity.dataOcorrencia" required md-placeholder="Data da ocorrencia"></md-datepicker>
             </md-card-content>
 
             <div layout="row">
                 <md-input-container class="md-block" flex-gt-xs>
-                    <label>Nível</label>
-                    <md-select ng-model="modalVm.entity.cargoNivel">
-                        <md-option ng-repeat="item in modalVm.cargosNiveis" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.cargoNivel.id">
+                    <label>Advertencia</label>
+                    <md-select ng-model="modalVm.entity.advertenciaTipo">
+                        <md-option ng-repeat="item in modalVm.advertencias" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.advertenciaTipo.id">
                             {{item.nome}}
                         </md-option>
                     </md-select>
                 </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-xs>
-                    <label>Faixa Salarial</label>
-                    <md-select ng-model="modalVm.entity.faixaSalarial">
-                        <md-option ng-repeat="item in modalVm.entity.cargoNivel.faixaSalarials" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.cargoNivel.id">
-                            {{item.nome}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
             </div>
+
+            <md-input-container class="md-block" flex-gt-xs>
+                <label>Descrição</label>
+                <input name="descricao" type="textnumber" ng-model="modalVm.entity.descricao" ng-required="true"/>
+            </md-input-container>
+
         </md-card>
         <md-dialog-actions layout="row">
 

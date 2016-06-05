@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Pessoa', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil', 'Escolaridade', 'Cidade', 'Banco', 'TipoSanguineo', 'VinculoEmpregaticio', FuncionarioEditController]);
+    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Pessoa', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil', 'Escolaridade', 'Cidade', 'Banco', 'TipoSanguineo', 'VinculoEmpregaticio', 'NecessidadeEspecial', FuncionarioEditController]);
 
     var state = "ficha"
-    function FuncionarioEditController($mdToast, $http, Pessoa, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil, Escolaridade, Cidade, Banco, TipoSanguineo, VinculoEmpregaticio) {
+    function FuncionarioEditController($mdToast, $http, Pessoa, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil, Escolaridade, Cidade, Banco, TipoSanguineo, VinculoEmpregaticio, NecessidadeEspecial) {
         var vm = this;
         vm.entity = {}
         vm.mostraAddCargo = mostraAddCargo;
@@ -15,6 +15,16 @@
         vm.mostraAddFerias = mostraAddFerias
         vm.mostraEditFaixa = mostraEditFaixa
         vm.mostraAddFaixa = mostraAddFaixa
+        vm.mostraEditDependente = mostraEditDependente
+        vm.mostraAddDependente = mostraAddDependente
+        vm.mostraEditFalta = mostraEditFalta
+        vm.mostraAddFalta = mostraAddFalta
+        vm.mostraEditAcidente = mostraEditAcidente
+        vm.mostraAddAcidente = mostraAddAcidente
+        vm.mostraEditAdvertencia = mostraEditAdvertencia
+        vm.mostraAddAdvertencia = mostraAddAdvertencia
+        vm.querySearchPessoa = querySearchPessoa
+        vm.querySearchNecessidade = querySearchNecessidade;
         vm.cor = []
         vm.escolaridade = []
 
@@ -25,20 +35,25 @@
         loadBancos()
         loadTipoSanguineo()
         loadVinculos()
-
+        loadCores();
         Workspace.title = "Ficha Funcional";
         console.log($stateParams)
-        
+
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Pessoa.get({ id: $stateParams.id }).$promise.then(function (data) {
 
                 vm.entity = data
                 if (vm.entity.funcionario && vm.entity.funcionario.funcionarioCargos.length > 0)
                     vm.funcionarioAtivo = vm.entity.funcionario.funcionarioCargos[0]
+
+                vm.entity.necessidadeEspecials = vm.entity.necessidadeEspecials || []
             }))
 
-        } else
+        } else {
             vm.entity = new Pessoa()
+            vm.entity.necessidadeEspecials = vm.entity.necessidadeEspecials || []
+
+        }
         loadCor()
         vm.save = save;
         vm.cancel = cancel;
@@ -152,6 +167,47 @@
             })
         }
 
+
+        function mostraAddAcidente() {
+            $mdDialog.show({
+                controller: 'FuncionarioAcidenteEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-acidente.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosAcidente: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                .then(function (adicionado) {
+                    console.log("Resposta da modal", adicionado)
+
+                    if (!vm.funcionarioAtivo.funcionarioAcidentes)
+                        vm.funcionarioAtivo.funcionarioAcidentes = []
+                    vm.funcionarioAtivo.funcionarioAcidentes.push(adicionado)
+                });
+        }
+
+        function mostraEditAcidente(cargo) {
+            $mdDialog.show({
+                controller: 'FuncionarioAcidenteEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-acidente.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosAcidente: function () {
+                        return angular.copy(cargo);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(cargo, alterado)
+            })
+        }
         function mostraAddFerias() {
             $mdDialog.show({
                 controller: 'FuncionarioFeriasEditController as modalVm',
@@ -176,7 +232,7 @@
         }
 
         function mostraEditFerias(ferias) {
-            console.log ("mostraEditFerias",ferias)
+            console.log("mostraEditFerias", ferias)
             $mdDialog.show({
                 controller: 'FuncionarioFeriasEditController as modalVm',
                 templateUrl: 'app/ficha/funcionario-ferias.edit.tmpl.html',
@@ -193,8 +249,51 @@
                 angular.extend(ferias, alterado)
             })
         }
-        
-        
+
+
+
+        function mostraAddAdvertencia() {
+            $mdDialog.show({
+                controller: 'FuncionarioAdvertenciaEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-advertencia.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosAdvertencia: function () {
+                        return {};
+
+                    }
+                }
+
+            })
+                .then(function (adicionado) {
+                    console.log("Resposta da modal", adicionado)
+
+                    if (!vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos)
+                        vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos = []
+                    vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos.push(adicionado)
+                });
+        }
+
+        function mostraEditAdvertencia(Advertencia) {
+            console.log("mostraEditAdvertencia", Advertencia)
+            $mdDialog.show({
+                controller: 'FuncionarioAdvertenciaEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-advertencia.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosAdvertencia: function () {
+                        return angular.copy(Advertencia);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(Advertencia, alterado)
+            })
+        }
+
         function mostraAddFaixa() {
             $mdDialog.show({
                 controller: 'FuncionarioFaixaEditController as modalVm',
@@ -205,8 +304,8 @@
                     DadosFaixa: function () {
                         return {};
                     },
-                    funcionarioAtivo:function(){
-                        vm.funcionarioAtivo
+                    funcionarioAtivo: function () {
+                        return vm.funcionarioAtivo
                     }
                 }
 
@@ -221,7 +320,7 @@
         }
 
         function mostraEditFaixa(Faixa) {
-            console.log ("mostraEditFaixa",Faixa)
+            console.log("mostraEditFaixa", Faixa)
             $mdDialog.show({
                 controller: 'FuncionarioFaixaEditController as modalVm',
                 templateUrl: 'app/ficha/funcionario-faixa.edit.tmpl.html',
@@ -231,14 +330,95 @@
                     DadosFaixa: function () {
                         return angular.copy(Faixa);
                     },
-                    funcionarioAtivo:function(){
-                        vm.funcionarioAtivo
+                    funcionarioAtivo: function () {
+                        return vm.funcionarioAtivo
                     }
                 }
 
             }).then(function (alterado) {
                 console.log("Resposta da modal", alterado)
                 angular.extend(Faixa, alterado)
+            })
+        }
+
+        function mostraAddFalta() {
+            $mdDialog.show({
+                controller: 'FuncionarioFaltaEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-falta.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosFalta: function () {
+                        return {};
+                    }
+                }
+
+            })
+                .then(function (adicionado) {
+                    console.log("Resposta da modal", adicionado)
+
+                    if (!vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas)
+                        vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas = []
+                    vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas.push(adicionado)
+                });
+        }
+
+        function mostraEditFalta(Falta) {
+            console.log("mostraEditFalta", Falta)
+            $mdDialog.show({
+                controller: 'FuncionarioFaltaEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-falta.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosFalta: function () {
+                        return angular.copy(Falta);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(Falta, alterado)
+            })
+        }
+
+        function mostraAddDependente() {
+            $mdDialog.show({
+                controller: 'FuncionarioDependenteEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-dependente.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosDependente: function () {
+                        return {};
+                    }
+                }
+
+            })
+                .then(function (adicionado) {
+
+                    if (!vm.entity.funcionario.dependentes)
+                        vm.entity.funcionario.dependentes = []
+                    vm.entity.funcionario.dependentes.push(adicionado)
+                });
+        }
+
+        function mostraEditDependente(Dependente) {
+            console.log("mostraEditDependente", Dependente)
+            $mdDialog.show({
+                controller: 'FuncionarioDependenteEditController as modalVm',
+                templateUrl: 'app/ficha/funcionario-dependente.edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                resolve: {
+                    DadosDependente: function () {
+                        return angular.copy(Dependente);
+                    }
+                }
+
+            }).then(function (alterado) {
+                console.log("Resposta da modal", alterado)
+                angular.extend(Dependente, alterado)
             })
         }
         function loadCor() {
@@ -294,6 +474,22 @@
             EstadoCivil.query().$promise.then(function (resposta) {
                 vm.estadosCivis = resposta;
             })
+        }
+
+        function loadCores() {
+            Cor.query().$promise.then(function (resposta) {
+                vm.cores = resposta;
+            })
+        }
+        function querySearchNecessidade(query) {
+            return NecessidadeEspecial.query({
+                filter: query
+            }).$promise;
+        }
+        function querySearchPessoa(query) {
+            return Pessoa.query({
+                filter: query
+            }).$promise;
         }
     }
 
