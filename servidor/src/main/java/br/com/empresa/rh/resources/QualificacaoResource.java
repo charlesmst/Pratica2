@@ -77,8 +77,7 @@ public class QualificacaoResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
     public void update(@PathParam("id") int id, Qualificacao entity) {
-        QualificacaoService.update(entity);
-		
+        QualificacaoService.update(entity);		
     }
 
     @DELETE

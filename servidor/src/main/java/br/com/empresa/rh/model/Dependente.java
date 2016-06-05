@@ -1,6 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Folha;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,23 +26,27 @@ import javax.persistence.TemporalType;
 )
 public class Dependente implements java.io.Serializable {
 
+    @JsonView({Folha.FuncionarioFicha.class})
     private int id;
     private Funcionario funcionario;
+    @JsonView({Folha.FuncionarioFicha.class})
     private Pessoa pessoa;
+    @JsonView({Folha.FuncionarioFicha.class})
     private Date dataInicial;
+    @JsonView({Folha.FuncionarioFicha.class})
     private Date dataFim;
 
     public Dependente() {
     }
 
-    public Dependente(int id, Funcionario funcionario, Pessoa pessoa,Date dataInicial) {
+    public Dependente(int id, Funcionario funcionario, Pessoa pessoa, Date dataInicial) {
         this.id = id;
         this.funcionario = funcionario;
         this.pessoa = pessoa;
         this.dataInicial = dataInicial;
     }
 
-    public Dependente(int id, Funcionario funcionario, Pessoa pessoa,  Date dataInicial, Date dataFim) {
+    public Dependente(int id, Funcionario funcionario, Pessoa pessoa, Date dataInicial, Date dataFim) {
         this.id = id;
         this.funcionario = funcionario;
         this.pessoa = pessoa;
@@ -79,7 +85,6 @@ public class Dependente implements java.io.Serializable {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-
 
     @Temporal(TemporalType.DATE)
     @Column(name = "data_inicial", nullable = false, length = 13)

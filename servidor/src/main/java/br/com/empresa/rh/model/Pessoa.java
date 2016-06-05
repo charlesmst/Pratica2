@@ -81,7 +81,7 @@ public class Pessoa implements java.io.Serializable {
     private Funcionario funcionario;
     private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
     private Usuario usuario;
-    @JsonView({Recrutamento.Curriculo.class})
+    @JsonView({Recrutamento.Curriculo.class,Folha.FuncionarioFicha.class})
     private Set<NecessidadeEspecial> necessidadeEspecials = new HashSet<NecessidadeEspecial>(0);
     private Set<Candidato> candidatos = new HashSet<Candidato>(0);
     private Set<Pessoa> pessoasForPessoaId = new HashSet<Pessoa>(0);
@@ -363,7 +363,7 @@ public class Pessoa implements java.io.Serializable {
         this.usuario = usuario;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "pessoa_has_necessidade_especial", schema = "public", joinColumns = {
         @JoinColumn(name = "pessoa_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "necessidade_especial_id", nullable = false, updatable = false)})

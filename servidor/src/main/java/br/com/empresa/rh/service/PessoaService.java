@@ -1,12 +1,15 @@
 package br.com.empresa.rh.service;
 
+import br.com.empresa.rh.model.Dependente;
 import br.com.empresa.rh.model.Ferias;
 import br.com.empresa.rh.model.Funcionario;
 import br.com.empresa.rh.model.FuncionarioAcidente;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.FuncionarioCargoHasAdvertenciaTipo;
 import br.com.empresa.rh.model.FuncionarioCargoHasMotivoFalta;
+import br.com.empresa.rh.model.FuncionarioCargoHasMotivoFaltaId;
 import br.com.empresa.rh.model.FuncionarioFaixa;
+import br.com.empresa.rh.model.FuncionarioQualificacao;
 import br.com.empresa.rh.model.Pessoa;
 import br.com.empresa.rh.model.request.TableRequest;
 import java.util.HashSet;
@@ -30,13 +33,17 @@ public class PessoaService extends Service<Pessoa> {
     public List<Pessoa> findForTable(TableRequest request) {
 
         String hql = "select t from Pessoa t "
-                + "left join fetch Cidade c "
-                + "left join fetch Escolaridade e";
-        hql += request.applyFilter("id", "nome");
-        hql += request.applyOrder("id", "nome");
+                + "left join fetch t.cidade c "
+                + "left join fetch t.escolaridade e";
+        if (request != null) {
+            hql += request.applyFilter("id", "nome");
+            hql += request.applyOrder("id", "nome");
+        }
         Query q = entityManager.createQuery(hql);
-        request.applyPagination(q);
-        request.applyParameters(q);
+        if (request != null) {
+            request.applyPagination(q);
+            request.applyParameters(q);
+        }
         List<Pessoa> l = q.getResultList();
         return l;
     }
@@ -55,12 +62,17 @@ public class PessoaService extends Service<Pessoa> {
 
     @Transactional
     public void save(Pessoa pessoa) {
-        boolean insertFuncionario = pessoa.getFuncionario() != null && pessoa.getFuncionario().getPessoaId() == 0;
         if (pessoa.getFuncionario() != null) {
 
             Funcionario funcionario = pessoa.getFuncionario();
             funcionario.setPessoa(pessoa);
             funcionario.setPessoaId(pessoa.getId());
+
+            if (funcionario.getDependentes() != null) {
+                for (Dependente dependente : funcionario.getDependentes()) {
+                    dependente.setFuncionario(funcionario);
+                }
+            }
             for (FuncionarioCargo funcionarioCargo : funcionario.getFuncionarioCargos()) {
                 funcionarioCargo.setFuncionario(funcionario);
                 if (funcionarioCargo.getSindicato() != null && funcionarioCargo.getSindicato().getId() == 0) {
@@ -77,6 +89,15 @@ public class PessoaService extends Service<Pessoa> {
                 } else {
                     funcionarioCargo.setFeriases(new HashSet<Ferias>());
                 }
+
+                if (funcionarioCargo.getFuncionarioQualificacaos()!= null) {
+                    for (FuncionarioQualificacao funcionarioQualificacao : funcionarioCargo.getFuncionarioQualificacaos()) {
+                        funcionarioQualificacao.setFuncionarioCargo(funcionarioCargo);
+                    }
+                } else {
+                    funcionarioCargo.setFuncionarioQualificacaos(new HashSet<FuncionarioQualificacao>());
+                }
+
                 if (funcionarioCargo.getFuncionarioAcidentes() != null) {
                     for (FuncionarioAcidente funcionarioAcidente : funcionarioCargo.getFuncionarioAcidentes()) {
                         funcionarioAcidente.setFuncionarioCargo(funcionarioCargo);
@@ -106,7 +127,6 @@ public class PessoaService extends Service<Pessoa> {
                     funcionarioCargo.setFuncionarioFaixas(new HashSet<FuncionarioFaixa>());
 
                 }
-
             }
         }
         if (pessoa.getId() == 0) {
@@ -130,6 +150,9 @@ public class PessoaService extends Service<Pessoa> {
     @Override
     public Pessoa findById(Object id) {
         return (Pessoa) entityManager.createQuery("from Pessoa p "
+                + " left outer join fetch p.pessoasForMaeId pessoasForMaeId "
+                + " left outer join fetch p.pessoaByPessoaId pessoaByPessoaId"
+                + " left outer join fetch p.necessidadeEspecials necessidadeEspecials"
                 + " left outer join fetch p.funcionario f  "
                 + " left outer join fetch p.escolaridade es"
                 + " left outer join fetch f.banco b"
@@ -139,14 +162,18 @@ public class PessoaService extends Service<Pessoa> {
                 + " left outer join fetch f.vinculoEmpregaticio ve"
                 + " left outer join fetch f.tipoSanguineo ts"
                 + " left outer join fetch f.dependentes de "
+                + " left outer join fetch de.pessoa "
                 + " left outer join fetch f.funcionarioCargos fc "
+                + " left outer join fetch fc.funcionarioCargoHasMotivoFaltas funcionarioCargoHasMotivoFaltas"
+                + " left outer join fetch funcionarioCargoHasMotivoFaltas.motivoFalta motivoFalta "
                 + " left outer join fetch fc.cargo ce"
                 + " left outer join fetch fc.sindicato sind"
                 + " left outer join fetch ce.cbo cbo"
                 + " left outer join fetch fc.demissaoTipo dt "
                 + " left outer join fetch fc.unidade un"
                 + " left outer join fetch un.empresa emp"
-                + " left outer join fetch fc.funcionarioCargoHasAdvertenciaTipos fcat"
+                + " left outer join fetch fc.funcionarioCargoHasAdvertenciaTipos fcat "
+                + " left outer join fetch fcat.advertenciaTipo advertenciaTipo "
                 + " left outer join fetch fc.feriases ferias"
                 + " left outer join fetch fc.funcionarioAcidentes fa"
                 + " left outer join fetch fc.funcionarioQualificacaos funcionarioQualificacaos"

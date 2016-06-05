@@ -131,7 +131,7 @@ public class Funcionario implements java.io.Serializable {
         this.agencia = agencia;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionario")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionario",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<Dependente> getDependentes() {
         return this.dependentes;
     }

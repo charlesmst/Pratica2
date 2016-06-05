@@ -25,6 +25,8 @@ import javax.persistence.TemporalType;
 @Table(name = "funcionario_qualificacao", schema = "public"
 )
 
+@SequenceGenerator(name = "funcionario_qualificacao_seq", sequenceName = "funcionario_qualificacao_seq", initialValue = 1, allocationSize = 1)
+
 public class FuncionarioQualificacao implements java.io.Serializable {
 
     private int id;
@@ -41,21 +43,8 @@ public class FuncionarioQualificacao implements java.io.Serializable {
     public FuncionarioQualificacao() {
     }
 
-    public FuncionarioQualificacao(int id, FuncionarioCargo funcionarioCargo, Qualificacao qualificacao) {
-        this.id = id;
-        this.funcionarioCargo = funcionarioCargo;
-        this.qualificacao = qualificacao;
-    }
-
-    public FuncionarioQualificacao(int id, FuncionarioCargo funcionarioCargo, Qualificacao qualificacao, String certificado, Date validade) {
-        this.id = id;
-        this.funcionarioCargo = funcionarioCargo;
-        this.qualificacao = qualificacao;
-        this.certificado = certificado;
-        this.validade = validade;
-    }
-
     @Id
+    @GeneratedValue(generator = "funcionario_qualificacao_seq", strategy = GenerationType.SEQUENCE)
 
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {

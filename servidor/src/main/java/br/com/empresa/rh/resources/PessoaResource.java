@@ -54,6 +54,7 @@ public class PessoaResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(Folha.FuncionarioFicha.class)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
         List<Pessoa> m = pessoaService.findForTable(request);

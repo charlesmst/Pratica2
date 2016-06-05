@@ -10,11 +10,8 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class FuncionarioCargoHasMotivoFaltaId  implements java.io.Serializable {
-
-
      private int funcionarioCargoId;
      private int motivoFaltaId;
-
     public FuncionarioCargoHasMotivoFaltaId() {
     }
 

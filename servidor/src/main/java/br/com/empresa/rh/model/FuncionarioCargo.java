@@ -259,7 +259,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.funcionarioFaixas = funcionarioFaixas;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
     public Set<FuncionarioQualificacao> getFuncionarioQualificacaos() {
         return this.funcionarioQualificacaos;
     }
