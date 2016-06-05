@@ -1,16 +1,18 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioController', ['Funcionario', '$state', 'Workspace', '$q', FuncionarioController]);
+    angular.module('app').controller('FuncionarioController', ['Pessoa', '$state', 'Workspace', '$q', 'config', FuncionarioController]);
 
-	var state = "ficha"
-	
-    function FuncionarioController(Funcionario, $state, Workspace, $q) {
+    var state = "ficha"
+
+    function FuncionarioController(Pessoa, $state, Workspace, $q, config) {
         var vm = this;
         vm.showDelete = showDelete;
         vm.showAdd = showAdd;
         vm.showEdit = showEdit;
         vm.onPaginate = onPaginate;
         vm.onReorder = onReorder;
+        vm.getImage = getImage;
+        vm.refresh = refresh;
         vm.list = []
         vm.selectedItems = []
         Workspace.title = "Funcionário"
@@ -20,7 +22,8 @@
             filter: "",
             order: 'id',
             limit: 10,
-            page: 1
+            page: 1,
+            somenteFuncionarios:1
         };
 
         load(vm.query)
@@ -40,15 +43,15 @@
             });
         }
         function showAdd() {
-            $state.go(state+"add")
+            $state.go(state + "add")
         }
 
         function showEdit(e, id) {
-            $state.go(state+"edit", {"id": id})
+            $state.go(state + "edit", { "id": id })
         }
 
         function load(query) {
-            vm.promise = Funcionario.query(query, success).$promise;
+            vm.promise = Pessoa.query(query, success).$promise;
             loadCount()
 
         }
@@ -58,25 +61,29 @@
         }
 
         function onPaginate(page, limit) {
-            load(angular.extend({}, vm.query, {page: page, limit: limit}));
+            load(angular.extend({}, vm.query, { page: page, limit: limit }));
         }
 
         function onReorder(order) {
-            load(angular.extend(vm.query, {order: order}));
+            load(angular.extend(vm.query, { order: order }));
         }
 
         function onFilter(filter) {
-            load(angular.extend(vm.query, {'filter': filter, page: 1}))
+            load(angular.extend(vm.query, { 'filter': filter, page: 1 }))
 
         }
         function loadCount() {
-            Funcionario.count(vm.query).$promise.then(function (e) {
+            Pessoa.count(vm.query).$promise.then(function (e) {
                 vm.count = e.count
             });
 
         }
-
-
+        function getImage(row) {
+            return config.imageUrl + "/" + (row.imagem || "0.jpg")
+        }
+        function refresh(){
+            load(vm.query);
+        }
     }
 
 })()

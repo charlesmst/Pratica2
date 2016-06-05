@@ -1,35 +1,52 @@
 <div class="md-fab-bottom-right app-fixed-bottom-right fade">
-    <md-button class="md-fab flipInX flipOutX" ng-show="crudVm.selectedItems.length" aria-label="Delete" ng-click="crudVm.showDelete($event)" >
+    <md-button class="md-fab flipInX flipOutX" ng-show="crudVm.selectedItems.length" aria-label="Delete" ng-click="crudVm.showDelete($event)">
         <ng-md-icon icon="delete"></ng-md-icon>
     </md-button>
-    <md-button class="md-fab "  aria-label="Add" ng-click="crudVm.showAdd($event)">
+    <md-button class="md-fab " aria-label="Add" ng-click="crudVm.showAdd($event)">
         <ng-md-icon icon="add"></ng-md-icon>
     </md-button>
 </div>
 <md-card>
+
+    <md-checkbox ng-model="crudVm.query.somenteFuncionarios" ng-true-value="1" ng-false-value="0" ng-change="crudVm.refresh()">
+    Somente Funcionarios
+        </md-checkbox>
+</md-card>
+<md-card>
     <md-table-container>
-        <table md-table md-progress="promise"  md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise" >
+        <table md-table md-progress="promise" md-row-select ng-model="crudVm.selectedItems" md-progress="crudVm.promise">
             <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
                 <tr md-row>
-                    <th md-column md-numeric ></th>
-                    <th md-column md-order-by="p.nome"><span>Nome</span></th>             
+                    <th md-column md-numeric></th>
+
+                    <th md-column style="width:100px" md-numeric></th>
+                    <th md-column md-order-by="t.nome"><span>Nome</span></th>
+
                 </tr>
             </thead>
             <tbody md-body>
                 <tr md-row md-select="row" md-select-id="{{row}}" md-auto-select ng-repeat="row in crudVm.list">
                     <td md-cell width="15" class="button-column">
 
-                        <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.showEdit($event, row.pessoaId)">
-                            <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                        <md-button class="md-icon-button md-subhead" style="font-size:7px" aria-label="Edit" ng-click="crudVm.showEdit($event, row.id)">
+                            <md-icon md-svg-icon="edit" class="md-display-1">edit</md-icon>
                         </md-button>
                     </td>
-                    <td md-cell>{{row.pessoa.nome}}</td>   
 
+                    <td md-cell>
+                        <div class="md-media-xs card-media" style="width:100px">
+                            <img ng-src="{{crudVm.getImage(row)}}" alt="{{row.nome}">
+
+                        </div>
+                    </td>
+                    <td md-cell>
+                        {{row.nome}}
+                    </td>
                 </tr>
             </tbody>
         </table>
-        
-        <md-table-pagination md-label="{{appVm.labelPagination}}" md-limit="crudVm.query.limit" md-page="crudVm.query.page" md-total="{{crudVm.count}}" md-on-paginate="crudVm.onPaginate" md-page-select></md-table-pagination>
+
+        <md-table-pagination md-label="{{appVm.labelPagination}}" md-limit="crudVm.query.limit" md-page="crudVm.query.page" md-total="{{crudVm.count}}"
+            md-on-paginate="crudVm.onPaginate" md-page-select></md-table-pagination>
     </md-table-container>
 </md-card>
-

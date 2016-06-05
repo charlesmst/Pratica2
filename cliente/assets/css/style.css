@@ -197,8 +197,11 @@ md-sidenav ng-md-icon {
     .alterar_foto span{
         width: 100%;
         float: left; 
-        color: #fff;
         display: block; 
+    }
+    .alterar_foto span label{
+        color: #fff;
+        cursor: pointer!important;        
     }
     .foto:hover .alterar_foto{
         bottom: 0; 

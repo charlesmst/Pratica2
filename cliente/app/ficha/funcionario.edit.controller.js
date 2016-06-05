@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Pessoa', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil', 'Escolaridade', 'Cidade', 'Banco', 'TipoSanguineo', 'VinculoEmpregaticio', 'NecessidadeEspecial', FuncionarioEditController]);
+    angular.module('app').controller('FuncionarioEditController', ['$mdToast', '$http', 'Pessoa', '$state', '$stateParams', 'Workspace', '$mdDialog', 'Cor', 'EstadoCivil', 'Escolaridade', 'Cidade', 'Banco', 'TipoSanguineo', 'VinculoEmpregaticio', 'NecessidadeEspecial', 'config', '$scope', FuncionarioEditController]);
 
     var state = "ficha"
-    function FuncionarioEditController($mdToast, $http, Pessoa, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil, Escolaridade, Cidade, Banco, TipoSanguineo, VinculoEmpregaticio, NecessidadeEspecial) {
+    function FuncionarioEditController($mdToast, $http, Pessoa, $state, $stateParams, Workspace, $mdDialog, Cor, EstadoCivil, Escolaridade, Cidade, Banco, TipoSanguineo, VinculoEmpregaticio, NecessidadeEspecial, config, $scope) {
         var vm = this;
         vm.entity = {}
         vm.mostraAddCargo = mostraAddCargo;
@@ -25,6 +25,7 @@
         vm.mostraAddAdvertencia = mostraAddAdvertencia
         vm.querySearchPessoa = querySearchPessoa
         vm.querySearchNecessidade = querySearchNecessidade;
+        $scope.changePhoto = changePhoto
         vm.cor = []
         vm.escolaridade = []
 
@@ -38,7 +39,7 @@
         loadCores();
         Workspace.title = "Ficha Funcional";
         console.log($stateParams)
-
+        vm.imageChanged = false
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Pessoa.get({ id: $stateParams.id }).$promise.then(function (data) {
 
@@ -47,11 +48,13 @@
                     vm.funcionarioAtivo = vm.entity.funcionario.funcionarioCargos[0]
 
                 vm.entity.necessidadeEspecials = vm.entity.necessidadeEspecials || []
+                setImage()
             }))
 
         } else {
             vm.entity = new Pessoa()
             vm.entity.necessidadeEspecials = vm.entity.necessidadeEspecials || []
+            setImage()
 
         }
         loadCor()
@@ -60,7 +63,8 @@
         function save($event, $valid) {
             if (!$valid)
                 return;
-
+            if (vm.imageChanged)
+                vm.entity.imagem = vm.image
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
         }
         function cancel() {
@@ -490,6 +494,26 @@
             return Pessoa.query({
                 filter: query
             }).$promise;
+        }
+        function setImage() {
+            vm.image = config.imageUrl + "/" + (vm.entity.imagem || "0.jpg")
+        }
+        function changePhoto() {
+            $scope.$apply(function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    $scope.$apply(function () {
+                        if (reader.result.startsWith("data:image")) {
+                            vm.image = reader.result;
+                            vm.imageChanged = true
+                        }
+                    })
+                }
+                var file = document.getElementById('inputDialog').files[0]
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            })
         }
     }
 

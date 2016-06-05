@@ -37,8 +37,10 @@
                 </md-card-title-text>
                 <md-card-title-media>
                     <div class="md-media-sm card-media foto">
-                        <div class="alterar_foto"> <span>Alterar Foto</span></div>
-                        <img class="md-card-image" src="https://minhabolsacheia.files.wordpress.com/2011/02/3x41.jpg" />
+                        <div class="alterar_foto"> <span><label for="inputDialog">Alterar Foto</label></span></div>
+                        <img class="md-card-image" ng-src="{{crudVm.image}}" />
+
+                        <input id="inputDialog" type="file" style="position: fixed; top: -100em" onchange="angular.element(this).scope().changePhoto()">
                     </div>
                 </md-card-title-media>
             </md-card-title>
@@ -187,7 +189,7 @@
                             md-item-text="item.nome" md-min-length="0" placeholder="Pai">
                             <span md-highlight-text="crudVm.searchTextPai">{{item.nome}}</span>
                         </md-autocomplete>
-                        
+
                         <md-autocomplete md-selected-item="crudVm.entity.pessoaByMaeId" md-search-text="crudVm.searchTextMae" md-items="item in crudVm.querySearchPessoa(crudVm.searchTextNecessodade)"
                             md-item-text="item.nome" md-min-length="0" placeholder="Mãe">
                             <span md-highlight-text="crudVm.searchTextMae">{{item.nome}}</span>
