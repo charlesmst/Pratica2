@@ -30,14 +30,20 @@ public class PessoaService extends Service<Pessoa> {
     }
 
     @Transactional
-    public List<Pessoa> findForTable(TableRequest request) {
+    public List<Pessoa> findForTable(TableRequest request,boolean somenteFuncionarios) {
 
-        String hql = "select t from Pessoa t "
-                + "left join fetch t.cidade c "
-                + "left join fetch t.escolaridade e";
+        String hql = "select t from Pessoa t"
+                + " left join fetch t.funcionario funcionario "
+                + " left join fetch t.cidade c "
+                + " left join fetch t.escolaridade e";
         if (request != null) {
-            hql += request.applyFilter("id", "nome");
-            hql += request.applyOrder("id", "nome");
+            hql += request.applyFilter("t.id", "t.nome");
+            hql += request.applyOrder("t.id", "t.nome");
+        }
+        
+        if(somenteFuncionarios){
+            hql+= hql.contains("where")?" and ": " where ";
+            hql+=" funcionario is not null ";
         }
         Query q = entityManager.createQuery(hql);
         if (request != null) {
@@ -60,8 +66,11 @@ public class PessoaService extends Service<Pessoa> {
         save(m); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+
     @Transactional
     public void save(Pessoa pessoa) {
+    
         if (pessoa.getFuncionario() != null) {
 
             Funcionario funcionario = pessoa.getFuncionario();
@@ -90,7 +99,7 @@ public class PessoaService extends Service<Pessoa> {
                     funcionarioCargo.setFeriases(new HashSet<Ferias>());
                 }
 
-                if (funcionarioCargo.getFuncionarioQualificacaos()!= null) {
+                if (funcionarioCargo.getFuncionarioQualificacaos() != null) {
                     for (FuncionarioQualificacao funcionarioQualificacao : funcionarioCargo.getFuncionarioQualificacaos()) {
                         funcionarioQualificacao.setFuncionarioCargo(funcionarioCargo);
                     }

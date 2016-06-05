@@ -36,7 +36,7 @@ import org.hibernate.annotations.Type;
 )
 public class Pessoa implements java.io.Serializable {
 
-    @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, })
+    @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class,})
     private int id;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Recrutamento.Pessoa.class})
     private Cidade cidade;
@@ -46,7 +46,11 @@ public class Pessoa implements java.io.Serializable {
     private Escolaridade escolaridade;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private EstadoCivil estadoCivil;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Pessoa pessoaByPessoaId;
+    @JsonView({Folha.FuncionarioFicha.class})
+
     private Pessoa pessoaByMaeId;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String cpf;
@@ -76,12 +80,14 @@ public class Pessoa implements java.io.Serializable {
     private String rg;
     private Curriculo curriculo;
 
+    @JsonView({Folha.FuncionarioFicha.class})
+    private String imagem = "0.jpg";
 //    @JsonBackReference
     @JsonView({Folha.FuncionarioFicha.class})
     private Funcionario funcionario;
     private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
     private Usuario usuario;
-    @JsonView({Recrutamento.Curriculo.class,Folha.FuncionarioFicha.class})
+    @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private Set<NecessidadeEspecial> necessidadeEspecials = new HashSet<NecessidadeEspecial>(0);
     private Set<Candidato> candidatos = new HashSet<Candidato>(0);
     private Set<Pessoa> pessoasForPessoaId = new HashSet<Pessoa>(0);
@@ -188,7 +194,7 @@ public class Pessoa implements java.io.Serializable {
         this.estadoCivil = estadoCivil;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pessoa_id")
     public Pessoa getPessoaByPessoaId() {
         return this.pessoaByPessoaId;
@@ -198,7 +204,7 @@ public class Pessoa implements java.io.Serializable {
         this.pessoaByPessoaId = pessoaByPessoaId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "mae_id")
     public Pessoa getPessoaByMaeId() {
         return this.pessoaByMaeId;
@@ -363,7 +369,7 @@ public class Pessoa implements java.io.Serializable {
         this.usuario = usuario;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "pessoa_has_necessidade_especial", schema = "public", joinColumns = {
         @JoinColumn(name = "pessoa_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "necessidade_especial_id", nullable = false, updatable = false)})
@@ -436,5 +442,13 @@ public class Pessoa implements java.io.Serializable {
 
     public void setCurriculoFormacoes(Set<CurriculoFormacao> curriculoFormacoes) {
         this.curriculoFormacoes = curriculoFormacoes;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }
