@@ -206,3 +206,10 @@ md-sidenav ng-md-icon {
     .foto:hover .alterar_foto{
         bottom: 0; 
     }
+    
+    .md-autocomplete.md-default-theme, md-autocomplete{
+        background-color: #fff !important;
+    }
+    .md-whiteframe-1dp, .md-whiteframe-z1 {
+        box-shadow: none !important;
+    }

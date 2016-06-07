@@ -170,7 +170,7 @@
                             <input name="cnh" ng-model="crudVm.entity.cnh">
                         </md-input-container>
                     </div>
-                    <div layout="row">
+                    <div layout-gt-sm="row">
                         <md-chips ng-model="crudVm.entity.necessidadeEspecials" md-require-match="true">
                             <md-autocomplete md-selected-item="crudVm.selectedItemNecessidade" md-search-text="crudVm.searchTextNecessidade" md-items="item in crudVm.querySearchNecessidade(crudVm.searchTextNecessodade)"
                                 md-item-text="item.nome" md-min-length="0" placeholder="Necessidade">
@@ -183,16 +183,17 @@
                             </md-chip-template>
                         </md-chips>
                     </div>
-                    <div layout="row">
+                    <div layout-gt-sm="row">
                         <md-autocomplete md-selected-item="crudVm.entity.pessoaByPessoaId" md-search-text="crudVm.searchTextPai" md-items="item in crudVm.querySearchPessoa(crudVm.searchTextNecessodade)"
-                            md-item-text="item.nome" md-min-length="0" placeholder="Pai" style="width: 50%;">
+                            md-item-text="item.nome" md-min-length="0" placeholder="Pai" class="md-block" style="border-bottom: 1px solid #e1e1e1; width: 49%;">
                             <span md-highlight-text="crudVm.searchTextPai">{{item.nome}}</span>
-                        </md-autocomplete>
+                        </md-autocomplete>                    
                         <md-autocomplete md-selected-item="crudVm.entity.pessoaByMaeId" md-search-text="crudVm.searchTextMae" md-items="item in crudVm.querySearchPessoa(crudVm.searchTextNecessodade)"
-                            md-item-text="item.nome" md-min-length="0" placeholder="Mãe" style="width: 50%;">
+                            md-item-text="item.nome" md-min-length="0" placeholder="Mãe" class="md-block" style="border-bottom: 1px solid #e1e1e1; border-left: 1px solid #fff; width: 50%;">
                             <span md-highlight-text="crudVm.searchTextMae">{{item.nome}}</span>
                         </md-autocomplete>
                     </div>
+                    <br /><br />
                 </md-tab>
                 <md-tab label="Dados do Colaborador" ng-disabled="!crudVm.entity.funcionario">
                     <br /><br />
