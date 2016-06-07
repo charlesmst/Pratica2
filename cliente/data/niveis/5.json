@@ -60,11 +60,6 @@
                     "icon": "qualificacao"
                 },
                 {
-                    "link": "funcionario-acidente",
-                    "title": "Acidentes de Trabalho",
-                    "icon": "acidente"
-                },
-                {
                     "link": "sindicato",
                     "title": "Sindicatos",
                     "icon": "sindicato"
