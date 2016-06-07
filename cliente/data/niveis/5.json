@@ -2,7 +2,7 @@
     "inicial": "folhacalculada",
     "menus": [
         {
-            "title": "Folha de pagamento",
+            "title": "Folha de Pagamento",
             "links": [
                 {
                     "link": "tabela",
@@ -11,23 +11,23 @@
                 },
                 {
                     "link": "evento",
-                    "title": "Eventos da folha",
+                    "title": "Eventos da Folha",
                     "icon": "eventos"
                 },
                 {
                     "link": "calculofolha",
-                    "title": "Cálculo da folha",
+                    "title": "Cálculo da Folha",
                     "icon": "calculator"
                 },
                 {
                     "link": "folhacalculada",
-                    "title": "Folhas de pagamento",
+                    "title": "Folhas de Pagamento",
                     "icon": "folha"
                 }
             ]
         },
         {
-            "title": "Ficha funcional",
+            "title": "Ficha Funcional",
             "links": [
                 {
                     "link": "ficha",

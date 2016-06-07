@@ -8,7 +8,9 @@ html, body {
   height: 100%;
   color: #000;
   background: white;
-  position: relative; }
+  position: relative;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 body {
   margin: 0;
