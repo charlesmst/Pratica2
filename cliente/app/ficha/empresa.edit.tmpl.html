@@ -1,20 +1,13 @@
 <form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
-
     <div class="md-fab-bottom-right app-fixed-bottom-right">
-
         <button type="submit" class="md-button md-fab"  aria-label="save" >
             <ng-md-icon icon="save"></ng-md-icon>
         </button>
-
         <md-button class="md-fab "  aria-label="Delete" ng-click="crudVm.cancel($event)" >
             <ng-md-icon icon="cancel"></ng-md-icon>
         </md-button>
     </div>
-
-
-    <md-card >
-
-
+    <md-card>
         <md-card-content>
             <h2>Empresa</h2>
             <md-content>
@@ -25,11 +18,9 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
                 <md-checkbox ng-model="crudVm.entity.ativo" aria-label="ativo">
                     Ativo {{ data.certificado}}
                 </md-checkbox>
-
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Logo</label>
                     <input  name="logo" ng-model="crudVm.entity.logo" >
@@ -37,7 +28,6 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>CNPJ</label>
                     <input  name="cnpj" ng-model="crudVm.entity.cnpj" ui-br-cnpj-mask>
@@ -45,7 +35,6 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Nome fantasia</label>
                     <input  name="nomeFantasia" ng-model="crudVm.entity.nomeFantasia" >
@@ -53,7 +42,6 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Razão social</label>
                     <input  name="razaosocial" ng-model="crudVm.entity.razaoSocial" >
@@ -61,7 +49,6 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
                 <div layout-gt-xs="row">
                     <h5>Data de fundação:</h5>
                     <md-datepicker ng-model="crudVm.entity.dataFundacao" md-placeholder="Data de fundação." ng-required></md-datepicker>
@@ -73,7 +60,6 @@
                     &nbsp;
                     &nbsp;
                 </div>
-
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Endereço</label>
                     <input  name="endereco" ng-model="crudVm.entity.endereco" >
@@ -81,7 +67,6 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Bairro</label>
                     <input  name="bairro" ng-model="crudVm.entity.bairro" >
@@ -89,7 +74,6 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
                 <!-- <md-input-container class="md-block" flex-gt-xs> -->
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Cidade</label>
@@ -111,7 +95,6 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>E-mail</label>
                     <input  name="email" ng-model="crudVm.entity.email" >
@@ -119,9 +102,7 @@
                         <div ng-message="required">Campo Obrigatório.</div>
                     </div>
                 </md-input-container>
-
             </md-content>
-
         </md-card-content>
     </md-card>
 </form>

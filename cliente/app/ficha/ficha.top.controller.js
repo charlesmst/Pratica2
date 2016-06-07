@@ -9,7 +9,7 @@
 
         vm.tabs = [
             {
-                titulo: "Dados do Funcionário",
+                titulo: "Dados do Colaborador",
                 sref: "fichaedit"
             },
             {

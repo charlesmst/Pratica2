@@ -26,9 +26,10 @@
         vm.querySearchPessoa = querySearchPessoa
         vm.querySearchNecessidade = querySearchNecessidade;
         $scope.changePhoto = changePhoto
+        vm.habilitaFuncionario = habilitaFuncionario
         vm.cor = []
         vm.escolaridade = []
-
+        vm.funcionarioCache = {}
         loadSexos()
         loadEscolaridades()
         loadEstadosCivis()
@@ -41,9 +42,10 @@
         console.log($stateParams)
         vm.imageChanged = false
         if ($stateParams.id) {
-            Workspace.loading("Carregando...", Pessoa.get({ id: $stateParams.id }).$promise.then(function (data) {
+            Workspace.loading("Carregando...", Pessoa.get({id: $stateParams.id}).$promise.then(function (data) {
 
                 vm.entity = data
+                vm.funcionarioCache = vm.entity.funcionario
                 if (vm.entity.funcionario && vm.entity.funcionario.funcionarioCargos.length > 0)
                     vm.funcionarioAtivo = vm.entity.funcionario.funcionarioCargos[0]
 
@@ -95,13 +97,13 @@
                 }
 
             })
-                .then(function (adicionado) {
-                    console.log("Resposta da modal", adicionado)
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
 
-                    if (!vm.entity.funcionario.funcionarioCargos)
-                        vm.entity.funcionario.funcionarioCargos = []
-                    vm.entity.funcionario.funcionarioCargos.push(adicionado)
-                });
+                        if (!vm.entity.funcionario.funcionarioCargos)
+                            vm.entity.funcionario.funcionarioCargos = []
+                        vm.entity.funcionario.funcionarioCargos.push(adicionado)
+                    });
         }
 
         function mostraEditCargo(cargo) {
@@ -144,13 +146,13 @@
                 }
 
             })
-                .then(function (adicionado) {
-                    console.log("Resposta da modal", adicionado)
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
 
-                    if (!vm.funcionarioAtivo.funcionarioQualificacaos)
-                        vm.funcionarioAtivo.funcionarioQualificacaos = []
-                    vm.funcionarioAtivo.funcionarioQualificacaos.push(adicionado)
-                });
+                        if (!vm.funcionarioAtivo.funcionarioQualificacaos)
+                            vm.funcionarioAtivo.funcionarioQualificacaos = []
+                        vm.funcionarioAtivo.funcionarioQualificacaos.push(adicionado)
+                    });
         }
 
         function mostraEditQualificacao(cargo) {
@@ -186,13 +188,13 @@
                 }
 
             })
-                .then(function (adicionado) {
-                    console.log("Resposta da modal", adicionado)
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
 
-                    if (!vm.funcionarioAtivo.funcionarioAcidentes)
-                        vm.funcionarioAtivo.funcionarioAcidentes = []
-                    vm.funcionarioAtivo.funcionarioAcidentes.push(adicionado)
-                });
+                        if (!vm.funcionarioAtivo.funcionarioAcidentes)
+                            vm.funcionarioAtivo.funcionarioAcidentes = []
+                        vm.funcionarioAtivo.funcionarioAcidentes.push(adicionado)
+                    });
         }
 
         function mostraEditAcidente(cargo) {
@@ -226,13 +228,13 @@
                 }
 
             })
-                .then(function (adicionado) {
-                    console.log("Resposta da modal", adicionado)
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
 
-                    if (!vm.funcionarioAtivo.feriases)
-                        vm.funcionarioAtivo.feriases = []
-                    vm.funcionarioAtivo.feriases.push(adicionado)
-                });
+                        if (!vm.funcionarioAtivo.feriases)
+                            vm.funcionarioAtivo.feriases = []
+                        vm.funcionarioAtivo.feriases.push(adicionado)
+                    });
         }
 
         function mostraEditFerias(ferias) {
@@ -270,13 +272,13 @@
                 }
 
             })
-                .then(function (adicionado) {
-                    console.log("Resposta da modal", adicionado)
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
 
-                    if (!vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos)
-                        vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos = []
-                    vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos.push(adicionado)
-                });
+                        if (!vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos)
+                            vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos = []
+                        vm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos.push(adicionado)
+                    });
         }
 
         function mostraEditAdvertencia(Advertencia) {
@@ -314,13 +316,13 @@
                 }
 
             })
-                .then(function (adicionado) {
-                    console.log("Resposta da modal", adicionado)
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
 
-                    if (!vm.funcionarioAtivo.funcionarioFaixas)
-                        vm.funcionarioAtivo.funcionarioFaixas = []
-                    vm.funcionarioAtivo.funcionarioFaixas.push(adicionado)
-                });
+                        if (!vm.funcionarioAtivo.funcionarioFaixas)
+                            vm.funcionarioAtivo.funcionarioFaixas = []
+                        vm.funcionarioAtivo.funcionarioFaixas.push(adicionado)
+                    });
         }
 
         function mostraEditFaixa(Faixa) {
@@ -358,13 +360,13 @@
                 }
 
             })
-                .then(function (adicionado) {
-                    console.log("Resposta da modal", adicionado)
+                    .then(function (adicionado) {
+                        console.log("Resposta da modal", adicionado)
 
-                    if (!vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas)
-                        vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas = []
-                    vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas.push(adicionado)
-                });
+                        if (!vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas)
+                            vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas = []
+                        vm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas.push(adicionado)
+                    });
         }
 
         function mostraEditFalta(Falta) {
@@ -399,12 +401,12 @@
                 }
 
             })
-                .then(function (adicionado) {
+                    .then(function (adicionado) {
 
-                    if (!vm.entity.funcionario.dependentes)
-                        vm.entity.funcionario.dependentes = []
-                    vm.entity.funcionario.dependentes.push(adicionado)
-                });
+                        if (!vm.entity.funcionario.dependentes)
+                            vm.entity.funcionario.dependentes = []
+                        vm.entity.funcionario.dependentes.push(adicionado)
+                    });
         }
 
         function mostraEditDependente(Dependente) {
@@ -514,6 +516,15 @@
                     reader.readAsDataURL(file);
                 }
             })
+        }
+
+        function habilitaFuncionario() {
+            if (vm.isFuncionario) {
+                vm.entity.funcionario = vm.funcionarioCache || {}
+            } else {
+                vm.funcionarioCache = vm.entity.funcionario 
+                vm.entity.funcionario = undefined
+            }
         }
     }
 

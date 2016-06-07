@@ -1,18 +1,13 @@
 <form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
-
     <div class="md-fab-bottom-right app-fixed-bottom-right">
-
         <button type="submit" class="md-button md-fab" aria-label="save">
             <ng-md-icon icon="save"></ng-md-icon>
         </button>
-
         <md-button class="md-fab " aria-label="Delete" ng-click="crudVm.cancel($event)">
             <ng-md-icon icon="cancel"></ng-md-icon>
         </md-button>
     </div>
-
     <md-card>
-
         <md-card-content>
             <md-card-title>
                 <md-card-title-text>
@@ -21,18 +16,22 @@
                             <md-input-container flex="33" class="md-block" flex-gt-xs>
                                 <label>Código</label>
                                 <input  name="codigo" ng-disabled="true" ng-model="crudVm.entity.id">
-
-                            </md-input-container>
+                            </md-input-container>                            
+                        </div>
+                        <div layout-gt-sm="row"> 
                             <md-input-container flex="33" class="md-block" flex-gt-xs>
                                 <label>Nome</label>
                                 <input  name="nome" ng-model="crudVm.entity.nome" required>
                                 <div ng-messages="formEdit.nome.$error">
                                     <div ng-message="required">Campo obrigatório.</div>
                                 </div>
-
                             </md-input-container>
                         </div>
-
+                        <div flex layout="row">
+                            <md-checkbox ng-change="crudVm.habilitaFuncionario()" ng-model="crudVm.isFuncionario">
+                                Colaborador
+                            </md-checkbox>                        
+                        </div>
                     </span>
                 </md-card-title-text>
                 <md-card-title-media>
@@ -44,23 +43,37 @@
                     </div>
                 </md-card-title-media>
             </md-card-title>
-
-            <md-tabs md-dynamic-height md-border-bottom>
+           <md-tabs md-dynamic-height md-border-bottom>
                 <md-tab label="Dados pessoais">
-                    <div layout-gt-sm="row">
-                        <md-input-container flex="30" class="md-block" flex-gt-xs>
-                            <label>RG</label>
-                            <input name="rg" ng-model="crudVm.entity.rg" required>
-                            <div ng-messages="formEdit.rg.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
+                    <br /><br />
+                    <div layout-gt-sm="row">      
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>E-mail</label>
+                            <input type="email" name="email" ng-model="crudVm.entity.email" md-max-length="200">
+                            <div ng-messages="formEdit.email.$error">
+                                <div ng-message="required">Campo Obrigatório.</div>
                             </div>
                         </md-input-container>
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>CPF</label>
                             <input name="cpf" ng-model="crudVm.entity.cpf" ui-br-cpf-mask required>
                             <div ng-messages="formEdit.cpf.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
+                                <div ng-message="required">Campo Obrigatório.</div>
                             </div>
+                        </md-input-container>
+                        <md-input-container flex="30" class="md-block" flex-gt-xs>
+                            <label>RG</label>
+                            <input name="rg" ng-model="crudVm.entity.rg" required>
+                            <div ng-messages="formEdit.rg.$error">
+                                <div ng-message="required">Campo Obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Data de Nascimento</label>
+                            <input name="dataNascimento" ng-model="crudVm.entity.dataNascimento">
                         </md-input-container>
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>Sexo</label>
@@ -70,10 +83,79 @@
                                 </md-option>
                             </md-select>
                             <div ng-messages="formEdit.sexo.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
+                                <div ng-message="required">Campo Obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Estado Cívil </label>
+                            <md-select ng-model="crudVm.entity.estadoCivil">
+                                <md-option ng-repeat="item in crudVm.estadosCivis" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.estadoCivil.id">
+                                    {{item.nome}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="formEdit.sexo.$error">
+                                <div ng-message="required">Campo Obrigatório.</div>
+                            </div>
+                        </md-input-container>                        
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Cor</label>
+                            <md-select ng-model="crudVm.entity.cor">
+                                <md-option ng-repeat="item in crudVm.cores" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.cor.id">
+                                    {{item.nome}}
+                                </md-option>
+                            </md-select>
+
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Tel. Celular</label>
+                            <input name="telCelular" ng-model="crudVm.entity.telCelular" ui-br-phone-number>
+                            <div ng-messages="formEdit.telCelular.$error">
+                                <div ng-message="required">Campo Obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Tel. Fixo</label>
+                            <input name="telCelular" ng-model="crudVm.entity.telCelular" ui-br-phone-number>
+                            <div ng-messages="formEdit.telCelular.$error">
+                                <div ng-message="required">Campo Obrigatório.</div>
                             </div>
                         </md-input-container>
                     </div>
+                    <div layout-gt-sm="row">                        
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Escolaridade</label>
+                            <md-select ng-model="crudVm.entity.escolaridade">
+                                <md-option ng-repeat="item in crudVm.escolaridades" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.escolaridade.id">
+                                    {{item.nome}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <label>Cidade</label>
+                            <md-autocomplete md-selected-item="crudVm.entity.cidade" md-search-text="crudVm.searchText" md-items="item in crudVm.querySearchCidade(crudVm.searchText)"
+                                md-item-text="item.nome" md-min-length="2" md-float-label="Cidade" placeholder="Cidade">
+                                <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
+                            </md-autocomplete>
+                        </md-input-container> 
+                    </div> 
+                    <div layout-gt-sm="row">                  
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Endereço</label>
+                            <input name="endereco" ng-model="crudVm.entity.endereco" md-max-length="200" required>
+                            <div ng-messages="formEdit.endereco.$error">
+                                <div ng-message="required">Campo Obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Bairro</label>
+                            <input name="bairro" ng-model="crudVm.entity.bairro" md-max-length="100" required>
+                            <div ng-messages="formEdit.bairro.$error">
+                                <div ng-message="required">Campo Obrigatório.</div>
+                            </div>
+                        </md-input-container>
+                    </div> 
                     <div layout-gt-sm="row">
                         <md-input-container flex="30" class="md-block" flex-gt-xs>
                             <label>Categoria CNH</label>
@@ -87,116 +169,33 @@
                             <label>CNH</label>
                             <input name="cnh" ng-model="crudVm.entity.cnh">
                         </md-input-container>
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>Estado Civil</label>
-                            <md-select ng-model="crudVm.entity.estadoCivil">
-                                <md-option ng-repeat="item in crudVm.estadosCivis" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.estadoCivil.id">
-                                    {{item.nome}}
-                                </md-option>
-                            </md-select>
-                            <div ng-messages="formEdit.sexo.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
-                            </div>
-                        </md-input-container>
                     </div>
-                    <div layout-gt-sm="row">
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>Escolaridade</label>
-                            <md-select ng-model="crudVm.entity.escolaridade">
-                                <md-option ng-repeat="item in crudVm.escolaridades" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.escolaridade.id">
-                                    {{item.nome}}
-                                </md-option>
-                            </md-select>
-
-                        </md-input-container>
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>Data de Nascimento</label>
-                            <input name="dataNascimento" ng-model="crudVm.entity.dataNascimento">
-                        </md-input-container>
-                    </div>
-                    <div layout-gt-sm="row">
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>E-mail</label>
-                            <input type="email" name="email" ng-model="crudVm.entity.email" md-max-length="200">
-                            <div ng-messages="formEdit.email.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>Tel. Celular</label>
-                            <input name="telCelular" ng-model="crudVm.entity.telCelular" ui-br-phone-number>
-                            <div ng-messages="formEdit.telCelular.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>Tel. Fixo</label>
-                            <input name="telCelular" ng-model="crudVm.entity.telCelular" ui-br-phone-number>
-                            <div ng-messages="formEdit.telCelular.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-
-                    <md-input-container flex="" class="md-block" flex-gt-xs>
-                        <label>Cidade</label>
-                        <md-autocomplete md-selected-item="crudVm.entity.cidade" md-search-text="crudVm.searchText" md-items="item in crudVm.querySearchCidade(crudVm.searchText)"
-                            md-item-text="item.nome" md-min-length="2" md-float-label="Cidade" placeholder="Cidade">
-                            <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
-                        </md-autocomplete>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-xs>
-                        <label>Bairro</label>
-                        <input name="bairro" ng-model="crudVm.entity.bairro" md-max-length="100" required>
-                        <div ng-messages="formEdit.bairro.$error">
-                            <div ng-message="required">Campo obrigatório.</div>
-                        </div>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-xs>
-                        <label>Endereço</label>
-                        <input name="endereco" ng-model="crudVm.entity.endereco" md-max-length="200" required>
-                        <div ng-messages="formEdit.endereco.$error">
-                            <div ng-message="required">Campo obrigatório.</div>
-                        </div>
-                    </md-input-container>
                     <div layout="row">
-                        <md-input-container flex="" class="md-block" flex-gt-xs>
-                            <label>Cor</label>
-                            <md-select ng-model="crudVm.entity.cor">
-                                <md-option ng-repeat="item in crudVm.cores" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.cor.id">
-                                    {{item.nome}}
-                                </md-option>
-                            </md-select>
-
-                        </md-input-container>
-
+                        <md-chips ng-model="crudVm.entity.necessidadeEspecials" md-require-match="true">
+                            <md-autocomplete md-selected-item="crudVm.selectedItemNecessidade" md-search-text="crudVm.searchTextNecessidade" md-items="item in crudVm.querySearchNecessidade(crudVm.searchTextNecessodade)"
+                                md-item-text="item.nome" md-min-length="0" placeholder="Necessidade">
+                                <span md-highlight-text="crudVm.searchTextnecessidade">{{item.nome}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span>
+                                {{$chip.nome}}
+                            </span>
+                            </md-chip-template>
+                        </md-chips>
                     </div>
-
-
-                    <md-chips ng-model="crudVm.entity.necessidadeEspecials" md-require-match="true">
-                        <md-autocomplete md-selected-item="crudVm.selectedItemNecessidade" md-search-text="crudVm.searchTextNecessidade" md-items="item in crudVm.querySearchNecessidade(crudVm.searchTextNecessodade)"
-                            md-item-text="item.nome" md-min-length="0" placeholder="Necessidade">
-                            <span md-highlight-text="crudVm.searchTextnecessidade">{{item.nome}}</span>
-                        </md-autocomplete>
-                        <md-chip-template>
-                            <span>
-                            {{$chip.nome}}
-                        </span>
-                        </md-chip-template>
-                    </md-chips>
                     <div layout="row">
                         <md-autocomplete md-selected-item="crudVm.entity.pessoaByPessoaId" md-search-text="crudVm.searchTextPai" md-items="item in crudVm.querySearchPessoa(crudVm.searchTextNecessodade)"
-                            md-item-text="item.nome" md-min-length="0" placeholder="Pai">
+                            md-item-text="item.nome" md-min-length="0" placeholder="Pai" style="width: 50%;">
                             <span md-highlight-text="crudVm.searchTextPai">{{item.nome}}</span>
                         </md-autocomplete>
-
                         <md-autocomplete md-selected-item="crudVm.entity.pessoaByMaeId" md-search-text="crudVm.searchTextMae" md-items="item in crudVm.querySearchPessoa(crudVm.searchTextNecessodade)"
-                            md-item-text="item.nome" md-min-length="0" placeholder="Mãe">
+                            md-item-text="item.nome" md-min-length="0" placeholder="Mãe" style="width: 50%;">
                             <span md-highlight-text="crudVm.searchTextMae">{{item.nome}}</span>
                         </md-autocomplete>
                     </div>
                 </md-tab>
-                <md-tab label="Dados do Funcionário" ng-disabled="!crudVm.entity.funcionario">
+                <md-tab label="Dados do Colaborador" ng-disabled="!crudVm.entity.funcionario">
+                    <br /><br />
                     <div layout-gt-sm="row">
                         <md-input-container flex="30" class="md-block" flex-gt-xs>
                             <label>Banco</label>
@@ -210,14 +209,14 @@
                             <label>Agência</label>
                             <input name="agencia" ng-model="crudVm.entity.funcionario.agencia" md-max-length="200" ng-required="crudVm.entity.funcionario">
                             <div ng-messages="formEdit.agencia.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
+                                <div ng-message="required">Campo Obrigatório.</div>
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-xs>
                             <label>Conta</label>
                             <input name="conta" ng-model="crudVm.entity.funcionario.conta" md-max-length="200" ng-required="crudVm.entity.funcionario">
                             <div ng-messages="formEdit.conta.$error">
-                                <div ng-message="required">Campo obrigatório.</div>
+                                <div ng-message="required">Campo Obrigatório.</div>
                             </div>
                         </md-input-container>
                     </div>
@@ -241,6 +240,7 @@
                     </div>
                 </md-tab>
                 <md-tab label="Cargos" ng-disabled="!crudVm.entity.funcionario">
+                    <br /><br />
                     <md-table-container>
                         <table md-table>
                             <thead md-head>
@@ -250,7 +250,7 @@
                                     <th md-column><span>Status</span></th>
                                     <th md-column><span>Unidade</span></th>
                                     <th md-column><span>Empresa</span></th>
-                                    <th md-column><span>Associação sindical</span></th>
+                                    <th md-column><span>Associação Sindical</span></th>
                                     <th md-column><span>Admissão</span></th>
                                     <th md-column><span>Demissão</span></th>
                                 </tr>
@@ -281,8 +281,8 @@
                         </button>
                     </md-card-actions>
                 </md-tab>
-
                 <md-tab label="Qualificações" ng-disabled="!crudVm.entity.funcionario">
+                    <br /><br />
                     <section layout="row">
                         <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" ng-model-options="{trackBy: '$value.id'}"
                             plrudVm.funcionaraceholder="Cargo">
@@ -326,57 +326,9 @@
                             <ng-md-icon icon="add"></ng-md-icon>
                         </button>
                     </md-card-actions>
-                </md-tab>
-                <md-tab label="Férias" ng-disabled="!crudVm.entity.funcionario">
-
-                    <section layout="row">
-                        <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo" ng-model-options="{trackBy: '$value.id'}">
-                            <md-option ng-value="item" ng-repeat="item in crudVm.entity.funcionario.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
-                        </md-select>
-                    </section>
-                    <md-table-container>
-                        <table md-table>
-                            <thead md-head>
-                                <tr md-row>
-                                    <th md-column md-numeric></th>
-                                    <th md-column><span>Data Gozo Início</span></th>
-                                    <th md-column><span>Data Gozo Fim</span></th>
-                                    <th md-column><span>Período Aquisitivo Início</span></th>
-                                    <th md-column><span>Período Aquisitivo Fim</span></th>
-                                    <th md-column md-numeric></th>
-
-                                </tr>
-                            </thead>
-                            <tbody md-body>
-                                <tr md-row ng-repeat="row in crudVm.funcionarioAtivo.feriases">
-                                    <td md-cell width="15" class="button-column">
-
-                                        <md-button class="md-icon-button md-subhead" style="font-size:7px" aria-label="Edit" ng-click="crudVm.mostraEditFerias(row)">
-                                            <md-icon md-svg-icon="edit" class="md-display-1">edit</md-icon>
-                                        </md-button>
-                                    </td>
-                                    <td md-cell>{{row.dataGozoInicio| date:'dd/MM/yyyy'}}</td>
-                                    <td md-cell>{{row.dataGozoFim| date:'dd/MM/yyyy'}}</td>
-                                    <td md-cell>{{row.dataAquisitivoInicio| date:'dd/MM/yyyy'}}</td>
-                                    <td md-cell>{{row.dataAquisitivoFim| date:'dd/MM/yyyy'}}</td>
-                                    <td md-cell md-numeric>
-                                        <md-button aria-label="Delete" ng-click="crudVm.funcionarioAtivo.feriases.splice(crudVm.funcionarioAtivo.feriases.indexOf(row), 1)">
-                                            <ng-md-icon icon="delete"></ng-md-icon>
-                                        </md-button>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </md-table-container>
-                    <md-card-actions layout="row" layout-align="begin center">
-                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddFerias()">
-                            <ng-md-icon icon="add"></ng-md-icon>
-                        </button>
-                    </md-card-actions>
-                </md-tab>
+                </md-tab>                
                 <md-tab label="Salário e nível" ng-disabled="!crudVm.entity.funcionario">
-
+                    <br /><br />
                     <section layout="row">
                         <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo" ng-model-options="{trackBy: '$value.id'}">
                             <md-option ng-value="item" ng-repeat="item in crudVm.entity.funcionario.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
@@ -387,7 +339,7 @@
                             <thead md-head>
                                 <tr md-row>
                                     <th md-column md-numeric></th>
-                                    <th md-column><span>Data de início</span></th>
+                                    <th md-column><span>Data de Início</span></th>
                                     <th md-column><span>Nível</span></th>
                                     <th md-column><span>Faixa</span></th>
                                     <th md-column md-numeric></th>
@@ -421,14 +373,14 @@
                     </md-card-actions>
                 </md-tab>
                 <md-tab label="Dependentes" ng-disabled="!crudVm.entity.funcionario">
-
+                    <br /><br />    
                     <md-table-container>
                         <table md-table>
                             <thead md-head>
                                 <tr md-row>
                                     <th md-column md-numeric></th>
                                     <th md-column><span>Nome</span></th>
-                                    <th md-column><span>Data de nascimento</span></th>
+                                    <th md-column><span>Data de Nascimento</span></th>
 
                                     <th md-column><span>Data Inicial</span></th>
                                     <th md-column><span>Data Final</span></th>
@@ -465,7 +417,7 @@
                     </md-card-actions>
                 </md-tab>
                 <md-tab label="Faltas e Atestados" ng-disabled="!crudVm.entity.funcionario">
-
+                    <br /><br />    
                     <section layout="row">
                         <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo" ng-model-options="{trackBy: '$value.id'}">
                             <md-option ng-value="item" ng-repeat="item in crudVm.entity.funcionario.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
@@ -479,9 +431,8 @@
                                     <th md-column><span>Data Inicial</span></th>
                                     <th md-column><span>Data Final</span></th>
                                     <th md-column><span>Motivo</span></th>
-                                    <th md-column><span>Data de recebimento</span></th>
+                                    <th md-column><span>Data de Recebimento</span></th>
                                     <th md-column md-numeric></th>
-
                                 </tr>
                             </thead>
                             <tbody md-body>
@@ -500,7 +451,6 @@
                                         <md-button aria-label="Delete" ng-click="crudVm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas.splice(crudVm.funcionarioAtivo.funcionarioCargoHasMotivoFaltas.indexOf(row), 1)">
                                             <ng-md-icon icon="delete"></ng-md-icon>
                                         </md-button>
-
                                     </td>
                                 </tr>
                             </tbody>
@@ -512,7 +462,7 @@
                         </button>
                     </md-card-actions>
                     <md-tab label="Acidentes" ng-disabled="!crudVm.entity.funcionario">
-
+                        <br /><br />
                         <section layout="row">
                             <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo" ng-model-options="{trackBy: '$value.id'}">
                                 <md-option ng-value="item" ng-repeat="item in crudVm.entity.funcionario.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
@@ -523,17 +473,15 @@
                                 <thead md-head>
                                     <tr md-row>
                                         <th md-column md-numeric></th>
-                                        <th md-column><span>Nivel</span></th>
+                                        <th md-column><span>Nível</span></th>
                                         <th md-column><span>Perda</span></th>
                                         <th md-column><span>Data</span></th>
                                         <th md-column md-numeric></th>
-
                                     </tr>
                                 </thead>
                                 <tbody md-body>
                                     <tr md-row ng-repeat="row in crudVm.funcionarioAtivo.funcionarioAcidentes">
                                         <td md-cell width="15" class="button-column">
-
                                             <md-button class="md-icon-button md-subhead" style="font-size:7px" aria-label="Edit" ng-click="crudVm.mostraEditAcidente(row)">
                                                 <md-icon md-svg-icon="edit" class="md-display-1">edit</md-icon>
                                             </md-button>
@@ -545,7 +493,6 @@
                                             <md-button aria-label="Delete" ng-click="crudVm.funcionarioAtivo.funcionarioAcidentes.splice(crudVm.funcionarioAtivo.funcionarioAcidentes.indexOf(row), 1)">
                                                 <ng-md-icon icon="delete"></ng-md-icon>
                                             </md-button>
-
                                         </td>
                                     </tr>
                                 </tbody>
@@ -557,11 +504,55 @@
                         </button>
                         </md-card-actions>
                     </md-tab>
-
                 </md-tab>
+               <md-tab label="Férias" ng-disabled="!crudVm.entity.funcionario">
+                    <br /><br />
+                    <section layout="row">
+                        <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo" ng-model-options="{trackBy: '$value.id'}">
+                            <md-option ng-value="item" ng-repeat="item in crudVm.entity.funcionario.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
+                        </md-select>
+                    </section>
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column md-numeric></th>
+                                    <th md-column><span>Data Gozo Início</span></th>
+                                    <th md-column><span>Data Gozo Fim</span></th>
+                                    <th md-column><span>Período Aquisitivo Início</span></th>
+                                    <th md-column><span>Período Aquisitivo Fim</span></th>
+                                    <th md-column md-numeric></th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="row in crudVm.funcionarioAtivo.feriases">
+                                    <td md-cell width="15" class="button-column">
 
+                                        <md-button class="md-icon-button md-subhead" style="font-size:7px" aria-label="Edit" ng-click="crudVm.mostraEditFerias(row)">
+                                            <md-icon md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                                        </md-button>
+                                    </td>
+                                    <td md-cell>{{row.dataGozoInicio| date:'dd/MM/yyyy'}}</td>
+                                    <td md-cell>{{row.dataGozoFim| date:'dd/MM/yyyy'}}</td>
+                                    <td md-cell>{{row.dataAquisitivoInicio| date:'dd/MM/yyyy'}}</td>
+                                    <td md-cell>{{row.dataAquisitivoFim| date:'dd/MM/yyyy'}}</td>
+                                    <td md-cell md-numeric>
+                                        <md-button aria-label="Delete" ng-click="crudVm.funcionarioAtivo.feriases.splice(crudVm.funcionarioAtivo.feriases.indexOf(row), 1)">
+                                            <ng-md-icon icon="delete"></ng-md-icon>
+                                        </md-button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <md-card-actions layout="row" layout-align="begin center">
+                        <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.mostraAddFerias()">
+                            <ng-md-icon icon="add"></ng-md-icon>
+                        </button>
+                    </md-card-actions>
+                </md-tab>
                 <md-tab label="Advertências" ng-disabled="!crudVm.entity.funcionario">
-
+                    <br /><br />
                     <section layout="row">
                         <md-select name="funcionarios" style="width:100%" ng-model="crudVm.funcionarioAtivo" plrudVm.funcionaraceholder="Cargo" ng-model-options="{trackBy: '$value.id'}">
                             <md-option ng-value="item" ng-repeat="item in crudVm.entity.funcionario.funcionarioCargos">{{item.cargo.id}} - {{item.cargo.nome}}</md-option>
@@ -575,7 +566,6 @@
                                     <th md-column><span>Tipo de Advertência</span></th>
                                     <th md-column><span>Data</span></th>
                                     <th md-column md-numeric></th>
-
                                 </tr>
                             </thead>
                             <tbody md-body>
@@ -592,7 +582,6 @@
                                         <md-button aria-label="Delete" ng-click="crudVm.funcionarioAtivo.funcionarioCargoHasAdvertenciaTipos.splice(crudVm.funcionarioAtivo.feriasesfuncionarioCargoHasAdvertenciaTipos.indexOf(row), 1)">
                                             <ng-md-icon icon="delete"></ng-md-icon>
                                         </md-button>
-
                                     </td>
                                 </tr>
                             </tbody>
@@ -605,7 +594,6 @@
                     </md-card-actions>
                 </md-tab>
             </md-tabs>
-
         </md-card-content>
     </md-card>
 </form>

@@ -15,7 +15,7 @@
         vm.refresh = refresh;
         vm.list = []
         vm.selectedItems = []
-        Workspace.title = "Funcionário"
+        Workspace.title = "Colaborador"
         Workspace.enableSearch(onFilter)
 
         vm.query = {
@@ -37,7 +37,7 @@
                     promises.push(value.$delete());
                 });
                 Workspace.loading("Excluindo...", $q.all(promises).then(function () {
-                    Workspace.showMessage("Registros excluidos");
+                    Workspace.showMessage("Registros Excluidos!");
                     load(vm.query);
                 }));
             });
