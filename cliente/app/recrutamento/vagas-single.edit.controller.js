@@ -1,21 +1,16 @@
 (function () {
     'use strict';
-    angular.module('app').controller('VagasEditController', ['$mdToast', '$http', 'Vagas', '$state', '$stateParams', 'Workspace', 'Cargo', 'PlanoAvaliacao', 'Entrevista', '$mdDialog', VagasEditController]);
+    angular.module('app').controller('VagasSingleEditController', ['$mdToast', '$http', 'Vagas', '$state', '$stateParams', 'Workspace', 'Cargo', 'PlanoAvaliacao', 'Entrevista', '$mdDialog', VagasSingleEditController]);
 
     var state = "vagas"
     function VagasEditController($mdToast, $http, Vagas, $state, $stateParams, Workspace, Cargo, PlanoAvaliacao, Entrevista, $mdDialog) {
         var vm = this;
         vm.entity = {}
-        vm.saveCandidato = saveCandidato
-        vm.mostraEditCandidato = mostraEditCandidato
-        vm.querySearchPlano = querySearchPlano
-        vm.mostraAddEntrevista = mostraAddEntrevista
-        vm.mostraEditEntrevista = mostraEditEntrevista
         vm.cargos = []
         vm.tipos = []
         Workspace.title = "Manutenção de Vagas";
         if ($stateParams.id) {
-            Workspace.loading("Carregando...", Vagas.get({id: $stateParams.id}).$promise.then(function (data) {
+            Workspace.loading("Carregando...", Vagas.view({id: $stateParams.id}).$promise.then(function (data) {
 
                 vm.entity = data
                 vm.entity.dataInicio = Workspace.toDate(vm.entity.dataInicio)
@@ -24,8 +19,7 @@
                 console.log(data)
             }))
 
-        } else
-            vm.entity = new Vagas()
+        } 
 
         loadTipos()
         loadCargos()

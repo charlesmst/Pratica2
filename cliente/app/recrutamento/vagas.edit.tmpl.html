@@ -14,70 +14,225 @@
 
     <md-card >
 
-<!--        {{crudVm.entity}}-->
+        <!--        {{crudVm.entity}}-->
         <md-card-content>
+            <md-card-title>
+                <md-card-title-text>
+                    {{crudVm.entity.candidatos}}
 
-            <h2>Vagas</h2>
-            <md-content layout-padding>
-                <div flex="100">
-                    <md-checkbox ng-model="crudVm.entity.sigiloso" >
-                        Recrutamento Sigiloso
-                    </md-checkbox>
-                    <md-checkbox ng-model="crudVm.entity.finalizado" >
-                        Finalizado
-                    </md-checkbox>
-                </div>
-                <div layout-gt-xs="row">
-                    <h5>Data de Início:</h5>
-                    <md-datepicker ng-model="crudVm.entity.dataInicio" md-placeholder="Data de início." ng-required></md-datepicker>
-                    <div ng-messages="formEdit.dataInicio.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
-                    </div>
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <h5>Data Fim:</h5>
-                    <md-datepicker ng-model="crudVm.entity.dataFim" md-placeholder="Data final."></md-datepicker>
-                </div>
-                <md-input-container class="md-block" flex-gt-xs>
-                    <label>Tipo de Recrutamento</label>
-                    <md-select ng-model="crudVm.entity.tipo">
-                        <md-option ng-repeat="item in crudVm.tipos" ng-value="{{item.id}}" ng-required required>
-                            {{item.nome}}
-                        </md-option>
-                        <div ng-messages="formEdit.tipo.$error">
-                            <div ng-message="required">Campo obrigatório.</div>
+                    <span> 
+                        <div layout-gt-sm="row">
+                            <md-input-container flex="30" class="md-block" flex-gt-xs>
+                                <label>Código</label>
+                                <input  name="codigo" ng-model="crudVm.entity.id" disabled>
+
+
+                            </md-input-container>
+                            <md-input-container flex="" class="md-block" flex-gt-xs>
+                                <label>Cargo</label>
+                                <input  name="nome" ng-model="crudVm.entity.cargo.nome" disabled required>
+                                <div ng-messages="formEdit.nome.$error">
+                                    <div ng-message="required">Campo obrigatório.</div>
+                                </div>
+
+                            </md-input-container>
                         </div>
-                    </md-select>
-                </md-input-container>
 
-                </div>
+                    </span>
 
-                <md-input-container class="md-block" flex-gt-xs>
-                    <label>Descrição</label>
-                    <input  name="descricao" ng-model="crudVm.entity.descricao" required>
-                    <div ng-messages="formEdit.descricao.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
-                    </div>
+                    <md-tabs md-dynamic-height md-border-bottom>
+                        <md-tab label="Vaga">
+                            <md-content layout-padding>
+                                <div flex="100">
+                                    <md-checkbox ng-model="crudVm.entity.sigiloso" >
+                                        Recrutamento Sigiloso
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="crudVm.entity.finalizado" >
+                                        Finalizado
+                                    </md-checkbox>
+                                </div>
+                                <div layout-gt-xs="row">
+                                    <h5>Data de Início:</h5>
+                                    <md-datepicker ng-model="crudVm.entity.dataInicio" md-placeholder="Data de início." ng-required></md-datepicker>
+                                    <div ng-messages="formEdit.dataInicio.$error">
+                                        <div ng-message="required">Campo obrigatório.</div>
+                                    </div>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    <h5>Data Fim:</h5>
+                                    <md-datepicker ng-model="crudVm.entity.dataFim" md-placeholder="Data final."></md-datepicker>
+                                </div>
+                                <md-input-container class="md-block" flex-gt-xs>
+                                    <label>Cargo</label>
+                                    <md-select ng-model="crudVm.entity.cargo">
+                                        <md-option ng-repeat="item in crudVm.cargos" ng-value="{{item}}" ng-selected="item.id === crudVm.entity.cargo.id" >
+                                            {{item.nome}}
+                                        </md-option>
+                                    </md-select>
 
-                </md-input-container>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Quantidade</label>
+                                    <input required type="number" name="quantidade" ng-model="crudVm.entity.quantidade" min="1"
+                                           ng-pattern="/^[0-9]+$/" />
+                                    <div ng-messages="formEdit.quantidade.$error">
+                                        <div ng-message="required">
+                                            Informe a quantidade.
+                                        </div>
+                                        <div ng-message="min">
+                                            Quantidade deve ser maior que zero.
+                                        </div>
+                                        <div ng-message="pattern">
+                                            Informe um valor numérico.
+                                        </div>
+                                    </div>
+                                </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-xs>
-                    <label>Perfil</label>
-                    <textarea name="perfil" ng-model="crudVm.entity.perfil" required></textarea>
-                    <div ng-messages="formEdit.perfil.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
-                    </div>
+                                <md-input-container class="md-block" flex-gt-xs>
+                                    <label>Tipo de Recrutamento</label>
+                                    <md-select ng-model="crudVm.entity.tipo">
+                                        <md-option ng-repeat="item in crudVm.tipos" ng-value="{{item.id}}" ng-required required>
+                                            {{item.nome}}
+                                        </md-option>
+                                        <div ng-messages="formEdit.tipo.$error">
+                                            <div ng-message="required">Campo obrigatório.</div>
+                                        </div>
+                                    </md-select>
+                                </md-input-container>
 
-                </md-input-container>
+
+
+                                <md-input-container class="md-block" flex-gt-xs>
+                                    <label>Descrição</label>
+                                    <input  name="descricao" ng-model="crudVm.entity.descricao" required>
+                                    <div ng-messages="formEdit.descricao.$error">
+                                        <div ng-message="required">Campo obrigatório.</div>
+                                    </div>
+
+                                </md-input-container>
+
+                                <md-input-container class="md-block" flex-gt-xs>
+                                    <label>Perfil</label>
+                                    <textarea name="perfil" ng-model="crudVm.entity.perfil" required></textarea>
+                                    <div ng-messages="formEdit.perfil.$error">
+                                        <div ng-message="required">Campo obrigatório.</div>
+                                    </div>
+
+                                </md-input-container>
+
+                            </md-content>
+                        </md-tab>
+                        
+                        <md-tab label="Competências">
+
+                            <h2>Competências Exigidas</h2>
+                            <md-table-container>
+                                <table md-table >
+
+                                    <tbody md-body>
+                                        <tr md-row md-auto-select ng-repeat="row in crudVm.entity.competencias">
+
+                                            <td md-cell>
+                                    <md-input-container>
+                                        <label>Descrição</label>
+
+                                        <textarea name="descricao" max-length="2000" ng-model="row.descricao" required></textarea>
+                                    </md-input-container>
+                                    </td>  
+                                    <td  md-cell md-numeric> 
+                                    <md-button  aria-label="Delete" ng-click="crudVm.entity.competencias.splice(crudVm.entity.competencias.indexOf(row), 1)" >
+                                        <ng-md-icon icon="delete"></ng-md-icon>
+                                    </md-button>
+                                    </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+                            <button class="md-button md-raised md-primary" ng-click="crudVm.entity.competencias.push({})">
+                                <ng-md-icon icon="add"></ng-md-icon>
+                            </button>
+
+
+                        </md-tab>
+                        
+                        <md-tab label="Plano de Avaliação">
+                            <md-input-container flex="" class="md-block" flex-gt-xs>
+                                <md-autocomplete
+                                    md-selected-item="crudVm.entity.planoAvaliacao"
+                                    md-search-text="crudVm.searchText"
+                                    md-items="item in crudVm.querySearchPlano(crudVm.searchText)"
+                                    md-item-text="item.nome"
+                                    md-min-length="2"
+                                    md-float-label="Plano de Avaliação"
+                                    placeholder="Plano de Avaliação">
+                                    <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
+                                </md-autocomplete>
+                            </md-input-container>
+                            <h2>Questões</h2>
+
+                            <md-table-container>
+                                <table md-table >
+
+                                    <tbody md-body>
+                                        <tr md-row md-auto-select ng-repeat="row in crudVm.entity.planoAvaliacao.questaos">
+
+                                            <td md-cell >
+                                    <md-input-container>
+                                        <label>Descrição</label>
+
+                                        <textarea name="objetivo" max-length="2000" ng-model="row.descricao" disabled></textarea>
+                                    </md-input-container>
+                                    </td>  
+                                    <td md-cell>
+                                        Visível ao Candidato?
+                                    <md-checkbox ng-model="row.visivelCandidato" disabled>
+
+                                    </md-checkbox>
+                                    </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+
+                        </md-tab>
+
+                        <md-tab label="Candidatos">
+                            <md-table-container ng-show='!crudVm.candidato'>
+                                <table md-table md-progress="promise" >
+                                    <thead md-head>
+                                        <tr md-row>
+                                            <th md-column md-numeric ></th>
+                                            <th md-column><span>Nome</span></th>             
+                                        </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                        <tr md-row ng-repeat="row in crudVm.entity.candidatos">
+
+                                            <td md-cell width="15" class="button-column">
+                                    <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditEntrevista(row[indexOf()].entrevistas)">
+                                        <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+                                    </md-button>
+                                    </td>
+                                    <td md-cell>{{row.pessoa.nome}}</td>   
+
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+
+                        </md-tab>
 
 
 
 
-            </md-content>
+                    </md-tabs>
 
-        </md-card-content>
+                    </md-card-content>
 
-    </md-card>
-</form>
+                    </md-card>
+
+                    </form>
+                    <div ng-include="'app/recrutamento/candidato.edit.tmpl.html'" ng-show='crudVm.candidato'></div>

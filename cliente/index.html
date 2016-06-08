@@ -17,13 +17,13 @@
 
         <div ng-cloak="" class=" splash" id="splashScreen">
             <div class="loading-screen">
-            <p class="loading-text">Carregando...</p>            
+                <p class="loading-text">Carregando...</p>            
 
             </div>
             <script>
                         var sp = document.getElementById('splashScreen');
                         sp.style.height = window.innerHeight + "px";
-                        sp.style.lineHeight = window.innerHeight + "px";            </script>
+                        sp.style.lineHeight = window.innerHeight + "px";</script>
 
         </div>
         <div   layout="row" ng-cloak="" class="div-full" > 
@@ -216,6 +216,12 @@
             <script src="app/recrutamento/curriculo-formacao.edit.controller.js"></script>   
             <!-- /curriculo-formacao -->
 
+            <!-- entrevista -->
+            <script src="app/services/entrevista.service.js"></script>  
+            <script src="app/recrutamento/entrevista.edit.controller.js"></script>   
+            <!-- /entrevista -->
+
+         
             <!-- curriculo-qualificacao -->
             <script src="app/services/curriculo-qualificacao.service.js"></script>
             <script src="app/recrutamento/curriculo-qualificacao.edit.controller.js"></script>   

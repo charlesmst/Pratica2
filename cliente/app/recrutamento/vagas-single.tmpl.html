@@ -1,0 +1,10 @@
+<md-list ng-cloak>
+    
+    <md-subheader class="md-no-sticky">Vagas Abertas</md-subheader>
+    <md-list-item ng-repeat="item in crudVm.entity">
+        <p>{{item.cargo.nome}}</p>
+        <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>
+    </md-list-item>
+    <md-divider></md-divider>
+    
+</md-list>
