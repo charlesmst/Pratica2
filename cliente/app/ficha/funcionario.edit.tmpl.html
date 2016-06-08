@@ -28,7 +28,7 @@
                             </md-input-container>
                         </div>
                         <div flex layout="row">
-                            <md-checkbox ng-change="crudVm.habilitaFuncionario()" ng-model="crudVm.isFuncionario">
+                            <md-checkbox ng-change="crudVm.habilitaFuncionario()" ng-model="crudVm.isFuncionario" >
                                 Colaborador
                             </md-checkbox>                        
                         </div>
@@ -37,7 +37,7 @@
                 <md-card-title-media>
                     <div class="md-media-sm card-media foto">
                         <div class="alterar_foto"> <span><label for="inputDialog">Alterar Foto</label></span></div>
-                        <img class="md-card-image" ng-src="{{crudVm.image}}" />
+                        <img check-user-image class="md-card-image" ng-src="{{crudVm.image}}" />
 
                         <input id="inputDialog" type="file" style="position: fixed; top: -100em" onchange="angular.element(this).scope().changePhoto()">
                     </div>
@@ -49,7 +49,7 @@
                     <div layout-gt-sm="row">      
                         <md-input-container flex="" class="md-block" flex-gt-xs>
                             <label>E-mail</label>
-                            <input type="email" name="email" ng-model="crudVm.entity.email" md-max-length="200">
+                            <input type="email" name="email" ng-required="true" ng-model="crudVm.entity.email" md-max-length="200">
                             <div ng-messages="formEdit.email.$error">
                                 <div ng-message="required">Campo Obrigatório.</div>
                             </div>

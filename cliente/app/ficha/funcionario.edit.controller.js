@@ -46,6 +46,9 @@
 
                 vm.entity = data
                 vm.funcionarioCache = vm.entity.funcionario
+                
+                vm.isFuncionario =   typeof(vm.entity.funcionario) !== "undefined" && vm.entity.funcionario !== null;
+                console.log("isFuncionario",vm.isFuncionario)
                 if (vm.entity.funcionario && vm.entity.funcionario.funcionarioCargos.length > 0)
                     vm.funcionarioAtivo = vm.entity.funcionario.funcionarioCargos[0]
 

@@ -34,7 +34,7 @@
                     <span flex></span>
                     <div layout="column" class="md-toolbar-tools-bottom insets">
                         <!--<user-avatar></user-avatar>-->
-                        <img ng-src="{{ appVm.config.imageUrl + '/' + appVm.authorizationData.currentUser.foto}}" height="60" width="60" style="border-radius:30px" alt="{{appVm.authorizationData.currentUser.nome}}"/>
+                        <img check-user-image ng-src="{{ appVm.config.imageUrl + '/' + appVm.authorizationData.currentUser.foto}}" height="60" width="60" style="border-radius:30px" alt="{{appVm.authorizationData.currentUser.nome}}"/>
                         <span></span>
                         <div>{{appVm.authorizationData.currentUser.nome}}</div>
                         <div>{{appVm.authorizationData.currentUser.email}}</div>
@@ -374,6 +374,7 @@
             <script src="app/cargo/faixasalarial.controller.js"></script>   
             <script src="app/cargo/faixasalarial.edit.controller.js"></script>   
             <!-- /faixasalarial -->
+            <script src="app/ficha/check-user-image.directive.js"></script>
 
         </div>
     </body>
