@@ -44,7 +44,7 @@
                         vm.niveis = e.data.menus;
                         vm.defaultState = e.data.inicial;
                         resolve()
-                    },reject);
+                    }, reject);
 
                 })
             });
@@ -57,7 +57,6 @@
                     usuario: user,
                     senha: pass
                 }).then(function (e) {
-
                     vm.setCurrentUser(e.data).then(resolve, reject);
                 }, reject);
             });
@@ -68,6 +67,10 @@
         }
         function setCurrentUser(user) {
             return $q(function (resolve, reject) {
+
+                if (user.imagem && user.imagem.indexOf(config.imageUrl) !== 0)
+                    user.imagem = config.imageUrl + "/" + user.imagem;
+                console.log("User:", user)
                 AuthorizationData.setCurrentUser(user);
                 vm.loadNiveis().then(resolve, reject);
             })
@@ -83,7 +86,7 @@
                     resolve(0);
                 else
                     $http.get(config.apiUrl + "/authorize").then(function (r) {
-   
+
                         resolve(r.data.nivel)
                     }, reject);
             });

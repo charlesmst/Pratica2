@@ -120,11 +120,11 @@ md-sidenav ng-md-icon {
     padding-bottom: 10px;
 }
 .p-b-5{
-     padding-bottom: 5px; 
+    padding-bottom: 5px; 
 }
 .p-b-0{
-     padding-bottom: 0; 
-    
+    padding-bottom: 0; 
+
 }
 .m-r-30{
     margin-right: 30px;
@@ -139,104 +139,122 @@ md-sidenav ng-md-icon {
     margin-bottom:0;
     /* line-height: 0; */
 }
- .validation-messages {
+.validation-messages {
     font-size: 12px;
     color: #dd2c00;
     margin: 10px 0 0 25px; }
-    
-    .pull-right{
-        float:right;
-        display: block;
-    }
-    
-    .md-no-min-height{
-        min-height: 10px;
-    }
-    
-    .md-datepicker-allign{
-        position: relative;
+
+.pull-right{
+    float:right;
+    display: block;
+}
+
+.md-no-min-height{
+    min-height: 10px;
+}
+
+.md-datepicker-allign{
+    position: relative;
     left: -16px;
 
-   
-    }
-     .md-datepicker-allign.md-datepicker-input-container{
-      margin-left: 0;
-    }
-    .md-datepicker-allign.md-datepicker-button.md-icon-button {
-      margin-right: 0;
-    }
-    
-    
-    /**** CSS Novo ****/
-    .foto{
-        float: left;
-        display: block;
-        overflow: hidden;
-        position: relative;   
-        border: 1px solid #000;
-        width: 120px !important;
-        height: auto !important;
-    }
-    .foto img{
-        max-width: 100%;
-    }
-    .alterar_foto{
-        width: 100%;
-        float: left; 
-        opacity: 0.5; 
-        bottom: -40px; 
-        display: block;
-         padding: 5px 0;         
-        cursor: pointer;
-         font-size: 12px; 
-        text-align: center;
-        position: absolute; 
-        background-color: #000;
-        transition: all 0.5s ease 0s; 
-    }
-    .alterar_foto span{
-        width: 100%;
-        float: left; 
-        display: block; 
-    }
-    .alterar_foto span label{
-        color: #fff;
-        cursor: pointer!important;        
-    }
-    .foto:hover .alterar_foto{
-        bottom: 0; 
-    }
-    
-    .md-autocomplete.md-default-theme, md-autocomplete{
-        background-color: #fff !important;
-    }
-    .md-whiteframe-1dp, .md-whiteframe-z1 {
-        box-shadow: none !important;
-    }
-    html, body {
-        font-family: Roboto, "Helvetica Neue", sans-serif !important;
-    }
 
-    md-input-container>md-select {
-        text-transform: uppercase !important;
-        font-size: 15px !important;
-    }
-    md-input-container .md-input{
-        text-transform: uppercase !important;
-        font-size: 15px !important;
-    }
-    md-input-container.md-default-theme label, md-input-container label, md-input-container.md-default-theme .md-placeholder, md-input-container .md-placeholder{
-        text-transform: uppercase !important;
-        font-size: 15px !important;
-    }
-    table.md-table th.md-column, table.md-table td.md-cell, md-autocomplete input:not(.md-input), md-input-container.md-input-has-value label{
-        text-transform: uppercase !important;
-    }
-    .md-chips .md-chip-input-container md-autocomplete input {
-        text-transform: uppercase !important;
-        font-size: 15px !important;
-    }
-    .inset, md-list .md-subheader{
-        font-size: 14px;
-        text-transform: uppercase !important;
-    }
+}
+.md-datepicker-allign.md-datepicker-input-container{
+    margin-left: 0;
+}
+.md-datepicker-allign.md-datepicker-button.md-icon-button {
+    margin-right: 0;
+}
+
+
+/**** CSS Novo ****/
+.foto{
+    float: left;
+    display: block;
+    overflow: hidden;
+    position: relative;   
+    border: 1px solid #000;
+    width: 120px !important;
+    height: auto !important;
+}
+.foto img{
+    max-width: 100%;
+}
+.alterar_foto{
+    width: 100%;
+    float: left; 
+    opacity: 0.5; 
+    bottom: -40px; 
+    display: block;
+    padding: 5px 0;         
+    cursor: pointer;
+    font-size: 12px; 
+    text-align: center;
+    position: absolute; 
+    background-color: #000;
+    transition: all 0.5s ease 0s; 
+}
+.alterar_foto span{
+    width: 100%;
+    float: left; 
+    display: block; 
+}
+.alterar_foto span label{
+    color: #fff;
+    cursor: pointer!important;        
+}
+.foto:hover .alterar_foto{
+    bottom: 0; 
+}
+
+.md-autocomplete.md-default-theme, md-autocomplete{
+    background-color: #fff !important;
+}
+.md-whiteframe-1dp, .md-whiteframe-z1 {
+    box-shadow: none !important;
+}
+html, body {
+    font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+md-input-container>md-select {
+    text-transform: uppercase !important;
+    font-size: 15px !important;
+}
+md-input-container .md-input{
+    text-transform: uppercase !important;
+    font-size: 15px !important;
+}
+md-input-container.md-default-theme label, md-input-container label, md-input-container.md-default-theme .md-placeholder, md-input-container .md-placeholder{
+    text-transform: uppercase !important;
+    font-size: 15px !important;
+}
+table.md-table th.md-column, table.md-table td.md-cell, md-autocomplete input:not(.md-input), md-input-container.md-input-has-value label{
+    text-transform: uppercase !important;
+}
+.md-chips .md-chip-input-container md-autocomplete input {
+    text-transform: uppercase !important;
+    font-size: 15px !important;
+}
+.inset, md-list .md-subheader{
+    font-size: 14px;
+    text-transform: uppercase !important;
+}
+
+.splash {
+    display: none;
+}
+
+[ng-cloak].splash {
+    display: block !important;
+    width:100%;
+    background:#eee;
+    color:#333;
+}
+
+.div-full{
+    width:100%;
+}
+.loading-text{
+    text-align: center;
+}

@@ -1,16 +1,16 @@
 (function () {
     'use strict';
-    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog', 'Workspace', 'hotkeys', '$scope', '$state', 'Authorization', 'AuthorizationData', '$rootScope', AppController]);
+    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog', 'Workspace', 'hotkeys', '$scope', '$state', 'Authorization', 'AuthorizationData', '$rootScope','config', AppController]);
 
 
-    function AppController($mdBottomSheet, $mdSidenav, $mdDialog, Workspace, hotkeys, $scope, $state, Authorization, AuthorizationData, $rootScope) {
+    function AppController($mdBottomSheet, $mdSidenav, $mdDialog, Workspace, hotkeys, $scope, $state, Authorization, AuthorizationData, $rootScope,config) {
         var vm = this;
         vm.alert = '';
         vm.isSubState = false;
+        vm.config = config;
 
         // $rootScope.$on("api-error",handleError);
 
-        console.log($state.current)
         vm.workspace = Workspace;
         vm.showListBottomSheet = showListBottomSheet;
         vm.toggleSidenav = toggleSidenav;
