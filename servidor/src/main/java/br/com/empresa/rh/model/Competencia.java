@@ -1,7 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
-
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -21,102 +22,102 @@ import javax.persistence.Table;
  */
 @Entity
 @SequenceGenerator(name = "competencia_seq", sequenceName = "competencia_seq", initialValue = 1, allocationSize = 1)
-@Table(name="competencia"
-    ,schema="public"
+@Table(name = "competencia", schema = "public"
 )
-public class Competencia  implements java.io.Serializable {
+public class Competencia implements java.io.Serializable {
 
-
-     private int id;
-     private String descricao;
-     private char tipo;
-     private boolean ativo = true;
-     private Set<Vagas> vagases = new HashSet<Vagas>(0);
-     private Set<Candidato> candidatos = new HashSet<Candidato>(0);
-     private Set<CargoNivel> cargoNivels = new HashSet<CargoNivel>(0);
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
+    private int id;
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
+    private String descricao;
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
+    private char tipo;
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
+    private boolean ativo = true;
+    private Set<Vagas> vagases = new HashSet<Vagas>(0);
+    private Set<Candidato> candidatos = new HashSet<Candidato>(0);
+    private Set<CargoNivel> cargoNivels = new HashSet<CargoNivel>(0);
 
     public Competencia() {
     }
 
-	
     public Competencia(int id, String descricao, char tipo) {
         this.id = id;
         this.descricao = descricao;
         this.tipo = tipo;
     }
+
     public Competencia(int id, String descricao, char tipo, Set<Vagas> vagases, Set<Candidato> candidatos, Set<CargoNivel> cargoNivels) {
-       this.id = id;
-       this.descricao = descricao;
-       this.tipo = tipo;
-       this.vagases = vagases;
-       this.candidatos = candidatos;
-       this.cargoNivels = cargoNivels;
+        this.id = id;
+        this.descricao = descricao;
+        this.tipo = tipo;
+        this.vagases = vagases;
+        this.candidatos = candidatos;
+        this.cargoNivels = cargoNivels;
     }
-   
-     @Id 
-     @GeneratedValue(generator = "competencia_seq", strategy = GenerationType.SEQUENCE)
-    
-    @Column(name="id", unique=true, nullable=false)
+
+    @Id
+    @GeneratedValue(generator = "competencia_seq", strategy = GenerationType.SEQUENCE)
+
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
 
-    
-    @Column(name="descricao", nullable=false, length=500)
+    @Column(name = "descricao", nullable = false, length = 500)
     public String getDescricao() {
         return this.descricao;
     }
-    
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    
-    @Column(name="tipo", nullable=false, length=1)
+    @Column(name = "tipo", nullable = false, length = 1)
     public char getTipo() {
         return this.tipo;
     }
-    
+
     public void setTipo(char tipo) {
         this.tipo = tipo;
     }
 
-@ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="vagas_has_competencia", schema="public", joinColumns = { 
-        @JoinColumn(name="competencia_id", nullable=false, updatable=false) }, inverseJoinColumns = { 
-        @JoinColumn(name="vagas_id", nullable=false, updatable=false) })
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "vagas_has_competencia", schema = "public", joinColumns = {
+        @JoinColumn(name = "competencia_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "vagas_id", nullable = false, updatable = false)})
     public Set<Vagas> getVagases() {
         return this.vagases;
     }
-    
+
     public void setVagases(Set<Vagas> vagases) {
         this.vagases = vagases;
     }
 
-@ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="competencia_has_candidato", schema="public", joinColumns = { 
-        @JoinColumn(name="competencia_id", nullable=false, updatable=false) }, inverseJoinColumns = { 
-        @JoinColumn(name="candidato_id", nullable=false, updatable=false) })
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "competencia_has_candidato", schema = "public", joinColumns = {
+        @JoinColumn(name = "competencia_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "candidato_id", nullable = false, updatable = false)})
     public Set<Candidato> getCandidatos() {
         return this.candidatos;
     }
-    
+
     public void setCandidatos(Set<Candidato> candidatos) {
         this.candidatos = candidatos;
     }
 
-@ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="competencia_has_cargo_nivel", schema="public", joinColumns = { 
-        @JoinColumn(name="competencia_id", nullable=false, updatable=false) }, inverseJoinColumns = { 
-        @JoinColumn(name="cargo_nivel_id", nullable=false, updatable=false) })
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "competencia_has_cargo_nivel", schema = "public", joinColumns = {
+        @JoinColumn(name = "competencia_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "cargo_nivel_id", nullable = false, updatable = false)})
     public Set<CargoNivel> getCargoNivels() {
         return this.cargoNivels;
     }
-    
+
     public void setCargoNivels(Set<CargoNivel> cargoNivels) {
         this.cargoNivels = cargoNivels;
     }
@@ -129,9 +130,4 @@ public class Competencia  implements java.io.Serializable {
         this.ativo = ativo;
     }
 
-
-
-
 }
-
-

@@ -1,6 +1,8 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Recrutamento;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,12 +31,18 @@ import javax.persistence.TemporalType;
 )
 public class Candidato implements java.io.Serializable {
 
+    @JsonView(Recrutamento.Vagas.class)
     private int id;
+    @JsonView(Recrutamento.Vagas.class)
     private Pessoa pessoa;
     private Vagas vagas;
+    @JsonView(Recrutamento.Vagas.class)
     private Date dataInscricao;
+    @JsonView(Recrutamento.Vagas.class)
     private Set<Resposta> respostas = new HashSet<Resposta>(0);
+    @JsonView(Recrutamento.Vagas.class)
     private Set<Competencia> competencias = new HashSet<Competencia>(0);
+    @JsonView(Recrutamento.Vagas.class)
     private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
 
     public Candidato() {

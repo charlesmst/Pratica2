@@ -23,16 +23,15 @@ import javax.persistence.Table;
 @Table(name="resposta"
     ,schema="public"
 )
-public class Resposta  implements java.io.Serializable {
+public class Resposta implements java.io.Serializable {
 
-
-     @JsonView({Recrutamento.Avaliacao.class})
+     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
      private int id;
      @JsonView({Recrutamento.Avaliacao.class})
      private Candidato candidato;
      private Questao questao;
      private QuestaoOpcao questaoOpcao;
-     @JsonView({Recrutamento.Avaliacao.class})
+     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
      private String descricao;
 
     public Resposta() {

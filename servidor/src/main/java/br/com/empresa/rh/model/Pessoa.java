@@ -36,7 +36,7 @@ import org.hibernate.annotations.Type;
 )
 public class Pessoa implements java.io.Serializable {
 
-    @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class,})
+    @JsonView({Folha.Funcionario.class, Recrutamento.Curriculo.class, Recrutamento.Vagas.class, Folha.FuncionarioFicha.class, })
     private int id;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class, Recrutamento.Pessoa.class})
     private Cidade cidade;
@@ -54,7 +54,7 @@ public class Pessoa implements java.io.Serializable {
     private Pessoa pessoaByMaeId;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private String cpf;
-    @JsonView({Folha.Funcionario.class, Recrutamento.Pessoa.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
+    @JsonView({Folha.Funcionario.class, Recrutamento.Vagas.class, Recrutamento.Pessoa.class, Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private String nome;
     @JsonView({Recrutamento.Curriculo.class, Recrutamento.Pessoa.class, Folha.FuncionarioFicha.class})
     private Date dataNascimento;

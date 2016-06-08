@@ -14,6 +14,39 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class VagasService extends Service<Vagas> {
 
+    @Override
+    public Vagas findById(Object id) {
+        String hql = "select t from Vagas t "
+                + " left outer join fetch t.necessidadePessoa n "
+                + " left outer join fetch t.planoAvaliacao pa "
+                + " left outer join fetch pa.questaos qe "
+                + " left outer join fetch t.cargo a "
+                + " left outer join fetch t.competencias "
+                + " left outer join fetch t.candidatos d "
+                + " left outer join fetch d.entrevistas "
+                + " left outer join fetch d.respostas r"
+                + " left outer join fetch d.pessoa "
+                + " left outer join fetch d.competencias "
+                + " where t.id = :id";
+        Vagas v = (Vagas) entityManager.createQuery(hql)
+                .setParameter("id", id)
+                .getSingleResult(); //To change body of generated methods, choose Tools | Templates.
+
+        return v;
+    }
+    
+    public Vagas viewFindById(Object id) {
+        String hql = "select t from Vagas t "
+                + " left outer join fetch t.cargo a "
+                + " left outer join fetch t.competencias "
+                + " where t.id = :id";
+        Vagas v = (Vagas) entityManager.createQuery(hql)
+                .setParameter("id", id)
+                .getSingleResult(); //To change body of generated methods, choose Tools | Templates.
+
+        return v;
+    }
+
     public VagasService() {
         classRef = Vagas.class;
     }
@@ -21,10 +54,10 @@ public class VagasService extends Service<Vagas> {
     @Transactional
     public List<Vagas> findForTable(TableRequest request) {
         String hql = "select t from Vagas t "
-                + " left join fetch t.necessidadePessoa n "
-                + " left join fetch t.competencias c";
-        hql += request.applyFilter("t.id", "descricao");
-        hql += request.applyOrder("t.id", "descricao");
+                + " left outer join fetch t.cargo a "
+                + " left outer join fetch t.competencias ";
+        hql += request.applyFilter("t.id", "a.nome", "t.descricao");
+        hql += request.applyOrder("t.id", "a.nome", "t.descricao");
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);

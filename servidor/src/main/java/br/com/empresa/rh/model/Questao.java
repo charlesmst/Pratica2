@@ -27,16 +27,16 @@ import javax.persistence.Table;
 @Table(name="questao"
     ,schema="public"
 )
-public class Questao  implements java.io.Serializable {
+public class Questao implements java.io.Serializable {
 
 
-     @JsonView({Recrutamento.Avaliacao.class})
+     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
      private int id;
-     @JsonView({Recrutamento.Avaliacao.class})
+     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
      private String descricao;
      @JsonView({Recrutamento.Avaliacao.class})
      private Character tipo;
-     @JsonView({Recrutamento.Avaliacao.class})
+     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
      private boolean visivelCandidato;
      @JsonView({Recrutamento.Avaliacao.class})
      private Set<Resposta> respostas = new HashSet<Resposta>(0);

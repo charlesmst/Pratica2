@@ -64,4 +64,12 @@ public class Recrutamento {
     public static class Avaliacao {
         
     }
+    
+    public static class Vagas {
+        
+    }
+    
+    public static class VagasView {
+        
+    }
 }

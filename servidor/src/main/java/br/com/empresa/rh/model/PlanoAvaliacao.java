@@ -28,11 +28,11 @@ import javax.persistence.Table;
 )
 public class PlanoAvaliacao implements java.io.Serializable {
     
-    @JsonView({Recrutamento.Avaliacao.class})
+    @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
     private int id;
-    @JsonView({Recrutamento.Avaliacao.class})
+    @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
     private String nome;
-    @JsonView({Recrutamento.Avaliacao.class})
+    @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
     private Set<Questao> questaos = new HashSet<Questao>(0);
     private Set<Vagas> vagases = new HashSet<Vagas>(0);
 
