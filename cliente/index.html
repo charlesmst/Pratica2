@@ -10,14 +10,23 @@
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">-->
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/animations.css">
-        <title>{{appVm.workspace.title|| "RH"}}</title>
+        <title ng-bind="appVm.workspace.title || 'RH'">TOP RH</title>
     </head>
 
     <body layout="row" >
-        <div ng-cloak="" class="splash">
-            <p class="md-display-3 loading-text">Aguarde...</p>
+
+        <div ng-cloak="" class=" splash" id="splashScreen">
+            <div class="loading-screen">
+            <p class="loading-text">Carregando...</p>            
+
+            </div>
+            <script>
+                        var sp = document.getElementById('splashScreen');
+                        sp.style.height = window.innerHeight + "px";
+                        sp.style.lineHeight = window.innerHeight + "px";            </script>
+
         </div>
-        <div   layout="row" ng-cloak="" class="div-full">
+        <div   layout="row" ng-cloak="" class="div-full" > 
 
 
             <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">

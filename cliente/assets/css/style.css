@@ -243,13 +243,18 @@ table.md-table th.md-column, table.md-table td.md-cell, md-autocomplete input:no
 
 .splash {
     display: none;
+    text-align: center;
+
 }
 
 [ng-cloak].splash {
-    display: block !important;
+
     width:100%;
     background:#eee;
     color:#333;
+    /*overflow: hidden;*/
+    display: flex!important;
+    justify-content: center;
 }
 
 .div-full{
@@ -257,4 +262,11 @@ table.md-table th.md-column, table.md-table td.md-cell, md-autocomplete input:no
 }
 .loading-text{
     text-align: center;
+}
+.loading-screen{
+    background: url(../icon/loading.gif) center center no-repeat;
+    width:64px;
+    height:64px;
+
+    align-self: center;
 }
