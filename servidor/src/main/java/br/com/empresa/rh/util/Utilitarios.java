@@ -65,7 +65,13 @@ public class Utilitarios {
         String key = SecurityFilter.encodeAuthorize(u.getPessoaId() + "", u.getNivel() + "");
         LoginResponse r = new LoginResponse(key, u.getPessoa().getNome());
         r.setEmail(u.getPessoa().getEmail());
-        r.setFoto("");
+        
+        r.setEmail(u.getPessoa().getEmail());
+        if (u.getPessoa().getImagem() == null || u.getPessoa().getImagem().equals("")) {
+            r.setFoto("0.jpg");
+        } else {
+            r.setFoto(u.getPessoa().getImagem());
+        }
         return r;
     }
 

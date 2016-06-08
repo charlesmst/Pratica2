@@ -86,6 +86,7 @@ public class Pessoa implements java.io.Serializable {
     @JsonView({Folha.FuncionarioFicha.class})
     private Funcionario funcionario;
     private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
+    @JsonView({Folha.FuncionarioFicha.class})
     private Usuario usuario;
     @JsonView({Recrutamento.Curriculo.class, Folha.FuncionarioFicha.class})
     private Set<NecessidadeEspecial> necessidadeEspecials = new HashSet<NecessidadeEspecial>(0);
@@ -360,7 +361,7 @@ public class Pessoa implements java.io.Serializable {
         this.entrevistas = entrevistas;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "pessoa",cascade = CascadeType.ALL)
     public Usuario getUsuario() {
         return this.usuario;
     }

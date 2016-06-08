@@ -51,8 +51,11 @@ public class AuthorizeResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed(NivelAcesso.CANDIDATO)
     public RestResponseUser whoAmI(@Context SecurityContext context) {
+        utilitarios.setSecutiryContext(context);
         RestResponseUser l = new RestResponseUser();
         l.setNome(context.getUserPrincipal().getName());
+        
+
         for (int i = 5; i >= 1; i--) {
             if (context.isUserInRole(i + "")) {
                 l.setNivel(i + "");
@@ -101,8 +104,8 @@ public class AuthorizeResource {
     public Response generateToken(UsuarioSenha user) {
 
         Usuario u = usuarioService.pessoaUsuario(user.getUsuario());
-        
-        if (u != null && u.getSenha().equals(user.getSenha())) {
+
+        if (u != null && u.getSenha().toUpperCase().equals(user.getSenha().toUpperCase())) {
 
             return Response.ok(utilitarios.loginResponseFor(u)).build();
         }

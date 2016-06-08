@@ -12,7 +12,8 @@ package br.com.empresa.rh.model.response;
 public class RestResponseUser {
     private String nome;
     private String nivel;
-
+    private String imagem;
+    private String email;
     public String getNome() {
         return nome;
     }
@@ -27,6 +28,22 @@ public class RestResponseUser {
 
     public void setNivel(String nivel) {
         this.nivel = nivel;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
 }

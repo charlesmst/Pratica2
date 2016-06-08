@@ -1,5 +1,6 @@
 package br.com.empresa.rh.service;
 
+import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.model.Dependente;
 import br.com.empresa.rh.model.Ferias;
 import br.com.empresa.rh.model.Funcionario;
@@ -11,6 +12,7 @@ import br.com.empresa.rh.model.FuncionarioCargoHasMotivoFaltaId;
 import br.com.empresa.rh.model.FuncionarioFaixa;
 import br.com.empresa.rh.model.FuncionarioQualificacao;
 import br.com.empresa.rh.model.Pessoa;
+import br.com.empresa.rh.model.Usuario;
 import br.com.empresa.rh.model.request.TableRequest;
 import java.util.HashSet;
 import java.util.List;
@@ -30,7 +32,7 @@ public class PessoaService extends Service<Pessoa> {
     }
 
     @Transactional
-    public List<Pessoa> findForTable(TableRequest request,boolean somenteFuncionarios) {
+    public List<Pessoa> findForTable(TableRequest request, boolean somenteFuncionarios) {
 
         String hql = "select t from Pessoa t"
                 + " left join fetch t.funcionario funcionario "
@@ -40,10 +42,10 @@ public class PessoaService extends Service<Pessoa> {
             hql += request.applyFilter("t.id", "t.nome");
             hql += request.applyOrder("t.id", "t.nome");
         }
-        
-        if(somenteFuncionarios){
-            hql+= hql.contains("where")?" and ": " where ";
-            hql+=" funcionario is not null ";
+
+        if (somenteFuncionarios) {
+            hql += hql.contains("where") ? " and " : " where ";
+            hql += " funcionario is not null ";
         }
         Query q = entityManager.createQuery(hql);
         if (request != null) {
@@ -66,11 +68,9 @@ public class PessoaService extends Service<Pessoa> {
         save(m); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-
     @Transactional
     public void save(Pessoa pessoa) {
-    
+
         if (pessoa.getFuncionario() != null) {
 
             Funcionario funcionario = pessoa.getFuncionario();
@@ -138,6 +138,24 @@ public class PessoaService extends Service<Pessoa> {
                 }
             }
         }
+        if (pessoa.getUsuario() != null) {
+            if (pessoa.getId() > 0) {
+                Pessoa p = findById(pessoa.getId());
+                pessoa.getUsuario().setSenha(p.getUsuario().getSenha());
+                pessoa.getUsuario().setPessoaId(p.getId());
+                pessoa.getUsuario().setPessoa(pessoa);
+            }
+        } else {
+            if (pessoa.getFuncionario() != null) {
+                pessoa.setUsuario(new Usuario());
+                pessoa.getUsuario().setPessoaId(pessoa.getId());
+                pessoa.getUsuario().setUsuario(pessoa.getEmail());
+                pessoa.getUsuario().setSenha(pessoa.getCpf());//@TODO Ajustar para gerar uma senha
+                pessoa.getUsuario().setNivel(Integer.parseInt(NivelAcesso.FUNCIONARIO));
+                pessoa.getUsuario().setPessoa(pessoa);
+
+            }
+        }
         if (pessoa.getId() == 0) {
             entityManager.persist(pessoa);
 //            entityManager.persist(funcionario);
@@ -159,6 +177,7 @@ public class PessoaService extends Service<Pessoa> {
     @Override
     public Pessoa findById(Object id) {
         return (Pessoa) entityManager.createQuery("from Pessoa p "
+                + " left outer join fetch p.usuario usuario"
                 + " left outer join fetch p.pessoasForMaeId pessoasForMaeId "
                 + " left outer join fetch p.pessoaByPessoaId pessoaByPessoaId"
                 + " left outer join fetch p.necessidadeEspecials necessidadeEspecials"

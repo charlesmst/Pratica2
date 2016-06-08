@@ -34,7 +34,7 @@ public class UsuarioService extends Service<Usuario> {
 
     public Usuario pessoaUsuario(String usuario) {
         List<Usuario> l = entityManager.createQuery("from Usuario u "
-                + " where u.usuario like :usuario ")
+                + " where upper(u.usuario) like upper( :usuario ) ")
                 .setParameter("usuario", usuario.toUpperCase())
                 .getResultList();
         if(l.isEmpty())

@@ -1,6 +1,7 @@
 package br.com.empresa.rh.model;
 // Generated 19/04/2016 00:32:26 by Hibernate Tools 4.3.1
 
+import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.model.view.Recrutamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -30,10 +31,11 @@ public class Usuario implements java.io.Serializable {
     private int pessoaId;
     @JsonView({Recrutamento.Usuario.class})
     private Pessoa pessoa;
-    @JsonView({Recrutamento.Usuario.class})
+    @JsonView({Recrutamento.Usuario.class, Folha.FuncionarioFicha.class})
     private String usuario;
     @JsonView({Recrutamento.Usuario.class})
     private String senha;
+    @JsonView({Folha.FuncionarioFicha.class})
     private Integer nivel;
     private Set<NecessidadePessoa> necessidadePessoas = new HashSet<NecessidadePessoa>(0);
     private Set<Auditoria> auditorias = new HashSet<Auditoria>(0);
