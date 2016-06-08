@@ -118,7 +118,7 @@ public class PessoaResource {
      * Detecta se enviou a imagem em base 64, e faz upload
      */
     public void manageUploadFile(Pessoa pessoa, ServletContext servletContext) {
-        if (pessoa.getImagem().startsWith("data:image")) {
+        if (pessoa.getImagem() != null && pessoa.getImagem().startsWith("data:image")) {
             Pattern p = Pattern.compile("^data:image\\/(png|jpg|jpeg);base64,");
             Matcher m = p.matcher(pessoa.getImagem());
             if (!m.find()) {

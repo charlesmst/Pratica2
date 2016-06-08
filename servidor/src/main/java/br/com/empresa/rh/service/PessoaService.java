@@ -138,23 +138,19 @@ public class PessoaService extends Service<Pessoa> {
                 }
             }
         }
-        if (pessoa.getUsuario() != null) {
-            if (pessoa.getId() > 0) {
-                Pessoa p = findById(pessoa.getId());
-                pessoa.getUsuario().setSenha(p.getUsuario().getSenha());
-                pessoa.getUsuario().setPessoaId(p.getId());
-                pessoa.getUsuario().setPessoa(pessoa);
-            }
-        } else {
-            if (pessoa.getFuncionario() != null) {
-                pessoa.setUsuario(new Usuario());
-                pessoa.getUsuario().setPessoaId(pessoa.getId());
-                pessoa.getUsuario().setUsuario(pessoa.getEmail());
-                pessoa.getUsuario().setSenha(pessoa.getCpf());//@TODO Ajustar para gerar uma senha
-                pessoa.getUsuario().setNivel(Integer.parseInt(NivelAcesso.FUNCIONARIO));
-                pessoa.getUsuario().setPessoa(pessoa);
+        if (pessoa.getUsuario() != null && pessoa.getId() > 0) {
+            Pessoa p = findById(pessoa.getId());
+            pessoa.getUsuario().setSenha(p.getUsuario().getSenha());
+            pessoa.getUsuario().setPessoaId(p.getId());
+            pessoa.getUsuario().setPessoa(pessoa);
+        } else if (pessoa.getFuncionario() != null && pessoa.getId() == 0) {
+            pessoa.setUsuario(new Usuario());
+            pessoa.getUsuario().setPessoaId(pessoa.getId());
+            pessoa.getUsuario().setUsuario(pessoa.getEmail());
+            pessoa.getUsuario().setSenha(pessoa.getCpf());//@TODO Ajustar para gerar uma senha
+            pessoa.getUsuario().setNivel(Integer.parseInt(NivelAcesso.FUNCIONARIO));
+            pessoa.getUsuario().setPessoa(pessoa);
 
-            }
         }
         if (pessoa.getId() == 0) {
             entityManager.persist(pessoa);
