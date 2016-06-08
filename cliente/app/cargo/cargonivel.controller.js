@@ -13,7 +13,7 @@
         vm.onReorder = onReorder;
         vm.list = []
         vm.selectedItems = []
-        Workspace.title = "CargoNivel"
+        Workspace.title = "Nível Cargo"
         Workspace.enableSearch(onFilter)
 
         vm.query = {

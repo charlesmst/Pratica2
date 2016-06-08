@@ -95,6 +95,36 @@
                         }
                     }
                 })
+                .state('cargonivel', {
+                    url: '/cargonivel',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/cargonivel.tmpl.html',
+                            controller: "CargoNivelController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('cargoniveladd', {
+                    url: '/cargonivel/add',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/cargonivel.edit.tmpl.html',
+                            controller: "CargoNivelEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
+                .state('cargoniveledit', {
+                    url: '/cargonivel/edit/:id',
+                    views: {
+                        "": {
+                            templateUrl: 'app/cargo/cargonivel.edit.tmpl.html',
+                            controller: "CargoNivelEditController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
     }
     
 })()

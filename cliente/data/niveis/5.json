@@ -55,6 +55,11 @@
                     "icon": "cargos"
                 },
                 {
+                    "link": "cargonivel",
+                    "title": "Nível Cargo",
+                    "icon": "cargos"
+                },
+                {
                     "link": "qualificacao",
                     "title": "Qualificações",
                     "icon": "qualificacao"
