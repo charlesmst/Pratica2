@@ -13,58 +13,58 @@
 
             <md-card-content>
                 <div layout-gt-sm="row">
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Situação</label>
+                        <md-select ng-model="modalVm.entity.situacao">
+                            <md-option ng-repeat="item in modalVm.situacoes" ng-value="{{item.id}}">
+                                {{item.nome}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
                     <h5>Data da entrevista:</h5>
-                    <md-datepicker ng-model="modalVm.entity.dataProgramada" md-placeholder="Data da entrevista" ng-required></md-datepicker>
+                    <md-datepicker ng-model="modalVm.entity.dataProgramada" md-placeholder="Data da entrevista"></md-datepicker>
                     <md-input-container flex="" class="md-block" flex-gt-xs>
                         <label>Hora da entrevista</label>
-                        <input name="hora" ng-model="modalVm.entity.hora" ui-time-mask="short" required>
+                        <input name="hora" ng-model="modalVm.entity.hora" ui-time-mask="short">
                         {{modalVm.entity.hora}}
                     </md-input-container>    
-                    <md-checkbox ng-model="modalVm.entity.confirmado" >
+
+                </div>
+
+                <div layout-gt-sm="row">
+                    <md-checkbox ng-model="modalVm.entity.confirmado">
                         Candidato confirmou?
                     </md-checkbox>
+                    <md-input-container flex="" class="md-block" flex-gt-xs>
+                        <label>Resposta do Candidato</label>
+                        <input  name="resposta" ng-model="modalVm.entity.resposta">
+                        <div ng-messages="formEdit.resposta.$error">
+                            <div ng-message="required">Campo obrigatório.</div>
+                        </div>
+
+                    </md-input-container>
                 </div>
 
                 <md-input-container flex="" class="md-block" flex-gt-xs>
-                    <label>Descriçao</label>
-                    <input  name="descricao" ng-model="modalVm.entity.descricao" required>
+                    <label>Descriçao da Entrevista</label>
+                    <input  name="descricao" ng-model="modalVm.entity.descricao">
                     <div ng-messages="formEdit.descricao.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
 
                 </md-input-container>
-                <md-input-container flex="" class="md-block" flex-gt-xs>
-                    <label>Resposta</label>
-                    <input  name="resposta" ng-model="modalVm.entity.resposta" required>
-                    <div ng-messages="formEdit.resposta.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
-                    </div>
 
-                </md-input-container>
 
                 <div layout-gt-sm="row">
                     <md-input-container flex="" class="md-block" flex-gt-xs>
                         <label>Local da Entrevista</label>
-                        <input  name="localEntrevista" ng-model="modalVm.entity.localEntrevista" required>
+                        <input  name="localEntrevista" ng-model="modalVm.entity.localEntrevista">
                         <div ng-messages="formEdit.localEntrevista.$error">
                             <div ng-message="required">Campo obrigatório.</div>
                         </div>
 
                     </md-input-container>
                 </div>
-                <md-input-container flex="" class="md-block" flex-gt-xs>
-                    <label>Situação</label>
-                    <md-select ng-model="modalVm.entity.situacao">
-                        <md-option ng-repeat="item in modalVm.situacoes" ng-value="{{item.id}}">
-                            {{item.nome}}
-                        </md-option>
-                    </md-select>
-                    <div ng-messages="formEdit.situacao.$error">
-                        <div ng-message="required">Campo obrigatório.</div>
-                    </div>
-                </md-input-container>
-
-
 
             </md-card-content>
         </md-card>
