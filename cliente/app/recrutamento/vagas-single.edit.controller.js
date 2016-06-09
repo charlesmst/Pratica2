@@ -3,7 +3,7 @@
     angular.module('app').controller('VagasSingleEditController', ['$mdToast', '$http', 'Vagas', '$state', '$stateParams', 'Workspace', 'Cargo', 'PlanoAvaliacao', 'Entrevista', '$mdDialog', VagasSingleEditController]);
 
     var state = "vagas"
-    function VagasEditController($mdToast, $http, Vagas, $state, $stateParams, Workspace, Cargo, PlanoAvaliacao, Entrevista, $mdDialog) {
+    function VagasSingleEditController($mdToast, $http, Vagas, $state, $stateParams, Workspace, Cargo, PlanoAvaliacao, Entrevista, $mdDialog) {
         var vm = this;
         vm.entity = {}
         vm.cargos = []

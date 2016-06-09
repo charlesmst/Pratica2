@@ -14,6 +14,7 @@
             <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
                 <tr md-row>
                     <th md-column md-numeric ></th>
+                    <th md-column md-order-by="id"><span>ID</span></th>
                     <th md-column md-order-by="descricao"><span>Descrição</span></th>             
                 </tr>
             </thead>
@@ -25,7 +26,8 @@
                 <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
             </md-button>
             </td>
-            <td md-cell>{{row.descricao}}</td>   
+            <td md-cell>{{row.id}}</td>   
+            <td md-cell>{{row.cargo.nome}}</td>   
 
             </tr>
             </tbody>

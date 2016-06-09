@@ -5,7 +5,7 @@
             "title": "Candidato",
             "links": [
                 {
-                    "link": "vagas",
+                    "link": "vagasview",
                     "title": "Vagas",
                     "icon": "vagas"
                 },

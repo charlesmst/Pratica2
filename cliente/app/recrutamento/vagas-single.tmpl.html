@@ -1,10 +1,48 @@
-<md-list ng-cloak>
-    
-    <md-subheader class="md-no-sticky">Vagas Abertas</md-subheader>
-    <md-list-item ng-repeat="item in crudVm.entity">
-        <p>{{item.cargo.nome}}</p>
-        <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>
-    </md-list-item>
-    <md-divider></md-divider>
-    
-</md-list>
+<md-card>
+    <md-content>
+        <md-list ng-cloak ng-model="crudVm.selectedItems">
+
+            <md-subheader class="md-no-sticky">Vagas Abertas</md-subheader>
+            <md-list-item ng-repeat="row in crudVm.list">
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{{row.cargo.nome}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="start center">
+<!--                        <md-card-icon-actions>
+                            <md-button class="md-icon-button" aria-label="Favorite">
+                                <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button" aria-label="Share">
+                                <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
+                            </md-button>
+                        </md-card-icon-actions>-->
+                        <md-button class="md-primary md-raised">Inscrever-se</md-button>
+<!--                        <md-button>Action 2</md-button>-->
+                    </md-card-actions>
+                    <md-card-content>
+                        
+                        <h5>Atribuições do Cargo</h5>
+                        <p>{{row.cargo.atribuicoes}}</p>
+                        
+                        <h5>Número de Vagas</h5>
+                        <p>{{row.quantidade}}</p>
+                        
+                        <h5>Descrição</h5>
+                        <p>{{row.descricao}}</p>
+                        
+                        <h5>Perfil desejado</h5>
+                        <p>{{row.perfil}}</p>
+                        
+                        <h5>Requisitos e competências</h5>
+                        <p ng-repeat="c in row.competencias">{{c.descricao}}</p>
+                    </md-card-content>
+                </md-card>
+            </md-list-item>
+            <md-divider></md-divider>
+
+        </md-list>
+    </md-content>
+</md-card>

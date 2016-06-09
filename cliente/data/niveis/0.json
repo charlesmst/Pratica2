@@ -5,8 +5,8 @@
             "title": "Site",
             "links": [
                 {
-                    "link": "vagas",
-                    "title": "Vagas em Aberto",
+                    "link": "vagasview",
+                    "title": "Vagas",
                     "icon": "vagas"
                 },
                 {

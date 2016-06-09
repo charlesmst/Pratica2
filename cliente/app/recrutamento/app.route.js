@@ -110,6 +110,16 @@
                         }
                     }
                 })
+                .state('vagasview', {
+                    url: '/vagas-abertas',
+                    views: {
+                        "": {
+                            templateUrl: 'app/recrutamento/vagas-single.tmpl.html',
+                            controller: "VagasController",
+                            controllerAs: "crudVm",
+                        }
+                    }
+                })
                 .state('vagasadd', {
                     url: '/vagas/add',
                     views: {

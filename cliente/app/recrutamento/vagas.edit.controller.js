@@ -35,6 +35,7 @@
             if (!$valid)
                 return;
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
+            $state.go(state)
         }
         function cancel() {
             $state.go(state)
@@ -69,14 +70,14 @@
             })
         }
 
-        function mostraAddEntrevista() {
+        function mostraAddEntrevista(candidato) {
             $mdDialog.show({
-                controller: 'CurriculoFormacaoEditController as modalVm',
-                templateUrl: 'app/recrutamento/curriculo-formacao.edit.tmpl.html',
+                controller: 'EntrevistaEditController as modalVm',
+                templateUrl: 'app/recrutamento/entrevista.edit.tmpl.html',
                 parent: angular.element(document.body),
                 clickOutsideToClose: false,
                 resolve: {
-                    DadosFormacao: function () {
+                    DadosEntrevista: function () {
                         return {};
 
                     }
@@ -86,9 +87,11 @@
                     .then(function (adicionado) {
                         console.log("Resposta da modal", adicionado)
 
-                        if (!vm.entity.pessoa.curriculoFormacoes)
-                            vm.entity.pessoa.curriculoFormacoes = []
-                        vm.entity.pessoa.curriculoFormacoes.push(adicionado)
+                        if (!vm.entity.candidatos[candidato].entrevistas[0])
+                        vm.entity.candidatos[candidato].entrevistas = []
+                    vm.entity.candidatos[candidato].entrevistas[0] = adicionado
+//                        vm.entity.candidatos.entrevistas = []
+//                        vm.entity.candidatos.entrevistas.push(adicionado)
                     });
         }
 
