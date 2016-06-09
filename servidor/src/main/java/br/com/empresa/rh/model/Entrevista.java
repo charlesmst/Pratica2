@@ -33,7 +33,7 @@ public class Entrevista implements java.io.Serializable {
     @JsonView({Recrutamento.Vagas.class})
     private Date dataProgramada;
     @JsonView({Recrutamento.Vagas.class})
-    private Date hora;
+    private String hora;
     @JsonView({Recrutamento.Vagas.class})
     private boolean confirmado;
     @JsonView({Recrutamento.Vagas.class})
@@ -43,22 +43,20 @@ public class Entrevista implements java.io.Serializable {
     @JsonView({Recrutamento.Vagas.class})
     private String localEntrevista;
     @JsonView({Recrutamento.Vagas.class})
-    private Character situacao;
+    private int situacao;
 
     public Entrevista() {
     }
 
-    public Entrevista(int id, Candidato candidato, Pessoa pessoa, Date dataProgramada, Date hora, boolean confirmado, String descricao) {
+    public Entrevista(int id, Candidato candidato, Pessoa pessoa, Date dataProgramada, String hora, boolean confirmado, String descricao) {
         this.id = id;
         this.candidato = candidato;
-        this.pessoa = pessoa;
         this.dataProgramada = dataProgramada;
         this.hora = hora;
-        this.confirmado = confirmado;
         this.descricao = descricao;
     }
 
-    public Entrevista(int id, Candidato candidato, Pessoa pessoa, Date dataProgramada, Date hora, boolean confirmado, String descricao, String resposta, String localEntrevista, Character situacao) {
+    public Entrevista(int id, Candidato candidato, Pessoa pessoa, Date dataProgramada, String hora, boolean confirmado, String descricao, String resposta, String localEntrevista, int situacao) {
         this.id = id;
         this.candidato = candidato;
         this.pessoa = pessoa;
@@ -94,7 +92,7 @@ public class Entrevista implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pessoa_id", nullable = false)
+    @JoinColumn(name = "pessoa_id", nullable = true)
     public Pessoa getPessoa() {
         return this.pessoa;
     }
@@ -113,17 +111,17 @@ public class Entrevista implements java.io.Serializable {
         this.dataProgramada = dataProgramada;
     }
 
-    @Temporal(TemporalType.TIME)
-    @Column(name = "hora", nullable = false, length = 15)
-    public Date getHora() {
+   
+    @Column(name = "hora", nullable = false, length = 5)
+    public String getHora() {
         return this.hora;
     }
 
-    public void setHora(Date hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
-    @Column(name = "confirmado", nullable = false)
+    @Column(name = "confirmado", nullable = true)
     public boolean isConfirmado() {
         return this.confirmado;
     }
@@ -159,12 +157,12 @@ public class Entrevista implements java.io.Serializable {
         this.localEntrevista = localEntrevista;
     }
 
-    @Column(name = "situacao", length = 1)
-    public Character getSituacao() {
+    @Column(name = "situacao")
+    public int getSituacao() {
         return this.situacao;
     }
 
-    public void setSituacao(Character situacao) {
+    public void setSituacao(int situacao) {
         this.situacao = situacao;
     }
 

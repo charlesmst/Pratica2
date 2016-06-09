@@ -54,8 +54,8 @@ public class VagasService extends Service<Vagas> {
     @Transactional
     public List<Vagas> findForTable(TableRequest request) {
         String hql = "select t from Vagas t "
-                + " left outer join fetch t.cargo a "
-                + " left outer join fetch t.competencias ";
+                + " left join fetch t.competencias c "
+                + " left join fetch t.cargo a";
         hql += request.applyFilter("t.id", "a.nome", "t.descricao");
         hql += request.applyOrder("t.id", "a.nome", "t.descricao");
         Query q = entityManager.createQuery(hql);

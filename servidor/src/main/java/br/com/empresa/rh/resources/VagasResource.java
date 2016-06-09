@@ -1,7 +1,9 @@
 package br.com.empresa.rh.resources;
 
 import br.com.empresa.rh.filter.secure.NivelAcesso;
+import br.com.empresa.rh.model.Candidato;
 import br.com.empresa.rh.model.Competencia;
+import br.com.empresa.rh.model.Entrevista;
 import br.com.empresa.rh.model.Usuario;
 import br.com.empresa.rh.service.VagasService;
 import br.com.empresa.rh.model.Vagas;
@@ -10,9 +12,14 @@ import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
 import br.com.empresa.rh.service.CargoService;
 import br.com.empresa.rh.service.CompetenciaService;
+import br.com.empresa.rh.service.EntrevistaService;
 import br.com.empresa.rh.service.UsuarioService;
 import br.com.empresa.rh.util.Utilitarios;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -27,6 +34,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
+import static org.mozilla.javascript.TopLevel.Builtins.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,6 +54,9 @@ public class VagasResource {
 
     @Autowired
     private CompetenciaService competenciaService;
+    
+    @Autowired
+    private EntrevistaService entrevistaService;
 
     @Autowired
     private Utilitarios utilitarios;
@@ -67,6 +78,7 @@ public class VagasResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
+    @RolesAllowed(NivelAcesso.NENHUM)
     public CountResponse count() {
         return new CountResponse(vagasService.count());
     }
@@ -74,6 +86,7 @@ public class VagasResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(Recrutamento.VagasView.class)
+    @RolesAllowed(NivelAcesso.NENHUM)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
         List<Vagas> m = vagasService.findForTable(request);
@@ -104,13 +117,16 @@ public class VagasResource {
         utilitarios.setSecutiryContext(securityContext);
         Usuario u = usuarioService.findById(utilitarios.usuario());
         m.setUsuario(u);
+        if(m.getDataInicio() == null){
+            m.setDataInicio(new Date());
+        }
         vagasService.insert(m);
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") int id, Vagas entity) {
+    public void update(@PathParam("id") int id, Vagas entity) throws ParseException {
         Vagas v = vagasService.findById(id);
         Vagas e = entity;
         v.setCargo(e.getCargo());
@@ -123,6 +139,7 @@ public class VagasResource {
         v.setPerfil(e.getPerfil());
         v.setQuantidade(e.getQuantidade());
         v.setPlanoAvaliacao(e.getPlanoAvaliacao());
+        
         for (Competencia c : e.getCompetencias()) {
             if (c.getId() == 0) {
                 c.setAtivo(true);
@@ -133,6 +150,27 @@ public class VagasResource {
             }
         }
         v.setCompetencias(e.getCompetencias());
+        
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+            
+        for (Candidato c : e.getCandidatos()) {
+            for (Entrevista ent : c.getEntrevistas()) {
+                if (ent.getId() == 0) {
+                    ent.setCandidato(c);
+                    entrevistaService.insert(ent);
+                } else {
+                    Entrevista entUp = entrevistaService.findById(ent.getId());
+                    entUp.setConfirmado(ent.isConfirmado());
+                    entUp.setDataProgramada(ent.getDataProgramada());
+                    entUp.setDescricao(ent.getDescricao());
+                    entUp.setHora(ent.getHora());
+                    entUp.setLocalEntrevista(ent.getLocalEntrevista());
+                    entUp.setResposta(ent.getResposta());
+                    entUp.setSituacao(ent.getSituacao());
+                    entrevistaService.update(entUp);
+                }
+            }
+        }
         vagasService.update(v);
     }
 
