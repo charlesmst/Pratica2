@@ -72,4 +72,8 @@ public class Recrutamento {
     public static class VagasView {
         
     }
+    
+    public static class Entrevista {
+        
+    }
 }

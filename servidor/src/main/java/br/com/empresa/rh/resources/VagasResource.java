@@ -54,7 +54,7 @@ public class VagasResource {
 
     @Autowired
     private CompetenciaService competenciaService;
-    
+
     @Autowired
     private EntrevistaService entrevistaService;
 
@@ -86,10 +86,54 @@ public class VagasResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(Recrutamento.VagasView.class)
-    @RolesAllowed(NivelAcesso.NENHUM)
-    public Response findAll() {
+    public Response findAll(@Context SecurityContext securityContext) {
+        utilitarios.setSecutiryContext(securityContext);
+        Usuario u = new Usuario();
+        try{
+            u = usuarioService.findById(utilitarios.usuario());
+        } catch(Exception e) {
+            u.setNivel(0);
+        }
         TableRequest request = TableRequest.build(info);
-        List<Vagas> m = vagasService.findForTable(request);
+        
+        System.out.println(u.getNivel());
+        
+        //0 1 (tipos) 2(sigiloso) 3(finalizado)
+        
+        int[] tipo = new int[3];
+        
+        switch (u.getNivel()) {
+            case 0:
+                tipo[0] = 1;
+                tipo[1] = 3;
+                tipo[2] = 0;
+                break;
+            case 1:
+                tipo[0] = 1;
+                tipo[1] = 3;
+                tipo[2] = 1;
+                break;
+            case 2:
+                tipo[0] = 1;
+                tipo[1] = 3;
+                tipo[2] = 2;
+                break;
+            case 3:
+                tipo[2] = 3;
+                break;
+            case 4:
+                tipo[2] = 4;
+                break;
+            case 5:
+                tipo[2] = 5;
+                break;
+            default:
+                tipo[0] = 1;
+                tipo[1] = 3;
+                tipo[2] = 0;
+        }
+
+        List<Vagas> m = vagasService.findForTable(request, tipo);
         return Response.ok().entity(m).build();
     }
 
@@ -97,7 +141,7 @@ public class VagasResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(Recrutamento.Vagas.class)
-    public Vagas findById(@PathParam("id") int id) {
+    public Vagas findById(@PathParam("id") int id, @Context SecurityContext securityContext) {
         Vagas m = vagasService.findById(id);
         return m;
     }
@@ -106,7 +150,7 @@ public class VagasResource {
     @Path("view/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(Recrutamento.VagasView.class)
-    public Vagas viewFindById(@PathParam("id") int id) {
+    public Vagas viewFindById(@PathParam("id") int id, @Context SecurityContext securityContext) {
         Vagas m = vagasService.viewFindById(id);
         return m;
     }
@@ -117,8 +161,11 @@ public class VagasResource {
         utilitarios.setSecutiryContext(securityContext);
         Usuario u = usuarioService.findById(utilitarios.usuario());
         m.setUsuario(u);
-        if(m.getDataInicio() == null){
+        if (m.getDataInicio() == null) {
             m.setDataInicio(new Date());
+        }
+        if (m.getFinalizado() == null) {
+            m.setFinalizado(Boolean.FALSE);
         }
         vagasService.insert(m);
     }
@@ -139,7 +186,7 @@ public class VagasResource {
         v.setPerfil(e.getPerfil());
         v.setQuantidade(e.getQuantidade());
         v.setPlanoAvaliacao(e.getPlanoAvaliacao());
-        
+
         for (Competencia c : e.getCompetencias()) {
             if (c.getId() == 0) {
                 c.setAtivo(true);
@@ -150,13 +197,16 @@ public class VagasResource {
             }
         }
         v.setCompetencias(e.getCompetencias());
-        
+
         DateFormat formatter = new SimpleDateFormat("HH:mm");
-            
+
         for (Candidato c : e.getCandidatos()) {
             for (Entrevista ent : c.getEntrevistas()) {
                 if (ent.getId() == 0) {
                     ent.setCandidato(c);
+                    if(ent.getSituacao() == 0) {
+                        ent.setSituacao(1);
+                    }
                     entrevistaService.insert(ent);
                 } else {
                     Entrevista entUp = entrevistaService.findById(ent.getId());

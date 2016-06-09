@@ -4,7 +4,9 @@ import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.service.CandidatoService;
 import br.com.empresa.rh.model.Candidato;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -52,6 +54,7 @@ public class CandidatoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(Recrutamento.Entrevista.class)
     public Response findAll() {
         TableRequest request = TableRequest.build(info);
         List<Candidato> m = candidatoService.findForTable(request);

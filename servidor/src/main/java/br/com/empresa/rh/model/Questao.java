@@ -30,13 +30,13 @@ import javax.persistence.Table;
 public class Questao implements java.io.Serializable {
 
 
-     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
+     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class, Recrutamento.Entrevista.class})
      private int id;
-     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
+     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class, Recrutamento.Entrevista.class})
      private String descricao;
      @JsonView({Recrutamento.Avaliacao.class})
      private Character tipo;
-     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class})
+     @JsonView({Recrutamento.Avaliacao.class, Recrutamento.Vagas.class, Recrutamento.Entrevista.class})
      private boolean visivelCandidato;
      @JsonView({Recrutamento.Avaliacao.class})
      private Set<Resposta> respostas = new HashSet<Resposta>(0);

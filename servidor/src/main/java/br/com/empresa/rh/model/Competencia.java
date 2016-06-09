@@ -26,13 +26,13 @@ import javax.persistence.Table;
 )
 public class Competencia implements java.io.Serializable {
 
-    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class, Recrutamento.VagasView.class})
     private int id;
-    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class, Recrutamento.VagasView.class})
     private String descricao;
-    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class, Recrutamento.VagasView.class})
     private char tipo;
-    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class, Recrutamento.VagasView.class})
     private boolean ativo = true;
     private Set<Vagas> vagases = new HashSet<Vagas>(0);
     private Set<Candidato> candidatos = new HashSet<Candidato>(0);

@@ -34,7 +34,7 @@ public class VagasService extends Service<Vagas> {
 
         return v;
     }
-    
+
     public Vagas viewFindById(Object id) {
         String hql = "select t from Vagas t "
                 + " left outer join fetch t.cargo a "
@@ -52,17 +52,38 @@ public class VagasService extends Service<Vagas> {
     }
 
     @Transactional
-    public List<Vagas> findForTable(TableRequest request) {
-        String hql = "select t from Vagas t "
-                + " left join fetch t.competencias c "
-                + " left join fetch t.cargo a";
-        hql += request.applyFilter("t.id", "a.nome", "t.descricao");
-        hql += request.applyOrder("t.id", "a.nome", "t.descricao");
-        Query q = entityManager.createQuery(hql);
-        request.applyPagination(q);
-        request.applyParameters(q);
-        List<Vagas> l = q.getResultList();
-        return l;
+    public List<Vagas> findForTable(TableRequest request, int[] tipo) {
+
+        if (tipo[2] > 3) {
+            String hql = "select t from Vagas t "
+                    + " left join fetch t.competencias c "
+                    + " left join fetch t.cargo a ";
+            hql += request.applyFilter("t.id", "a.nome", "t.descricao");
+            hql += request.applyOrder("t.id", "a.nome", "t.descricao");
+            Query q = entityManager.createQuery(hql);
+            request.applyPagination(q);
+            request.applyParameters(q);
+            List<Vagas> l = q.getResultList();    
+            return l;
+        } else if (tipo[2] <= 3) {
+            String hql = "select t from Vagas t "
+                    + " left join fetch t.competencias c "
+                    + " left join fetch t.cargo a "
+                    + " where t.sigiloso = false and "
+                    + " t.finalizado = false and ("
+                    + " t.tipo = :t1 or t.tipo = :t2)";
+            hql += request.applyFilter("t.id", "a.nome", "t.descricao");
+            hql += request.applyOrder("t.id", "a.nome", "t.descricao");
+            Query q = entityManager.createQuery(hql)
+                    .setParameter("t1", tipo[0])
+                    .setParameter("t2", tipo[1]);
+            request.applyPagination(q);
+            request.applyParameters(q);
+            List<Vagas> l = q.getResultList();    
+            return l;
+        } else {
+            return null;
+        }
     }
 
 }

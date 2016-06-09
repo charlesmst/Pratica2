@@ -31,18 +31,19 @@ import javax.persistence.TemporalType;
 )
 public class Candidato implements java.io.Serializable {
 
-    @JsonView(Recrutamento.Vagas.class)
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class})
     private int id;
-    @JsonView(Recrutamento.Vagas.class)
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class})
     private Pessoa pessoa;
+    @JsonView({Recrutamento.Entrevista.class})
     private Vagas vagas;
-    @JsonView(Recrutamento.Vagas.class)
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class})
     private Date dataInscricao;
-    @JsonView(Recrutamento.Vagas.class)
+    @JsonView({Recrutamento.Entrevista.class})
     private Set<Resposta> respostas = new HashSet<Resposta>(0);
-    @JsonView(Recrutamento.Vagas.class)
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class})
     private Set<Competencia> competencias = new HashSet<Competencia>(0);
-    @JsonView(Recrutamento.Vagas.class)
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.Entrevista.class})
     private Set<Entrevista> entrevistas = new HashSet<Entrevista>(0);
 
     public Candidato() {
