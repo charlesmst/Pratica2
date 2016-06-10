@@ -19,7 +19,9 @@
                                 <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
                             </md-button>
                         </md-card-icon-actions>-->
-                        <md-button class="md-primary md-raised">Inscrever-se</md-button>
+<!--{{crudVm.isInscrito(row.id)}}-->
+<md-button class="md-primary md-raised" ng-show="!crudVm.inscricaoCandidato(row.candidatos)" ng-click="crudVm.inscricaoCandidato(row.id)">Inscrever-se</md-button>
+<md-button class="md-primary md-raised" ng-show="crudVm.inscricaoCandidato(row.candidatos)" disabled>Inscrito</md-button>
 <!--                        <md-button>Action 2</md-button>-->
                     </md-card-actions>
                     <md-card-content>
