@@ -215,6 +215,12 @@
                                         <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
                                     </md-button>
                                     </td>
+                                    <td md-cell>
+                                        <div class="md-media-xs card-media" style="width:100px">
+                                            <img check-user-image ng-src="{{crudVm.getImage(row)}}" ng-alt="{{row.nome}}">
+
+                                        </div>
+                                    </td>
                                     <td md-cell>{{row.pessoa.nome}}</td>   
                                     <td  md-cell md-numeric> 
                                     <md-button  ng-show="row.entrevistas[0]" aria-label="Editar" ng-click="crudVm.mostraEditEntrevista(row.entrevistas[0])" >

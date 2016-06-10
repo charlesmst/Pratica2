@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('app').controller('VagasEditController', ['$mdToast', '$http', 'Vagas', '$state', '$stateParams', 'Workspace', 'Cargo', 'PlanoAvaliacao', 'Entrevista', '$mdDialog', VagasEditController]);
+    angular.module('app').controller('VagasEditController', ['$mdToast', '$http', 'Vagas', '$state', '$stateParams', 'Workspace', 'Cargo', 'PlanoAvaliacao', 'Entrevista', '$mdDialog', 'config', VagasEditController]);
 
     var state = "vagas"
-    function VagasEditController($mdToast, $http, Vagas, $state, $stateParams, Workspace, Cargo, PlanoAvaliacao, Entrevista, $mdDialog) {
+    function VagasEditController($mdToast, $http, Vagas, $state, $stateParams, Workspace, Cargo, PlanoAvaliacao, Entrevista, $mdDialog, config) {
         var vm = this;
         vm.entity = {}
         vm.saveCandidato = saveCandidato
@@ -11,6 +11,7 @@
         vm.querySearchPlano = querySearchPlano
         vm.mostraAddEntrevista = mostraAddEntrevista
         vm.mostraEditEntrevista = mostraEditEntrevista
+        vm.getImage = getImage;
         vm.cargos = []
         vm.tipos = []
         Workspace.title = "Manutenção de Vagas";
@@ -117,7 +118,9 @@
             if (!$valid)
                 return;
             vm.candidato = undefined
-
+        }
+        function getImage(row) {
+            return config.imageUrl + "/" + (row.imagem || "0.jpg")
         }
 
     }

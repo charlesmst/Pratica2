@@ -1,13 +1,18 @@
 {
-    "inicial": "menu",
+    "inicial": "curriculocandidato",
     "menus": [
         {
             "title":"Funcionário",
             "links": [
                 {
-                    "link": "menu",
-                    "title": "Menus",
-                    "icon": "dashboard"
+                    "link": "vagasview",
+                    "title": "Vagas",
+                    "icon": "vagas"
+                },
+                {
+                    "link": "curriculocandidato",
+                    "title": "Currículo",
+                    "icon": "curriculo"
                 }
             ]
         }

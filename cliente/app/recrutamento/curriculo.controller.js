@@ -1,16 +1,17 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CurriculoController', ['Curriculo', '$state', 'Workspace', '$q', CurriculoController]);
+    angular.module('app').controller('CurriculoController', ['Curriculo', '$state', 'Workspace', '$q', 'config', CurriculoController]);
 
     var state = "curriculo"
 
-    function CurriculoController(Curriculo, $state, Workspace, $q) {
+    function CurriculoController(Curriculo, $state, Workspace, $q, config) {
         var vm = this;
         vm.showDelete = showDelete;
         vm.showAdd = showAdd;
         vm.showEdit = showEdit;
         vm.onPaginate = onPaginate;
         vm.onReorder = onReorder;
+        vm.getImage = getImage;
         vm.list = []
         vm.selectedItems = []
         Workspace.title = "Currículo"
@@ -69,6 +70,11 @@
             load(angular.extend(vm.query, {'filter': filter, page: 1}))
 
         }
+        
+        function getImage(row) {
+            return config.imageUrl + "/" + (row.imagem || "0.jpg")
+        }
+        
         function loadCount() {
             Curriculo.count(vm.query).$promise.then(function (e) {
                 vm.count = e.count
