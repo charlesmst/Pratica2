@@ -1,5 +1,7 @@
 package br.com.empresa.rh.service;
 
+import br.com.empresa.rh.model.Candidato;
+import br.com.empresa.rh.model.Usuario;
 import br.com.empresa.rh.model.Vagas;
 import br.com.empresa.rh.model.request.TableRequest;
 import java.util.List;
@@ -50,13 +52,27 @@ public class VagasService extends Service<Vagas> {
     public VagasService() {
         classRef = Vagas.class;
     }
+    
+    private List<Vagas> verificaInscricao(List<Vagas> l, int id){
+        for(Vagas v : l){
+            for(Candidato c : v.getCandidatos()){
+                if(c.getPessoa().getId() == id){
+                    c.setIsCandidato(true);
+                } else {
+                    c.setIsCandidato(false);
+                }
+            }
+        }
+        return l;
+    }
 
     @Transactional
-    public List<Vagas> findForTable(TableRequest request, int[] tipo) {
+    public List<Vagas> findForTable(TableRequest request, int[] tipo, int id) {
 
         if (tipo[2] > 3) {
             String hql = "select t from Vagas t "
                     + " left join fetch t.competencias c "
+                    + " left join fetch t.candidatos "
                     + " left join fetch t.cargo a ";
             hql += request.applyFilter("t.id", "a.nome", "t.descricao");
             hql += request.applyOrder("t.id", "a.nome", "t.descricao");
@@ -64,10 +80,11 @@ public class VagasService extends Service<Vagas> {
             request.applyPagination(q);
             request.applyParameters(q);
             List<Vagas> l = q.getResultList();    
-            return l;
+            return verificaInscricao(l, id);
         } else if (tipo[2] <= 3) {
             String hql = "select t from Vagas t "
-                    + " left join fetch t.competencias c "
+                    + " left join fetch t.competencias c"
+                    + " left join fetch t.candidatos "
                     + " left join fetch t.cargo a "
                     + " where t.sigiloso = false and "
                     + " t.finalizado = false and ("
@@ -80,7 +97,7 @@ public class VagasService extends Service<Vagas> {
             request.applyPagination(q);
             request.applyParameters(q);
             List<Vagas> l = q.getResultList();    
-            return l;
+            return verificaInscricao(l, id);
         } else {
             return null;
         }

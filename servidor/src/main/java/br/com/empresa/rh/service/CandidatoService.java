@@ -36,5 +36,4 @@ public class CandidatoService extends Service<Candidato>{
         return l;
     }
     
-
 }

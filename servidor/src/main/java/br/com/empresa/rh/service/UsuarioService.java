@@ -18,9 +18,9 @@ public class UsuarioService extends Service<Usuario> {
     public Usuario findById(Object id) {
         String hql = "select t from Usuario t "
                 + " inner join fetch t.pessoa p "
-                + " inner join fetch p.escolaridade e"
-                + " inner join fetch p.cidade c "
-                + " inner join fetch c.estado uf"
+                + " left join fetch p.escolaridade e"
+                + " left join fetch p.cidade c "
+                + " left join fetch c.estado uf"
                 + " where p.id = :id";
         Usuario u = (Usuario) entityManager.createQuery(hql)
                 .setParameter("id", id)

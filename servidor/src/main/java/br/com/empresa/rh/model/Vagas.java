@@ -58,7 +58,7 @@ public class Vagas implements java.io.Serializable {
     private Boolean finalizado;
     @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
     private Set<Competencia> competencias = new HashSet<Competencia>(0);
-    @JsonView(Recrutamento.Vagas.class)
+    @JsonView({Recrutamento.Vagas.class, Recrutamento.VagasView.class})
     private Set<Candidato> candidatos = new HashSet<Candidato>(0);
 
     public Vagas() {

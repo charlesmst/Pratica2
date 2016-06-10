@@ -3,15 +3,18 @@ import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.model.Candidato;
 import br.com.empresa.rh.model.Competencia;
 import br.com.empresa.rh.model.Entrevista;
+import br.com.empresa.rh.model.Pessoa;
 import br.com.empresa.rh.model.Usuario;
 import br.com.empresa.rh.service.VagasService;
 import br.com.empresa.rh.model.Vagas;
 import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.view.Recrutamento;
 import br.com.empresa.rh.response.CountResponse;
+import br.com.empresa.rh.service.CandidatoService;
 import br.com.empresa.rh.service.CargoService;
 import br.com.empresa.rh.service.CompetenciaService;
 import br.com.empresa.rh.service.EntrevistaService;
+import br.com.empresa.rh.service.PessoaService;
 import br.com.empresa.rh.service.UsuarioService;
 import br.com.empresa.rh.util.Utilitarios;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -50,6 +53,12 @@ public class VagasResource {
 
     @Autowired
     private UsuarioService usuarioService;
+    
+    @Autowired
+    private PessoaService pessoaService;
+    
+    @Autowired
+    private CandidatoService candidatoService;
 
     @Autowired
     private CompetenciaService competenciaService;
@@ -113,7 +122,7 @@ public class VagasResource {
                 break;
             case 2:
                 tipo[0] = 1;
-                tipo[1] = 3;
+                tipo[1] = 2;
                 tipo[2] = 2;
                 break;
             case 3:
@@ -130,8 +139,7 @@ public class VagasResource {
                 tipo[1] = 3;
                 tipo[2] = 0;
         }
-
-        List<Vagas> m = vagasService.findForTable(request, tipo);
+        List<Vagas> m = vagasService.findForTable(request, tipo, u.getPessoaId());
         return Response.ok().entity(m).build();
     }
 
@@ -142,6 +150,25 @@ public class VagasResource {
     public Vagas findById(@PathParam("id") int id, @Context SecurityContext securityContext) {
         Vagas m = vagasService.findById(id);
         return m;
+    }
+    
+    @GET
+    @Path("isinscrito/{idVaga}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Boolean isInscrito(@PathParam("idVaga") int id, @Context SecurityContext securityContext) {
+        utilitarios.setSecutiryContext(securityContext);
+        Usuario user = usuarioService.findById(utilitarios.usuario());
+        Vagas vaga = vagasService.findById(id);
+        boolean teste = true;
+        for(Candidato c : vaga.getCandidatos()){
+            if(c.getPessoa().getId() == user.getPessoaId()){
+                teste = true;
+                System.out.println(c.getPessoa().getNome());
+                System.out.println(user.getPessoaId());    
+            }
+        }
+        System.out.println(teste);
+        return teste;
     }
 
     @GET
@@ -166,6 +193,24 @@ public class VagasResource {
             m.setFinalizado(Boolean.FALSE);
         }
         vagasService.insert(m);
+    }
+    
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path("inscreveusuario/{idVaga}")
+    public void inscreveCandidato(@PathParam("idVaga") int idV, @Context SecurityContext securityContext){
+        utilitarios.setSecutiryContext(securityContext);
+        System.out.println(utilitarios.usuario());
+        System.out.println(idV);
+        Usuario u = usuarioService.findById(utilitarios.usuario());
+        Pessoa p = pessoaService.findById(u.getPessoaId());
+        Candidato c = new Candidato();
+        c.setPessoa(p);
+        Vagas v = new Vagas();
+        v = vagasService.findById(idV);
+        c.setVagas(v);
+        c.setDataInscricao(new Date());
+        candidatoService.insert(c);
     }
 
     @POST
