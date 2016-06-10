@@ -270,3 +270,7 @@ table.md-table th.md-column, table.md-table td.md-cell, md-autocomplete input:no
 
     align-self: center;
 }
+
+md-input-container>md-select .ng-invalid-required{
+    border-bottom: 1px solid #000 !important;
+}
