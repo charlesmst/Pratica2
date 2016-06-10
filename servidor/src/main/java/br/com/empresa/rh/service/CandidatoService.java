@@ -1,6 +1,4 @@
 package br.com.empresa.rh.service;
-
-
 import br.com.empresa.rh.model.Candidato;
 import br.com.empresa.rh.model.request.TableRequest;
 import java.util.List;

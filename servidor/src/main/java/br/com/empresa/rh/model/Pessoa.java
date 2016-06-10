@@ -80,7 +80,7 @@ public class Pessoa implements java.io.Serializable {
     private String rg;
     private Curriculo curriculo;
 
-    @JsonView({Folha.FuncionarioFicha.class})
+    @JsonView({Folha.FuncionarioFicha.class, Recrutamento.Vagas.class})
     private String imagem = "0.jpg";
 //    @JsonBackReference
     @JsonView({Folha.FuncionarioFicha.class})

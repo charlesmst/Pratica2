@@ -1,5 +1,4 @@
 package br.com.empresa.rh.resources;
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.model.Candidato;
 import br.com.empresa.rh.model.Competencia;
@@ -40,7 +39,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Path("/vagas")
-@RolesAllowed(NivelAcesso.CANDIDATO)
+@RolesAllowed(NivelAcesso.NENHUM)
 public class VagasResource {
 
     @Autowired
@@ -78,7 +77,6 @@ public class VagasResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("count")
-    @RolesAllowed(NivelAcesso.NENHUM)
     public CountResponse count() {
         return new CountResponse(vagasService.count());
     }

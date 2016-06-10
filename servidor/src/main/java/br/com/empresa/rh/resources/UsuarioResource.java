@@ -1,5 +1,4 @@
 package br.com.empresa.rh.resources;
-
 import br.com.empresa.rh.filter.secure.NivelAcesso;
 import br.com.empresa.rh.model.Curriculo;
 import br.com.empresa.rh.model.Pessoa;
@@ -105,7 +104,9 @@ public class UsuarioResource {
         m.setNivel(1);
 
         String user = m.getPessoa().getEmail().toUpperCase();
+        String nome = m.getPessoa().getNome().toUpperCase();
         m.setUsuario(user);
+        m.getPessoa().setNome(nome);
         usuarioService.insert(m);
 
         return Response.ok(utilitarios.loginResponseFor(m)).build();

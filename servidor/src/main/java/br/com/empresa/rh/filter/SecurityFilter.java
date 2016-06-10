@@ -23,8 +23,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-//import org.jose4j.jwt.JwtClaims;
-//import org.jose4j.jwt.MalformedClaimException;
 
 /**
  *
@@ -50,10 +48,11 @@ public class SecurityFilter implements ContainerRequestFilter {
         if (a == null) {
             return;
         }
-        if (a.value()[0].equals(NivelAcesso.NENHUM)) {
-            return;
-        }
+
         if (!m.containsKey(AUTHORIZATION_HEADER)) {
+            if (a.value()[0].equals(NivelAcesso.NENHUM)) {
+                return;
+            }
             buildResponseUnauthorized(requestContext, false);
             return;
         }
@@ -72,6 +71,9 @@ public class SecurityFilter implements ContainerRequestFilter {
             String header = requestContext.getHeaderString(AUTHORIZATION_HEADER);
             //Transorma pro claim
             if (header == null) {
+                if (a.value()[0].equals(NivelAcesso.NENHUM)) {
+                    return;
+                }
                 buildResponseUnauthorized(requestContext, false);
                 return;
             }
@@ -92,6 +94,9 @@ public class SecurityFilter implements ContainerRequestFilter {
         } catch (Exception ex) {
             Logger.getLogger(SecurityFilter.class.getName()).log(Level.SEVERE, null, ex);
 
+        }
+        if (a.value()[0].equals(NivelAcesso.NENHUM)) {
+            return;
         }
         buildResponseUnauthorized(requestContext, true);
 
