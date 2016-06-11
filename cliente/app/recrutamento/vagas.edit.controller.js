@@ -36,13 +36,14 @@
             if (!$valid)
                 return;
             Workspace.loading("Salvando...", vm.entity.$save(callbackSave, callbackError).$promise)
-            $state.go(state)
         }
         function cancel() {
             $state.go(state)
         }
         function callbackSave(r) {
             Workspace.showMessage("Registro salvo")
+            $state.go(state)
+
         }
         function callbackError() {
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
@@ -89,8 +90,8 @@
                         console.log("Resposta da modal", adicionado)
 
                         if (!vm.entity.candidatos[candidato].entrevistas[0])
-                        vm.entity.candidatos[candidato].entrevistas = []
-                    vm.entity.candidatos[candidato].entrevistas[0] = adicionado
+                            vm.entity.candidatos[candidato].entrevistas = []
+                        vm.entity.candidatos[candidato].entrevistas[0] = adicionado
 //                        vm.entity.candidatos.entrevistas = []
 //                        vm.entity.candidatos.entrevistas.push(adicionado)
                     });
