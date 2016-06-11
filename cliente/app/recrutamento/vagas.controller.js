@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('app').controller('VagasController', ['Vagas', '$state', 'Workspace', '$q', '$http', 'config',VagasController]);
+    angular.module('app').controller('VagasController', ['Vagas', '$state', 'Workspace', '$q', '$http', 'config', VagasController]);
     var state = "vagas"
 
     function VagasController(Vagas, $state, Workspace, $q, $http, config) {
@@ -11,6 +11,7 @@
         vm.onPaginate = onPaginate;
         vm.onReorder = onReorder;
         vm.inscricaoCandidato = inscricaoCandidato;
+        vm.isCandidato = isCandidato;
         vm.list = []
         vm.selectedItems = []
         Workspace.title = "Vagas"
@@ -22,7 +23,7 @@
             limit: 10,
             page: 1
         };
-        
+
         load(vm.query)
         function showDelete($event) {
             Workspace.showDeleteDialog($event).then(function () {
@@ -42,15 +43,26 @@
         function showAdd() {
             $state.go(state + "add")
         }
+
+        function inscricaoCandidato(idVaga) {
+            $http.post(config.apiUrl + "/vagas/inscreveusuario/" + idVaga).then(function (r) {
+                console.log(r.data);
+                Workspace.showMessage("Inscrição realizada com sucesso!");
+                load();
+            }, function (e) {
+                Workspace.showMessage("Faça login!");
+                $state.go("login");
+            });
+        }
         
-        function inscricaoCandidato(can) {
-            var ins = false;
-            for(var c in can){
-                if(c.isCandidato){
-                    ins = true;
+        function isCandidato(can) {
+            var teste = false;
+            for(var x = 0; x < can.length; x++) {
+                if(can[x].isCandidato){
+                    teste = true;
                 }
             }
-            return ins;
+            return teste;
         }
 
         function showEdit(e, id) {
@@ -58,8 +70,9 @@
         }
 
         function load(query) {
+            vm.list = [];
             vm.promise = Vagas.query(query, success).$promise;
-            loadCount()
+            console.log(vm.promise)
 
         }
 

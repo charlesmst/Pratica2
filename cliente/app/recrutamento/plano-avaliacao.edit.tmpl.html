@@ -40,17 +40,17 @@
             <md-table-container>
                 <table md-table >
 
-                    <tbody md-body>
+                    <tbody md-body style="text-align: center">
                         <tr md-row md-auto-select ng-repeat="row in crudVm.entity.questaos">
 
-                            <td md-cell>
-                    <md-input-container>
+                            <td md-cell width="80%">
+                    <md-input-container style="width: 100%; margin-top: 7%">
                         <label>Descrição</label>
                         
                         <textarea name="objetivo" max-length="2000" ng-model="row.descricao" required></textarea>
                     </md-input-container>
                     </td>  
-                    <td md-cell>
+                    <td md-cell style="text-align: center">
                         Visível ao Candidato?
                     <md-checkbox ng-model="row.visivelCandidato" >
                         

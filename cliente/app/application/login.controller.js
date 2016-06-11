@@ -5,6 +5,7 @@
         var vm = this;
         Workspace.title = "Login";
         vm.submit = submit;
+        vm.registrar = registrar;
         vm.entity = {}
         function submit(e, valid) {
             if (!valid)
@@ -16,6 +17,9 @@
                 Workspace.showMessage("Usuário ou senha incorreto!")
                 vm.entity.senha = "";
             }))
+        }
+        function registrar(){
+            $state.go("usuarioadd");
         }
     }
 })()

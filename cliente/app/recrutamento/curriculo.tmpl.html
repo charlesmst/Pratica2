@@ -9,7 +9,8 @@
             <thead md-head md-order="crudVm.query.order" md-on-reorder="crudVm.onReorder">
                 <tr md-row>
                     <th md-column md-numeric ></th>
-                    <th md-column md-order-by="pessoa.nome"><span>Nome</span></th>             
+                    <th md-column></th>
+                    <th style="width: 85%; text-align: center" md-column md-order-by="pessoa.nome"><span>Nome</span></th>             
                 </tr>
             </thead>
             <tbody md-body>
@@ -26,7 +27,7 @@
 
                 </div>
             </td>
-            <td md-cell>{{row.pessoa.nome}}</td>   
+            <td md-cell style="text-align: center">{{row.pessoa.nome}}</td>   
 
             </tr>
             </tbody>

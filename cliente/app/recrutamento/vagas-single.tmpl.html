@@ -1,50 +1,44 @@
-<md-card>
-    <md-content>
-        <md-list ng-cloak ng-model="crudVm.selectedItems">
 
-            <md-subheader class="md-no-sticky">Vagas Abertas</md-subheader>
-            <md-list-item ng-repeat="row in crudVm.list">
-                <md-card>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">{{row.cargo.nome}}</span>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-actions layout="row" layout-align="start center">
-<!--                        <md-card-icon-actions>
-                            <md-button class="md-icon-button" aria-label="Favorite">
-                                <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button" aria-label="Share">
-                                <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
-                            </md-button>
-                        </md-card-icon-actions>-->
-<!--{{crudVm.isInscrito(row.id)}}-->
-<md-button class="md-primary md-raised" ng-show="!crudVm.inscricaoCandidato(row.candidatos)" ng-click="crudVm.inscricaoCandidato(row.id)">Inscrever-se</md-button>
-<md-button class="md-primary md-raised" ng-show="crudVm.inscricaoCandidato(row.candidatos)" disabled>Inscrito</md-button>
-<!--                        <md-button>Action 2</md-button>-->
-                    </md-card-actions>
-                    <md-card-content>
-                        
-                        <h5>Atribuições do Cargo</h5>
-                        <p>{{row.cargo.atribuicoes}}</p>
-                        
-                        <h5>Número de Vagas</h5>
-                        <p>{{row.quantidade}}</p>
-                        
-                        <h5>Descrição</h5>
-                        <p>{{row.descricao}}</p>
-                        
-                        <h5>Perfil desejado</h5>
-                        <p>{{row.perfil}}</p>
-                        
-                        <h5>Requisitos e competências</h5>
-                        <p ng-repeat="c in row.competencias">{{c.descricao}}</p>
-                    </md-card-content>
-                </md-card>
-            </md-list-item>
-            <md-divider></md-divider>
 
-        </md-list>
-    </md-content>
-</md-card>
+<div >
+    <md-card ng-repeat="row in crudVm.list" style="width: 48%; float: left; height: 80%">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{row.cargo.nome}}</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+            <!--                        <md-card-icon-actions>
+                                        <md-button class="md-icon-button" aria-label="Favorite">
+                                            <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+                                        </md-button>
+                                        <md-button class="md-icon-button" aria-label="Share">
+                                            <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
+                                        </md-button>
+                                    </md-card-icon-actions>-->
+            <div style="margin: 5% 0 2% 2%">
+                <md-button class="md-primary md-raised" ng-show="!crudVm.isCandidato(row.candidatos)" ng-click="crudVm.inscricaoCandidato(row.id)">Inscrever-se</md-button>
+                <md-button class="md-primary md-raised" ng-show="crudVm.isCandidato(row.candidatos)" disabled>Inscrito</md-button>
+            </div>
+            <!--                        <md-button>Action 2</md-button>-->
+        </md-card-actions>
+        <md-card-content style="text-transform: uppercase; text-align: justify; height: 85%; overflow:auto; font-size: 14px;">
+            <h4>Atribuições do Cargo</h4>
+            <p>{{row.cargo.atribuicoes}}</p>
+
+            <h4>Número de Vagas</h4>
+            <p>{{row.quantidade}}</p>
+
+            <h4>Descrição</h4>
+            <p>{{row.descricao}}</p>
+
+            <h4>Perfil desejado</h4>
+            <p>{{row.perfil}}</p>
+
+            <h4>Requisitos e competências</h4>
+            <p ng-repeat="c in row.competencias">{{c.descricao}}</p>
+        </md-card-content>
+    </md-card>
+</div>
+
+</div>

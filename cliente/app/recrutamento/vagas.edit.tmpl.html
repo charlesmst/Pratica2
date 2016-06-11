@@ -18,7 +18,6 @@
         <md-card-content>
             <md-card-title>
                 <md-card-title-text>
-                    {{}}
 
                     <span> 
                         <div layout-gt-sm="row">
@@ -42,7 +41,7 @@
 
                     <md-tabs md-dynamic-height md-border-bottom>
                         <md-tab label="Vaga">
-                            <md-content layout-padding>
+                            <md-content layout-padding style="margin-top: 4%">
                                 <div flex="100">
                                     <md-checkbox ng-model="crudVm.entity.sigiloso" >
                                         Recrutamento Sigiloso
@@ -73,7 +72,7 @@
                                     </md-select>
 
                                 </md-input-container>
-                                <md-input-container class="md-block">
+                                <md-input-container class="md-block" style="margin-top: 4%">
                                     <label>Quantidade</label>
                                     <input required type="number" name="quantidade" ng-model="crudVm.entity.quantidade" min="1"
                                            ng-pattern="/^[0-9]+$/" />
@@ -104,9 +103,9 @@
 
 
 
-                                <md-input-container class="md-block" flex-gt-xs>
+                                <md-input-container class="md-block" flex-gt-xs style="margin-top: 4%">
                                     <label>Descrição</label>
-                                    <input  name="descricao" ng-model="crudVm.entity.descricao" required>
+                                    <textarea name="descricao" ng-model="crudVm.entity.descricao" required></textarea>
                                     <div ng-messages="formEdit.descricao.$error">
                                         <div ng-message="required">Campo obrigatório.</div>
                                     </div>
@@ -129,16 +128,16 @@
 
 
                             <md-table-container>
-                                <table md-table >
+                                <table md-table>
 
                                     <tbody md-body>
                                         <tr md-row md-auto-select ng-repeat="row in crudVm.entity.competencias">
 
-                                            <td md-cell>
-                                    <md-input-container>
+                                            <td md-cell width="90%">
+                                    <md-input-container style="width: 100%; margin-top: 7%">
                                         <label>Descrição</label>
 
-                                        <textarea name="descricao" max-length="2000" ng-model="row.descricao" required></textarea>
+                                        <textarea width="80%" name="descricao" max-length="2000" ng-model="row.descricao" required></textarea>
                                     </md-input-container>
                                     </td>  
                                     <td  md-cell md-numeric> 
@@ -158,7 +157,7 @@
                         </md-tab>
 
                         <md-tab label="Plano de Avaliação">
-                            <md-input-container flex="" class="md-block" flex-gt-xs>
+                            <md-input-container flex="" style="margin-top: 5%" class="md-block" flex-gt-xs>
                                 <md-autocomplete
                                     md-selected-item="crudVm.entity.planoAvaliacao"
                                     md-search-text="crudVm.searchText"
@@ -178,14 +177,14 @@
                                     <tbody md-body>
                                         <tr md-row md-auto-select ng-repeat="row in crudVm.entity.planoAvaliacao.questaos">
 
-                                            <td md-cell >
-                                    <md-input-container>
+                                            <td md-cell width="80%">
+                                    <md-input-container style="width: 100%; margin-top: 7%">
                                         <label>Descrição</label>
 
                                         <textarea name="objetivo" max-length="2000" ng-model="row.descricao" disabled></textarea>
                                     </md-input-container>
                                     </td>  
-                                    <td md-cell>
+                                    <td md-cell style="text-align: center">
                                         Visível ao Candidato?
                                     <md-checkbox ng-model="row.visivelCandidato" disabled>
 
@@ -202,9 +201,12 @@
                             <md-table-container ng-show='!crudVm.candidato'>
                                 <table md-table md-progress="promise" >
                                     <thead md-head>
-                                        <tr md-row>
+                                        <tr md-row style="text-align: center">
                                             <th md-column md-numeric ></th>
-                                            <th md-column><span>Nome</span></th>             
+                                            <th md-column style="text-align: center"><span></span></th>
+                                            <th md-column style="text-align: center"><span>ID</span></th>
+                                            <th md-column style="text-align: center"><span>Nome</span></th>
+                                            <th md-column style="text-align: center"><span>Entrevista</span></th>
                                         </tr>
                                     </thead>
                                     <tbody md-body>
@@ -212,22 +214,26 @@
 
                                             <td md-cell width="15" class="button-column">
                                     <md-button class="md-icon-button md-subhead" style="font-size:7px"    aria-label="Edit" ng-click="crudVm.mostraEditCandidato(row)">
-                                        <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
+<!--                                        <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>-->
+                                        <ng-md-icon icon="message"></ng-md-icon>
                                     </md-button>
                                     </td>
                                     <td md-cell>
                                         <div class="md-media-xs card-media" style="width:100px">
-                                            <img check-user-image ng-src="{{crudVm.getImage(row)}}" ng-alt="{{row.nome}}">
+                                            <img style="text-align: center" check-user-image height="30%" width="60%" ng-src="{{crudVm.getImage(row)}}" ng-alt="{{row.nome}}">
 
                                         </div>
                                     </td>
-                                    <td md-cell>{{row.pessoa.nome}}</td>   
+                                    <td md-cell style="text-align: center">{{row.pessoa.id}}</td> 
+                                    <td md-cell style="text-align: center; width: 70%">{{row.pessoa.nome}}</td>   
                                     <td  md-cell md-numeric> 
-                                    <md-button  ng-show="row.entrevistas[0]" aria-label="Editar" ng-click="crudVm.mostraEditEntrevista(row.entrevistas[0])" >
-                                        <ng-md-icon icon="message"></ng-md-icon>
+                                    <md-button class="md-primary md-raised" ng-show="row.entrevistas[0]" aria-label="Editar" ng-click="crudVm.mostraEditEntrevista(row.entrevistas[0])" >
+                                        <p>Alterar</p>
+                                        <!--<ng-md-icon icon="message"></ng-md-icon>-->
                                     </md-button>
-                                    <md-button  ng-show="!row.entrevistas[0]" aria-label="Adicionar" ng-click="crudVm.mostraAddEntrevista(crudVm.entity.candidatos.indexOf(row))" >
-                                        <ng-md-icon icon="view"></ng-md-icon>
+                                    <md-button class="md-primary md-raised" ng-show="!row.entrevistas[0]" aria-label="Adicionar" ng-click="crudVm.mostraAddEntrevista(crudVm.entity.candidatos.indexOf(row))" >
+                                        <p>Marcar</p>
+<!--                                        <ng-md-icon icon="view">Marcar</ng-md-icon>-->
                                     </md-button>
                                     </td>
                                     </tr>

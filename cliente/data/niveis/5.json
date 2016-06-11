@@ -90,11 +90,6 @@
                     "icon": "curriculo"
                 },
                 {
-                    "link": "usuario",
-                    "title": "Usuários",
-                    "icon": "user"
-                },
-                {
                     "link": "plano-avaliacao",
                     "title": "Planos de Avaliações",
                     "icon": "avaliacao"
