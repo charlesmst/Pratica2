@@ -1,10 +1,16 @@
 {
-    "inicial": "curriculocandidato",
+    "inicial": "folhacalculada",
+
     "menus": [
         {
-            "title":"Funcionário",
+            "title": "Funcionário",
             "links": [
                 {
+                    "link": "folhacalculada",
+                    "title": "Folhas de Pagamento",
+                    "icon": "folha"
+				},
+				{
                     "link": "vagasview",
                     "title": "Vagas",
                     "icon": "vagas"
@@ -15,6 +21,7 @@
                     "icon": "curriculo"
                 }
             ]
+
         }
     ]
 }

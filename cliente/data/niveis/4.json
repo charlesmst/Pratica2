@@ -1,13 +1,48 @@
 {
-    "inicial": "menu",
+    "inicial": "ficha",
     "menus": [
         {
-            "title": "RH",
+            "title": "Folha de Pagamento",
             "links": [
                 {
-                    "link": "menu",
-                    "title": "Menus",
-                    "icon": "dashboard"
+                    "link": "tabela",
+                    "title": "Tabelas",
+                    "icon": "tabela"
+                },
+                {
+                    "link": "calculofolha",
+                    "title": "Cálculo da Folha",
+                    "icon": "calculator"
+                },
+                {
+                    "link": "folhacalculada",
+                    "title": "Folhas de Pagamento",
+                    "icon": "folha"
+                }
+            ]
+        },
+        {
+            "title": "Ficha Funcional",
+            "links": [
+                {
+                    "link": "ficha",
+                    "title": "Ficha Funcional",
+                    "icon": "ficha"
+                },
+                {
+                    "link": "cbo",
+                    "title": "CBOS",
+                    "icon": "cbo"
+                },
+                {
+                    "link": "cargo",
+                    "title": "Cargos",
+                    "icon": "cargos"
+                },
+                {
+                    "link": "faixasalarial",
+                    "title": "Faixas Salariais",
+                    "icon": "faixa"
                 },
                 {
                     "link": "qualificacao",
@@ -15,14 +50,29 @@
                     "icon": "qualificacao"
                 },
                 {
-                    "link": "funcionario-acidente",
-                    "title": "Acidentes de Trabalho",
-                    "icon": "acidente"
+                    "link": "sindicato",
+                    "title": "Sindicatos",
+                    "icon": "sindicato"
+                }
+            ]
+        },
+        {
+            "title": "Recrutamento",
+            "links": [
+                {
+                    "link": "necessidade-pessoa",
+                    "title": "Necessidade de Pessoa",
+                    "icon": "necessidade"
                 },
                 {
-                    "link": "empresa",
-                    "title": "Empresas",
-                    "icon": "empresa"
+                    "link": "vagas",
+                    "title": "Vagas",
+                    "icon": "vagas"
+                },
+                {
+                    "link": "curriculo",
+                    "title": "Currículo",
+                    "icon": "curriculo"
                 }
             ]
         }

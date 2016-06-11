@@ -55,6 +55,11 @@
                     "icon": "cargos"
                 },
                 {
+                    "link": "faixasalarial",
+                    "title": "Faixas Salariais",
+                    "icon": "faixa"
+                },
+                {
                     "link": "cargonivel",
                     "title": "Nível Cargo",
                     "icon": "cargos"
@@ -93,16 +98,6 @@
                     "link": "plano-avaliacao",
                     "title": "Planos de Avaliações",
                     "icon": "avaliacao"
-                }
-            ]
-        },
-        {
-            "title": "Cargos",
-            "links": [
-                {
-                    "link": "faixasalarial",
-                    "title": "Faixas Salariais",
-                    "icon": "faixa"
                 }
             ]
         }
