@@ -4,6 +4,7 @@ import br.com.empresa.rh.model.Candidato;
 import br.com.empresa.rh.model.Usuario;
 import br.com.empresa.rh.model.Vagas;
 import br.com.empresa.rh.model.request.TableRequest;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
@@ -52,11 +53,25 @@ public class VagasService extends Service<Vagas> {
     public VagasService() {
         classRef = Vagas.class;
     }
-    
-    private List<Vagas> verificaInscricao(List<Vagas> l, int id){
-        for(Vagas v : l){
-            for(Candidato c : v.getCandidatos()){
-                if(c.getPessoa().getId() == id){
+
+    private List<Vagas> removeDuplicados(List<Vagas> l) {
+        for (int i = 0; i < l.size(); i++) {
+            Object a = l.get(i);
+            for (int j = i + 1; j < l.size(); j++) {
+                Object b = l.get(j);
+                if (a.equals(b)) {
+                    l.remove(j);
+                    j--;
+                }
+            }
+        }
+        return l;
+    }
+
+    private List<Vagas> verificaInscricao(List<Vagas> l, int id) {
+        for (Vagas v : l) {
+            for (Candidato c : v.getCandidatos()) {
+                if (c.getPessoa().getId() == id) {
                     c.setIsCandidato(true);
                 } else {
                     c.setIsCandidato(false);
@@ -71,21 +86,21 @@ public class VagasService extends Service<Vagas> {
 
         if (tipo[2] > 3) {
             String hql = "select t from Vagas t "
-                    + " left join fetch t.competencias c "
-                    + " left join fetch t.candidatos "
-                    + " left join fetch t.cargo a ";
+                    + " left outer join fetch t.competencias c "
+                    + " left outer join fetch t.candidatos "
+                    + " left outer join fetch t.cargo a ";
             hql += request.applyFilter("t.id", "a.nome", "t.descricao");
             hql += request.applyOrder("t.id", "a.nome", "t.descricao");
             Query q = entityManager.createQuery(hql);
             request.applyPagination(q);
             request.applyParameters(q);
-            List<Vagas> l = q.getResultList();    
-            return verificaInscricao(l, id);
+            List<Vagas> l = q.getResultList();
+            return verificaInscricao(removeDuplicados(l), id);
         } else if (tipo[2] <= 3) {
             String hql = "select t from Vagas t "
-                    + " left join fetch t.competencias c"
-                    + " left join fetch t.candidatos "
-                    + " left join fetch t.cargo a "
+                    + " left outer join fetch t.competencias c"
+                    + " left outer join fetch t.candidatos "
+                    + " left outer join fetch t.cargo a "
                     + " where t.sigiloso = false and "
                     + " t.finalizado = false and ("
                     + " t.tipo = :t1 or t.tipo = :t2)";
@@ -96,8 +111,8 @@ public class VagasService extends Service<Vagas> {
                     .setParameter("t2", tipo[1]);
             request.applyPagination(q);
             request.applyParameters(q);
-            List<Vagas> l = q.getResultList();    
-            return verificaInscricao(l, id);
+            List<Vagas> l = q.getResultList();
+            return verificaInscricao(removeDuplicados(l), id);
         } else {
             return null;
         }
