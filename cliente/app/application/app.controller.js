@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog', 'Workspace', 'hotkeys', '$scope', '$state', 'Authorization', 'AuthorizationData', '$rootScope','config', AppController]);
+    angular.module('app').controller('AppController', ['$mdBottomSheet', '$mdSidenav', '$mdDialog', 'Workspace', 'hotkeys', '$scope', '$state', 'Authorization', 'AuthorizationData', '$rootScope', 'config', AppController]);
 
 
-    function AppController($mdBottomSheet, $mdSidenav, $mdDialog, Workspace, hotkeys, $scope, $state, Authorization, AuthorizationData, $rootScope,config) {
+    function AppController($mdBottomSheet, $mdSidenav, $mdDialog, Workspace, hotkeys, $scope, $state, Authorization, AuthorizationData, $rootScope, config) {
         var vm = this;
         vm.alert = '';
         vm.isSubState = false;
@@ -87,7 +87,9 @@
                 parent: angular.element(document.body),
                 clickOutsideToClose: true
             }).then(function (item) {
-                Authorization.getCurrentUser().token = item
+                var u = Authorization.getCurrentUser()
+                u.token = item
+                Authorization.setCurrentUser(u)
                 Authorization.loadNiveis().then(function () {
                     $state.go(Authorization.defaultState)
 
@@ -98,8 +100,8 @@
         function ListBottomController($scope) {
 
             $scope.listItems = [
-                { name: 'Alterar nível', icon: 'nivel', action: alterarNivel },
-                { name: 'Sair', icon: 'logout', action: logout }
+                {name: 'Alterar nível', icon: 'nivel', action: alterarNivel},
+                {name: 'Sair', icon: 'logout', action: logout}
             ];
             $scope.clickItem = clickItem;
             function clickItem(item) {
