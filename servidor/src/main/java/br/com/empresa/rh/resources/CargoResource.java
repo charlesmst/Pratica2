@@ -63,7 +63,7 @@ public class CargoResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Cargo findById(@PathParam("id") long id) {
+    public Cargo findById(@PathParam("id") int id) {
         Cargo m = cargoService.findById(id);
         return m;
     }
@@ -86,7 +86,7 @@ public class CargoResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Path("{id}")
-    public void update(@PathParam("id") long id, Cargo entity) {
+    public void update(@PathParam("id") int id, Cargo entity) {
         cargoService.update(entity);
 
     }
@@ -94,7 +94,7 @@ public class CargoResource {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("id") long id) {
+    public void delete(@PathParam("id") int id) {
         cargoService.delete(id);
     }
 
