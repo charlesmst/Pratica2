@@ -23,11 +23,11 @@ import javax.persistence.Table;
 )
 public class Cargo implements java.io.Serializable {
 
-    @JsonView({Folha.CargosFuncionario.class, Recrutamento.Entrevista.class, Recrutamento.NecessidadePessoa.class, Recrutamento.Vagas.class, Recrutamento.VagasView.class, Folha.FuncionarioFicha.class})
+    @JsonView({Folha.CargosFuncionario.class, Recrutamento.Entrevista.class, Recrutamento.NecessidadePessoa.class, Recrutamento.Vagas.class, Recrutamento.VagasView.class, Folha.FuncionarioFicha.class,Folha.FolhaCalculada.class})
     private int id;
      @JsonView({ Folha.FuncionarioFicha.class})
     private Cbo cbo;
-    @JsonView({Folha.CargosFuncionario.class, Recrutamento.Entrevista.class, Recrutamento.NecessidadePessoa.class, Recrutamento.Vagas.class, Recrutamento.VagasView.class, Folha.FuncionarioFicha.class})
+    @JsonView({Folha.CargosFuncionario.class, Recrutamento.Entrevista.class, Recrutamento.NecessidadePessoa.class, Recrutamento.Vagas.class, Recrutamento.VagasView.class, Folha.FuncionarioFicha.class,Folha.FolhaCalculada.class})
     private String nome;
      @JsonView({ Folha.FuncionarioFicha.class, Recrutamento.VagasView.class})
     private String atribuicoes;

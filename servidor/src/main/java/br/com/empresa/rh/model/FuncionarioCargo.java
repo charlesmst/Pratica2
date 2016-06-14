@@ -32,9 +32,9 @@ import javax.persistence.TemporalType;
 
 public class FuncionarioCargo implements java.io.Serializable {
 
-    @JsonView({Folha.Funcionario.class,Folha.FuncionarioFicha.class})
+    @JsonView({Folha.Funcionario.class, Folha.FuncionarioFicha.class})
     private int id;
-    @JsonView({Folha.CargosFuncionarioComCargo.class, Folha.FuncionarioFicha.class})
+    @JsonView({Folha.CargosFuncionarioComCargo.class, Folha.FuncionarioFicha.class, Folha.FolhaCalculada.class})
 
     private Cargo cargo;
     @JsonView({Folha.FuncionarioFicha.class})
@@ -76,7 +76,7 @@ public class FuncionarioCargo implements java.io.Serializable {
     @JsonView({Folha.FuncionarioFicha.class})
 
     private Set<SindicatoHasFuncionarioCargo> sindicatoHasFuncionarioCargos = new HashSet<SindicatoHasFuncionarioCargo>(0);
-        @JsonView({Folha.FuncionarioFicha.class})
+    @JsonView({Folha.FuncionarioFicha.class})
 
     private Set<Ferias> feriases = new HashSet<Ferias>(0);
 
@@ -205,7 +205,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.ativo = ativo;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<FuncionarioCargoHasAdvertenciaTipo> getFuncionarioCargoHasAdvertenciaTipos() {
         return this.funcionarioCargoHasAdvertenciaTipos;
     }
@@ -232,7 +232,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.folhaCalculadas = folhaCalculadas;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<FuncionarioAcidente> getFuncionarioAcidentes() {
         return this.funcionarioAcidentes;
     }
@@ -241,7 +241,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.funcionarioAcidentes = funcionarioAcidentes;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<FuncionarioCargoHasMotivoFalta> getFuncionarioCargoHasMotivoFaltas() {
         return this.funcionarioCargoHasMotivoFaltas;
     }
@@ -250,7 +250,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.funcionarioCargoHasMotivoFaltas = funcionarioCargoHasMotivoFaltas;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<FuncionarioFaixa> getFuncionarioFaixas() {
         return this.funcionarioFaixas;
     }
@@ -259,7 +259,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.funcionarioFaixas = funcionarioFaixas;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<FuncionarioQualificacao> getFuncionarioQualificacaos() {
         return this.funcionarioQualificacaos;
     }
@@ -277,7 +277,7 @@ public class FuncionarioCargo implements java.io.Serializable {
         this.sindicatoHasFuncionarioCargos = sindicatoHasFuncionarioCargos;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionarioCargo", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<Ferias> getFeriases() {
         return this.feriases;
     }

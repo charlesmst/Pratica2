@@ -305,7 +305,8 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
     public List<FolhaCalculada> findForTable(TableRequest request, Empresa empresa, int mes, int ano, List<FuncionarioCargo> funcionarios) {
 
         String hql = "select t from FolhaCalculada t "
-                + " inner join fetch t.funcionarioCargo f "
+                + " inner join fetch t.funcionarioCargo f"
+                + " inner join fetch f.cargo c "
                 + " inner join fetch f.funcionario ff "
                 + " inner join fetch ff.pessoa ";
         hql += request.applyFilter("t.id");
