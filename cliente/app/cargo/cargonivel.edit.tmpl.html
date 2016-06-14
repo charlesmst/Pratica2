@@ -42,6 +42,7 @@
                         md-items="item in crudVm.querySearch(crudVm.searchText)"
                         md-item-text="item.nome"
                         md-min-length="2"
+                        md-floating-label="Cargo"
                         placeholder="Cargo">
                         <span md-highlight-text="crudVm.searchText">{{item.nome}}</span>
                         <div ng-messages="formEdit.cargo.$error">

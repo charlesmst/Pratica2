@@ -13,8 +13,8 @@
                 <tr md-row>
                     <th md-column md-numeric ></th>
                     <th md-column md-order-by="nome"><span>Nome</span></th>             
-                    <th md-column md-order-by="nome"><span>Experiência</span></th>
-                    <th md-column md-order-by="nome"><span>Cargo</span></th>
+                    <th md-column md-order-by="experiencia"><span>Experiência</span></th>
+                    <th md-column md-order-by="cargo"><span>Cargo</span></th>
                 </tr>
             </thead>
             <tbody md-body>
@@ -27,7 +27,7 @@
             </td>
             <td md-cell>{{row.nome}}</td>
             <td md-cell>{{row.experiencia}}</td>
-            <td md-cell>{{row.cargo}}</td>
+            <td md-cell>{{row.cargo.nome}}</td>
 
             </tr>
             </tbody>

@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CargoNivelEditController', ['$mdToast', '$http', 'CargoNivel', '$state', '$stateParams', 'Workspace','Cargo', CargoNivelEditController]);
+    angular.module('app').controller('CargoNivelEditController', ['$mdToast', '$http', 'CargoNivel', '$state', '$stateParams', 'Workspace', 'Cargo', CargoNivelEditController]);
 
     var state = "cargonivel"
-    function CargoNivelEditController($mdToast, $http, CargoNivel, $state, $stateParams, Workspace, Cargo ) {
+    function CargoNivelEditController($mdToast, $http, CargoNivel, $state, $stateParams, Workspace, Cargo) {
         var vm = this;
         vm.entity = {}
         Workspace.title = "Manutenção de Nível do Cargo";
@@ -13,12 +13,13 @@
                 vm.entity = data;
             }))
 
-        } else
+        } else {
             vm.entity = new CargoNivel()
-//            loadCargoNivel();
+            loadCargoNivel();
+        }
         vm.save = save;
         vm.cancel = cancel;
-//        vm.querySearch = querySearch;
+        vm.querySearch = querySearch;
         function save($event, $valid) {
             if (!$valid)
                 return;
@@ -35,16 +36,17 @@
         function callbackError() {
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
         }
+
+        function querySearch(textoBusca) {
+            return Cargo.query({
+                filter: textoBusca
+            }).$promise
+        }
+        function loadCargoNivel() {
+            CargoNivel.query().$promise.then(function (resposta) {
+                vm.cargo = resposta;
+            })
+        }
     }
 
-//    function querySearch(textoBusca) {
-//        return Cargo.query({
-//            filter: textoBusca
-//        }).$promise
-//    }
-//        function loadCargoNivel() {
-//        CargoNivel.query().$promise.then(function (resposta) {
-//            vm.cargo = resposta;
-//        })
-//    }
 })()

@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CargoEditController', ['$mdToast', '$http', 'Cargo', '$state', '$stateParams', 'Workspace','Cbo', CargoEditController]);
+    angular.module('app').controller('CargoEditController', ['$mdToast', '$http', 'Cargo', '$state', '$stateParams', 'Workspace', 'Cbo', CargoEditController]);
 
     var state = "cargo"
     function CargoEditController($mdToast, $http, Cargo, $state, $stateParams, Workspace, Cbo) {
@@ -36,7 +36,7 @@
         function callbackError() {
             Workspace.showMessage("Ocorreu um erro ao salvar o registro")
         }
-        
+
         function querySearch(textoBusca) {
             return Cbo.query({
                 filter: textoBusca

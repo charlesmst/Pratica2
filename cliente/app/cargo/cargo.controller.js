@@ -1,10 +1,10 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CargoController', ['Cargo', '$state', 'Workspace', '$q', CargoController]);
+    angular.module('app').controller('CargoController', ['Cargo', '$state', 'Workspace', '$q', 'Cbo', CargoController]);
 
     var state = "cargo"
 
-    function CargoController(Cargo, $state, Workspace, $q) {
+    function CargoController(Cargo, $state, Workspace, $q, Cbo) {
         var vm = this;
         vm.showDelete = showDelete;
         vm.showAdd = showAdd;
@@ -22,7 +22,7 @@
             limit: 10,
             page: 1
         };
-        
+
         load(vm.query)
         function showDelete($event) {
             Workspace.showDeleteDialog($event).then(function () {
@@ -76,7 +76,7 @@
 
         }
 
-
     }
+
 
 })()

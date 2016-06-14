@@ -14,7 +14,8 @@
                     <th md-column md-numeric ></th>
                     <th md-column md-order-by="nome"><span>Nome</span></th>
                     <th md-column md-order-by="atribuicoes"><span>Atribuições</span></th> 
-                    <th md-column md-order-by="cbo.nome"><span>Cbo</span></th>   
+                    <th md-column md-order-by="cbo_id"><span>Cbo</span></th>
+                    <th md-column md-order-by="ativo"><span>Status</span></th>
                 </tr>
             </thead>
             <tbody md-body>
@@ -25,9 +26,11 @@
                 <md-icon  md-svg-icon="edit" class="md-display-1">edit</md-icon>
             </md-button>
             </td>
+            
             <td md-cell>{{row.nome}}</td>
             <td md-cell>{{row.atribuicoes}}</td>
-            <td md-cell>{{row.cbo.nome}}</td>
+            <td md-cell>{{row.Cbo.nome}}</td>
+            <td md-cell>{{row.ativo?"Ativo":"Inativo"}}</td>
             
             </tr>
             </tbody>

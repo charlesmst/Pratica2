@@ -20,6 +20,13 @@ public class CargoNivelService extends Service<CargoNivel> {
         classRef = CargoNivel.class;
     }
 
+    @Override
+    public CargoNivel findById(Object id) {
+
+        return (CargoNivel) entityManager.createQuery("from CargoNivel c inner join fetch c.cargo where c.id = :id").setParameter("id", id).getSingleResult();
+    }
+
+    
     @Transactional
     public List<CargoNivel> findForTable(TableRequest request) {
 

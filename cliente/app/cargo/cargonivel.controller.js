@@ -1,10 +1,10 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CargoNivelController', ['CargoNivel', '$state', 'Workspace', '$q', CargoNivelController]);
+    angular.module('app').controller('CargoNivelController', ['CargoNivel', '$state', 'Workspace', '$q','Cargo', CargoNivelController]);
 
     var state = "cargonivel"
 
-    function CargoNivelController(CargoNivel, $state, Workspace, $q) {
+    function CargoNivelController(CargoNivel, $state, Workspace, $q, Cargo) {
         var vm = this;
         vm.showDelete = showDelete;
         vm.showAdd = showAdd;
@@ -13,7 +13,7 @@
         vm.onReorder = onReorder;
         vm.list = []
         vm.selectedItems = []
-        Workspace.title = "CargoNivel"
+        Workspace.title = "Nível do Cargo"
         Workspace.enableSearch(onFilter)
 
         vm.query = {
@@ -39,6 +39,8 @@
                 }));
             });
         }
+        loadCargos();
+        
         function showAdd() {
             $state.go(state + "add")
         }
@@ -74,6 +76,11 @@
                 vm.count = e.count
             });
 
+        }
+        function loadCargos() {
+            Cargo.query().$promise.then(function (resposta) {
+                vm.cargo = resposta;
+            })
         }
 
 
