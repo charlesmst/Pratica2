@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 import org.joda.time.DateTime;
@@ -101,12 +102,21 @@ public class CalculoFolha {
         }
         List<FolhaCalculada> folhas = new ArrayList<>();
         try {
+            HashSet<Integer> calculado = new HashSet<>();
             for (FuncionarioCargo funcionario : funcionarios) {
                 if (getReportProgress() != null) {
                     getReportProgress().setCurrent(funcionario);
                 }
+                //Não calcular duas folhas pro mesmo
+                if (calculado.contains(funcionario.getId())) {
+                    continue;
+                } else {
+                    calculado.add(funcionario.getId());
+                }
                 Parametros parametros = parametrosFuncionario(data, funcionario);
                 EventoCollection eventosFuncionario;
+                LocalDate d;
+                LocalDate demissao;
                 switch (tipo) {
                     case ferias:
                         List<Ferias> f = feriasService.feriasMes(funcionario, mes, ano);
@@ -125,12 +135,30 @@ public class CalculoFolha {
                         break;
                     case demissao:
                         eventosFuncionario = eventoService.eventosDemissao(funcionario, data);
+                        if (funcionario.getDataSaida() == null) {
+                            continue;
+                        }
+                        d = new LocalDate(data);
+                        demissao = new LocalDate(funcionario.getDataSaida());
+                        if (d.getMonthOfYear() != demissao.getMonthOfYear() || d.getYear() != demissao.getYear()) {
+                            continue;
+                        }
                         int diasMes = funcionarioCargoService.diasTotaisDemissao(funcionario);
+                        if (diasMes == 0) {
+                            continue;
+                        }
                         parametros.setDiasMes(diasMes);
 
                         break;
                     case mes:
                     default:
+
+                        d = new LocalDate(data);
+                        demissao = new LocalDate(funcionario.getDataSaida());
+                        //Mes de demissao ignora funcionario
+                        if (d.getMonthOfYear() == demissao.getMonthOfYear() || d.getYear() == demissao.getYear()) {
+                            continue;
+                        }
                         eventosFuncionario = eventoService.todosEventosFuncionario(funcionario, data);
                         break;
                 }
@@ -205,6 +233,8 @@ public class CalculoFolha {
 
     private Parametros parametrosFuncionario(Date data, FuncionarioCargo func) {
         Parametros p = new Parametros(data);
+        func = funcionarioCargoService.findById(func.getId());
+
         LocalDate lAdmissao = new LocalDate(func.getDataEntrada());
         LocalDate latual = new LocalDate(data);
         LocalDate lDemissao = null;
@@ -227,7 +257,7 @@ public class CalculoFolha {
                 diasMes = latual.withDayOfMonth(1).plusMonths(1).minusDays(1).getDayOfMonth();
             }//Else ja calculou la onde verifica se é mes de demissao
 
-            diasMes -= lAdmissao.getDayOfMonth();
+            diasMes -= lAdmissao.getDayOfMonth() - 1;
         }
         diasMes = funcionarioCargoService.descontaAtestados(diasMes, func, latual.getMonthOfYear(), latual.getYear());
         if (diasMes < 0) {

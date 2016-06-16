@@ -123,7 +123,11 @@ public class EventoScript implements IEvento {
         nashornEngine.setBindings(bindings, ScriptContext.GLOBAL_SCOPE);
         try {
             nashornEngine.eval(evaluationScript);
-        } catch (Exception e) {
+        }catch(FolhaException ex){
+            ex.printStackTrace();
+            throw ex;
+        } 
+        catch (Exception e) {
             e.printStackTrace();
             throw new FolhaException("Erro no cálculo do evento " + evento.getId() + " para colaborador ", e);
         }

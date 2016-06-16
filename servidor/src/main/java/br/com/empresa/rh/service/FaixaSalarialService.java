@@ -6,6 +6,8 @@ import br.com.empresa.rh.model.FaixaSalarialValor;
 import br.com.empresa.rh.model.FuncionarioCargo;
 import br.com.empresa.rh.model.FuncionarioFaixa;
 import br.com.empresa.rh.model.request.TableRequest;
+import br.com.empresa.rh.service.folha.FolhaException;
+import br.com.empresa.rh.util.ApiException;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Date;
@@ -71,8 +73,12 @@ public class FaixaSalarialService extends Service<FaixaSalarial> {
         Query q = entityManager.createQuery(hql);
         q.setParameter("idCargo", cargo.getId());
         q.setParameter("data", data);
-        FuncionarioFaixa faixa = (FuncionarioFaixa) q.getSingleResult();
-
+        FuncionarioFaixa faixa;
+        try {
+            faixa = (FuncionarioFaixa) q.getSingleResult();
+        }catch(Exception ex){
+            throw new FolhaException("Funcionário com o cargo "+cargo.getId()+" não possui salário relacionado");
+        }
         hql = "select t from FaixaSalarialValor t "
                 + " where id.dataInicio <= :data and faixaSalarial.id = :id order by id.dataInicio desc";
 
@@ -100,7 +106,7 @@ public class FaixaSalarialService extends Service<FaixaSalarial> {
     public List<FaixaSalarial> findByCargoNivel(CargoNivel cargo) {
         List<FaixaSalarial> faixas = entityManager.createQuery("from FaixaSalarial f  "
                 + " left outer join fetch f.cargoNivels cargoNiveis"
-//                + " left outer join fetch f.faixaSalarialValors faixaSalarialValors "
+                //                + " left outer join fetch f.faixaSalarialValors faixaSalarialValors "
                 + " where cargoNiveis.id = :id ").setParameter("id", cargo.getId()).getResultList();
         for (FaixaSalarial faixa : faixas) {
             faixa.setCargoNivels(null);
