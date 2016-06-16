@@ -1,10 +1,10 @@
-<form name="formEdit" novalidate ng-submit="crudVm.save($event,formEdit.$valid)">
+<form name="formEdit" novalidate ng-submit="crudVm.save($event, formEdit.$valid)">
 
     <div class="md-fab-bottom-right app-fixed-bottom-right">
 
         <button type="submit" class="md-button md-fab" aria-label="save">
-        <ng-md-icon icon="save"></ng-md-icon>
-    </button>
+            <ng-md-icon icon="save"></ng-md-icon>
+        </button>
 
         <md-button class="md-fab " aria-label="Delete" ng-click="crudVm.cancel($event)">
             <ng-md-icon icon="cancel"></ng-md-icon>
@@ -18,8 +18,8 @@
         <md-card-content>
             <h2>Tabela</h2>
             <md-content>
-                <md-autocomplete md-items="item in crudVm.querySearchTipo(crudVm.searchText)" md-item-text="item" md-selected-item="crudVm.entity.tipo"
-                    md-search-text="crudVm.searchText" md-min-length="0" md-input-name="tipo" md-floating-label="Tipo" placeholder="Tipo">
+                <md-autocomplete ng-required="true" md-items="item in crudVm.querySearchTipo(crudVm.searchText)" md-item-text="item" md-selected-item="crudVm.entity.tipo"
+                                 md-search-text="crudVm.searchText" md-min-length="0" md-input-name="tipo" md-floating-label="Tipo" placeholder="Tipo">
                     <md-item-template>
                         <span md-highlight-text="crudVm.searchText" md-highlight-flags="^i">{{item}}</span>
                     </md-item-template>
@@ -45,11 +45,11 @@
             <h2>Valores da tabela</h2>
 
             <md-list>
-                <md-list-item class="md-3-line" ng-repeat="row in crudVm.entity.tabelaValoreses | orderBy:'valorInicial'">
+                <md-list-item class="md-3-line" ng-repeat="row in crudVm.entity.tabelaValoreses| orderBy:'valorInicial'">
                     <div class="md-list-item-text">
                         <md-input-container>
                             <label>Valor Inicial</label>
-                            <input type="text" required ui-money-mask ng-model="row.valorInicial" />
+                            <input type="text" keep-focus required ui-money-mask ng-model="row.valorInicial" />
                         </md-input-container>
 
                         <md-input-container>
@@ -76,10 +76,10 @@
             </md-list>
 
         </md-card-content>
-        <md-card-actions layout="row" layout-align="end center">
+        <md-card-actions layout="row" layout-align="begin center">
             <button class="md-button md-raised md-primary" type="button" ng-click="crudVm.entity.tabelaValoreses.push({})">
-                        <ng-md-icon icon="add"></ng-md-icon>
-                    </button>
+                <ng-md-icon icon="add"></ng-md-icon>
+            </button>
         </md-card-actions>
     </md-card>
 </form>

@@ -19,6 +19,14 @@
                     <md-checkbox ng-model="modalVm.entity.ativo" aria-label="ativo">
                         Ativo
                     </md-checkbox>
+                    <md-input-container class="md-block" flex-gt-xs ng-required="modalVm.entity.dataSaida" ng-show="modalVm.entity.dataSaida">
+                        <label>Tipo de demissão</label>
+                        <md-select ng-model="modalVm.entity.demissaoTipo">
+                            <md-option ng-repeat="item in modalVm.demissoes" ng-value="{{item}}" ng-selected="item.id === modalVm.entity.demissaoTipo.id">
+                                {{item.nome}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
                 </div>
                 <div layout="row">
                     <md-input-container class="md-block" flex-gt-xs>
@@ -49,6 +57,8 @@
                             </md-option>
                         </md-select>
                     </md-input-container>
+
+
                 </div>
 
             </md-card-content>

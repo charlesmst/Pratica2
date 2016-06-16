@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    angular.module('app').controller('CalculoFolhaController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'Empresa', 'Cargo', '$scope', '$parse', 'Evento', '$q', '$mdDialog','FolhaHub','Download', CalculoFolhaController]);
+    angular.module('app').controller('CalculoFolhaController', ['$mdToast', '$http', '$state', '$stateParams', 'Workspace', 'Empresa', 'Cargo', '$scope', '$parse', 'Evento', '$q', '$mdDialog', 'FolhaHub', 'Download', CalculoFolhaController]);
 
-    function CalculoFolhaController($mdToast, $http, $state, $stateParams, Workspace, Empresa, Cargo, $scope, $parse, Evento, $q, $mdDialog,FolhaHub,Download) {
+    function CalculoFolhaController($mdToast, $http, $state, $stateParams, Workspace, Empresa, Cargo, $scope, $parse, Evento, $q, $mdDialog, FolhaHub, Download) {
         var vm = this;
         vm.empresas = []
         vm.cargos = []
@@ -12,7 +12,7 @@
         vm.downloadFolhas = downloadFolhas
         FolhaHub.connect();
         vm.folhaHub = FolhaHub
-        $scope.$on("$destroy",function(){
+        $scope.$on("$destroy", function () {
             FolhaHub.disconnect()
         })
         vm.entity = angular.extend(new Evento(), {
@@ -45,8 +45,8 @@
                 case 3:
                     calculaComplementar($event);
                     break;
-                    
-                }
+
+            }
         }
         function calculaFerias($event) {
             calculaMes($event)
@@ -55,9 +55,9 @@
             verificarCalculado($event).then(function () {
                 Workspace.loading("Cálculando...", vm.entity.$calcularMes(callbackSave, callbackError).$promise)
 
-            });
+            }, showError);
         }
-        function mostraErro(r){
+        function mostraErro(r) {
             Workspace.showError(r.data.mensagem)
         }
         function calculaMes($event) {
@@ -100,7 +100,13 @@
         }
         function callbackError(r) {
             console.log(r)
-            Workspace.showError(r.data.mensagem);
+            try {
+                var d = JSON.parse(r.data)
+                console.log("Show err",d)
+                Workspace.showError(d.mensagem)
+            } catch (e) {
+            }
+//            Workspace.showError(r.data.mensagem);;
         }
 
         function loadEmpresas() {
@@ -123,9 +129,9 @@
                 vm.cargos = r;
             })
         }
-        
-        function downloadFolhas(files){
-            Download.downloadFile('/folhacalculada/relatorio',{"ids":files},'folha')
+
+        function downloadFolhas(files) {
+            Download.downloadFile('/folhacalculada/relatorio', {"ids": files}, 'folha')
         }
 
     }

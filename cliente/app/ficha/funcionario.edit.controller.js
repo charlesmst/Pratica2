@@ -46,9 +46,10 @@
 
                 vm.entity = data
                 vm.funcionarioCache = vm.entity.funcionario
-                
-                vm.isFuncionario =   typeof(vm.entity.funcionario) !== "undefined" && vm.entity.funcionario !== null;
-                console.log("isFuncionario",vm.isFuncionario)
+                if (vm.entity.hasOwnProperty("dataNascimento") && vm.entity.dataNascimento)
+                    vm.entity.dataNascimento = Workspace.toDate(vm.entity.dataNascimento)
+                vm.isFuncionario = typeof (vm.entity.funcionario) !== "undefined" && vm.entity.funcionario !== null;
+                console.log("isFuncionario", vm.isFuncionario)
                 if (vm.entity.funcionario && vm.entity.funcionario.funcionarioCargos.length > 0)
                     vm.funcionarioAtivo = vm.entity.funcionario.funcionarioCargos[0]
 
@@ -106,6 +107,8 @@
                         if (!vm.entity.funcionario.funcionarioCargos)
                             vm.entity.funcionario.funcionarioCargos = []
                         vm.entity.funcionario.funcionarioCargos.push(adicionado)
+                        if (!vm.funcionarioAtivo)
+                            vm.funcionarioAtivo = adicionado;
                     });
         }
 
@@ -152,7 +155,7 @@
                     .then(function (adicionado) {
                         console.log("Resposta da modal", adicionado)
 
-                        if (!vm.funcionarioAtivo.funcionarioQualificacaos)
+                        if (!vm.funcionarioAtivo.funcionarioQualificacaos || vm.funcionarioAtivo.funcionarioQualificacaos.length === 0)
                             vm.funcionarioAtivo.funcionarioQualificacaos = []
                         vm.funcionarioAtivo.funcionarioQualificacaos.push(adicionado)
                     });
@@ -525,7 +528,7 @@
             if (vm.isFuncionario) {
                 vm.entity.funcionario = vm.funcionarioCache || {}
             } else {
-                vm.funcionarioCache = vm.entity.funcionario 
+                vm.funcionarioCache = vm.entity.funcionario
                 vm.entity.funcionario = undefined
             }
         }

@@ -1,6 +1,6 @@
 (function () {
-    angular.module('app').config(["$mdThemingProvider", '$httpProvider', '$mdIconProvider', config]);
-    function config($mdThemingProvider, $httpProvider, $mdIconProvider) {
+    angular.module('app').config(["$mdThemingProvider", '$httpProvider', '$mdIconProvider', '$mdDateLocaleProvider', config]);
+    function config($mdThemingProvider, $httpProvider, $mdIconProvider, $mdDateLocaleProvider) {
         var customBlueMap = $mdThemingProvider.extendPalette('light-blue', {
             'contrastDefaultColor': 'light',
             'contrastDarkColors': ['50'],
@@ -13,7 +13,7 @@
                     'hue-1': '800',
                     'hue-2': '700'
                 })
-                 .accentPalette('teal', {
+                .accentPalette('teal', {
                     'default': '800',
                 })
 
@@ -23,7 +23,22 @@
                     'hue-1': '800',
                     'hue-2': '700'
                 });
+        $mdDateLocaleProvider.formatDate = function (date) {
+            console.log("DateFormat ",date)
+            if(!date)
+                return "";
+            return moment(date).format('DD/MM/YYYY');
+        };
 
+        $mdDateLocaleProvider.parseDate = function (dateString) {
+            if(dateString === null || typeof(dateString) === "undefined")
+                return null;
+            var m = moment(dateString, 'DD/MM/YYYY', true);
+//            return 
+//            m.isValid() ? 
+            return m.toDate() 
+//            : null;
+        };
         $httpProvider.interceptors.push('ApiInterceptor');
 
         $mdIconProvider
@@ -63,6 +78,6 @@
                 .icon('faixa', 'assets/icon/stock-earnings.svg', 38)
                 .icon('user', 'assets/icon/users.svg', 38);
 
-            //  $httpProvider.interceptors.push('ApiInterceptor')
+        //  $httpProvider.interceptors.push('ApiInterceptor')
     }
 })()

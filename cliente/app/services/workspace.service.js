@@ -117,9 +117,12 @@
         function toDate(str) {
             if (typeof str === "object")
                 return str;
-            var d = new Date(str)
-            d.setDate(d.getDate() + 1)
+            var d =  moment(str, 'YYYY-MM-DD', true).toDate();
+            console.log(d)
             return d;
+//            var d = new Date(str)
+//            d.setDate(d.getDate() + 1)
+//            return d;
         }
         function callbackOnEnterState(scope, $state, callback) {
             var curState = $state.current.name

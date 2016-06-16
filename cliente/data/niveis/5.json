@@ -23,7 +23,13 @@
                     "link": "folhacalculada",
                     "title": "Folhas de Pagamento",
                     "icon": "folha"
+                },
+                {
+                    "link": "resumofolha",
+                    "title": "Resumo da folha",
+                    "icon": "folha"
                 }
+
             ]
         },
         {

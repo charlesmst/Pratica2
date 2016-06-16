@@ -1,9 +1,14 @@
 {
   "name": "socket-chat-example",
   "version": "0.0.1",
+  "main": "main.js",
   "description": "my first socket.io app",
   "dependencies": {
     "express": "^4.10.2",
     "socket.io": "^1.4.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^1.5.3"
   }
 }

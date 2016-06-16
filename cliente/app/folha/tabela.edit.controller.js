@@ -38,7 +38,7 @@
         vm.cancel = cancel;
         loadGuesses();
         function save($event, $valid) {
-            if (!$valid)
+            if (!$valid || !vm.entity.tipo)
                 return;
             angular.forEach(vm.entity.tabelaValoreses, function (v) {
                 v.aliquota = v.aliquota * 100
