@@ -63,10 +63,10 @@ public class CargoHasEventoResource {
 
 
     @DELETE
-    @Path("{id}")
+    @Path("{cargo}/{evento}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("id") int id) {
-        cargoHasEventoService.delete(id);
+    public void delete(@PathParam("cargo") int cargo,@PathParam("evento") int evento) {
+        cargoHasEventoService.delete(cargo,evento);
     }
 
 }

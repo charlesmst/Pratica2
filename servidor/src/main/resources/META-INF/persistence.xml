@@ -10,6 +10,9 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
 
+            <property name="removeAbandoned" value="true"/>
+            <property name="initialSize" value="20" />
+            <property name="maxActive" value="30" />
         </properties>
     </persistence-unit>
 </persistence>

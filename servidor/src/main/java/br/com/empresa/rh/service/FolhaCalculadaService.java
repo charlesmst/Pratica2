@@ -207,12 +207,13 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         return d.get(0);
     }
 
-    public Date ultimaDataFolhaCalculadaEvento(Cargo ev) {
+    public Date ultimaDataFolhaCalculadaEvento(Cargo ev, Evento evento) {
         String hql = "select max(f.dataReferente) from FolhaCalculada f"
                 + " inner join f.folhaCalculadaEventos fe"
-                + " where f.excluido = :excluido and f.funcionarioCargo.cargo.id = :id";
+                + " where f.excluido = :excluido and f.funcionarioCargo.cargo.id = :id and fe.evento.id = :eventoId";
         List<Date> d = entityManager.createQuery(hql)
                 .setParameter("excluido", false)
+                .setParameter("eventoId", evento.getId())
                 .setParameter("id", ev.getId())
                 .getResultList();
         if (d.isEmpty()) {
@@ -291,7 +292,7 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
         List<EventosSomados> eventosInvisiveis = entityManager.createQuery("select new br.com.empresa.rh.model.response.EventosSomados(e.evento.id, e.evento.nome, sum(e.valor)) from FolhaCalculadaEvento e "
                 + " where e.folhaCalculada.funcionarioCargo.unidade.empresa.id = :id "
                 + " and e.folhaCalculada.mes = :mes and e.folhaCalculada.ano = :ano  and e.folhaCalculada.excluido is false and e.evento.visivelFolha is false"
-                + " group by e.evento.id, e.evento.nome" 
+                + " group by e.evento.id, e.evento.nome"
                 + " order by sum(e.valor) desc")
                 .setParameter("id", empresa.getId())
                 .setParameter("mes", mes)
@@ -456,5 +457,4 @@ public class FolhaCalculadaService extends Service<FolhaCalculada> {
 
         return fr;
     }
-
 }

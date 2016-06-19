@@ -126,7 +126,10 @@ public class Consulta {
         while (dataComercial.compareTo(dataComercialFim) <= 0) {
             FolhaCalculada f = folhaCalculadaService.folhaCalculadaMes(dataComercial.getMes(), dataComercial.getAno(), TipoCalculo.mes, funcionarioCargo);
             if (f == null) {
-                f = folha.calcularTodos(Arrays.asList(funcionarioCargo), mesfim, anofim, TipoCalculo.mes, false).get(0);
+                List<FolhaCalculada> lista = folha.calcularTodos(Arrays.asList(funcionarioCargo), mesfim, anofim, TipoCalculo.mes, false);
+                if(lista.size()==0)
+                    break;
+                f = lista.get(0);
             } else {
                 f = folhaCalculadaService.findById(f.getId());
             }

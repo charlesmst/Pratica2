@@ -154,9 +154,10 @@ public class CalculoFolha {
                     default:
 
                         d = new LocalDate(data);
+                        
                         demissao = new LocalDate(funcionario.getDataSaida());
                         //Mes de demissao ignora funcionario
-                        if (d.getMonthOfYear() == demissao.getMonthOfYear() || d.getYear() == demissao.getYear()) {
+                        if (funcionario.getDataSaida() != null && (d.getMonthOfYear() == demissao.getMonthOfYear() && d.getYear() == demissao.getYear())) {
                             continue;
                         }
                         eventosFuncionario = eventoService.todosEventosFuncionario(funcionario, data);

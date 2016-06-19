@@ -38,8 +38,8 @@
           class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
           p:driverClassName="org.postgresql.Driver"
 
-          p:url="jdbc:postgresql://localhost:5432/praticarh3" p:username="postgres"
-          p:password="123" />
+          p:url="jdbc:postgresql://localhost:5432/praticarh3" p:username="postgres" 
+          p:password="123" ></bean>
 
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

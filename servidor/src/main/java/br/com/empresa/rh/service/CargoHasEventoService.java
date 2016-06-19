@@ -40,7 +40,7 @@ public class CargoHasEventoService extends Service<CargoHasEvento> {
         if (m.getCargo() == null) {
             throw new IllegalArgumentException("cargo");
         }
-        
+
         m.setDataInicio(utilitarios.dataPeriodoInicio(m.getDataInicio()));
 
         if (m.getDataFim() != null) {
@@ -55,21 +55,27 @@ public class CargoHasEventoService extends Service<CargoHasEvento> {
 
         super.insert(m);
     }
-    
-    @Override
+
+    public CargoHasEvento findById(int cargo, int evento) {
+        return (CargoHasEvento) entityManager.createQuery("from CargoHasEvento ce inner join fetch ce.cargo inner join fetch ce.evento where ce.cargo.id = :cargo and ce.evento.id = :evento")
+                .setParameter("cargo", cargo)
+                .setParameter("evento", evento)
+                .getSingleResult();
+    }
+
     @Transactional
-    public void delete(Object id) {
+    public void delete(int cargo, int evento) {
         //SÃ³ pode excluir se ainda nao possui folha calculada com esse evento
-        CargoHasEvento e = findById(id);
-        Date d = folhaCalculadaService.ultimaDataFolhaCalculadaEvento(e.getCargo());
-        Date dFim = utilitarios.dataPeriodoFim(d);
-        if (e.getDataFim() != null) {
-            if (dFim.equals(e.getDataFim()) && folhaCalculadaService.possuiFolhaCalculadaComEvento(e.getEvento(), e.getCargo(), e.getDataInicio(), e.getDataFim())) {
-                throw new ApiException("Não é possível excluir evento " + e.getEvento().getNome() + " pois já possui folha de pagamento calculada atrelada a este evento");
+        CargoHasEvento e = findById(cargo, evento);
+        Date d = folhaCalculadaService.ultimaDataFolhaCalculadaEvento(e.getCargo(), e.getEvento());
+        if (d != null) {
+            Date dFim = utilitarios.dataPeriodoFim(d);
+            if (e.getDataFim() != null) {
+                if (dFim.equals(e.getDataFim()) && folhaCalculadaService.possuiFolhaCalculadaComEvento(e.getEvento(), e.getCargo(), e.getDataInicio(), e.getDataFim())) {
+                    throw new ApiException("Não é possível excluir evento " + e.getEvento().getNome() + " pois já possui folha de pagamento calculada atrelada a este evento");
+                }
             }
         }
-
-        
         //Se existiu alguma folha e esta não está excluida, colocar a data final como a Ãºltima
         if (d == null) {
             e.setExcluido(true);
@@ -80,7 +86,6 @@ public class CargoHasEventoService extends Service<CargoHasEvento> {
         super.update(e);
 
     }
-
 
     @Transactional
     public List<CargoHasEvento> findForTable(TableRequest request) {
@@ -99,7 +104,7 @@ public class CargoHasEventoService extends Service<CargoHasEvento> {
         Date d = utilitarios.dataPeriodo(mes, ano);
         return entityManager.createQuery("from CargoHasEvento ce "
                 + " inner join fetch ce.evento evento "
-                + " where ce.cargo.id = :id and :d >= ce.dataInicio and (ce.dataFim is null or ce.dataFim >= :d)")
+                + " where ce.cargo.id = :id and :d >= ce.dataInicio and (ce.dataFim is null or ce.dataFim >= :d) and ce.excluido is false")
                 .setParameter("id", cargo.getId())
                 .setParameter("d", d)
                 .getResultList();
