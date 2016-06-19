@@ -186,9 +186,10 @@ public class EventoResource {
 
     private List<FuncionarioCargo> funcionariosRequest(CalculoFolhaRequest request) {
         List<FuncionarioCargo> funcionariosCalculo;
+        Date data = utilitarios.dataPeriodo(request.getMes(), request.getAno());
         TipoCalculo t = TipoCalculo.parse(request.getTipo());
         if (request.isTodosEmpresa()) {
-            List<Cargo> cargos = cargoService.daEmpresa(request.getEmpresa().getId());
+            List<Cargo> cargos = cargoService.daEmpresa(request.getEmpresa().getId(),data);
             funcionariosCalculo = new ArrayList<>();
 
             for (Cargo cargo : cargos) {

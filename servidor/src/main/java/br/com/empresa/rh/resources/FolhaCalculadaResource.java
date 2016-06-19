@@ -182,9 +182,9 @@ public class FolhaCalculadaResource {
             empresa.setId(e);
         }
         if (utilitarios.usuarioTemPermissao(NivelAcesso.RH)) {
-            if (queryString.containsKey("functionarios")) {
+            if (queryString.containsKey("funcionarios")) {
                 funcionarios = new ArrayList<>();
-                for (String s : queryString.get("functionarios")) {
+                for (String s : queryString.get("funcionarios")) {
                     FuncionarioCargo f = new FuncionarioCargo();
                     f.setId(Integer.parseInt(s));
                     funcionarios.add(f);

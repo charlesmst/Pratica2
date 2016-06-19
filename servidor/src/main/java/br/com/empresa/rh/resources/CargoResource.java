@@ -7,6 +7,7 @@ import br.com.empresa.rh.model.request.TableRequest;
 import br.com.empresa.rh.model.view.Folha;
 import br.com.empresa.rh.response.CountResponse;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Produces;
@@ -73,7 +74,7 @@ public class CargoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(Folha.CargosFuncionario.class)
     public List<Cargo> findByNivel(@PathParam("id") int id) {
-        return cargoService.daEmpresa(id);
+        return cargoService.daEmpresa(id,new Date());
     }
     
 

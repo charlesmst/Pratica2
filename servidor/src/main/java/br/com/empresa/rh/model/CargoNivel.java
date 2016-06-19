@@ -8,12 +8,15 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,6 +25,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cargo_nivel", schema = "public"
 )
+
+@SequenceGenerator(name = "cargo_nivel_seq", sequenceName = "cargo_nivel_seq", initialValue = 1, allocationSize = 1)
+
 public class CargoNivel implements java.io.Serializable {
 
     @JsonView({Folha.FuncionarioFicha.class})
@@ -58,6 +64,7 @@ public class CargoNivel implements java.io.Serializable {
     }
 
     @Id
+ @GeneratedValue(generator = "cargo_nivel_seq", strategy = GenerationType.SEQUENCE)
 
     @Column(name = "id", unique = true, nullable = false)
     public int getId() {

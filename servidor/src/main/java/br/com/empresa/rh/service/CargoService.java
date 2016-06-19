@@ -2,6 +2,7 @@ package br.com.empresa.rh.service;
 
 import br.com.empresa.rh.model.Cargo;
 import br.com.empresa.rh.model.request.TableRequest;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
@@ -24,14 +25,16 @@ public class CargoService extends Service<Cargo> {
         classRef = Cargo.class;
     }
 
-    public List<Cargo> daEmpresa(int codigoEmpresa) {
+    public List<Cargo> daEmpresa(int codigoEmpresa,Date data) {
         String hql = "from Cargo c  "
                 + " left join  fetch c.funcionarioCargos fc "
                 + " inner join fetch fc.funcionario f "
                 + " inner join fetch f.pessoa p "
-                + " where fc.unidade.empresa.id = :id and fc is not EMPTY ";
+                + " where fc.unidade.empresa.id = :id and fc is not EMPTY and"
+                + " fc.dataEntrada <= :data and (fc.dataSaida is null or fc.dataSaida >= :data) ";
         return entityManager.createQuery(hql)
                 .setParameter("id", codigoEmpresa)
+                .setParameter("data",data)
                 .getResultList();
     }
 

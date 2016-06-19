@@ -30,9 +30,10 @@ public class CargoNivelService extends Service<CargoNivel> {
     @Transactional
     public List<CargoNivel> findForTable(TableRequest request) {
 
-        String hql = "select t from CargoNivel t ";
-        hql += request.applyFilter("id", "nome");
-        hql += request.applyOrder("id", "nome");
+        String hql = "select t from CargoNivel t "
+                + " inner join fetch t.cargo ";
+        hql += request.applyFilter("t.id", "t.nome");
+        hql += request.applyOrder("t.id", "t.nome");
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);
