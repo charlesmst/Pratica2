@@ -129,7 +129,7 @@
             })
             .state('cargoevento.add', {
                 url: "/add",
-                onEnter: onEnterModal('EventoCargoEditController', 'app/folha/evento-cargo.edit.tmpl.html', 'fichafuncionarioevento'),
+                onEnter: onEnterModal('EventoCargoEditController', 'app/folha/evento-cargo.edit.tmpl.html', 'cargoevento'),
                 onExit: function ($mdDialog) {
                     $mdDialog.hide();
                 }
