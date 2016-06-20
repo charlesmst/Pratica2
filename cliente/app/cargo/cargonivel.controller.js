@@ -39,7 +39,6 @@
                 }));
             });
         }
-        loadCargos();
         
         function showAdd() {
             $state.go(state + "add")
@@ -76,11 +75,6 @@
                 vm.count = e.count
             });
 
-        }
-        function loadCargos() {
-            Cargo.query().$promise.then(function (resposta) {
-                vm.cargo = resposta;
-            })
         }
 
 

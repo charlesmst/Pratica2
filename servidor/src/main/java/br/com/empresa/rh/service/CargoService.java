@@ -41,9 +41,10 @@ public class CargoService extends Service<Cargo> {
     @Transactional
     public List<Cargo> findForTable(TableRequest request) {
 
-        String hql = "select t from Cargo t ";
-        hql += request.applyFilter("id", "nome");
-        hql += request.applyOrder("id", "nome");
+        String hql = "select t from Cargo t "
+        + " inner join fetch t.cbo ";
+        hql += request.applyFilter("t.id", "t.nome");
+        hql += request.applyOrder("t.id", "t.nome");
         Query q = entityManager.createQuery(hql);
         request.applyPagination(q);
         request.applyParameters(q);
