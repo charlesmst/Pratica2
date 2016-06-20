@@ -2,36 +2,30 @@
     "inicial": "folhacalculada",
     "menus": [
         {
-            "title": "Folha de Pagamento",
+            "title": "Recrutamento",
             "links": [
                 {
-                    "link": "tabela",
-                    "title": "Tabelas",
-                    "icon": "tabela"
+                    "link": "necessidade-pessoa",
+                    "title": "Necessidade de Pessoa",
+                    "icon": "necessidade"
                 },
                 {
-                    "link": "evento",
-                    "title": "Eventos da Folha",
-                    "icon": "eventos"
+                    "link": "vagas",
+                    "title": "Vagas",
+                    "icon": "vagas"
                 },
                 {
-                    "link": "calculofolha",
-                    "title": "Cálculo da Folha",
-                    "icon": "calculator"
+                    "link": "curriculo",
+                    "title": "Currículo",
+                    "icon": "curriculo"
                 },
                 {
-                    "link": "folhacalculada",
-                    "title": "Folhas de Pagamento",
-                    "icon": "folha"
-                },
-                {
-                    "link": "resumofolha",
-                    "title": "Resumo da folha",
-                    "icon": "folha"
+                    "link": "plano-avaliacao",
+                    "title": "Planos de Avaliações",
+                    "icon": "avaliacao"
                 }
-
             ]
-        },
+        },        
         {
             "title": "Ficha Funcional",
             "links": [
@@ -83,28 +77,34 @@
             ]
         },
         {
-            "title": "Recrutamento",
+            "title": "Folha de Pagamento",
             "links": [
                 {
-                    "link": "necessidade-pessoa",
-                    "title": "Necessidade de Pessoa",
-                    "icon": "necessidade"
+                    "link": "tabela",
+                    "title": "Tabelas",
+                    "icon": "tabela"
                 },
                 {
-                    "link": "vagas",
-                    "title": "Vagas",
-                    "icon": "vagas"
+                    "link": "evento",
+                    "title": "Eventos da Folha",
+                    "icon": "eventos"
                 },
                 {
-                    "link": "curriculo",
-                    "title": "Currículo",
-                    "icon": "curriculo"
+                    "link": "calculofolha",
+                    "title": "Cálculo da Folha",
+                    "icon": "calculator"
                 },
                 {
-                    "link": "plano-avaliacao",
-                    "title": "Planos de Avaliações",
-                    "icon": "avaliacao"
+                    "link": "folhacalculada",
+                    "title": "Folhas de Pagamento",
+                    "icon": "folha"
+                },
+                {
+                    "link": "resumofolha",
+                    "title": "Resumo da Folha",
+                    "icon": "folha"
                 }
+
             ]
         }
     ]

@@ -3,16 +3,16 @@
     "menus": [
         {
             "title": "Candidato",
-            "links": [
-                {
-                    "link": "vagasview",
-                    "title": "Vagas",
-                    "icon": "vagas"
-                },
+            "links": [                
                 {
                     "link": "curriculocandidato",
                     "title": "Currículo",
                     "icon": "curriculo"
+                },
+                {
+                    "link": "vagasview",
+                    "title": "Vagas",
+                    "icon": "vagas"
                 }
             ]
         }

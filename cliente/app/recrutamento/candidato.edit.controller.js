@@ -6,7 +6,7 @@
     function CandidatoEditController($mdToast, $http, Candidato, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
-        Workspace.title = "Manutenção de Candidato";
+        Workspace.title = "Candidato";
         if ($stateParams.id) {
             Workspace.loading("Carregando...", Candidato.get({id: $stateParams.id}).$promise.then(function (data) {
 

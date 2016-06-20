@@ -7,7 +7,7 @@
         var vm = this;
         vm.sexos = []
         vm.entity = {}
-        Workspace.title = "Manutenção de Usuário";
+        Workspace.title = "Usuário";
 
         vm.entity = new Usuario();
 
@@ -30,13 +30,13 @@
             $state.go(state)
         }
         function callbackSave(r) {
-            Workspace.showMessage("Usuário cadastrado com sucesso")
+            Workspace.showMessage("Usuário cadastrado com sucesso!")
             Authorization.setCurrentUser(r);
             $state.go("curriculocandidato")
 
         }
         function callbackError() {
-            Workspace.showMessage("Ocorreu um erro ao salvar o registro")
+            Workspace.showMessage("Ocorreu um erro ao salvar o registro!")
         }
 
     }

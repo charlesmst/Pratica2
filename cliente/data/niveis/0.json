@@ -5,20 +5,20 @@
             "title": "Site",
             "links": [
                 {
-                    "link": "vagasview",
-                    "title": "Vagas",
-                    "icon": "vagas"
-                },
+                    "link": "usuarioadd",
+                    "title": "Cadastre-se",
+                    "icon": "user"
+                },                
                 {
                     "link": "login",
                     "title": "Login",
                     "icon": "login"
                 },
                 {
-                    "link": "usuarioadd",
-                    "title": "Cadastre-se",
-                    "icon": "user"
-                }
+                    "link": "vagasview",
+                    "title": "Vagas",
+                    "icon": "vagas"
+                }                
             ]
         }
     ]

@@ -6,7 +6,7 @@
     function PlanoAvaliacaoEditController($mdToast, $http, PlanoAvaliacao, $state, $stateParams, Workspace) {
         var vm = this;
         vm.entity = {}
-        Workspace.title = "Manutenção de Planos de Avaliações";
+        Workspace.title = "Planos de Avaliações";
         if ($stateParams.id) {
             Workspace.loading("Carregando...", PlanoAvaliacao.get({id: $stateParams.id}).$promise.then(function (data) {
 
@@ -26,12 +26,12 @@
             $state.go(state)
         }
         function callbackSave(r) {
-            Workspace.showMessage("Registro salvo")
+            Workspace.showMessage("Registro Salvo!")
             $state.go(state)
 
         }
         function callbackError() {
-            Workspace.showMessage("Ocorreu um erro ao salvar o registro")
+            Workspace.showMessage("Ocorreu um erro ao salvar o registro!")
         }
 
     }

@@ -274,3 +274,15 @@ table.md-table th.md-column, table.md-table td.md-cell, md-autocomplete input:no
 md-input-container>md-select .ng-invalid-required{
     border-bottom: 1px solid #000 !important;
 }
+.md-button.md-icon-button{
+    margin: 0 !important;
+    height: 25px !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+}
+.md-datepicker-input-container{
+    margin-left: 0 !important;
+}
+label{
+    line-height: 35px;
+}

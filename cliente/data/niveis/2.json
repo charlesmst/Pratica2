@@ -6,20 +6,20 @@
             "title": "Funcionário",
             "links": [
                 {
-                    "link": "folhacalculada",
-                    "title": "Folhas de Pagamento",
-                    "icon": "folha"
-				},
-				{
+                    "link": "curriculocandidato",
+                    "title": "Currículo",
+                    "icon": "curriculo"
+                },                
+		{
                     "link": "vagasview",
                     "title": "Vagas",
                     "icon": "vagas"
                 },
                 {
-                    "link": "curriculocandidato",
-                    "title": "Currículo",
-                    "icon": "curriculo"
-                }
+                    "link": "folhacalculada",
+                    "title": "Folhas de Pagamento",
+                    "icon": "folha"
+		}
             ]
 
         }

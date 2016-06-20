@@ -20,40 +20,39 @@
         <md-card-content>
             <h2>Necessidade de Pessoa</h2>
             <md-content>
-                <md-input-container class="md-block" flex-gt-xs>
-                    <label>Cargo</label>
-                    <md-select ng-model="crudVm.entity.cargo">
-                        <md-option ng-repeat="item in crudVm.cargos" ng-value="{{item}}" ng-selected="item.id===crudVm.entity.cargo.id" >
-                            {{item.nome}}
-                        </md-option>
-                    </md-select>
-
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-xs>
-                    <label>Situação</label>
-                    <md-select ng-model="crudVm.entity.situacao">
-                        <md-option ng-repeat="item in crudVm.situacoes" ng-value="{{item.id}}">
-                            {{item.nome}}
-                        </md-option>
-                    </md-select>
-
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Quantidade</label>
-                    <input required type="number" name="quantidade" ng-model="crudVm.entity.quantidade" min="1"
-                            ng-pattern="/^[0-9]+$/" />
-                    <div ng-messages="formEdit.quantidade.$error">
-                        <div ng-message="required">
-                            Informe a quantidade.
+                <div flex layout="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Cargo</label>
+                        <md-select ng-model="crudVm.entity.cargo">
+                            <md-option ng-repeat="item in crudVm.cargos" ng-value="{{item}}" ng-selected="item.id===crudVm.entity.cargo.id" >
+                                {{item.nome}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Situação</label>
+                        <md-select ng-model="crudVm.entity.situacao">
+                            <md-option ng-repeat="item in crudVm.situacoes" ng-value="{{item.id}}">
+                                {{item.nome}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Quantidade</label>
+                        <input required type="number" name="quantidade" ng-model="crudVm.entity.quantidade" min="1" ng-pattern="/^[0-9]+$/" />
+                        <div ng-messages="formEdit.quantidade.$error">
+                            <div ng-message="required">
+                                Informe a Quantidade.
+                            </div>
+                            <div ng-message="min">
+                                Quantidade deve ser maior que zero.
+                            </div>
+                            <div ng-message="pattern">
+                                Informe um valor numérico.
+                            </div>
                         </div>
-                        <div ng-message="min">
-                            Quantidade deve ser maior que zero.
-                        </div>
-                        <div ng-message="pattern">
-                            Informe um valor numérico.
-                        </div>
-                    </div>
-                </md-input-container>
+                    </md-input-container>
+                </div>                
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Descrição</label>
                     <textarea  name="descricao" ng-model="crudVm.entity.descricao" required></textarea>
@@ -61,16 +60,14 @@
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
                 </md-input-container> 
-                <md-input-container class="md-block" >
+                <md-input-container class="md-block">
                     <label>Perfil</label>
                     <textarea  name="perfil" ng-model="crudVm.entity.perfil" required></textarea>
                     <div ng-messages="formEdit.perfil.$error">
                         <div ng-message="required">Campo obrigatório.</div>
                     </div>
                 </md-input-container>
-                
-            </md-content>
-            
+            </md-content>            
         </md-card-content>
     </md-card>
 </form>

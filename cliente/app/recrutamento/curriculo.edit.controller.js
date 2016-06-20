@@ -22,7 +22,7 @@
         vm.mostraAddExperiencia = mostraAddExperiencia
         vm.mostraEditExperiencia = mostraEditExperiencia
         vm.getNome = getNome
-        Workspace.title = "Manutenção de Currículo";
+        Workspace.title = "Currículo";
 
         loadSexos()
         loadSituacoes()

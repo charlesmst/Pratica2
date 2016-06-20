@@ -35,7 +35,7 @@
                     promises.push(value.$delete());
                 });
                 Workspace.loading("Excluindo...", $q.all(promises).then(function () {
-                    Workspace.showMessage("Registros excluidos");
+                    Workspace.showMessage("Registros Excluidos!");
                     load(vm.query);
                 }));
             });
@@ -99,10 +99,10 @@
         }
 
         function callbackSave(r) {
-            Workspace.showMessage("Registro salvo")
+            Workspace.showMessage("Registro Salvo!")
         }
         function callbackError() {
-            Workspace.showMessage("Ocorreu um erro ao salvar o registro")
+            Workspace.showMessage("Ocorreu um erro ao salvar o registro!")
         }
 
     }
