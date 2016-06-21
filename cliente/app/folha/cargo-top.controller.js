@@ -8,7 +8,8 @@
     CargoTopController.$inject = ['$stateParams','$state'];
     function CargoTopController($stateParams,$state) {
         var vm = this;
-        vm.selecetedIndex = $state.current.name == "cargoedit"?0:1
+        vm.selecetedIndex = $state.current.name === "cargoevento"?1:0
+        console.log("State:",$state)
         vm.tabs = [
             {
                 titulo:"Cargo",

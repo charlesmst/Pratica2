@@ -2,20 +2,20 @@
     angular.module('app').config(["$stateProvider", "$urlRouterProvider", config]);
 
     function config($stateProvider, $urlRouterProvider) {
-        
+
         function onEnterModal(controller, view, stateback) {
             return function ($stateParams, $state, $mdDialog) {
 
                 $mdDialog.show({
                     controller: controller,
-                    controllerAs:"modalVm",
+                    controllerAs: "modalVm",
                     templateUrl: view,
                     parent: angular.element(document.body),
                     clickOutsideToClose: true
                 }).then(function () {
-                    $state.transitionTo(stateback, angular.copy($stateParams), {reload: false, inherit: true, notify: true});
+                    $state.transitionTo(stateback, angular.copy($stateParams), { reload: false, inherit: true, notify: true });
                 }, function () {
-                    $state.transitionTo(stateback, angular.copy($stateParams), {reload: false, inherit: true, notify: true});
+                    $state.transitionTo(stateback, angular.copy($stateParams), { reload: false, inherit: true, notify: true });
                 })
             }
         }
@@ -116,9 +116,9 @@
                 url: '/cargo/edit/:id/folha',
                 views: {
                     "top": {
-                        templateUrl: "app/ficha/ficha.top.tmpl.html",
-                        controller: "FichaTopController",
-                        controllerAs: "topVm"
+                        templateUrl: 'app/folha/cargo-top.tmpl.html',
+                        controller: "CargoTopController",
+                        controllerAs: "topVm",
                     },
                     "": {
                         templateUrl: 'app/folha/evento-cargo.tmpl.html',
@@ -134,7 +134,7 @@
                     $mdDialog.hide();
                 }
             })
-            
+
             .state('resumofolha', {
                 url: '/resumofolha',
                 views: {

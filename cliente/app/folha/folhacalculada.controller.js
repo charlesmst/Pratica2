@@ -1,10 +1,10 @@
 (function () {
     'use strict';
-    angular.module('app').controller('FolhaCalculadaController', ['FolhaCalculada', '$state', 'Workspace', '$q', 'Permissoes', '$mdDialog', '$scope','Download', FolhaCalculadaController]);
+    angular.module('app').controller('FolhaCalculadaController', ['FolhaCalculada', '$state', 'Workspace', '$q', 'Permissoes', '$mdDialog', '$scope', 'Download', FolhaCalculadaController]);
 
     var state = "folhacalculada"
 
-    function FolhaCalculadaController(FolhaCalculada, $state, Workspace, $q, Permissoes, $mdDialog, $scope,Download) {
+    function FolhaCalculadaController(FolhaCalculada, $state, Workspace, $q, Permissoes, $mdDialog, $scope, Download) {
         var vm = this;
 
         vm.showDelete = showDelete;
@@ -18,11 +18,11 @@
         vm.entity = {};
         vm.selectedItems = [];
         Workspace.title = "Folha de Pagamento";
-        
+
         //        Workspace.enableSearch(onFilter)
 
         vm.tiposFolha = [
-            "", "Mês", "Férias", "Complementar","Décimo","Demissão"
+            "", "Mês", "Férias", "Complementar", "Décimo", "Demissão"
         ];
         vm.query = {
             filter: "",
@@ -30,7 +30,7 @@
             limit: 15,
             page: 1
         };
-        $scope.$watchGroup(['crudVm.entity.empresa','crudVm.query.ano', 'crudVm.query.mes', 'crudVm.entity.funcionarios'], function () {
+        $scope.$watchGroup(['crudVm.entity.empresa', 'crudVm.query.ano', 'crudVm.query.mes', 'crudVm.entity.funcionarios'], function () {
             load(vm.query)
         })
 
@@ -77,9 +77,12 @@
                 delete query.funcionarios;
             } else {
                 query.funcionarios = [];
-                angular.forEach(vm.entity.funcionarios, function (v) {
-                    query.funcionarios.push(v.id);
-                })
+                if (vm.entity.funcionarios)
+                    angular.forEach(vm.entity.funcionarios, function (v) {
+                        query.funcionarios.push(v.id);
+                    })
+                console.log(query.funcionarios)
+
             }
             if (!vm.entity.empresa)
                 return;
@@ -114,13 +117,13 @@
         function getNome(tipo) {
             return vm.tiposFolha[parseInt(tipo)]
         }
-        function printFiles($event){
-            var files = vm.selectedItems.map(function(v){
+        function printFiles($event) {
+            var files = vm.selectedItems.map(function (v) {
                 return v.id;
             })
             console.log(files)
-            Workspace.loading("Baixando...",Download.downloadFile('/folhacalculada/relatorio',{"ids":files},'folha'));
-            
+            Workspace.loading("Baixando...", Download.downloadFile('/folhacalculada/relatorio', { "ids": files }, 'folha'));
+
         }
 
     }
