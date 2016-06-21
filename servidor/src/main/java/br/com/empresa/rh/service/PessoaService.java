@@ -70,10 +70,13 @@ public class PessoaService extends Service<Pessoa> {
 
     @Transactional
     public void save(Pessoa pessoa) {
-
+        boolean novoFuncionario = false;
         if (pessoa.getFuncionario() != null) {
 
             Funcionario funcionario = pessoa.getFuncionario();
+            if (funcionario.getPessoaId() == null ||  funcionario.getPessoaId()== 0) {
+                novoFuncionario = true;
+            }
             funcionario.setPessoa(pessoa);
             funcionario.setPessoaId(pessoa.getId());
 
@@ -151,6 +154,9 @@ public class PessoaService extends Service<Pessoa> {
             pessoa.getUsuario().setNivel(Integer.parseInt(NivelAcesso.FUNCIONARIO));
             pessoa.getUsuario().setPessoa(pessoa);
 
+        }
+        if(pessoa.getId() != 0 && novoFuncionario){
+            entityManager.persist(pessoa.getFuncionario());
         }
         if (pessoa.getId() == 0) {
             entityManager.persist(pessoa);

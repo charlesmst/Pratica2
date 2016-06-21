@@ -31,7 +31,7 @@ import org.hibernate.annotations.Parameter;
 public class Funcionario implements java.io.Serializable {
 
     @JsonView({Folha.Funcionario.class, Folha.FuncionarioFicha.class})
-    private int pessoaId;
+    private Integer  pessoaId;
     @JsonView({Folha.FuncionarioFicha.class})
     private Banco banco;
     @JsonView({Folha.Funcionario.class})
@@ -73,13 +73,12 @@ public class Funcionario implements java.io.Serializable {
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "pessoa"))
     @Id
     @GeneratedValue(generator = "generator")
-
     @Column(name = "pessoa_id", unique = true, nullable = false)
-    public int getPessoaId() {
+    public Integer  getPessoaId() {
         return this.pessoaId;
     }
 
-    public void setPessoaId(int pessoaId) {
+    public void setPessoaId(Integer  pessoaId) {
         this.pessoaId = pessoaId;
     }
 
